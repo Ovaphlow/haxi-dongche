@@ -4,6 +4,7 @@ module.exports = {
   // mode: 'development',
   mode: 'production',
   entry: {
+    'login': './src/login.js',
     'journal.index': './src/journal.index.js',
     'journal.01': './src/journal.01.js'
   },
