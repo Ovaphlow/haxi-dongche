@@ -11,19 +11,8 @@ module.exports = {
 
   devtool: 'inline-source-map',
 
-  devServer: {
-    compress: true,
-    contentBase: './dist',
-    host: '0.0.0.0',
-    // hot: true,
-    port: 80,
-    proxy: {
-      '/billboard/api': 'http://localhost:8000'
-    }
-  },
-
   output: {
-    path: resolve(__dirname, '../node/public/assets/js'),
+    path: resolve(__dirname, './dist/assets/js'),
     filename: '[name].js'
   },
 
@@ -40,10 +29,4 @@ module.exports = {
       }
     ]
   },
-
-  resolve: {
-    alias: {
-      'vue': 'vue/dist/vue.common.js'
-    }
-  }
 }
