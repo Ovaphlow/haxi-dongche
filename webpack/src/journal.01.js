@@ -1,5 +1,5 @@
 import navbar from './journal.navbar.html'
-import sidebar from './journal.sidebar.html'
+import sidebar from './journal.01-sidebar.html'
 
 document.getElementById('navbar').innerHTML = navbar
 

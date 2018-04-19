@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>哈尔滨动车段 - 账项管理系统</title>
+
+  <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <div class="container-fluid">
+    <h3>
+      账项管理系统
+      <span class="float-right">检修车间禁动牌管理台账</span>
+    </h3>
+    <hr>
+  </div>
+
+  <div class="container-fluid" id="app">
+    <div class="row">
+      <div class="col-3 col-xl-2" id="sidebar"></div>
+      <div class="col-9 col-xl-10">
+        <p class="lead">
+          <i class="fa fa-user"></i>
+          我的申请
+          <span class="pull-right">
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
+              刷新
+            </button>
+          </span>
+          <hr>
+        </p>
+
+        <ul class="list-group">
+          <li class="list-group-item" v-for="c in content">
+            <h5 class="mb-1">
+              数量：<span class="text-primary">{{ c.quantity }}</span>
+              <small class="text-muted pull-right">
+                {{ c.date }}
+                {{ c.time }}
+              </small>
+            </h5>
+            <p>
+              <ul class="list-inline">
+                <li class="list-inline-item">申请人：<span>{{ c.applicant }}</span></li>
+                <li class="list-inline-item">作业部门：<span>{{ c.dept }}</span></li>
+              </ul>
+            </p>
+            <div class="btn-group pull-right" role="group">
+              <button type="button" class="btn btn-secondary btn-sm" v-if="user.auth_01" v-bind:data-id="c.id" v-on:click="borrow">
+                发放
+              </button>
+              <button type="button" class="btn btn-light btn-sm" v-bind:data-id="c.id" v-on:click="detail">
+                查看
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="../lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="../lib/axios/dist/axios.min.js"></script>
+  <script src="../lib/vue/dist/vue.js"></script>
+  <script src="../lib/moment/min/moment.min.js"></script>
+  <script src="../lib/moment/min/zh-cn.js"></script>
+
+  <script src="../assets/js/journal.01-user.js"></script>
+</body>
+
+</html>

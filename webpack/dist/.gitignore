@@ -1,0 +1,2 @@
+lib/*
+!lib/popper.min.js
