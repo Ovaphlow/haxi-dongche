@@ -7,10 +7,10 @@
 
   <title>哈尔滨动车段 - 账项管理系统</title>
 
-  <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -28,14 +28,14 @@
     <div class="row">
       <div class="col-3 col-xl-2" id="sidebar"></div>
       <div class="col-9 col-xl-10">
+        <div id="toolbar"></div>
         <p class="lead">
           <i class="fa fa-user"></i>
-          我的申请
-          <span class="pull-right">
-            <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
-              刷新
-            </button>
-          </span>
+          当前申请
+          <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
+            <i class="fa fa-refresh"></i>
+            刷新
+          </button>
           <hr>
         </p>
 
@@ -68,15 +68,15 @@
     </div>
   </div>
 
-  <script src="../lib/jquery/dist/jquery.slim.min.js"></script>
-  <script src="../lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="../lib/axios/dist/axios.min.js"></script>
-  <script src="../lib/vue/dist/vue.js"></script>
-  <script src="../lib/moment/min/moment.min.js"></script>
-  <script src="../lib/moment/min/zh-cn.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/moment/min/zh-cn.js"></script>
 
-  <script src="../assets/js/journal.01-user.js"></script>
+  <script src="./assets/js/journal.01-user.js"></script>
 </body>
 
 </html>

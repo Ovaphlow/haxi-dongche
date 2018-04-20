@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>哈尔滨动车段 - 账项管理系统</title>
+
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <div class="container-fluid">
+    <h3>
+      账项管理系统
+      <span class="float-right">检修车间禁动牌管理台账</span>
+    </h3>
+    <hr>
+  </div>
+
+  <div class="container-fluid" id="app">
+    <div class="row">
+      <div class="col-3 col-xl-2" id="sidebar"></div>
+      <div class="col-9 col-xl-10">
+        <div id="toolbar"></div>
+        <p class="lead">
+          <i class="fa fa-search"></i>
+          检索数据
+          <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
+            <i class="fa fa-refresh"></i>
+            刷新
+          </button>
+        </p>
+        <hr>
+        <ul class="list-group">
+          <li class="list-group-item" v-for="c in content">
+            <h5 class="mb-1">
+              数量：<span class="text-primary">{{ c.quantity }}</span>
+              <!-- <small class="text-muted pull-right">
+                {{ c.date }}
+                {{ c.time }}
+              </small> -->
+            </h5>
+            <ul class="list-unstyled">
+              <li>
+                由 <span class="text-info">{{ c.dept }}</span> 的
+                <span class="text-primary"><i class="fa fa-user"></i>{{ c.applicant }}</span>
+                于 <span class="text-secondary">{{ c.date }} {{ c.time }}</span> 申请
+              </li>
+              <li v-if="c.borrow">
+                <span class="text-danger">{{ c.borrow }}</span>
+                于 <span class="text-secondary">{{ c.borrow_date }} {{ c.borrow_time }}</span> 发放
+              </li>
+              <li v-if="c.return">
+                <span class="text-success">{{ c.return_by }}</span>
+                于 <span class="text-muted">{{ c.return_date }} {{ c.return_time }}</span> 归还，
+                <span class="text-success">{{ c.return }}</span> 确认
+              </li>
+            </ul>
+            <p>
+              <!-- <ul class="list-inline">
+                <li class="list-inline-item">申请人：<span>{{ c.applicant }}</span></li>
+                <li class="list-inline-item">作业部门：<span>{{ c.dept }}</span></li>
+              </ul> -->
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="./assets/js/journal.01.js"></script>
+</body>
+
+</html>

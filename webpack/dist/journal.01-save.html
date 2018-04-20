@@ -7,10 +7,10 @@
 
   <title>哈尔滨动车段 - 账项管理系统</title>
 
-  <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -28,27 +28,13 @@
     <div class="row">
       <div class="col-3 col-xl-2" id="sidebar"></div>
       <div class="col-9 col-xl-10">
+        <div id="toolbar"></div>
         <p class="lead">
           <i class="fa fa-plus"></i>
           新增申请
           <hr>
         </p>
         <div class="row">
-          <div class="col-6">
-            <div class="form-group">
-              <label>日期</label>
-              <input type="text" class="form-control" readonly v-model="data.date">
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-group">
-              <label>时间</label>
-              <input type="text" class="form-control" readonly v-model="data.time">
-            </div>
-          </div>
-
-          <div class="clearfix"></div>
-
           <div class="col-6">
             <div class="form-group">
               <label>申请人</label>
@@ -94,15 +80,15 @@
     </div>
   </div>
 
-  <script src="../lib/jquery/dist/jquery.slim.min.js"></script>
-  <script src="../lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="../lib/axios/dist/axios.min.js"></script>
-  <script src="../lib/vue/dist/vue.js"></script>
-  <script src="../lib/moment/min/moment.min.js"></script>
-  <script src="../lib/moment/min/zh-cn.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/moment/min/zh-cn.js"></script>
 
-  <script src="../assets/js/journal.01-save.js"></script>
+  <script src="./assets/js/journal.01-save.js"></script>
 </body>
 
 </html>

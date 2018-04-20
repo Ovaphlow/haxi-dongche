@@ -1,9 +1,10 @@
-import navbar from './journal.navbar.html'
-import sidebar from './journal.01-sidebar.html'
+import navbar from './navbar.html'
+import sidebar from './journal.sidebar.html'
+import toolbar from './journal.01-toolbar.html'
 
 document.getElementById('navbar').innerHTML = navbar
-
 document.getElementById('sidebar').innerHTML = sidebar
+document.getElementById('toolbar').innerHTML = toolbar
 
 let user = JSON.parse(sessionStorage.getItem('auth'))
 
@@ -20,10 +21,8 @@ let app = new Vue({
     submit: function () {
       axios({
         method: 'POST',
-        url: '../api/journal01/',
+        url: './api/journal01/',
         data: {
-          date: app.data.date,
-          time: app.data.time,
           quantity: app.data.quantity,
           applicantId: user.id,
           applicant: user.name,
@@ -40,8 +39,6 @@ let app = new Vue({
     this.data.quantity = 1
     this.data.applicant = user.name
     this.data.dept = user.dept
-    this.data.date = moment(new Date()).format('YYYY-MM-DD')
-    this.data.time = moment(new Date()).format('HH:mm:ss')
     this.data.remark = ''
   }
 })
