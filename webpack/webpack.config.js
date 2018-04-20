@@ -8,7 +8,7 @@ module.exports = {
     'journal.index': './src/journal.index.js',
     'journal.01': './src/journal.01.js',
     'journal.01-save': './src/journal.01-save.js',
-    'journal.01-user': './src/journal.01-user.js'
+    'journal.01-borrow': './src/journal.01-borrow.js'
   },
 
   devtool: 'inline-source-map',
