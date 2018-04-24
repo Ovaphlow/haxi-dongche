@@ -29,9 +29,6 @@ let app = new Vue({
         location.reload(true)
       })
     },
-    detail: event => {
-      console.log(event.target.getAttribute('data-id'))
-    }
   },
   created: () => {
     if (user.auth_01) {

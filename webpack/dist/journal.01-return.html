@@ -30,8 +30,8 @@
       <div class="col-9 col-xl-10">
         <div id="toolbar"></div>
         <p class="lead">
-          <i class="fa fa-upload"></i>
-          发放
+          <i class="fa fa-download"></i>
+          返还
           <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
             <i class="fa fa-refresh"></i>
             刷新
@@ -55,13 +55,51 @@
               </ul>
             </p>
             <div class="btn-group pull-right" role="group">
-              <button type="button" class="btn btn-secondary btn-sm" v-if="user.auth_01" v-bind:data-id="c.id" v-on:click="borrow">
-                <i class="fa fa-upload"></i>
-                发放
+              <button type="button" class="btn btn-secondary btn-sm"
+                  v-if="user.auth_01" v-bind:data-id="c.id" v-bind:data-quantity="c.quantity" v-bind:data-returnId="c.borrow_id" v-on:click="linkReturn">
+                <i class="fa fa-download"></i>
+                返还
               </button>
             </div>
           </li>
         </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="modal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">返还 <span style="display:none">{{ refId }}</span></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>返还人</label>
+            <select id="cache.return" class="form-control" v-model="cache.return">
+              <option v-bind:value="user.id" v-for="user in userList">{{ user.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>数量</label>
+            <input id="cache.quantity" type="type" class="form-control" v-model="cache.quantity">
+          </div>
+          <div class="form-group">
+            <label>备注</label>
+            <textarea rows="3" class="form-control" v-model="cache.remark"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          <button type="button" class="btn btn-primary" v-on:click="setReturn">
+            <i class="fa fa-download"></i>
+            返还
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -74,7 +112,7 @@
   <script src="./lib/moment/min/moment.min.js"></script>
   <script src="./lib/moment/min/zh-cn.js"></script>
 
-  <script src="./assets/js/journal.01-borrow.js"></script>
+  <script src="./assets/js/journal.01-return.js"></script>
 </body>
 
 </html>

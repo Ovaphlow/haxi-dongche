@@ -31,7 +31,7 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then((response) => {
-        location.href = './journal.01-user.html'
+        location.href = './journal.01-borrow.html'
       })
     }
   },
