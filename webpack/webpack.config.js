@@ -12,7 +12,8 @@ module.exports = {
     'journal.01-borrow': './src/journal.01-borrow.js',
     'journal.01-return': './src/journal.01-return.js',
 
-    'journal.02': './src/journal.02.js'
+    'journal.02': './src/journal.02.js',
+    'journal.02-save': './src/journal.02-save.js'
   },
 
   devtool: 'inline-source-map',
