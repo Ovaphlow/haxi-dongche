@@ -13,10 +13,12 @@ module.exports = {
     'journal.01-return': './src/journal.01-return.js',
 
     'journal.02': './src/journal.02.js',
-    'journal.02-save': './src/journal.02-save.js'
+    'journal.02-save': './src/journal.02-save.js',
+    'journal.02-check': './src/journal.02-check.js',
+    'journal.02-verify': './src/journal.02-verify.js',
   },
 
-  devtool: 'inline-source-map',
+  // devtool: 'inline-source-map',
 
   output: {
     path: resolve(__dirname, './dist/assets/js'),

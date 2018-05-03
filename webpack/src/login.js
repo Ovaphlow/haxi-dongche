@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
           data: {
             username: this.data.username,
             password: md5(this.data.password)
+            // password: this.data.password
           },
           responseType: 'json'
         }).then((response) => {

@@ -13,16 +13,23 @@ logger.level = config.app.logLevel
 
 app.set('env', config.app.env)
 
-app.use(express.static(path.join(__dirname, 'public')))
+let staticPath = path.join(__dirname, '../webpack/dist')
+app.use(express.static(staticPath))
+logger.info(`静态目录：${staticPath}`)
 
 app.use('/lib', express.static(path.join(__dirname, 'node_modules')))
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json)
 
-app.use('/', (req, res, next) => {
+app.use('/api', (req, res, next) => {
   logger.info(req.method, req.originalUrl)
   next()
+})
+
+app.use('/api/test', (req, res) => {
+  logger.info(1123)
+  res.json({ status: 200 })
 })
 
 const user = require('./routes/user')

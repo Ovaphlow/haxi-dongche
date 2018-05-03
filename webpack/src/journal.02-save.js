@@ -16,7 +16,34 @@ let app = new Vue({
       location.href = './journal.02.html'
     },
     save: function () {
-      console.log(1123)
+      axios({
+        method: 'POST',
+        url: './api/journal02/',
+        data: {
+          applicant: this.req.applicant,
+          applicantId: user.id,
+          leader: this.req.leader,
+          leaderPhone: this.req.leaderPhone,
+          dept: this.req.dept,
+          groupSN: this.req.groupSN,
+          dateBegin: this.req.dateBegin,
+          timeBegin: this.req.timeBegin,
+          dateEnd: this.req.dateEnd,
+          timeEnd: this.req.timeEnd,
+          content: this.req.content,
+          p_yq_xdc: this.req.p_yq_xdc,
+          p_yq_jcw: this.req.p_yq_jcw,
+          p_yq_zydd: this.req.p_yq_zydd,
+          p_yq_qt: this.req.p_yq_qt || ''
+        },
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.status !== 200) {
+          alert(response.data.message)
+        } else {
+          location.href = './journal.02.html'
+        }
+      })
     }
   },
   created: function () {

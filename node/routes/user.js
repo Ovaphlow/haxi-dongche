@@ -12,7 +12,8 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
-router.route('/login').post((req, res) => {
+router.route('/login').get((req, res) => {
+  logger.info('11231231231')
   let hash = crypto.createHash('md5')
   let password = hash.update(req.body.password, 'utf8').digest('hex')
   axios({

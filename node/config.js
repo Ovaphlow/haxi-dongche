@@ -2,7 +2,7 @@ const prodConfig = {
   app: {
     env: 'development',
     logLevel: 'info',
-    port: 80,
+    port: 8000,
     secretKey: 'ovaphlow'
   },
   auth: {
@@ -19,7 +19,7 @@ const develConfig = {
   app: {
     env: 'development',
     logLevel: 'debug',
-    port: 80,
+    port: 8000,
     secretKey: 'ovaphlow'
   },
   auth: {
