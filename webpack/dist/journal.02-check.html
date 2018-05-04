@@ -38,9 +38,11 @@
             刷新
           </button>
         </p>
+
         <hr>
+
         <ul class="list-group">
-          <li class="list-group-item" v-for="c in content">
+          <li class="list-group-item" v-for="c in content_jsy">
             <h5>
               <strong>
                 {{ c.dept }}
@@ -49,6 +51,7 @@
               {{ c.leader }}
               <span class="pull-right text-secondary">
                 {{ c.date_begin }} {{ c.time_begin }}
+                <span class="badge badge-info">技术员审核</span>
               </span>
             </h5>
             <ul class="list-inline">
@@ -97,15 +100,206 @@
                 {{ c.p_yq_qt || '无要求' }}
               </li>
             </ul>
+
+            <br>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="c.id">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="c.id" v-on:click="jsy">
+                技术员审核
+              </button>
+            </div>
           </li>
         </ul>
+
+        <ul class="list-group">
+          <li class="list-group-item" v-for="c in content_zbsz">
+            <h5>
+              <strong>
+                {{ c.dept }}
+              </strong>
+              &nbsp;
+              {{ c.leader }}
+              <span class="pull-right text-secondary">
+                {{ c.date_begin }} {{ c.time_begin }}
+                <span class="badge badge-warning">值班所长审批</span>
+              </span>
+            </h5>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-muted">申请人：</span>
+                {{ c.applicant }} ({{ c.applicant_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业负责人：</span>
+                {{ c.leader }} ({{ c.leader_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业车组号：</span>
+                <span class="text-danger">{{ c.group_sn }}</span>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请作业时间：</span>
+                <span class="text-secondary">
+                  {{ c.date_begin }} {{ c.time_begin }} 至 {{ c.date_end }} {{ c.time_end }}
+                </span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">作业内容：</span>
+                <span class="text-primary">{{ c.content }}</span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/蓄电池：</span>
+                {{ c.p_yq_xdc }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/接触网：</span>
+                {{ c.p_yq_jcw }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/作业地点：</span>
+                {{ c.p_yq_zydd }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/其它：</span>
+                {{ c.p_yq_qt || '无要求' }}
+              </li>
+            </ul>
+
+            <br>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="c.id">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="c.id" v-on:click="zbsz">
+                值班所长审批
+              </button>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="list-group">
+          <li class="list-group-item" v-for="c in content_dd">
+            <h5>
+              <strong>
+                {{ c.dept }}
+              </strong>
+              &nbsp;
+              {{ c.leader }}
+              <span class="pull-right text-secondary">
+                {{ c.date_begin }} {{ c.time_begin }}
+                <span class="badge badge-danger">调度审核</span>
+              </span>
+            </h5>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-muted">申请人：</span>
+                {{ c.applicant }} ({{ c.applicant_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业负责人：</span>
+                {{ c.leader }} ({{ c.leader_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业车组号：</span>
+                <span class="text-danger">{{ c.group_sn }}</span>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请作业时间：</span>
+                <span class="text-secondary">
+                  {{ c.date_begin }} {{ c.time_begin }} 至 {{ c.date_end }} {{ c.time_end }}
+                </span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">作业内容：</span>
+                <span class="text-primary">{{ c.content }}</span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/蓄电池：</span>
+                {{ c.p_yq_xdc }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/接触网：</span>
+                {{ c.p_yq_jcw }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/作业地点：</span>
+                {{ c.p_yq_zydd }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/其它：</span>
+                {{ c.p_yq_qt || '无要求' }}
+              </li>
+            </ul>
+
+            <br>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="c.id">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="c.id" v-on:click="dd">
+                调度审核
+              </button>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+    <div id="auth" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authTitle" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="authTitle" class="modal-title">用户鉴权</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>账号</label>
+              <input type="text" id="authAccount" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>密码</label>
+              <input type="password" id="authPassword" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" v-on:click="check">
+              <i class="fa fa-check-square-o"></i>
+              确认
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
+
+
   <script src="./lib/axios/dist/axios.min.js"></script>
   <script src="./lib/vue/dist/vue.js"></script>
   <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/blueimp-md5/js/md5.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -22,6 +22,7 @@ let app = new Vue({
         data: {
           applicant: this.req.applicant,
           applicantId: user.id,
+          applicantPhone: this.req.applicantPhone,
           leader: this.req.leader,
           leaderPhone: this.req.leaderPhone,
           dept: this.req.dept,
