@@ -16,7 +16,8 @@ module.exports = {
     'journal.02-save': './src/journal.02-save.js',
     'journal.02-check': './src/journal.02-check.js',
     'journal.02-verify': './src/journal.02-verify.js',
-    'journal.02-verify.leader': './src/journal.02-verify.leader.js'
+    'journal.02-verify.leader': './src/journal.02-verify.leader.js',
+    'journal.02-verify.verify': './src/journal.02-verify.verify.js'
   },
 
   // devtool: 'inline-source-map',

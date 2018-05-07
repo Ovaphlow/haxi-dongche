@@ -13,7 +13,8 @@ document.getElementById('authDialog').innerHTML = authDialog
 let app = new Vue({
   el: '#app',
   data: {
-    content: [],
+    contentLeader: [],
+    contentVerify: [],
     op_cat: '',
     op_id: 0
   },
@@ -21,9 +22,21 @@ let app = new Vue({
     verifyLeader: function (event) {
       this.op_cat = 'leader'
       this.op_id = event.target.getAttribute('data-id')
-      $('#auth').modal()
+      // $('#auth').modal()
+
+      sessionStorage.setItem('verifyId', this.op_id)
+      location.href = './journal.02-verify.leader.html'
+    },
+    verify: function (event) {
+      this.op_cat = 'verify'
+      this.op_id = event.target.getAttribute('data-id')
+      // $('#auth').modal()
+
+      sessionStorage.setItem('verifyId', this.op_id)
+      location.href = './journal.02-verify.verify.html'
     },
     submit: function () {
+      // 取消先验证权限的步骤
       axios({
         method: 'POST',
         url: './api/user/login',
@@ -53,7 +66,15 @@ let app = new Vue({
       url: './api/journal02/verify/leader/',
       responseType: 'json'
     }).then(response => {
-      this.content = response.data.content
+      this.contentLeader = response.data.content
+    })
+
+    axios({
+      method: 'GET',
+      url: './api/journal02/verify/',
+      responseType: 'json'
+    }).then(response => {
+      this.contentVerify = response.data.content
     })
   }
 })
