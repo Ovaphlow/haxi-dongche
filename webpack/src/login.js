@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
           method: 'POST',
           url: './api/user/login',
           data: {
-            username: this.data.username,
+            account: this.data.username,
             password: md5(this.data.password)
             // password: this.data.password
           },

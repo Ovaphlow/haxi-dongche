@@ -1,10 +1,14 @@
 import navbar from './navbar.html'
-import sidebar from './journal.sidebar.html'
-import toolbar from './journal.02-toolbar.html'
-
 document.getElementById('navbar').innerHTML = navbar
+
+import sidebar from './journal.sidebar.html'
 document.getElementById('sidebar').innerHTML = sidebar
+
+import toolbar from './journal.02-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
+
+import authDialog from './auth-dialog.html'
+document.getElementById('authDialog').innerHTML = authDialog
 
 let user = JSON.parse(sessionStorage.getItem('auth'))
 
@@ -38,12 +42,12 @@ let app = new Vue({
       this.op_cat = 'dd'
       this.op_id = event.target.getAttribute('data-id')
     },
-    check: function (event) {
+    submit: function (event) {
       axios({
         method: 'POST',
         url: './api/user/login',
         data: {
-          username: document.getElementById('authAccount').value,
+          account: document.getElementById('authAccount').value,
           password: md5(document.getElementById('authPassword').value)
         },
         responseType: 'json'

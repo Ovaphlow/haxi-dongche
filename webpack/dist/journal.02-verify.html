@@ -39,13 +39,88 @@
           </button>
         </p>
         <hr>
+
+        <ul class="list-group">
+          <li class="list-group-item" v-for="item in content">
+            <h5>
+              <strong>
+                {{ item.dept }}
+              </strong>
+              &nbsp;
+              {{ item.leader }}
+              <span class="pull-right text-secondary">
+                <span class="badge badge-danger">作业负责人</span>
+              </span>
+            </h5>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-muted">申请人：</span>
+                {{ item.applicant }} ({{ item.applicant_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业负责人：</span>
+                {{ item.leader }} ({{ item.leader_phone }})
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业车组号：</span>
+                <span class="text-danger">{{ item.group_sn }}</span>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请作业时间：</span>
+                <span class="text-secondary">
+                  {{ item.date_begin }} {{ item.time_begin }} 至 {{ item.date_end }} {{ item.time_end }}
+                </span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">作业内容：</span>
+                <span class="text-primary">{{ item.content }}</span>
+              </li>
+
+              <div class="clearfix"></div>
+
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/蓄电池：</span>
+                {{ item.p_yq_xdc }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/接触网：</span>
+                {{ item.p_yq_jcw }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/作业地点：</span>
+                {{ item.p_yq_zydd }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">施修要求/其它：</span>
+                {{ item.p_yq_qt || '无要求' }}
+              </li>
+            </ul>
+
+            <br>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="item.id">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verifyLeader">
+                作业完成
+              </button>
+            </div>
+          </li>
+        </ul>
       </div>
+
+      <div id="authDialog"></div>
     </div>
   </div>
 
   <script src="./lib/axios/dist/axios.min.js"></script>
   <script src="./lib/vue/dist/vue.js"></script>
   <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/blueimp-md5/js/md5.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
