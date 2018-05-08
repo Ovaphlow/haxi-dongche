@@ -39,10 +39,15 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(response => {
+        console.log(response.data)
         if (response.data.status !== 200) {
           alert(response.data.message)
         } else {
-          location.href = './journal.02.html'
+          if (this.req.content === '一般部件普查记录单') {
+            sessionStorage.setItem('journal02', response.data.content.last_id)
+            location.href = './journal.02-save.01.html'
+          }
+          // location.href = './journal.02.html'
         }
       })
     }

@@ -14,6 +14,7 @@ module.exports = {
 
     'journal.02': './src/journal.02.js',
     'journal.02-save': './src/journal.02-save.js',
+    'journal.02-save.01': './src/journal.02-save.01.js',
     'journal.02-check': './src/journal.02-check.js',
     'journal.02-verify': './src/journal.02-verify.js',
     'journal.02-verify.leader': './src/journal.02-verify.leader.js',
