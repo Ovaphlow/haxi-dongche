@@ -68,6 +68,7 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(response => {
+        alert('保存完毕。')
         location.reload(true)
       })
     }
