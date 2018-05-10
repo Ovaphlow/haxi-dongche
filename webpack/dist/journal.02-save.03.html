@@ -43,74 +43,53 @@
         <div class="card">
           <div class="card-body row">
             <div class="col-12">
-              <p class="lead">动车组加装改造（软件升级）记录单</p>
+              <p class="lead">动车组关键配件更换记录表</p>
             </div>
-
-            <div class="col-6">
-              <div class="form-group">
-                <label>普查项目</label>
-                <input type="text" class="form-control" v-model="journal0.subject">
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <label>批准文件号</label>
-                <input type="text" class="form-control" v-model="journal0.approval_sn">
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-6">
-              <div class="form-group">
-                <label>实施普查车组</label>
-                <input type="text" class="form-control" v-model="journal0.train_sn">
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="form-group">
-                <label>实施普查日期</label>
-                <input type="date" class="form-control" v-model="journal0.date">
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
 
             <div class="col-12">
               <button type="button" class="btn btn-secondary" v-on:click="plus">
                 <i class="fa fa-plus"></i>
                 新增记录
               </button>
-              <div class="btn-group pull-right">
-                <button type="button" class="btn btn-primary" v-on:click="save">
-                  <i class="fa fa-save"></i>
-                  保存记录单
-                </button>
-              </div>
+              <button type="button" class="btn btn-primary pull-right" v-on:click="location.href='./journal.02.html'">
+                <i class="fa fa-check"></i>
+                完成
+              </button>
             </div>
 
             <div class="col-12">
               <ul id="list" class="list-group">
-                <li class="list-group-item" v-for="item in contentList">
+                <li class="list-group-item" v-for="item in list">
                   <h5>
-                    车厢号：{{ item.carriage }}
-                    <span class="pull-right">{{ item.carriage_subject }}</span>
+                    部件名称：{{ item.name }}
+                    <span class="pull-right">车组：{{ item.train }}</span>
                   </h5>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item"> 开工时间：{{ item.time_begin }}</li>
-                    <li class="list-inline-item"> 完工时间：{{ item.time_end }}</li>
-                    <li class="list-inline-item">检查结果：{{ item.result }}</li>
-                    <li class="list-inline-item">故障及处理情况：{{ item.report }}</li>
+                    <li class="list-inline-item">车号：<span class="text-primary">{{ item.carriage }}</span></li>
+                    <li class="list-inline-item">位置：<span class="text-info">{{ item.position }}</span></li>
+                    <li class="list-inline-item">日期：<span class="text-secondary">{{ item.date }}</span></li>
+                    <li class="list-inline-item">时间：<span class="text-secondary">{{ item.time }}</span></li>
                   </ul>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item">实施单位：{{ item.dept }}</li>
-                    <li class="list-inline-item">实施者：{{ item.executor }}</li>
-                    <li class="list-inline-item">动车所现场监控人：{{ item.watcher }}</li>
-                    <li class="list-inline-item">监控班组：{{ item.watcher_group }}</li>
-                    <li class="list-inline-item">质检员：{{ item.qc }}</li>
-                    <li class="list-inline-item">备注：{{ item.remark }}</li>
+                    <li class="list-inline-item">更换原因：<span class="text-danger">{{ item.reason }}</span></li>
+                  </ul>
+
+                  <ul class="list-inline">
+                    <li class="list-inline-item">作业人员已阅读工艺文件并掌握各步骤：<strong>{{ item.p_gywj ? '是' : '否' }}</strong></li>
+                    <li class="list-inline-item">力矩扳手已校验：<strong>{{ item.p_ljbs ? '是' : '否' }}</strong></li>
+                    <li class="list-inline-item">换下部件序列号：<span class="text-info">{{ item.component_sn_old }}</span></li>
+                    <li class="list-inline-item">换上部件序列号：<span class="text-info">{{ item.component_sn_new }}</span></li>
+                    <li class="list-inline-item">部件安装良好，螺栓力矩已紧固，防松标记已涂打：<strong>{{ item.p_bjaz ? '是' : '否' }}</strong></li>
+                    <li class="list-inline-item">作业者：<u>{{ item.operator }}</u></li>
+                    <li class="list-inline-item">检修工长：<u>{{ item.leader }}</u></li>
+                  </ul>
+
+                  <ul class="list-inline">
+                    <li class="list-inline-item">部件功能试验正常：<strong>{{ item.p_bjgnsy ? '是' : '否' }}</strong></li>
+                    <li class="list-inline-item">质检员：<u>{{ item.qc }}</u></li>
+                    <li class="list-inline-item">值班干部：<u>{{ item.duty_officer }}</u></li>
                   </ul>
 
                   <div class="clearfix"></div>
@@ -139,83 +118,102 @@
             </button>
           </div>
           <div class="modal-body row">
-            <div class="col-4 form-group">
-              <label>实施普查的车厢号</label>
-              <select class="form-control form-control-sm" v-model="journal.carriage">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
+            <div class="form-group col-4">
+              <label>部件名称</label>
+              <input type="text" class="form-control" v-model="journal.name">
+            </div>
+            <div class="form-group col-2">
+              <label>车组</label>
+              <input type="text" class="form-control" v-model="journal.train">
+            </div>
+            <div class="form-group col-2">
+              <label>车号</label>
+              <input type="text" class="form-control" v-model="journal.carriage">
+            </div>
+            <div class="form-group col-4">
+              <label>位置</label>
+              <input type="text" class="form-control" v-model="journal.position">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-3">
+              <label>日期</label>
+              <input type="date" class="form-control" v-model="journal.date">
+            </div>
+            <div class="form-group col-3">
+              <label>时间</label>
+              <input type="text" class="form-control" v-model="journal.time">
+            </div>
+            <div class="form-group col-6">
+              <label>更换原因</label>
+              <input type="text" class="form-control" v-model="journal.reason">
+            </div>
+
+            <div class="clearflx"></div>
+
+            <div class="form-group col-3">
+              <label>工艺文件及各步骤</label>
+              <select class="form-control" v-model="journal.p_gywj">
+                <option value="1">已阅读并掌握</option>
+                <option value="0">未阅读并掌握</option>
               </select>
             </div>
-            <div class="col-8 form-group">
-              <label>具体项点</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.carriage_subject">
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-4 form-group">
-              <label>开工时间</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.time_begin">
-            </div>
-            <div class="col-4 form-group">
-              <label>完工时间</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.time_end">
-            </div>
-            <div class="col-4 form-group">
-              <label>检查结果</label>
-              <select class="form-control form-control-sm" v-model="journal.result">
-                <option value="良好">良好</option>
-                <option value="异常">异常</option>
+            <div class="form-group col-3">
+              <label>力矩扳手</label>
+              <select class="form-control" v-model="journal.p_ljbs">
+                <option value="1">已校验</option>
+                <option value="0">未校验</option>
               </select>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-12 form-group">
-              <label>故障及处理情况</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.report">
+            <div class="col-3 form-group">
+              <label>换下部件序列号</label>
+              <input type="text" class="form-control" v-model="journal.component_sn_old">
             </div>
-
-            <div class="col-6 form-group">
-              <label>实施单位</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.dept">
-            </div>
-            <div class="col-6 form-group">
-              <label>实施者</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.executor">
+            <div class="col-3 form-group">
+              <label>换上部件序列号</label>
+              <input type="text" class="form-control" v-model="journal.component_sn_new">
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="col-3 form-group">
-              <label>动车所现场监控人</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher">
+            <div class="col-4 form-group">
+              <label>部件、螺栓力矩、防松标记</label>
+              <select class="form-control" v-model="journal.p_bjaz">
+                <option value="1">部件安装良好，螺栓力矩已紧固，放松标记已涂打</option>
+                <option value="0">否</option>
+              </select>
             </div>
-            <div class="col-6 form-group">
-              <label>监控班组</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher_group">
+            <div class="col-4 form-group">
+              <label>作业者</label>
+              <input type="text" class="form-control" v-model="journal.operator">
             </div>
-            <div class="col-3 form-group">
+            <div class="col-4 form-group">
+              <label>检修工长</label>
+              <input type="text" class="form-control" v-model="journal.leader">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-4 form-group">
+              <label>部件功能试验</label>
+              <select class="form-control" v-model="journal.p_bjgnsy">
+                <option value="1">正常</option>
+                <option value="0">异常</option>
+              </select>
+            </div>
+            <div class="col-4 form-group">
               <label>质检员</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.qc">
+              <input type="text" class="form-control" v-model="journal.qc">
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-12 form-group">
-              <label>备注</label>
-              <textarea rows="2" class="form-control form-control-sm" v-model="journal.remark"></textarea>
+            <div class="col-4 form-group">
+              <label>值班干部</label>
+              <input type="text" class="form-control" v-model="journal.duty_officer">
             </div>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" v-on:click="submit">
+            <button type="button" class="btn btn-primary" v-on:click="save">
               <i class="fa fa-check-square-o"></i>
               确认
             </button>
