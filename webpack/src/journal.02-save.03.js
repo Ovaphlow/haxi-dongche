@@ -40,6 +40,9 @@ let app = new Vue({
       }).then(response => {
         location.reload(true)
       })
+    },
+    fin: function () {
+      location.href = './journal.02.html'
     }
   },
   created: function () {

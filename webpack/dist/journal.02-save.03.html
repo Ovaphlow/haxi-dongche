@@ -51,7 +51,7 @@
                 <i class="fa fa-plus"></i>
                 新增记录
               </button>
-              <button type="button" class="btn btn-primary pull-right" v-on:click="location.href='./journal.02.html'">
+              <button type="button" class="btn btn-primary pull-right" v-on:click="fin">
                 <i class="fa fa-check"></i>
                 完成
               </button>
@@ -61,35 +61,79 @@
               <ul id="list" class="list-group">
                 <li class="list-group-item" v-for="item in list">
                   <h5>
-                    部件名称：{{ item.name }}
-                    <span class="pull-right">车组：{{ item.train }}</span>
+                    <span class="text-secondary">部件名称：</span>{{ item.name }}
+                    <span class="pull-right">
+                      <span class="text-secondary">车组：</span>
+                      {{ item.train }}
+                    </span>
                   </h5>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item">车号：<span class="text-primary">{{ item.carriage }}</span></li>
-                    <li class="list-inline-item">位置：<span class="text-info">{{ item.position }}</span></li>
-                    <li class="list-inline-item">日期：<span class="text-secondary">{{ item.date }}</span></li>
-                    <li class="list-inline-item">时间：<span class="text-secondary">{{ item.time }}</span></li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">车号：</span>
+                      <span class="text-primary">{{ item.carriage }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">位置：</span>
+                      <span class="text-info">{{ item.position }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">日期：</span>
+                      <span class="text-secondary">{{ item.date }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">时间：</span>
+                      <span class="text-secondary">{{ item.time }}</span>
+                    </li>
                   </ul>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item">更换原因：<span class="text-danger">{{ item.reason }}</span></li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">更换原因：</span>
+                      <span class="text-danger">{{ item.reason }}</span></li>
                   </ul>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item">作业人员已阅读工艺文件并掌握各步骤：<strong>{{ item.p_gywj ? '是' : '否' }}</strong></li>
-                    <li class="list-inline-item">力矩扳手已校验：<strong>{{ item.p_ljbs ? '是' : '否' }}</strong></li>
-                    <li class="list-inline-item">换下部件序列号：<span class="text-info">{{ item.component_sn_old }}</span></li>
-                    <li class="list-inline-item">换上部件序列号：<span class="text-info">{{ item.component_sn_new }}</span></li>
-                    <li class="list-inline-item">部件安装良好，螺栓力矩已紧固，防松标记已涂打：<strong>{{ item.p_bjaz ? '是' : '否' }}</strong></li>
-                    <li class="list-inline-item">作业者：<u>{{ item.operator }}</u></li>
-                    <li class="list-inline-item">检修工长：<u>{{ item.leader }}</u></li>
+                    <li class="list-inline-item">
+                     <span class="text-secondary">作业人员已阅读工艺文件并掌握各步骤：</span>
+                      <strong>{{ item.p_gywj ? '是' : '否' }}</strong>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">力矩扳手已校验：</span>
+                      <strong>{{ item.p_ljbs ? '是' : '否' }}</strong>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">换下部件序列号：</span>
+                      <span class="text-info">{{ item.component_sn_old }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">换上部件序列号：</span>
+                      <span class="text-info">{{ item.component_sn_new }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">部件安装良好，螺栓力矩已紧固，防松标记已涂打：</span>
+                      <strong>{{ item.p_bjaz ? '是' : '否' }}</strong>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">作业者：</span>
+                      <u>{{ item.operator }}</u>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">检修工长：</span>
+                      <u>{{ item.leader }}</u>
+                    </li>
                   </ul>
 
                   <ul class="list-inline">
-                    <li class="list-inline-item">部件功能试验正常：<strong>{{ item.p_bjgnsy ? '是' : '否' }}</strong></li>
-                    <li class="list-inline-item">质检员：<u>{{ item.qc }}</u></li>
-                    <li class="list-inline-item">值班干部：<u>{{ item.duty_officer }}</u></li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">部件功能试验正常：</span>
+                      <strong>{{ item.p_bjgnsy ? '是' : '否' }}</strong></li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">质检员：</span>
+                      <u>{{ item.qc }}</u></li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">值班干部：</span>
+                      <u>{{ item.duty_officer }}</u></li>
                   </ul>
 
                   <div class="clearfix"></div>
