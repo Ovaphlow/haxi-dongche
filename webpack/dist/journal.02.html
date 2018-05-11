@@ -96,10 +96,23 @@
                 {{ c.p_yq_qt || '无要求' }}
               </li>
             </ul>
+
+            <div class="row">
+              <div class="col-12">
+                <button type="button" class="btn btn-light" v-bind:data-id="c.id" v-bind:data-content="c.content" v-on:click="detail">详细信息</button>
+                <div class="btn-group pull-right">
+                </div>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
     </div>
+
+    <div id="infoDialog01"></div>
+    <div id="infoDialog02"></div>
+    <div id="infoDialog03"></div>
+    <div id="infoDialog04"></div>
   </div>
 
   <script src="./lib/axios/dist/axios.min.js"></script>
