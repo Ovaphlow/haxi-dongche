@@ -1,0 +1,101 @@
+<div id="journal02Info03" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="infoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="infoTitle" class="modal-title">动车组关键配件更换记录表</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+              <ul class="list-group">
+                <li class="list-group-item" v-for="item in journalList">
+                  <h6>
+                    <span class="text-secondary">部件名称：</span>
+                    <strong>{{ item.name }}</strong>
+                  </h6>
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <span class="text-secondary">车组：</span>
+                      <span class="text-primary">{{ item.train }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">车号：</span>
+                      <span class="text-info">{{ item.carriage }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">日期：</span>
+                      <span class="text-secondary">{{ item.date }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">时间：</span>
+                      <span class="text-secondary">{{ item.time }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">更换原因：</span>
+                      <span class="text-danger">{{ item.reason }}</span>
+                    </li>
+                  </ul>
+
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <span class="text-secondary">作业人员已阅读工艺文件并掌握各步骤：</span>
+                      <span class="text-danger">{{ item.p_gywj ? '是' : '否' }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">力矩扳手已校验：</span>
+                      <span class="text-danger">{{ item.p_ljbs ? '是' : '否' }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">换下部件序列号：</span>
+                      {{ item.component_sn_old }}
+                    </li>
+                  </ul>
+
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <span class="text-secondary">换上部件序列号：</span>
+                      {{ item.component_sn_new }}
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">部件安装良好，螺栓力矩已紧固，防松标记已涂打：</span>
+                      {{ item.p_bjaz ? '是' : '否' }}
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">作业者：</span>
+                      <u>{{ item.operator }}</u>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">检修工长：</span>
+                      <u>{{ item.leader }}</u>
+                    </li>
+                  </ul>
+
+                  <ul class="list-inline">
+                    <li class="list-inline-item">
+                      <span class="text-secondary">部件功能试验正常：</span>
+                      <span class="text-danger">{{ item.p_bjgnsy ? '是' : '否' }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">质检员：</span>
+                      <u>{{ item.qc }}</u>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">值班干部：</span>
+                      <u>{{ item.duty_officer }}</u>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>

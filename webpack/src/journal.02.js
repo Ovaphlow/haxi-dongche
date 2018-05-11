@@ -10,8 +10,11 @@ document.getElementById('toolbar').innerHTML = toolbar
 import infoDialog01 from './journal.02-info-01.dialog.html'
 document.getElementById('infoDialog01').innerHTML = infoDialog01
 
-import infoDialog from './journal.02-info-02.dialog.html'
+import infoDialog02 from './journal.02-info-02.dialog.html'
 document.getElementById('infoDialog02').innerHTML = infoDialog02
+
+import infoDialog03 from './journal.02-info-02.dialog.html'
+document.getElementById('infoDialog03').innerHTML = infoDialog03
 
 let app = new Vue({
   el: '#app',
@@ -38,22 +41,23 @@ let app = new Vue({
           this.journal.date = this.journalList[0].date
         })
       } else if (event.target.getAttribute('data-content') === '一般配件更换记录表') {
+        $('#journal02Info02').modal()
         axios({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/02/',
           responseType: 'json'
         }).then(response => {
-          // this.journalList = response.data.content
-          // this.journal.subject = this.journalList[0].subject
-          console.log(response.data.content)
+          this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-content') === '关键配件更换记录表') {
+        $('#journal02Info03').modal()
         axios({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/03/',
           responseType: 'json'
         }).then(response => {
           console.log(response.data)
+          this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-content') === '加装改造（软件升级）记录单') {
         axios({
