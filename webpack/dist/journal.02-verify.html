@@ -102,7 +102,7 @@
             <br>
 
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="item.id">
+              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-content="item.content" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verifyLeader">
@@ -174,7 +174,7 @@
             <br>
 
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-default btn-sm" v-bind:data-id="item.id">
+              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-content="item.content" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verify">
@@ -185,6 +185,11 @@
         </ul>
 
       </div>
+
+      <div id="infoDialog01"></div>
+      <div id="infoDialog02"></div>
+      <div id="infoDialog03"></div>
+      <div id="infoDialog04"></div>
 
       <div id="authDialog"></div>
     </div>

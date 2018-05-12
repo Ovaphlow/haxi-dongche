@@ -37,7 +37,31 @@
             刷新
           </button>
         </p>
+
         <hr>
+
+        <div class="row">
+          <div class="form-group col-3">
+            <label>申请单位</label>
+            <input type="text" class="form-control" v-model="filter.dept">
+          </div>
+          <div class="form-group col-3">
+            <label>作业车组号</label>
+            <input type="text" class="form-control" v-model="filter.group_sn">
+          </div>
+          <div class="form-group col-3">
+            <label>申请作业时间</label>
+            <input type="date" class="form-control" v-model="filter.date_begin">
+          </div>
+          <div class="form-group col-3">
+            <label>&nbsp;</label>
+            <button type="button" class="btn btn-outline-secondary form-control" v-on:click="filterSubmit">
+              <i class="fa fa-search"></i>
+              查询
+            </button>
+          </div>
+        </div>
+
         <ul class="list-group">
           <li class="list-group-item" v-for="c in content">
             <h5>
@@ -46,8 +70,23 @@
               </strong>
               &nbsp;
               {{ c.leader }}
-              <span class="pull-right text-secondary">
-                {{ c.date_begin }} {{ c.time_begin }}
+              <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
+                作业完成
+              </span>
+              <span class="badge badge-dark pull-right" v-else-if="c.verify_leader_id > 0">
+                调度员签字
+              </span>
+              <span class="badge badge-success pull-right" v-else-if="c.p_dd_id > 0">
+                作业负责人签字
+              </span>
+              <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
+                动车所调度审核
+              </span>
+              <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
+                值班所长审批
+              </span>
+              <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
+                动车所技术员审核
               </span>
             </h5>
             <ul class="list-inline">
@@ -99,8 +138,8 @@
 
             <div class="row">
               <div class="col-12">
-                <button type="button" class="btn btn-light" v-bind:data-id="c.id" v-bind:data-content="c.content" v-on:click="detail">详细信息</button>
                 <div class="btn-group pull-right">
+                  <button type="button" class="btn btn-light" v-bind:data-id="c.id" v-bind:data-content="c.content" v-on:click="detail">详细信息</button>
                 </div>
               </div>
             </div>
@@ -117,6 +156,7 @@
 
   <script src="./lib/axios/dist/axios.min.js"></script>
   <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>

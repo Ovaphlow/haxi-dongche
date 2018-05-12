@@ -78,12 +78,16 @@
                       <span class="text-info">{{ item.position }}</span>
                     </li>
                     <li class="list-inline-item">
-                      <span class="text-secondary">日期：</span>
+                      <span class="text-secondary">更换日期：</span>
                       <span class="text-secondary">{{ item.date }}</span>
                     </li>
                     <li class="list-inline-item">
-                      <span class="text-secondary">时间：</span>
+                      <span class="text-secondary">更换时间：</span>
                       <span class="text-secondary">{{ item.time }}</span>
+                    </li>
+                    <li class="list-inline-item">
+                      <span class="text-secondary">生产时间：</span>
+                      <span class="text-secondary">{{ item.production_date }}</span>
                     </li>
                   </ul>
 
@@ -181,15 +185,22 @@
 
             <div class="clearfix"></div>
 
-            <div class="form-group col-3">
-              <label>日期</label>
+            <div class="form-group col-4">
+              <label>更换日期</label>
               <input type="date" class="form-control" v-model="journal.date">
             </div>
-            <div class="form-group col-3">
-              <label>时间</label>
+            <div class="form-group col-4">
+              <label>更换时间</label>
               <input type="text" class="form-control" v-model="journal.time">
             </div>
-            <div class="form-group col-6">
+            <div class="form-group col-4">
+              <label>生产日期</label>
+              <input type="date" class="form-control" v-model="journal.production_date">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="form-group col-12">
               <label>更换原因</label>
               <input type="text" class="form-control" v-model="journal.reason">
             </div>
