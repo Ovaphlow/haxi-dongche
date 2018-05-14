@@ -39,7 +39,7 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(response => {
-        console.log(response.data)
+        this.content = response.data.content
       })
     },
     detail: function (event) {
