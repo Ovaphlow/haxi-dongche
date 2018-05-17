@@ -42,7 +42,7 @@ let app = new Vue({
       })
     },
     fin: function () {
-      location.href = './journal.02.html'
+      location.href = './journal.02-verify.leader.html'
     }
   },
   created: function () {

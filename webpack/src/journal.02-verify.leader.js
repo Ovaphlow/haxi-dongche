@@ -17,6 +17,18 @@ let app = new Vue({
     request: {}
   },
   methods: {
+    plus: function () {
+      sessionStorage.setItem('journal02', sessionStorage.getItem('verifyId'))
+      if (this.request.tag === '一般部件普查记录单') {
+        location.href = './journal.02-save.01.html'
+      } else if (this.request.tag === '一般配件更换记录表') {
+        location.href = './journal.02-save.02.html'
+      } else if (this.request.tag === '关键配件更换记录表') {
+        location.href = './journal.02-save.03.html'
+      } else if (this.request.tag === '加装改造（软件升级）记录单') {
+        location.href = './journal.02-save.04.html'
+      } else {}
+    },
     auth: function () {
       $('#auth').modal()
     },
@@ -64,9 +76,15 @@ let app = new Vue({
       responseType: 'json'
     }).then(response => {
       if (response.data.status === 200) {
+        if (response.data.content.tag) {
+          document.getElementById('tag').value = response.data.content.tag
+          document.getElementById('tag').setAttribute('disabled', true)
+        }
+        this.request.verify_leader_date = response.data.content.date_end
+        this.request.verify_leader_time = response.data.content.time_end
+        this.request.tag = response.data.content.tag
+        console.log(this.request.tag)
         this.content = response.data.content
-        this.request.verify_leader_date = this.content.date_end
-        this.request.verify_leader_time = this.content.time_end
       }
     })
   }

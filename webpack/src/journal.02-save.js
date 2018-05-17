@@ -39,20 +39,21 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(response => {
-        console.log(response.data)
         if (response.data.status !== 200) {
           alert(response.data.message)
+        // } else {
+        //   sessionStorage.setItem('journal02', response.data.content.last_id)
+        //   if (this.req.content === '一般部件普查记录单') {
+        //     location.href = './journal.02-save.01.html'
+        //   } else if (this.req.content === '一般配件更换记录表') {
+        //     location.href = './journal.02-save.02.html'
+        //   } else if (this.req.content === '关键配件更换记录表') {
+        //     location.href = './journal.02-save.03.html'
+        //   } else if (this.req.content === '加装改造（软件升级）记录单') {
+        //     location.href = './journal.02-save.04.html'
+        //   } else {}
         } else {
-          sessionStorage.setItem('journal02', response.data.content.last_id)
-          if (this.req.content === '一般部件普查记录单') {
-            location.href = './journal.02-save.01.html'
-          } else if (this.req.content === '一般配件更换记录表') {
-            location.href = './journal.02-save.02.html'
-          } else if (this.req.content === '关键配件更换记录表') {
-            location.href = './journal.02-save.03.html'
-          } else if (this.req.content === '加装改造（软件升级）记录单') {
-            location.href = './journal.02-save.04.html'
-          } else {}
+          location.href = './journal.02.html'
         }
       })
     }

@@ -29,7 +29,9 @@
       <div class="col-xs-12 col-3 col-xl-2" id="sidebar"></div>
 
       <div class="col-xs-12 col-9 col-xl-10">
+
         <div id="toolbar"></div>
+
         <p class="lead">
           <i class="fa fa-archive"></i>
           作业完成销记
@@ -41,10 +43,13 @@
         <hr>
 
         <div class="card">
+
           <div class="card-header">
             <h5>作业负责人</h5>
           </div>
+
           <div class="card-body row">
+
             <div class="col-12">
               <div class="form-group">
                 <label>作业完成情况</label>
@@ -74,7 +79,26 @@
               </div>
             </div>
 
+            <div class="col-12 form-group">
+              <select id="tag" class="form-control" v-model="request.tag">
+                <option value="一般部件普查记录单">一般部件普查记录单</option>
+                <option value="一般配件更换记录表">一般配件更换记录表</option>
+                <option value="关键配件更换记录表">关键配件更换记录表</option>
+                <option value="加装改造（软件升级）记录单">加装改造（软件升级）记录单</option>
+              </select>
+            </div>
+
             <div class="col-12">
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-secondary" v-on:click="plus">
+                  <i class="fa fa-plus"></i>
+                  填写记录单/表
+                </button>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <hr>
               <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary" v-on:click="auth">
                   <i class="fa fa-check-square-o"></i>

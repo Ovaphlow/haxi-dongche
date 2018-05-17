@@ -48,8 +48,8 @@
               </strong>
               &nbsp;
               {{ item.leader }}
-              <span class="pull-right text-secondary">
-                <span class="badge badge-info">作业负责人</span>
+              <span class="pull-right">
+                <span class="badge badge-success">作业负责人签字</span>
               </span>
             </h5>
             <ul class="list-inline">
@@ -102,7 +102,7 @@
             <br>
 
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-content="item.content" v-on:click="detail">
+              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verifyLeader">
@@ -120,8 +120,8 @@
               </strong>
               &nbsp;
               {{ item.leader }}
-              <span class="pull-right text-secondary">
-                <span class="badge badge-danger">调度员</span>
+              <span class="pull-right">
+                <span class="badge badge-dark">调度员核销</span>
               </span>
             </h5>
             <ul class="list-inline">
@@ -174,7 +174,7 @@
             <br>
 
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-content="item.content" v-on:click="detail">
+              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verify">

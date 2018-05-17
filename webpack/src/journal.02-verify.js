@@ -34,7 +34,7 @@ let app = new Vue({
   },
   methods: {
     detail: function (event) {
-      if (event.target.getAttribute('data-content') === '一般部件普查记录单') {
+      if (event.target.getAttribute('data-tag') === '一般部件普查记录单') {
         $('#journal02Info01').modal()
         axios({
           method: 'GET',
@@ -47,7 +47,7 @@ let app = new Vue({
           this.journal.train_sn = this.journalList[0].train_sn
           this.journal.date = this.journalList[0].date
         })
-      } else if (event.target.getAttribute('data-content') === '一般配件更换记录表') {
+      } else if (event.target.getAttribute('data-tag') === '一般配件更换记录表') {
         $('#journal02Info02').modal()
         axios({
           method: 'GET',
@@ -56,7 +56,7 @@ let app = new Vue({
         }).then(response => {
           this.journalList = response.data.content
         })
-      } else if (event.target.getAttribute('data-content') === '关键配件更换记录表') {
+      } else if (event.target.getAttribute('data-tag') === '关键配件更换记录表') {
         $('#journal02Info03').modal()
         axios({
           method: 'GET',
@@ -65,7 +65,7 @@ let app = new Vue({
         }).then(response => {
           this.journalList = response.data.content
         })
-      } else if (event.target.getAttribute('data-content') === '加装改造（软件升级）记录单') {
+      } else if (event.target.getAttribute('data-tag') === '加装改造（软件升级）记录单') {
         $('#journal02Info04').modal()
         axios({
           method: 'GET',
