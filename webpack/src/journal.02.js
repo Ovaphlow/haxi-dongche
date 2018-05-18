@@ -43,6 +43,12 @@ let app = new Vue({
       })
     },
     detail: function (event) {
+
+      // 跳转到详细信息页面
+      sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+      location.href = './journal.02-detail.html'
+
+      // 旧版本对话框代码
       if (event.target.getAttribute('data-tag') === '一般部件普查记录单') {
         $('#journal02Info01').modal()
         axios({

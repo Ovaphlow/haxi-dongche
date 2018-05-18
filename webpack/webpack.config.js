@@ -22,7 +22,8 @@ module.exports = {
     'journal.02-verify': './src/journal.02-verify.js',
     'journal.02-verify.leader': './src/journal.02-verify.leader.js',
     'journal.02-verify.verify': './src/journal.02-verify.verify.js',
-    'journal.02-stats': './src/journal.02-stats.js'
+    'journal.02-stats': './src/journal.02-stats.js',
+    'journal.02-detail': './src/journal.02-detail.js'
   },
 
   // devtool: 'inline-source-map',

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>哈尔滨动车段 - 账项管理系统</title>
+
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <div class="container-fluid">
+    <h3>
+      账项管理系统
+      <span class="float-right">一体化作业申请单</span>
+    </h3>
+    <hr>
+  </div>
+
+  <div class="container-fluid" id="app">
+    <div class="row">
+      <div class="col-xs-12 col-3 col-xl-2" id="sidebar"></div>
+      <div class="col-xs-12 col-9 col-xl-10">
+        <div id="toolbar"></div>
+
+        <p class="lead">
+          <i class="fa fa-list"></i>
+          详细信息
+          <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
+            <i class="fa fa-refresh"></i>
+            刷新
+          </button>
+        </p>
+
+        <hr>
+
+        <div class="card">
+          <div class="card-body row">
+            <div class="col-12">
+              <span class="text-secondary">申请单位：</span>{{ journal.dept }}
+            </div>
+
+            <div class="col-6">
+              <span class="text-secondary">申请人：</span>{{ journal.applicant }}
+            </div>
+            <div class="col-6">
+              <span class="text-secondary">联系电话：</span>{{ journal.applicant_phone }}
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-6">
+              <span class="text-secondary">作业负责人：</span>{{ journal.leader }}
+            </div>
+            <div class="col-6">
+              <span class="text-secondary">联系电话：</span>{{ journal.leader_phone }}
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-12">
+              <span class="text-secondary">作业车组号：</span>{{ journal.group_sn }}
+            </div>
+
+            <div class="col-12">
+              <span class="text-secondary">申请作业时间：</span>{{ journal.date_begin }} {{ journal.time_begin }} 至 {{ journal.date_end }} {{ journal.time_end }}
+            </div>
+
+            <div class="col-12">
+              <span class="text-secondary">作业内容：</span>{{ journal.content }}
+            </div>
+
+            <div class="col-12">
+              <span class="text-secondary">施修要求/蓄电池：</span>{{ journal.p_yq_xdc }}
+            </div>
+            <div class="col-12">
+              <span class="text-secondary">施修要求/接触网：</span>{{ journal.p_yq_jcw }}
+            </div>
+            <div class="col-12">
+              <span class="text-secondary">施修要求/作业地点：</span>{{ journal.p_yq_zydd }}
+            </div>
+            <div class="col-12">
+              <span class="text-secondary">施修要求/其它：</span>{{ journal.p_yq_zydd || '无' }}
+            </div>
+
+            <div class="col-12"><hr></div>
+
+            <div class="col-4">
+              <span class="text-secondary">动车所调度审核：</span>
+              <span class="badge badge-danger">{{ journal.p_dd }}</span>
+            </div>
+            <div class="col-4">
+              <span class="text-secondary">动车所技术员审核：</span>
+              <span class="badge badge-info">{{ journal.p_jsy }}</span>
+            </div>
+            <div class="col-4">
+              <span class="text-secondary">值班所长审批：</span>
+              <span class="badge badge-warning">{{ journal.p_zbsz }}</span>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-12"><hr></div>
+
+            <div class="col-12">
+              <span class="text-secondary">作业完成情况：</span>{{ journal.verify_result }}
+            </div>
+
+            <div class="col-6">
+              <span class="text-secondary">作业完成时间：</span>{{ journal.verify_leader_date }} {{ journal.verify_leader_time }}
+            </div>
+            <div class="col-6">
+              <span class="text-secondary">作业负责人签字：</span>
+              <span class="badge badge-success">{{ journal.verify_leader }}</span>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-6">
+              <span class="text-secondary">调度核销时间：</span>{{ journal.verify_date }} {{ journal.verify_time }}
+            </div>
+            <div class="col-6">
+              <span class="text-secondary">调度员签字：</span>
+              <span class="badge badge-dark">{{ journal.verify }}</span>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-12"><hr></div>
+
+            <div class="col-12">
+              <span class="text-secondary">备注：</span>{{ journal.remark }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="./assets/js/journal.02-detail.js"></script>
+</body>
+
+</html>
