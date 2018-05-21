@@ -65,7 +65,7 @@
 
         <ul class="list-group">
           <li class="list-group-item" v-for="c in content">
-            <h5>
+            <p class="lead">
               <strong>{{ c.content }}</strong>
               <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
                 作业完成
@@ -85,7 +85,8 @@
               <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
                 动车所技术员审核
               </span>
-            </h5>
+            </p>
+
             <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-secondary">申请单位：</span>
@@ -99,6 +100,9 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
+            </ul>
+
+            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
