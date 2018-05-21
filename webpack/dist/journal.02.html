@@ -66,11 +66,7 @@
         <ul class="list-group">
           <li class="list-group-item" v-for="c in content">
             <h5>
-              <strong>
-                {{ c.dept }}
-              </strong>
-              &nbsp;
-              {{ c.leader }}
+              <strong>{{ c.content }}</strong>
               <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
                 作业完成
               </span>
@@ -92,48 +88,26 @@
             </h5>
             <ul class="list-inline">
               <li class="list-inline-item">
+                <span class="text-secondary">申请单位：</span>
+                {{ c.dept }}
+              </li>
+              <li class="list-inline-item">
                 <span class="text-muted">申请人：</span>
-                {{ c.applicant }} ({{ c.applicant_phone }})
+                <u>{{ c.applicant }} ({{ c.applicant_phone }})</u>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">作业负责人：</span>
-                {{ c.leader }} ({{ c.leader_phone }})
+                <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
-                <span class="text-danger">{{ c.group_sn }}</span>
+                <span class="text-primary">{{ c.group_sn }}</span>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">申请作业时间：</span>
                 <span class="text-secondary">
                   {{ c.date_begin }} {{ c.time_begin }} 至 {{ c.date_end }} {{ c.time_end }}
                 </span>
-              </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">作业内容：</span>
-                <span class="text-primary">{{ c.content }}</span>
-              </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/蓄电池：</span>
-                {{ c.p_yq_xdc }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/接触网：</span>
-                {{ c.p_yq_jcw }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/作业地点：</span>
-                {{ c.p_yq_zydd }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/其它：</span>
-                {{ c.p_yq_qt || '无要求' }}
               </li>
             </ul>
 
