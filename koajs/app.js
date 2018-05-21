@@ -10,7 +10,7 @@ logger.level = config.app.logLevel
 const app = new Koa()
 app.use(bodyParser())
 
-app.use((ctx, next) => {
+app.use(async (ctx, next) => {
   logger.info(ctx.request.method, ctx.request.path)
   next()
 })

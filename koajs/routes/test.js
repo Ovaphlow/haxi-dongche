@@ -1,8 +1,10 @@
 const Router = require('koa-router')
 
-let router = new Router()
+let router = new Router({
+  prefix: '/api'
+})
 
-router.get('/api/test', (ctx, next) => {
+router.get('/test', async (ctx, next) => {
   ctx.body = { content: '', message: 200 }
 })
 

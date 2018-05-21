@@ -20,7 +20,7 @@ let app = new Vue({
       var chart = echarts.init(document.getElementById('chart'))
       var option = {
         title: {
-          text: '用户操作数据统计',
+          text: '作业车组数据统计',
           x: 'center'
         },
         tooltip: {
@@ -29,7 +29,7 @@ let app = new Vue({
         },
         series: [
           {
-            name: '操作',
+            name: '作业次数',
             type: 'pie',
             radius: '75%',
             center: ['50%', '50%'],
