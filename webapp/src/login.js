@@ -22,16 +22,16 @@ document.addEventListener('DOMContentLoaded', function () {
             // password: this.data.password
           },
           responseType: 'json'
-        }).then((response) => {
+        }).then(function (response) {
           if (response.data.status !== 200) {
-            app.message = response.data.message
+            this.message = response.data.message
             return false
           } else {
             if (response.data.content.length === 0) {
-              app.message = '用户名或密码错误。'
+              this.message = '用户名或密码错误。'
               return false
             } else if (response.data.content.length > 1) {
-              app.message = '用户数据异常，请联系管理员。'
+              this.message = '用户数据异常，请联系管理员。'
               return false
             }
             sessionStorage.setItem('auth', JSON.stringify(response.data.content[0]))
