@@ -19,13 +19,13 @@ let app = new Vue({
   methods: {
     plus: function () {
       sessionStorage.setItem('journal02', sessionStorage.getItem('verifyId'))
-      if (this.request.tag === '一般部件普查记录单') {
+      if (app.request.tag === '一般部件普查记录单') {
         location.href = './journal.02-save.01.html'
-      } else if (this.request.tag === '一般配件更换记录表') {
+      } else if (app.request.tag === '一般配件更换记录表') {
         location.href = './journal.02-save.02.html'
-      } else if (this.request.tag === '关键配件更换记录表') {
+      } else if (app.request.tag === '关键配件更换记录表') {
         location.href = './journal.02-save.03.html'
-      } else if (this.request.tag === '加装改造（软件升级）记录单') {
+      } else if (app.request.tag === '加装改造（软件升级）记录单') {
         location.href = './journal.02-save.04.html'
       } else {}
     },
@@ -48,14 +48,14 @@ let app = new Vue({
         }
         axios({
           method: 'PUT',
-          url: './api/journal02/verify/leader/' + this.content.id,
+          url: './api/journal02/verify/leader/' + app.content.id,
           data: {
-            verify_report: this.request.verify_report,
+            verify_report: app.request.verify_report,
             verify_leader: response.data.content[0].name,
             verify_leader_id: response.data.content[0].id,
-            verify_leader_date: this.request.verify_leader_date,
-            verify_leader_time: this.request.verify_leader_time,
-            remark: this.request.remark
+            verify_leader_date: app.request.verify_leader_date,
+            verify_leader_time: app.request.verify_leader_time,
+            remark: app.request.remark
           },
           responseType: 'json'
         }).then(function (response) {
@@ -80,10 +80,10 @@ let app = new Vue({
           document.getElementById('tag').value = response.data.content.tag
           document.getElementById('tag').setAttribute('disabled', true)
         }
-        this.request.verify_leader_date = response.data.content.date_end
-        this.request.verify_leader_time = response.data.content.time_end
-        this.request.tag = response.data.content.tag
-        this.content = response.data.content
+        app.request.verify_leader_date = response.data.content.date_end
+        app.request.verify_leader_time = response.data.content.time_end
+        app.request.tag = response.data.content.tag
+        app.content = response.data.content
       }
     })
   }

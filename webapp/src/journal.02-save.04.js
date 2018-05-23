@@ -23,21 +23,21 @@ let app = new Vue({
         method: 'POST',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
         data: {
-          subject: this.journal0.subject,
-          software_version_new: this.journal0.software_version_new,
-          software_version_old: this.journal0.software_version_old,
-          approval_sn: this.journal0.approval_sn,
-          train: this.journal0.train,
-          date: this.journal0.date,
-          carriage: this.journal.carriage,
-          time_begin: this.journal.time_begin,
-          time_end: this.journal.time_end,
-          dept: this.journal.dept,
-          operator: this.journal.operator,
-          watcher: this.journal.watcher,
-          watcher_group: this.journal.watcher_group,
-          qc: this.journal.qc,
-          remark: this.journal.remark
+          subject: app.journal0.subject,
+          software_version_new: app.journal0.software_version_new,
+          software_version_old: app.journal0.software_version_old,
+          approval_sn: app.journal0.approval_sn,
+          train: app.journal0.train,
+          date: app.journal0.date,
+          carriage: app.journal.carriage,
+          time_begin: app.journal.time_begin,
+          time_end: app.journal.time_end,
+          dept: app.journal.dept,
+          operator: app.journal.operator,
+          watcher: app.journal.watcher,
+          watcher_group: app.journal.watcher_group,
+          qc: app.journal.qc,
+          remark: app.journal.remark
         },
         responseType: 'json'
       }).then(function (response) {
@@ -63,12 +63,12 @@ let app = new Vue({
         method: 'PUT',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
         data: {
-          subject: this.journal0.subject || '',
-          software_version_new: this.journal0.software_version_new || '',
-          software_version_old: this.journal0.software_version_old || '',
-          approval_sn: this.journal0.approval_sn || '',
-          train: this.journal0.train || '',
-          date: this.journal0.date || '1970-01-01'
+          subject: app.journal0.subject || '',
+          software_version_new: app.journal0.software_version_new || '',
+          software_version_old: app.journal0.software_version_old || '',
+          approval_sn: app.journal0.approval_sn || '',
+          train: app.journal0.train || '',
+          date: app.journal0.date || '1970-01-01'
         },
         responseType: 'json'
       }).then(function (response) {
@@ -86,14 +86,14 @@ let app = new Vue({
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
       responseType: 'json'
     }).then(function (response) {
-      this.list = response.data.content
-      if (this.list.length > 0) {
-        this.journal0.subject = this.list[0].subject
-        this.journal0.software_version_new = this.list[0].software_version_new
-        this.journal0.software_version_old = this.list[0].software_version_old
-        this.journal0.approval_sn = this.list[0].approval_sn
-        this.journal0.train = this.list[0].train
-        this.journal0.date = this.list[0].date
+      app.list = response.data.content
+      if (app.list.length > 0) {
+        app.journal0.subject = app.list[0].subject
+        app.journal0.software_version_new = app.list[0].software_version_new
+        app.journal0.software_version_old = app.list[0].software_version_old
+        app.journal0.approval_sn = app.list[0].approval_sn
+        app.journal0.train = app.list[0].train
+        app.journal0.date = app.list[0].date
       }
     })
   }

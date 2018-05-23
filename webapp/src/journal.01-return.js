@@ -59,10 +59,10 @@ let componentReturn = new Vue({
     refId: function () {
       axios({
         method: 'GET',
-        url: './api/journal01/' + this.refId,
+        url: './api/journal01/' + app.refId,
         responseType: 'json'
       }).then(response => {
-        // this.cache = response.data.content
+        // app.cache = response.data.content
       })
     }
   },

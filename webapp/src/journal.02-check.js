@@ -50,10 +50,10 @@ let app = new Vue({
           responseType: 'json'
         }).then(function (response) {
           app.journalList = response.data.content
-          app.journal.subject = this.journalList[0].subject
-          app.journal.approval_sn = this.journalList[0].approval_sn
-          app.journal.train_sn = this.journalList[0].train_sn
-          app.journal.date = this.journalList[0].date
+          app.journal.subject = app.journalList[0].subject
+          app.journal.approval_sn = app.journalList[0].approval_sn
+          app.journal.train_sn = app.journalList[0].train_sn
+          app.journal.date = app.journalList[0].date
         })
       } else if (event.target.getAttribute('data-tag') === '一般配件更换记录表') {
         $('#journal02Info02').modal()
@@ -62,7 +62,7 @@ let app = new Vue({
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/02/',
           responseType: 'json'
         }).then(function (response) {
-          this.journalList = response.data.content
+          app.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '关键配件更换记录表') {
         $('#journal02Info03').modal()
@@ -71,7 +71,7 @@ let app = new Vue({
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/03/',
           responseType: 'json'
         }).then(function (response) {
-          this.journalList = response.data.content
+          app.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '加装改造（软件升级）记录单') {
         $('#journal02Info04').modal()
@@ -80,30 +80,30 @@ let app = new Vue({
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/04/',
           responseType: 'json'
         }).then(function (response) {
-          this.journalList = response.data.content
-          this.journal.subject = this.journalList[0].subject
-          this.journal.software_version_old = this.journalList[0].software_version_old
-          this.journal.software_version_new = this.journalList[0].software_version_new
-          this.journal.approval_sn = this.journalList[0].approval_sn
-          this.journal.train = this.journalList[0].train
-          this.journal.date = this.journalList[0].date
+          app.journalList = response.data.content
+          app.journal.subject = app.journalList[0].subject
+          app.journal.software_version_old = app.journalList[0].software_version_old
+          app.journal.software_version_new = app.journalList[0].software_version_new
+          app.journal.approval_sn = app.journalList[0].approval_sn
+          app.journal.train = app.journalList[0].train
+          app.journal.date = app.journalList[0].date
         })
       }
     },
     jsy: function (event) {
       $('#auth').modal()
-      this.op_cat = 'jsy'
-      this.op_id = event.target.getAttribute('data-id')
+      app.op_cat = 'jsy'
+      app.op_id = event.target.getAttribute('data-id')
     },
     zbsz: function (event) {
       $('#auth').modal()
-      this.op_cat = 'zbsz'
-      this.op_id = event.target.getAttribute('data-id')
+      app.op_cat = 'zbsz'
+      app.op_id = event.target.getAttribute('data-id')
     },
     dd: function (event) {
       $('#auth').modal()
-      this.op_cat = 'dd'
-      this.op_id = event.target.getAttribute('data-id')
+      app.op_cat = 'dd'
+      app.op_id = event.target.getAttribute('data-id')
     },
     submit: function (event) {
       axios({
@@ -119,14 +119,14 @@ let app = new Vue({
           alert('账号或密码错误，用户鉴权失败。')
           return false
         }
-        if (this.op_cat === 'jsy' && response.data.content[0].auth_p_jsy) {
+        if (app.op_cat === 'jsy' && response.data.content[0].auth_p_jsy) {
           axios({
             method: 'PUT',
-            url: './api/journal02/jsy/' + this.op_id,
+            url: './api/journal02/jsy/' + app.op_id,
             data: {
               p_jsy: response.data.content[0].name,
               p_jsy_id: response.data.content[0].id,
-              id: this.op_id
+              id: app.op_id
             },
             responseType: 'json'
           }).then(function (response) {
@@ -139,14 +139,14 @@ let app = new Vue({
               document.getElementById('authPassword').value = ''
             }
           })
-        } else if (this.op_cat === 'zbsz' && response.data.content[0].auth_p_zbsz) {
+        } else if (app.op_cat === 'zbsz' && response.data.content[0].auth_p_zbsz) {
           axios({
             method: 'PUT',
-            url: './api/journal02/zbsz/' + this.op_id,
+            url: './api/journal02/zbsz/' + app.op_id,
             data: {
               p_zbsz: response.data.content[0].name,
               p_zbsz_id: response.data.content[0].id,
-              id: this.op_id
+              id: app.op_id
             },
             responseType: 'json'
           }).then(function (response) {
@@ -159,14 +159,14 @@ let app = new Vue({
               document.getElementById('authPassword').value = ''
             }
           })
-        } else if (this.op_cat === 'dd' && response.data.content[0].auth_p_dd) {
+        } else if (app.op_cat === 'dd' && response.data.content[0].auth_p_dd) {
           axios({
             method: 'PUT',
-            url: './api/journal02/dd/' + this.op_id,
+            url: './api/journal02/dd/' + app.op_id,
             data: {
               p_dd: response.data.content[0].name,
               p_dd_id: response.data.content[0].id,
-              id: this.op_id
+              id: app.op_id
             },
             responseType: 'json'
           }).then(function (response) {
@@ -190,24 +190,24 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/jsy/',
       responseType: 'json'
-    }).then(response => {
-      this.content_jsy = response.data.content
+    }).then(function (response) {
+      app.content_jsy = response.data.content
     })
 
     axios({
       method: 'GET',
       url: './api/journal02/zbsz/',
       responseType: 'json'
-    }).then(response => {
-      this.content_zbsz = response.data.content
+    }).then(function (response) {
+      app.content_zbsz = response.data.content
     })
 
     axios({
       method: 'GET',
       url: './api/journal02/dd/',
       responseType: 'json'
-    }).then(response => {
-      this.content_dd = response.data.content
+    }).then(function (response) {
+      app.content_dd = response.data.content
     })
   }
 })

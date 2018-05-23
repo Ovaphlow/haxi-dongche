@@ -33,9 +33,9 @@ let app = new Vue({
         method: 'POST',
         url: './api/journal02/filter/',
         data: {
-          dept: this.filter.date || '',
-          group_sn: this.filter.group_sn || '',
-          date_begin: this.filter.date_begin || ''
+          dept: app.filter.date || '',
+          group_sn: app.filter.group_sn || '',
+          date_begin: app.filter.date_begin || ''
         },
         responseType: 'json'
       }).then(function (response) {

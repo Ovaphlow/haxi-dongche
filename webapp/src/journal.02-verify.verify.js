@@ -40,11 +40,11 @@ let app = new Vue({
         }
         axios({
           method: 'PUT',
-          url: './api/journal02/verify/' + this.content.id,
+          url: './api/journal02/verify/' + app.content.id,
           data: {
             verify: response.data.content[0].name,
             verify_id: response.data.content[0].id,
-            remark: this.content.remark
+            remark: app.content.remark
           },
           responseType: 'json'
         }).then(function (response) {
@@ -65,7 +65,7 @@ let app = new Vue({
       responseType: 'json'
     }).then(function (response) {
       if (response.data.status === 200) {
-        this.content = response.data.content
+        app.content = response.data.content
       }
     })
   }

@@ -20,22 +20,22 @@ let app = new Vue({
         method: 'POST',
         url: './api/journal02/',
         data: {
-          applicant: this.req.applicant,
+          applicant: app.req.applicant,
           applicantId: user.id,
-          applicantPhone: this.req.applicantPhone,
-          leader: this.req.leader,
-          leaderPhone: this.req.leaderPhone,
-          dept: this.req.dept,
-          groupSN: this.req.groupSN,
-          dateBegin: this.req.dateBegin,
-          timeBegin: this.req.timeBegin,
-          dateEnd: this.req.dateEnd,
-          timeEnd: this.req.timeEnd,
-          content: this.req.content,
-          p_yq_xdc: this.req.p_yq_xdc,
-          p_yq_jcw: this.req.p_yq_jcw,
-          p_yq_zydd: this.req.p_yq_zydd,
-          p_yq_qt: this.req.p_yq_qt || ''
+          applicantPhone: app.req.applicantPhone,
+          leader: app.req.leader,
+          leaderPhone: app.req.leaderPhone,
+          dept: app.req.dept,
+          groupSN: app.req.groupSN,
+          dateBegin: app.req.dateBegin,
+          timeBegin: app.req.timeBegin,
+          dateEnd: app.req.dateEnd,
+          timeEnd: app.req.timeEnd,
+          content: app.req.content,
+          p_yq_xdc: app.req.p_yq_xdc,
+          p_yq_jcw: app.req.p_yq_jcw,
+          p_yq_zydd: app.req.p_yq_zydd,
+          p_yq_qt: app.req.p_yq_qt || ''
         },
         responseType: 'json'
       }).then(function (response) {
@@ -43,13 +43,13 @@ let app = new Vue({
           alert(response.data.message)
         // } else {
         //   sessionStorage.setItem('journal02', response.data.content.last_id)
-        //   if (this.req.content === '一般部件普查记录单') {
+        //   if (app.req.content === '一般部件普查记录单') {
         //     location.href = './journal.02-save.01.html'
-        //   } else if (this.req.content === '一般配件更换记录表') {
+        //   } else if (app.req.content === '一般配件更换记录表') {
         //     location.href = './journal.02-save.02.html'
-        //   } else if (this.req.content === '关键配件更换记录表') {
+        //   } else if (app.req.content === '关键配件更换记录表') {
         //     location.href = './journal.02-save.03.html'
-        //   } else if (this.req.content === '加装改造（软件升级）记录单') {
+        //   } else if (app.req.content === '加装改造（软件升级）记录单') {
         //     location.href = './journal.02-save.04.html'
         //   } else {}
         } else {
@@ -67,7 +67,7 @@ let app = new Vue({
     this.req.dateBegin = moment().format('YYYY-MM-DD')
     let hour = moment({ hours: parseInt(moment().format('HH')) + 1 }).format('HH')
     this.req.timeBegin = hour + ':00'
-    this.req.dateEnd = this.req.dateBegin
+    this.req.dateEnd = moment().format('YYYY-MM-DD')
     hour = moment({ hours: parseInt(hour) + 1 }).format('HH')
     this.req.timeEnd = hour + ':00'
     this.req.p_yq_xdc = '无要求'

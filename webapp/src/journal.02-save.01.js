@@ -34,22 +34,22 @@ let app = new Vue({
         method: 'POST',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
         data: {
-          subject: this.journal0.subject || '',
-          approval_sn: this.journal0.approval_sn || '',
-          train_sn: this.journal0.train_sn || '',
-          date: this.journal0.date || '1970-01-01',
-          carriage: this.journal.carriage || '',
-          carriage_subject: this.journal.carriage_subject || '',
-          time_begin: this.journal.time_begin || '00:00:00',
-          time_end: this.journal.time_end || '00:00:00',
-          result: this.journal.result || '良好',
-          report: this.journal.report || '',
-          dept: this.journal.dept || '',
-          executor: this.journal.executor || '',
-          watcher: this.journal.watcher || '',
-          watcher_group: this.journal.watcher_group || '',
-          qc: this.journal.qc || '',
-          remark: this.journal.remark || ''
+          subject: app.journal0.subject || '',
+          approval_sn: app.journal0.approval_sn || '',
+          train_sn: app.journal0.train_sn || '',
+          date: app.journal0.date || '1970-01-01',
+          carriage: app.journal.carriage || '',
+          carriage_subject: app.journal.carriage_subject || '',
+          time_begin: app.journal.time_begin || '00:00:00',
+          time_end: app.journal.time_end || '00:00:00',
+          result: app.journal.result || '良好',
+          report: app.journal.report || '',
+          dept: app.journal.dept || '',
+          executor: app.journal.executor || '',
+          watcher: app.journal.watcher || '',
+          watcher_group: app.journal.watcher_group || '',
+          qc: app.journal.qc || '',
+          remark: app.journal.remark || ''
         },
         responseType: 'json'
       }).then(function (response) {
@@ -61,10 +61,10 @@ let app = new Vue({
         method: 'PUT',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
         data: {
-          subject: this.journal0.subject || '',
-          approval_sn: this.journal0.approval_sn || '',
-          train_sn: this.journal0.train_sn || '',
-          date: this.journal0.date || '1970-01-01'
+          subject: app.journal0.subject || '',
+          approval_sn: app.journal0.approval_sn || '',
+          train_sn: app.journal0.train_sn || '',
+          date: app.journal0.date || '1970-01-01'
         },
         responseType: 'json'
       }).then(function (response) {
@@ -78,12 +78,12 @@ let app = new Vue({
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
       responseType: 'json'
     }).then(function (response) {
-      this.contentList = response.data.content
-      if (this.contentList.length > 0) {
-        this.journal0.subject = this.contentList[0].subject
-        this.journal0.approval_sn = this.contentList[0].approval_sn
-        this.journal0.train_sn = this.contentList[0].train_sn
-        this.journal0.date = this.contentList[0].date
+      app.contentList = response.data.content
+      if (app.contentList.length > 0) {
+        app.journal0.subject = app.contentList[0].subject
+        app.journal0.approval_sn = app.contentList[0].approval_sn
+        app.journal0.train_sn = app.contentList[0].train_sn
+        app.journal0.date = app.contentList[0].date
       }
     })
   }

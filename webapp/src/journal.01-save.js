@@ -35,9 +35,9 @@ let app = new Vue({
     }
   },
   created: function () {
-    this.data.quantity = 1
-    this.data.applicant = user.name
-    this.data.dept = user.dept
-    this.data.remark = ''
+    app.data.quantity = 1
+    app.data.applicant = user.name
+    app.data.dept = user.dept
+    app.data.remark = ''
   }
 })

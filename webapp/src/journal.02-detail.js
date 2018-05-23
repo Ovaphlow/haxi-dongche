@@ -21,18 +21,18 @@ let app = new Vue({
       url: './api/journal02/' + sessionStorage.getItem('journal02'),
       responseType: 'json'
     }).then(function (response) {
-      this.journal = response.data.content
+      app.journal = response.data.content
       if (response.data.content.tag === '一般部件普查记录单') {
         axios({
           method: 'GET',
           url: './api/journal02/' + response.data.content.id + '/01/',
           responseType: 'json'
         }).then(function (response) {
-          this.detailList = response.data.content
-          this.detail.subject = response.data.content[0].subject
-          this.detail.approval_sn = response.data.content[0].approval_sn
-          this.detail.train_sn = response.data.content[0].train_sn
-          this.detail.date = response.data.content[0].date
+          app.detailList = response.data.content
+          app.detail.subject = response.data.content[0].subject
+          app.detail.approval_sn = response.data.content[0].approval_sn
+          app.detail.train_sn = response.data.content[0].train_sn
+          app.detail.date = response.data.content[0].date
         })
       } else if (response.data.content.tag === '一般配件更换记录表') {
         axios({
@@ -40,7 +40,7 @@ let app = new Vue({
           url: './api/journal02/' + response.data.content.id + '/02/',
           responseType: 'json'
         }).then(function (response) {
-          this.detailList = response.data.content
+          app.detailList = response.data.content
         })
       } else if (response.data.content.tag === '关键配件更换记录表') {
         axios({
@@ -48,7 +48,7 @@ let app = new Vue({
           url: './api/journal02/' + response.data.content.id + '/03/',
           responseType: 'json'
         }).then(function (response) {
-          this.detailList = response.data.content
+          app.detailList = response.data.content
         })
       } else if (response.data.content.tag === '加装改造（软件升级）记录单') {
         axios({
@@ -56,8 +56,8 @@ let app = new Vue({
           url: './api/journal02/' + response.data.content.id + '/04/',
           responseType: 'json'
         }).then(function (response) {
-          this.detailList = response.data.content
-          this.detail.subject = response.data.content[0].subject
+          app.detailList = response.data.content
+          app.detail.subject = response.data.content[0].subject
         })
       } else { return false }
     })

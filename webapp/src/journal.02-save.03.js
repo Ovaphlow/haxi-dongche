@@ -21,7 +21,7 @@ let app = new Vue({
       axios({
         method: 'POST',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
-        data: this.journal,
+        data: app.journal,
         responseType: 'json'
       }).then(function (response) {
         if (response.data.status === 200) {
@@ -46,18 +46,18 @@ let app = new Vue({
     }
   },
   created: function () {
-    this.journal.date = moment().format('YYYY-MM-DD')
-    this.journal.p_gywj = '1'
-    this.journal.p_ljbs = '1'
-    this.journal.p_bjaz = '1'
-    this.journal.p_bjgnsy = '1'
+    app.journal.date = moment().format('YYYY-MM-DD')
+    app.journal.p_gywj = '1'
+    app.journal.p_ljbs = '1'
+    app.journal.p_bjaz = '1'
+    app.journal.p_bjgnsy = '1'
 
     axios({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
       responseType: 'json'
     }).then(function (response) {
-      this.list = response.data.content
+      app.list = response.data.content
     })
   }
 })
