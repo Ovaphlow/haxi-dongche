@@ -25,7 +25,7 @@ let app = new Vue({
         method: 'DELETE',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id'),
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         location.reload(true)
       })
     },
@@ -52,7 +52,7 @@ let app = new Vue({
           remark: this.journal.remark || ''
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         location.reload(true)
       })
     },
@@ -67,7 +67,7 @@ let app = new Vue({
           date: this.journal0.date || '1970-01-01'
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         location.href = './journal.02-verify.leader.html'
       })
     }
@@ -77,7 +77,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       this.contentList = response.data.content
       if (this.contentList.length > 0) {
         this.journal0.subject = this.contentList[0].subject

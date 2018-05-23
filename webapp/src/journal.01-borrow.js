@@ -1,9 +1,10 @@
 import navbar from './navbar.html'
-import sidebar from './journal.sidebar.html'
-import toolbar from './journal.01-toolbar.html'
-
 document.getElementById('navbar').innerHTML = navbar
+
+import sidebar from './journal.sidebar.html'
 document.getElementById('sidebar').innerHTML = sidebar
+
+import toolbar from './journal.01-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
 
 const user = JSON.parse(sessionStorage.getItem('auth'))
@@ -16,7 +17,7 @@ let app = new Vue({
     message: ''
   },
   methods: {
-    borrow: event => {
+    borrow: function (event) {
       axios({
         method: 'PUT',
         url: './api/journal01/' + event.target.getAttribute('data-id') + '/borrow',
@@ -30,13 +31,13 @@ let app = new Vue({
       })
     },
   },
-  created: () => {
+  created: function () {
     if (user.auth_01) {
       axios({
         method: 'GET',
         url: './api/journal01/admin/',
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         app.content = response.data.content
       })
     } else {
@@ -44,7 +45,7 @@ let app = new Vue({
         method: 'GET',
         url: './api/journal01/applicant/' + user.id + '/',
         responseType: 'json'
-      }).then((response) => {
+      }).then(function (response) {
         app.content = response.data.content
       })
     }

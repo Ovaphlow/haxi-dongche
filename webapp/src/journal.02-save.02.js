@@ -23,7 +23,7 @@ let app = new Vue({
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
         data: this.journal,
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.status === 200) {
           location.reload(true)
         } else {
@@ -37,7 +37,7 @@ let app = new Vue({
         method: 'DELETE',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id'),
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         location.reload(true)
       })
     },
@@ -56,8 +56,8 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
       responseType: 'json'
-    }).then(response => {
-      this.list = response.data.content
+    }).then(function (response) {
+      app.list = response.data.content
     })
   }
 })

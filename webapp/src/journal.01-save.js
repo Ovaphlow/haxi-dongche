@@ -1,9 +1,8 @@
 import navbar from './navbar.html'
-import sidebar from './journal.sidebar.html'
-import toolbar from './journal.01-toolbar.html'
-
 document.getElementById('navbar').innerHTML = navbar
+import sidebar from './journal.sidebar.html'
 document.getElementById('sidebar').innerHTML = sidebar
+import toolbar from './journal.01-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
 
 let user = JSON.parse(sessionStorage.getItem('auth'))
@@ -30,7 +29,7 @@ let app = new Vue({
           remark: app.data.remark
         },
         responseType: 'json'
-      }).then((response) => {
+      }).then(function (response) {
         location.href = './journal.01-borrow.html'
       })
     }

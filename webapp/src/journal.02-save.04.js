@@ -40,7 +40,7 @@ let app = new Vue({
           remark: this.journal.remark
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.status === 200) {
           location.reload(true)
         } else {
@@ -50,12 +50,11 @@ let app = new Vue({
     },
     remove: function (event) {
       if (!!!confirm('确认删除选定的记录？')) return false
-      console.log(event.target.getAttribute('data-id'))
       axios({
         method: 'DELETE',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id'),
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         location.reload(true)
       })
     },
@@ -72,7 +71,7 @@ let app = new Vue({
           date: this.journal0.date || '1970-01-01'
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         alert('保存完毕。')
         location.reload(true)
       })
@@ -86,7 +85,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       this.list = response.data.content
       if (this.list.length > 0) {
         this.journal0.subject = this.list[0].subject

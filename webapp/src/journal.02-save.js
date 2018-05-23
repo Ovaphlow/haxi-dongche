@@ -38,7 +38,7 @@ let app = new Vue({
           p_yq_qt: this.req.p_yq_qt || ''
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.status !== 200) {
           alert(response.data.message)
         // } else {

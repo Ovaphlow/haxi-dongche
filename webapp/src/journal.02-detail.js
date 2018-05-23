@@ -20,14 +20,14 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02'),
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       this.journal = response.data.content
       if (response.data.content.tag === '一般部件普查记录单') {
         axios({
           method: 'GET',
           url: './api/journal02/' + response.data.content.id + '/01/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.detailList = response.data.content
           this.detail.subject = response.data.content[0].subject
           this.detail.approval_sn = response.data.content[0].approval_sn
@@ -39,7 +39,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + response.data.content.id + '/02/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.detailList = response.data.content
         })
       } else if (response.data.content.tag === '关键配件更换记录表') {
@@ -47,7 +47,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + response.data.content.id + '/03/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.detailList = response.data.content
         })
       } else if (response.data.content.tag === '加装改造（软件升级）记录单') {
@@ -55,7 +55,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + response.data.content.id + '/04/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.detailList = response.data.content
           this.detail.subject = response.data.content[0].subject
         })

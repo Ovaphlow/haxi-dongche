@@ -16,7 +16,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/stats',
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       var chart = echarts.init(document.getElementById('chart'))
       var option = {
         title: {

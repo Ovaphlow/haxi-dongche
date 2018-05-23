@@ -48,12 +48,12 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/01/',
           responseType: 'json'
-        }).then(response => {
-          this.journalList = response.data.content
-          this.journal.subject = this.journalList[0].subject
-          this.journal.approval_sn = this.journalList[0].approval_sn
-          this.journal.train_sn = this.journalList[0].train_sn
-          this.journal.date = this.journalList[0].date
+        }).then(function (response) {
+          app.journalList = response.data.content
+          app.journal.subject = this.journalList[0].subject
+          app.journal.approval_sn = this.journalList[0].approval_sn
+          app.journal.train_sn = this.journalList[0].train_sn
+          app.journal.date = this.journalList[0].date
         })
       } else if (event.target.getAttribute('data-tag') === '一般配件更换记录表') {
         $('#journal02Info02').modal()
@@ -61,7 +61,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/02/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '关键配件更换记录表') {
@@ -70,7 +70,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/03/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '加装改造（软件升级）记录单') {
@@ -79,7 +79,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/04/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
           this.journal.subject = this.journalList[0].subject
           this.journal.software_version_old = this.journalList[0].software_version_old
@@ -114,7 +114,7 @@ let app = new Vue({
           password: md5(document.getElementById('authPassword').value)
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.content.length !== 1) {
           alert('账号或密码错误，用户鉴权失败。')
           return false
@@ -129,7 +129,7 @@ let app = new Vue({
               id: this.op_id
             },
             responseType: 'json'
-          }).then(response => {
+          }).then(function (response) {
             if (response.data.status === 200) {
               alert('操作已提交至服务器，请稍后查看结果。')
               location.reload(true)
@@ -149,7 +149,7 @@ let app = new Vue({
               id: this.op_id
             },
             responseType: 'json'
-          }).then(response => {
+          }).then(function (response) {
             if (response.data.status === 200) {
               alert('操作已提交至服务器，请稍后查看结果。')
               location.reload(true)
@@ -169,7 +169,7 @@ let app = new Vue({
               id: this.op_id
             },
             responseType: 'json'
-          }).then(response => {
+          }).then(function (response) {
             if (response.data.status === 200) {
               alert('操作已提交至服务器，请稍后查看结果。')
               location.reload(true)

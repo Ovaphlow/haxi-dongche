@@ -29,7 +29,7 @@ let app = new Vue({
           password: md5(document.getElementById('authPassword').value)
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.content.length !== 1) {
           alert('账号或密码错误，用户鉴权失败。')
           return false
@@ -47,7 +47,7 @@ let app = new Vue({
             remark: this.content.remark
           },
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           if (response.data.status === 200) {
             alert('操作已提交至服务器，请稍后查看结果。')
             location.href = './journal.02-verify.html'
@@ -63,7 +63,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('verifyId'),
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       if (response.data.status === 200) {
         this.content = response.data.content
       }

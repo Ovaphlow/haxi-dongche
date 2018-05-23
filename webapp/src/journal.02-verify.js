@@ -40,7 +40,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/01/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
           this.journal.subject = this.journalList[0].subject
           this.journal.approval_sn = this.journalList[0].approval_sn
@@ -53,7 +53,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/02/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '关键配件更换记录表') {
@@ -62,7 +62,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/03/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
         })
       } else if (event.target.getAttribute('data-tag') === '加装改造（软件升级）记录单') {
@@ -71,7 +71,7 @@ let app = new Vue({
           method: 'GET',
           url: './api/journal02/' + event.target.getAttribute('data-id') + '/04/',
           responseType: 'json'
-        }).then(response => {
+        }).then(function (response) {
           this.journalList = response.data.content
           this.journal.subject = this.journalList[0].subject
           this.journal.software_version_old = this.journalList[0].software_version_old
@@ -108,7 +108,7 @@ let app = new Vue({
           password: md5(document.getElementById('authPassword').value)
         },
         responseType: 'json'
-      }).then(response => {
+      }).then(function (response) {
         if (response.data.content.length !== 1) {
           alert('账号或密码错误，用户鉴权失败。')
           return false
@@ -128,7 +128,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/verify/leader/',
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       this.contentLeader = response.data.content
     })
 
@@ -136,7 +136,7 @@ let app = new Vue({
       method: 'GET',
       url: './api/journal02/verify/',
       responseType: 'json'
-    }).then(response => {
+    }).then(function (response) {
       this.contentVerify = response.data.content
     })
   }
