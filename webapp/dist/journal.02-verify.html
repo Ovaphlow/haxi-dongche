@@ -42,28 +42,47 @@
 
         <ul class="list-group">
           <li class="list-group-item" v-for="item in contentLeader">
-            <h5>
-              <strong>
-                {{ item.dept }}
-              </strong>
-              &nbsp;
-              {{ item.leader }}
-              <span class="pull-right">
-                <span class="badge badge-success">作业负责人签字</span>
+            <p class="lead">
+              <strong>{{ item.content }}</strong>
+              <span class="badge badge-light pull-right" v-if="item.verify_id > 0">
+                作业完成
               </span>
-            </h5>
+              <span class="badge badge-dark pull-right" v-else-if="item.verify_leader_id > 0">
+                调度员核销
+              </span>
+              <span class="badge badge-success pull-right" v-else-if="item.p_dd_id > 0">
+                作业负责人签字
+              </span>
+              <span class="badge badge-danger pull-right" v-else-if="item.p_zbsz_id > 0">
+                动车所调度审核
+              </span>
+              <span class="badge badge-warning pull-right" v-else-if="item.p_jsy_id > 0">
+                值班所长审批
+              </span>
+              <span class="badge badge-info pull-right" v-else="item.p_jsy_id > 0">
+                动车所技术员审核
+              </span>
+            </p>
+
             <ul class="list-inline">
               <li class="list-inline-item">
+                <span class="text-secondary">申请单位：</span>
+                {{ item.dept }}
+              </li>
+              <li class="list-inline-item">
                 <span class="text-muted">申请人：</span>
-                {{ item.applicant }} ({{ item.applicant_phone }})
+                <u>{{ item.applicant }} ({{ item.applicant_phone }})</u>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">作业负责人：</span>
-                {{ item.leader }} ({{ item.leader_phone }})
+                <u>{{ item.leader }} ({{ item.leader_phone }})</u>
               </li>
+            </ul>
+
+            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
-                <span class="text-danger">{{ item.group_sn }}</span>
+                <span class="text-primary">{{ item.group_sn }}</span>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">申请作业时间：</span>
@@ -71,38 +90,10 @@
                   {{ item.date_begin }} {{ item.time_begin }} 至 {{ item.date_end }} {{ item.time_end }}
                 </span>
               </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">作业内容：</span>
-                <span class="text-primary">{{ item.content }}</span>
-              </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/蓄电池：</span>
-                {{ item.p_yq_xdc }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/接触网：</span>
-                {{ item.p_yq_jcw }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/作业地点：</span>
-                {{ item.p_yq_zydd }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/其它：</span>
-                {{ item.p_yq_qt || '无要求' }}
-              </li>
             </ul>
 
-            <br>
-
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
+              <button type="button" class="btn btn-light btn-sm" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verifyLeader">
@@ -114,28 +105,47 @@
 
         <ul class="list-group">
           <li class="list-group-item" v-for="item in contentVerify">
-            <h5>
-              <strong>
-                {{ item.dept }}
-              </strong>
-              &nbsp;
-              {{ item.leader }}
-              <span class="pull-right">
-                <span class="badge badge-dark">调度员核销</span>
+            <p class="lead">
+              <strong>{{ item.content }}</strong>
+              <span class="badge badge-light pull-right" v-if="item.verify_id > 0">
+                作业完成
               </span>
-            </h5>
+              <span class="badge badge-dark pull-right" v-else-if="item.verify_leader_id > 0">
+                调度员核销
+              </span>
+              <span class="badge badge-success pull-right" v-else-if="item.p_dd_id > 0">
+                作业负责人签字
+              </span>
+              <span class="badge badge-danger pull-right" v-else-if="item.p_zbsz_id > 0">
+                动车所调度审核
+              </span>
+              <span class="badge badge-warning pull-right" v-else-if="item.p_jsy_id > 0">
+                值班所长审批
+              </span>
+              <span class="badge badge-info pull-right" v-else="item.p_jsy_id > 0">
+                动车所技术员审核
+              </span>
+            </p>
+
             <ul class="list-inline">
               <li class="list-inline-item">
+                <span class="text-secondary">申请单位：</span>
+                {{ item.dept }}
+              </li>
+              <li class="list-inline-item">
                 <span class="text-muted">申请人：</span>
-                {{ item.applicant }} ({{ item.applicant_phone }})
+                <u>{{ item.applicant }} ({{ item.applicant_phone }})</u>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">作业负责人：</span>
-                {{ item.leader }} ({{ item.leader_phone }})
+                <u>{{ item.leader }} ({{ item.leader_phone }})</u>
               </li>
+            </ul>
+
+            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
-                <span class="text-danger">{{ item.group_sn }}</span>
+                <span class="text-primary">{{ item.group_sn }}</span>
               </li>
               <li class="list-inline-item">
                 <span class="text-muted">申请作业时间：</span>
@@ -143,44 +153,17 @@
                   {{ item.date_begin }} {{ item.time_begin }} 至 {{ item.date_end }} {{ item.time_end }}
                 </span>
               </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">作业内容：</span>
-                <span class="text-primary">{{ item.content }}</span>
-              </li>
-
-              <div class="clearfix"></div>
-
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/蓄电池：</span>
-                {{ item.p_yq_xdc }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/接触网：</span>
-                {{ item.p_yq_jcw }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/作业地点：</span>
-                {{ item.p_yq_zydd }}
-              </li>
-              <li class="list-inline-item">
-                <span class="text-muted">施修要求/其它：</span>
-                {{ item.p_yq_qt || '无要求' }}
-              </li>
             </ul>
 
-            <br>
-
             <div class="btn-group pull-right">
-              <button type="button" class="btn btn-light" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
+              <button type="button" class="btn btn-light btn-sm" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
                 详细信息
               </button>
               <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="verify">
-                核销
+                调度员签字
               </button>
             </div>
+
           </li>
         </ul>
 
