@@ -232,12 +232,42 @@
       </div>
     </div>
 
-    <div id="infoDialog01"></div>
-    <div id="infoDialog02"></div>
-    <div id="infoDialog03"></div>
-    <div id="infoDialog04"></div>
-
     <div id="authDialog"></div>
+
+    <div id="p-jsy-content" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="infoTitleJSY" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="infoTitleJSY" class="modal-title">工作形式</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="form-group col-4">
+                <select class="form-control" v-model="journal.p_jsy_content" @change="jsyChange">
+                  <option value="同意">同意</option>
+                  <option value="班组跟踪、质检确认">班组跟踪、质检确认</option>
+                  <option value="班组、质检跟踪">班组、质检跟踪</option>
+                </select>
+              </div>
+              <div class="form-group col-4">
+                <select id="p-jsy.p-bz" class="form-control" disabled v-model="journal.p_jsy_bz">
+                  <option v-bind:value="item.name" v-for="item in deptList">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="form-group col-4">
+                <select id="p-jsy.qc" class="form-control" disabled></select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>

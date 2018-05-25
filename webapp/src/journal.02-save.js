@@ -32,6 +32,7 @@ let app = new Vue({
           dateEnd: app.req.dateEnd,
           timeEnd: app.req.timeEnd,
           content: app.req.content,
+          content_detail: app.req.content_detail,
           p_yq_xdc: app.req.p_yq_xdc,
           p_yq_jcw: app.req.p_yq_jcw,
           p_yq_zydd: app.req.p_yq_zydd,

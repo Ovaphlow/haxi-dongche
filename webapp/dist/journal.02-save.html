@@ -111,18 +111,22 @@
 
             <div class="clearfix"></div>
 
-            <div class="col-12">
+            <div class="col-4">
               <div class="form-group">
                 <label>作业内容</label>
                 <select class="form-control" v-model="req.content">
-                  <option value="一般部件普查记录单">一般部件普查记录单</option>
-                  <option value="一般配件更换记录表">一般配件更换记录表</option>
-                  <option value="关键配件更换记录表">关键配件更换记录表</option>
-                  <option value="加装改造（软件升级）记录单">加装改造（软件升级）记录单</option>
+                  <option value="普查">普查</option>
+                  <option value="检查">检查</option>
+                  <option value="故障处理">故障处理</option>
+                  <option value="加装改造">加装改造</option>
+                  <option value="其它">其它</option>
                 </select>
               </div>
             </div>
-
+            <div class="col-8">
+              <label>作业内容</label>
+              <input class="form-control" v-model="req.content_detail">
+            </div>
             <div class="clearfix"></div>
 
             <div class="col-4">
