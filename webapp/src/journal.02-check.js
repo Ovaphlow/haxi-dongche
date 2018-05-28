@@ -49,6 +49,21 @@ let app = new Vue({
         app.journal.p_jsy_qc = ''
       }
     },
+    submitJSYContent: function (event) {
+      console.log(app.op_id)
+      axios({
+        method: 'PUT',
+        url: './api/journal02/jsy/' + app.op_id + '/content',
+        data: {
+          p_jsy_content: app.journal.p_jsy_content,
+          p_jsy_bz: app.journal.p_jsy_bz,
+          p_jsy_qc: app.journal.p_jsy_qc
+        },
+        responseType: 'json'
+      }).then(function (response) {
+        location.reload(true)
+      })
+    },
     zbsz: function (event) {
       $('#auth').modal()
       app.op_cat = 'zbsz'
@@ -75,7 +90,6 @@ let app = new Vue({
           return false
         }
         if (app.op_cat === 'jsy' && response.data.content[0].auth_p_jsy) {
-          $('#p-jsy-content').modal()
           if (sessionStorage.getItem('deptList')) {
             let deptList = JSON.parse(sessionStorage.getItem('deptList'))
             for (let i = 0; i < deptList.length; i++) {
@@ -91,7 +105,6 @@ let app = new Vue({
               app.deptList = response.data.content
             })
           }
-          return false
           axios({
             method: 'PUT',
             url: './api/journal02/jsy/' + app.op_id,
@@ -102,11 +115,10 @@ let app = new Vue({
             },
             responseType: 'json'
           }).then(function (response) {
+            $('#auth').modal('hide')
             if (response.data.status === 200) {
-              // location.reload(true)
-
+              $('#p-jsy-content').modal()
             } else {
-              $('#auth').modal('hide')
               document.getElementById('authAccount').value = ''
               document.getElementById('authPassword').value = ''
             }
