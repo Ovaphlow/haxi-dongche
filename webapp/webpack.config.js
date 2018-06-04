@@ -28,7 +28,10 @@ module.exports = {
 
     'admin.dept-list': './src/admin.dept-list.js',
     'admin.dept-save': './src/admin.dept-save.js',
-    'admin.dept': './src/admin.dept.js'
+    'admin.dept': './src/admin.dept.js',
+    'admin.user-list': './src/admin.user-list.js',
+    'admin.user': './src/admin.user.js',
+    'admin.user-save': './src/admin.user-save.js'
   },
 
   // devtool: 'inline-source-map',
