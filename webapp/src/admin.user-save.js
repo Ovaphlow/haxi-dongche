@@ -16,27 +16,16 @@ let app = new Vue({
         alert('请完整填写用户信息')
         return false
       }
+      app.user.password = md5(document.getElementById('password').value)
       axios({
-        method: 'PUT',
-        url: './api/user/' + sessionStorage.getItem('user'),
-        data: {
-          name: app.user.name,
-          username: app.user.username,
-          dept_id: app.user.dept_id,
-          phone: app.user.phone,
-          auth_admin: app.user.auth_admin,
-          auth_01: app.user.auth_01,
-          auth_p_jsy: app.user.auth_p_jsy,
-          auth_p_zbsz: app.user.auth_p_zbsz,
-          auth_p_dd: app.user.auth_p_dd
-        },
+        method: 'POST',
+        url: './api/user/',
+        data: app.user,
         responseType: 'json'
       }).then(function (response) {
         if (response.data.status === 200) {
           alert(response.data.message)
           location.href = './admin.user-list.html'
-        } else if (response.data.status === 204) {
-          alert('用户名称冲突')
         } else {
           alert('保存失败。')
         }

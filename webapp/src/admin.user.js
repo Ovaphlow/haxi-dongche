@@ -11,6 +11,17 @@ let app = new Vue({
   el: '#app',
   data: { user: {}, deptList: [] },
   methods: {
+    remove: function () {
+      if (!!!confirm('删除当前用户，确定或取消？')) return false
+      axios({
+        method: 'DELETE',
+        url: './api/user/' + sessionStorage.getItem('user'),
+        responseType: 'json'
+      }).then(function (response) {
+        alert(response.data.message)
+        if (response.data.status === 200) location.href = './admin.user-list.html'
+      })
+    },
     save: function () {
       if (!!!app.user.name || !!!app.user.username) {
         alert('请完整填写用户信息')

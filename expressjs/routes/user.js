@@ -13,6 +13,58 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+router.route('/:id').delete((req, res) => {
+  let sql = `delete from user where id = :id`
+  sequelize.query(sql, {
+    replacements: { id: req.params.id },
+    type: sequelize.QueryTypes.DELETE
+  }).then(result => {
+   res.json({ content: '', message: '数据已提交至服务器，请稍后检查操作结果。', status: 200 })
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '提交数据失败。', status: 500 })
+  })
+})
+
+router.route('/').post((req, res) => {
+  let sql = `
+    insert into
+      user
+    set
+      uuid = uuid(),
+      dept_id = :dept_id,
+      username = :username,
+      password = :password,
+      name = :name,
+      phone = :phone,
+      auth_admin = :auth_admin,
+      auth_01 = :auth_01,
+      auth_p_jsy = :auth_p_jsy,
+      auth_p_zbsz = :auth_p_zbsz,
+      auth_p_dd = :auth_p_dd
+  `
+  sequelize.query(sql, {
+    replacements: {
+      dept_id: req.body.dept_id,
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      phone: req.body.phone || '',
+      auth_admin: req.body.auth_admin,
+      auth_01: req.body.auth_01,
+      auth_p_jsy: req.body.auth_p_jsy,
+      auth_p_zbsz: req.body.auth_p_zbsz,
+      auth_p_dd: req.body.auth_p_dd
+    },
+    type: sequelize.QueryTypes.INSERT
+  }).then(result => {
+    res.json({ content: '', message: '数据已提交至服务器，请稍后检查操作结果。', status: 200 })
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '提交数据失败。', status: 500 })
+  })
+})
+
 router.route('/:id').put((req, res) => {
   let sql = `
     update

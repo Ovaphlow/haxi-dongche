@@ -42,72 +42,80 @@
 
         <hr>
 
-        <div class="row">
-          <div class="col-12 form-group">
-            <label>用户名称</label>
-            <input type="text" class="form-control" v-model="user.name">
-          </div>
+        <div class="card">
+          <div class="card-body row">
+            <div class="col-12 form-group">
+              <label>用户名称</label>
+              <input type="text" class="form-control" v-model="user.name">
+            </div>
 
-          <div class="col-4 form-group">
-            <label>账号</label>
-            <input type="text" class="form-control" v-model="user.username">
-          </div>
-          <div class="col-4 form-group">
-            <label>部门</label>
-            <select class="form-control" v-model="user.dept_id">
-              <option v-bind:value="item.id" v-for="item in deptList">{{ item.name }}</option>
-            </select>
-          </div>
-          <div class="col-4 form-group">
-            <label>电话</label>
-            <input type="text" class="form-control" v-model="user.phone">
-          </div>
-          <div class="clearfix"></div>
-          
-          <div class="col-12 form-group">
-            <label>权限：管理员</label>
-            <select class="form-control" v-model="user.auth_admin">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
+            <div class="col-4 form-group">
+              <label>账号</label>
+              <input type="text" class="form-control" v-model="user.username">
+            </div>
+            <div class="col-4 form-group">
+              <label>部门</label>
+              <select class="form-control" v-model="user.dept_id">
+                <option v-bind:value="item.id" v-for="item in deptList">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="col-4 form-group">
+              <label>电话</label>
+              <input type="text" class="form-control" v-model="user.phone">
+            </div>
+            <div class="clearfix"></div>
+            
+            <div class="col-12 form-group">
+              <label>权限：管理员</label>
+              <select class="form-control" v-model="user.auth_admin">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
 
-          <div class="col-12 form-group">
-            <label>权限：禁动牌发放</label>
-            <select class="form-control" v-model="user.auth_01">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
+            <div class="col-12 form-group">
+              <label>权限：禁动牌发放</label>
+              <select class="form-control" v-model="user.auth_01">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
 
-          <div class="col-4 form-group">
-            <label>权限：技术员</label>
-            <select class="form-control" v-model="user.auth_p_jsy">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
-          <div class="col-4 form-group">
-            <label>权限：值班所长</label>
-            <select class="form-control" v-model="user.auth_p_zbsz">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
-          <div class="col-4 form-group">
-            <label>权限：调度</label>
-            <select class="form-control" v-model="user.auth_p_dd">
-              <option value="0">否</option>
-              <option value="1">是</option>
-            </select>
-          </div>
-          <div class="clearfix"></div>
+            <div class="col-4 form-group">
+              <label>权限：技术员</label>
+              <select class="form-control" v-model="user.auth_p_jsy">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+            <div class="col-4 form-group">
+              <label>权限：值班所长</label>
+              <select class="form-control" v-model="user.auth_p_zbsz">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+            <div class="col-4 form-group">
+              <label>权限：调度</label>
+              <select class="form-control" v-model="user.auth_p_dd">
+                <option value="0">否</option>
+                <option value="1">是</option>
+              </select>
+            </div>
+            <div class="clearfix"></div>
 
-          <div class="col-12">
-            <button type="button" class="btn btn-primary pull-right" v-on:click="save">
-              <i class="fa fa-check-square-o"></i>
-              保存
-            </button>
+            <div class="col-12">
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-secondary" v-on:click="remove">
+                  <i class="fa fa-trash-o"></i>
+                  删除用户
+                </button>
+                <button type="button" class="btn btn-primary" v-on:click="save">
+                  <i class="fa fa-check-square-o"></i>
+                  保存
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
