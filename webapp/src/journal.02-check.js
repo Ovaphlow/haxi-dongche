@@ -19,6 +19,8 @@ let app = new Vue({
     journal: {},
     deptList: [],
     content_jsy: [],
+    content_jsy_bz: [],
+    content_jsy_qc: [],
     content_zbsz: [],
     content_dd: [],
     op_cat: '',
@@ -50,7 +52,6 @@ let app = new Vue({
       }
     },
     submitJSYContent: function (event) {
-      console.log(app.op_id)
       axios({
         method: 'PUT',
         url: './api/journal02/jsy/' + app.op_id + '/content',
@@ -62,6 +63,36 @@ let app = new Vue({
         responseType: 'json'
       }).then(function (response) {
         location.reload(true)
+      })
+    },
+    submitJsyBz: function (event) {
+      axios({
+        method: 'PUT',
+        url: './api/journal02/jsy/bz/' + event.target.getAttribute('data-id'),
+        data: { user_id: user.id, user: user.name },
+        resposneType: 'json'
+      }).then(function (response) {
+        if (response.data.status === 200) {
+          alert('数据已发送到服务器，请稍后查看结果。')
+          location.reload(true)
+        } else {
+          alert(response.data.message)
+        }
+      })
+    },
+    submitJsyQc: function (event) {
+      axios({
+        method: 'PUT',
+        url: './api/journal02/jsy/qc/' + event.target.getAttribute('data-id'),
+        data: { user_id: user.id, user: user.name },
+        responseType: 'json'
+      }).then(function (response) {
+        if (response.data.status === 200) {
+          alert('数据已发送到服务器，请稍后查看结果。')
+          location.reload(true)
+        } else {
+          alert(response.data.message)
+        }
       })
     },
     zbsz: function (event) {
@@ -170,28 +201,44 @@ let app = new Vue({
     }
   },
   created: function () {
-    axios({
-      method: 'GET',
-      url: './api/journal02/jsy/',
-      responseType: 'json'
-    }).then(function (response) {
-      app.content_jsy = response.data.content
-    })
+    let auth = JSON.parse(sessionStorage.getItem("auth"))
 
     axios({
       method: 'GET',
-      url: './api/journal02/zbsz/',
+      url: './api/journal02/jsy/bz/' + auth.dept,
       responseType: 'json'
     }).then(function (response) {
-      app.content_zbsz = response.data.content
+      app.content_jsy_bz = response.data.content
     })
 
-    axios({
-      method: 'GET',
-      url: './api/journal02/dd/',
-      responseType: 'json'
-    }).then(function (response) {
-      app.content_dd = response.data.content
-    })
+    if (auth.auth_p_jsy) {
+      axios({
+        method: 'GET',
+        url: './api/journal02/jsy/',
+        responseType: 'json'
+      }).then(function (response) {
+        app.content_jsy = response.data.content
+      })
+    }
+
+    if (auth.auth_p_zbsz) {
+      axios({
+        method: 'GET',
+        url: './api/journal02/zbsz/',
+        responseType: 'json'
+      }).then(function (response) {
+        app.content_zbsz = response.data.content
+      })
+    }
+
+    if (auth.auth_p_dd) {
+      axios({
+        method: 'GET',
+        url: './api/journal02/dd/',
+        responseType: 'json'
+      }).then(function (response) {
+        app.content_dd = response.data.content
+      })
+    }
   }
 })
