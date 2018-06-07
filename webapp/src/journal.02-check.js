@@ -1,7 +1,8 @@
-import navbar from './navbar.html'
+import navbar from './navbar-2.html'
 document.getElementById('navbar').innerHTML = navbar
 
-import sidebar from './journal.sidebar.html'
+// import sidebar from './journal.sidebar.html'
+import sidebar from './sidebar-2.html'
 document.getElementById('sidebar').innerHTML = sidebar
 
 import toolbar from './journal.02-toolbar.html'
@@ -210,6 +211,16 @@ let app = new Vue({
     }).then(function (response) {
       app.content_jsy_bz = response.data.content
     })
+
+    if (auth.dept === '质检') {
+      axios({
+        method: 'GET',
+        url: './api/journal02/jsy/qc/' + auth.name,
+        responseType: 'json'
+      }).then(function (response) {
+        app.content_jsy_qc = response.data.content
+      })
+    }
 
     if (auth.auth_p_jsy) {
       axios({

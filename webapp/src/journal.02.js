@@ -1,23 +1,12 @@
-import navbar from './navbar.html'
+import navbar from './navbar-2.html'
 document.getElementById('navbar').innerHTML = navbar
 
-import sidebar from './journal.sidebar.html'
+// import sidebar from './journal.sidebar.html'
+import sidebar from './sidebar-2.html'
 document.getElementById('sidebar').innerHTML = sidebar
 
 import toolbar from './journal.02-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
-
-import infoDialog01 from './journal.02-info-01.dialog.html'
-document.getElementById('infoDialog01').innerHTML = infoDialog01
-
-import infoDialog02 from './journal.02-info-02.dialog.html'
-document.getElementById('infoDialog02').innerHTML = infoDialog02
-
-import infoDialog03 from './journal.02-info-03.dialog.html'
-document.getElementById('infoDialog03').innerHTML = infoDialog03
-
-import infoDialog04 from './journal.02-info-04.dialog.html'
-document.getElementById('infoDialog04').innerHTML = infoDialog04
 
 let app = new Vue({
   el: '#app',

@@ -1,7 +1,7 @@
-import navbar from './navbar.html'
+import navbar from './navbar-2.html'
 document.getElementById('navbar').innerHTML = navbar
 
-import sidebar from './journal.sidebar.html'
+import sidebar from './sidebar-2.html'
 document.getElementById('sidebar').innerHTML = sidebar
 
 import toolbar from './journal.02-toolbar.html'

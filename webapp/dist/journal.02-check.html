@@ -10,36 +10,29 @@
   <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
 
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link href="assets/css/dashboard.css" rel="stylesheet">
 </head>
 
 <body>
   <div id="navbar"></div>
 
-  <div class="container-fluid">
-    <h3>
-      账项管理系统
-      <span class="float-right">02.一体化作业申请单</span>
-    </h3>
-    <hr>
-  </div>
-
   <div class="container-fluid" id="app">
     <div class="row">
-      <div class="col-xs-12 col-3 col-xl-2" id="sidebar"></div>
+      <div id="sidebar"></div>
 
-      <div class="col-xs-12 col-9 col-xl-10">
-        <div id="toolbar"></div>
-        <p class="lead">
-          <i class="fa fa-check-square-o"></i>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h3>
+            02.一体化作业申请单
+          </h3>
+        </div>
+
+        <div class="lead">
+          <div id="toolbar" class="pull-right"></div>
           动车所审核
-          <button type="button" class="btn btn-outline-info btn-sm" onclick="location.reload(true)">
-            <i class="fa fa-refresh"></i>
-            刷新
-          </button>
-        </p>
-
-        <hr>
+          <br>
+          <br>
+        </div>
 
         <ul class="list-group">
           <li class="list-group-item" v-for="c in content_jsy">
@@ -152,6 +145,53 @@
           </li>
         </ul>
 
+        <ul class="list-group">
+          <li class="list-group-item" v-for="c in content_jsy_qc">
+            <p class="lead">
+              <strong>{{ c.content }}</strong>
+              <span class="badge badge-info pull-right">
+                质检签字
+              </span>
+            </p>
+
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-secondary">申请单位：</span>
+                {{ c.dept }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请人：</span>
+                <u>{{ c.applicant }} ({{ c.applicant_phone }})</u>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业负责人：</span>
+                <u>{{ c.leader }} ({{ c.leader_phone }})</u>
+              </li>
+            </ul>
+
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-muted">作业车组号：</span>
+                <span class="text-primary">{{ c.group_sn }}</span>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请作业时间：</span>
+                <span class="text-secondary">
+                  {{ c.date_begin }} {{ c.time_begin }} 至 {{ c.date_end }} {{ c.time_end }}
+                </span>
+              </li>
+            </ul>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-light btn-sm" v-bind:data-id="c.id" v-on:click="detail">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="c.id" v-on:click="submitJsyQc">
+                质检签字
+              </button>
+            </div>
+          </li>
+        </ul>
 
         <ul class="list-group">
           <li class="list-group-item" v-for="c in content_zbsz">
@@ -278,7 +318,7 @@
             </div>
           </li>
         </ul>
-      </div>
+      </main>
     </div>
 
     <div id="authDialog"></div>
@@ -307,7 +347,7 @@
                 </select>
               </div>
               <div class="form-group col-4">
-                <input id="p-jsy.qc" class="form-control" disabled v-model="journal.p_jsy_qc"></input>
+                <input id="p-jsy.qc" class="form-control" disabled v-model="journal.p_jsy_qc">
               </div>
             </div>
           </div>
