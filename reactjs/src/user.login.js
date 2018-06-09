@@ -18,6 +18,7 @@ class Login extends React.Component {
       this.setState({ message: '请完整填写用户信息。' })
       return false
     }
+
     axios({
       method: 'POST',
       url: '../api/user/login',

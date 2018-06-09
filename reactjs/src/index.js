@@ -1,8 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+
+import Navbar from './Navbar'
+import Sidebar from './Sidebar'
 
 ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
+  <Navbar/>,
+  document.getElementById('navbar')
+)
 
+ReactDOM.render(
+  <Sidebar/>,
+  document.getElementById('sidebar')
+)

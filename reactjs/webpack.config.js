@@ -6,7 +6,9 @@ module.exports = {
   entry: {
     'index': './src/index.js',
 
-    'user.login': './src/user.login.js'
+    'user.login': './src/user.login.js',
+
+    'journal.01': './src/journal.01.js'
   },
 
   // devtool: 'inline-source-map',
