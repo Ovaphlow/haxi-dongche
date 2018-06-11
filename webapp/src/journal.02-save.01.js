@@ -26,10 +26,15 @@ let app = new Vue({
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id'),
         responseType: 'json'
       }).then(function (response) {
-        location.reload(true)
+        if (response.data.status === 200) {
+          location.reload(true)
+        } else {
+          alert(response.data.message)
+        }
       })
     },
     submit: function () {
+      console.log(1123)
       axios({
         method: 'POST',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
@@ -53,7 +58,11 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(function (response) {
-        location.reload(true)
+        if (response.data.status === 200) {
+          location.reload(true)
+        } else {
+          alert(response.data.message)
+        }
       })
     },
     save: function () {
@@ -68,7 +77,11 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(function (response) {
-        location.href = './journal.02-verify.leader.html'
+        if (response.data.status === 200) {
+          location.href = './journal.02-verify.leader.html'
+        } else {
+          alert(response.data.message)
+        }
       })
     }
   },

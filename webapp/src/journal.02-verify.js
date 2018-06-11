@@ -10,12 +10,15 @@ document.getElementById('toolbar').innerHTML = toolbar
 import authDialog from './auth-dialog.html'
 document.getElementById('authDialog').innerHTML = authDialog
 
+let user = JSON.parse(sessionStorage.getItem('auth'))
+
 let app = new Vue({
   el: '#app',
   data: {
     journalList: [],
     journal: {},
     contentLeader: [],
+    contentLeaderBz: [],
     contentVerify: [],
     op_cat: '',
     op_id: 0
@@ -69,7 +72,7 @@ let app = new Vue({
   created: function () {
     axios({
       method: 'GET',
-      url: './api/journal02/verify/leader/',
+      url: './api/journal02/verify/leader/' + user.name,
       responseType: 'json'
     }).then(function (response) {
       app.contentLeader = response.data.content
@@ -77,10 +80,30 @@ let app = new Vue({
 
     axios({
       method: 'GET',
-      url: './api/journal02/verify/',
+      url: './api/journal02/verify/leader/bz/' + user.dept,
       responseType: 'json'
     }).then(function (response) {
-      app.contentVerify = response.data.content
+      app.contentLeaderBz = response.data.content
     })
+
+    if (auth.dept === '质检') {
+      axios({
+        method: 'GET',
+        url: './api/journal02/verify/leader/qc/' + auth.name,
+        responseTupe: 'json'
+      }).then(function (response) {
+        console.log(response.data)
+      })
+    }
+
+    if (auth.auth_p_dd) {
+      axios({
+        method: 'GET',
+        url: './api/journal02/verify/',
+        responseType: 'json'
+      }).then(function (response) {
+        app.contentVerify = response.data.content
+      })
+    }
   }
 })

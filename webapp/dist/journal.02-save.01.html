@@ -11,12 +11,20 @@
   <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="./assets/css/dashboard.css">
+
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
   <div id="navbar"></div>
 
   <div class="container-fluid" id="app">
+
     <div class="row">
       <div id="sidebar"></div>
 
@@ -83,6 +91,8 @@
               </div>
             </div>
 
+            <div class="col-12"><br></div>
+
             <div class="col-12">
               <ul id="list" class="list-group">
                 <li class="list-group-item" v-for="item in contentList">
@@ -120,9 +130,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
 
+    <!-- 新增记录对话框 -->
     <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style="font-size:0.875em">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -134,7 +145,7 @@
           </div>
           <div class="modal-body row">
             <div class="col-4 form-group">
-              <label>实施普查的车厢号</label>
+              <label>实施普查的车厢号{{journal0.subject}}</label>
               <select class="form-control form-control-sm" v-model="journal.carriage">
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -216,16 +227,10 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
           </div>
         </div>
-      </main>
+      </div>
     </div>
-  </div>
 
-  <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/vue/dist/vue.min.js"></script>
-  <script src="./lib/moment/min/moment.min.js"></script>
-  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
-  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  </div>
 
   <script src="./assets/js/journal.02-save.01.js"></script>
 </body>
