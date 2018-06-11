@@ -1,30 +1,30 @@
 import React from 'React'
 
 function Journal01ListItem(props) {
-  console.log('props')
-  console.log(props)
+  // console.log('props')
+  // console.log(props)
   return (
-        <li className="list-group-item">
-          <h5 className="mb-1">
-            数量：<span className="text-primary">{props.quantity}</span>
-          </h5>
-          <ul className="list-inline">
-            <li className="list-inline-item">
-              由 <span className="text-info"></span> 的
-              <span className="text-primary"><i className="fa fa-user"></i></span>
-              于 <span className="text-secondary"></span> 申请
-            </li>
-            <li className="list-inline-item">
-              <span className="text-danger"></span>
-              于 <span className="text-secondary"></span> 发放
-            </li>
-            <li className="list-inline-item">
-              <span className="text-success"></span>
-              于 <span className="text-muted"></span> 归还，
-              <span className="text-success"></span> 确认
-            </li>
-          </ul>
+    <li className="list-group-item">
+      <h5 className="mb-1">
+        数量：<span className="text-primary">{props.quantity}</span>
+      </h5>
+      <ul className="list-inline">
+        <li className="list-inline-item">
+          由 <span className="text-info"></span> 的
+          <span className="text-primary"><i className="fa fa-user"></i></span>
+          于 <span className="text-secondary"></span> 申请
         </li>
+        <li className="list-inline-item">
+          <span className="text-danger"></span>
+          于 <span className="text-secondary"></span> 发放
+        </li>
+        <li className="list-inline-item">
+          <span className="text-success"></span>
+          于 <span className="text-muted"></span> 归还，
+          <span className="text-success"></span> 确认
+        </li>
+      </ul>
+    </li>
   )
 }
 
@@ -43,21 +43,23 @@ function Journal01List(props) {
 export default class Journal01Filter extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { journalList: [] }
+    // this.state = { journalList: [] }
+    console.log('props')
+    // console.log(props)
 
     this.filter = this.filter.bind(this)
   }
 
   componentDidMount() {
-    axios({
-      method: 'GET',
-      url: '../api/journal01/',
-      responseType: 'json'
-    }).then(response => {
-      console.log(response.data)
-      this.setState({ journalList: response.data.content })
-      this.setState({ nn: [1, 2, 3, 4, 5] })
-    })
+    // axios({
+    //   method: 'GET',
+    //   url: '../api/journal01/',
+    //   responseType: 'json'
+    // }).then(response => {
+    //   console.log(response.data)
+    //   this.setState({ journalList: response.data.content })
+    //   this.setState({ nn: [1, 2, 3, 4, 5] })
+    // })
   }
 
   filter() {
