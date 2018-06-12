@@ -51,7 +51,13 @@ module.exports = {
         template.html的文件内容会被转成一个js字符串, 合并到js文件里.
         */
         use: 'html-loader'
-      }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader',
+        options: { presets: ['env'] }
+      },
     ]
   },
 }
