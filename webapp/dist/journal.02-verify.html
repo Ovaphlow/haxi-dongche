@@ -47,24 +47,7 @@
           <li class="list-group-item" v-for="item in contentLeader">
             <p class="lead">
               <strong>{{ item.content }}</strong>
-              <span class="badge badge-light pull-right" v-if="item.verify_id > 0">
-                作业完成
-              </span>
-              <span class="badge badge-dark pull-right" v-else-if="item.verify_leader_id > 0">
-                调度员核销
-              </span>
-              <span class="badge badge-success pull-right" v-else-if="item.p_dd_id > 0">
-                作业负责人签字
-              </span>
-              <span class="badge badge-danger pull-right" v-else-if="item.p_zbsz_id > 0">
-                动车所调度审核
-              </span>
-              <span class="badge badge-warning pull-right" v-else-if="item.p_jsy_id > 0">
-                值班所长审批
-              </span>
-              <span class="badge badge-info pull-right" v-else="item.p_jsy_id > 0">
-                动车所技术员审核
-              </span>
+              <span class="badge badge-success pull-right">作业负责人签字</span>
             </p>
 
             <ul class="list-inline">
@@ -107,26 +90,57 @@
         </ul>
 
         <ul class="list-group">
+          <li class="list-group-item" v-for="item in contentLeaderBz">
+            <p class="lead">
+              <strong>{{ item.content }}</strong>
+              <span class="badge badge-success pull-right">班组签字</span>
+            </p>
+
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-secondary">申请单位：</span>
+                {{ item.dept }}
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请人：</span>
+                <u>{{ item.applicant }} ({{ item.applicant_phone }})</u>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">作业负责人：</span>
+                <u>{{ item.leader }} ({{ item.leader_phone }})</u>
+              </li>
+            </ul>
+
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <span class="text-muted">作业车组号：</span>
+                <span class="text-primary">{{ item.group_sn }}</span>
+              </li>
+              <li class="list-inline-item">
+                <span class="text-muted">申请作业时间：</span>
+                <span class="text-secondary">
+                  {{ item.date_begin }} {{ item.time_begin }} 至 {{ item.date_end }} {{ item.time_end }}
+                </span>
+              </li>
+            </ul>
+
+            <div class="btn-group pull-right">
+              <button type="button" class="btn btn-light btn-sm" v-bind:data-id="item.id" v-bind:data-tag="item.tag" v-on:click="detail">
+                详细信息
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" v-bind:data-id="item.id" v-on:click="bz">
+                作业完成
+              </button>
+            </div>
+          </li>
+        </ul>
+
+        <ul class="list-group">
           <li class="list-group-item" v-for="item in contentVerify">
             <p class="lead">
               <strong>{{ item.content }}</strong>
-              <span class="badge badge-light pull-right" v-if="item.verify_id > 0">
-                作业完成
-              </span>
-              <span class="badge badge-dark pull-right" v-else-if="item.verify_leader_id > 0">
+              <span class="badge badge-dark pull-right">
                 调度员核销
-              </span>
-              <span class="badge badge-success pull-right" v-else-if="item.p_dd_id > 0">
-                作业负责人签字
-              </span>
-              <span class="badge badge-danger pull-right" v-else-if="item.p_zbsz_id > 0">
-                动车所调度审核
-              </span>
-              <span class="badge badge-warning pull-right" v-else-if="item.p_jsy_id > 0">
-                值班所长审批
-              </span>
-              <span class="badge badge-info pull-right" v-else="item.p_jsy_id > 0">
-                动车所技术员审核
               </span>
             </p>
 

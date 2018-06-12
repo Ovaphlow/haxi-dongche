@@ -36,6 +36,9 @@ let app = new Vue({
       sessionStorage.setItem('verifyId', app.op_id)
       location.href = './journal.02-verify.leader.html'
     },
+    bz: function (event) {
+      console.log(event.target.getAttribute('data-id'))
+    },
     verify: function (event) {
       app.op_cat = 'verify'
       app.op_id = event.target.getAttribute('data-id')
