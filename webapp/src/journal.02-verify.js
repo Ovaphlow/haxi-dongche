@@ -19,6 +19,7 @@ let app = new Vue({
     journal: {},
     contentLeader: [],
     contentLeaderBz: [],
+    contentLeaderQc: [],
     contentVerify: [],
     op_cat: '',
     op_id: 0
@@ -36,8 +37,15 @@ let app = new Vue({
       sessionStorage.setItem('verifyId', app.op_id)
       location.href = './journal.02-verify.leader.html'
     },
-    bz: function (event) {
-      console.log(event.target.getAttribute('data-id'))
+    verifyLeaderBz: function (event) {
+      app.op_cat = 'leaderBz'
+      app.op_id = event.target.getAttribute('data-id')
+      $('#auth').modal()
+    },
+    verifyLeaderQc: function (event) {
+      app.op_cat = 'leaderQc'
+      app.op_id = event.target.getAttribute('data-id')
+      $('#auth').modal()
     },
     verify: function (event) {
       app.op_cat = 'verify'
@@ -48,7 +56,6 @@ let app = new Vue({
       location.href = './journal.02-verify.verify.html'
     },
     submit: function () {
-      // 取消先验证权限的步骤
       axios({
         method: 'POST',
         url: './api/user/login',
@@ -65,6 +72,32 @@ let app = new Vue({
         if (app.op_cat === 'leader') {
           sessionStorage.setItem('verifyId', app.op_id)
           location.href = './journal.02-verify.leader.html'
+        } else if (app.op_cat === 'leaderBz') {
+          axios({
+            method: 'PUT',
+            url: './api/journal02/verify/leader/bz/' + app.op_id,
+            data: {},
+            responseType: 'json'
+          }).then(function (response) {
+            if (response.data.status !== 200) {
+              alert(response.data.message)
+              return false
+            }
+            location.reload(true)
+          })
+        } else if (app.op_cat === 'leaderQc') {
+          axios({
+            method: 'PUT',
+            url: './api/journal02/verify/leader/qc/' + app.op_id,
+            data: {},
+            responseType: 'json'
+          }).then(function (response) {
+            if (response.data.status !== 200) {
+              alert(response.data.message)
+              return false
+            }
+            location.reload(true)
+          })
         } else if (app.op_cat === 'verify') {
           sessionStorage.setItem('verifyId', app.op_id)
           location.href = './journal.02-verify.verify.html'
@@ -89,17 +122,17 @@ let app = new Vue({
       app.contentLeaderBz = response.data.content
     })
 
-    if (auth.dept === '质检') {
+    if (user.dept === '质检') {
       axios({
         method: 'GET',
-        url: './api/journal02/verify/leader/qc/' + auth.name,
+        url: './api/journal02/verify/leader/qc/' + user.name,
         responseTupe: 'json'
       }).then(function (response) {
-        console.log(response.data)
+        app.contentLeaderQc = response.data.content
       })
     }
 
-    if (auth.auth_p_dd) {
+    if (user.auth_p_dd) {
       axios({
         method: 'GET',
         url: './api/journal02/verify/',
