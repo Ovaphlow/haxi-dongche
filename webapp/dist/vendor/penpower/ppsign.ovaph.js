@@ -1,15 +1,17 @@
 var el = document.getElementById('signpad')
 
-window.onunload = PPL398_UnInitialDevice(2)
-
 function init() {
+
+  // window.onunload = PPL398_UnInitialDevice(2)
+
   if (!!!el.PPL398_GetProtectValidStatus(2)) {
     alert('设备不可用')
     return false
   }
 
   if (el.PPL398_InitialDevice(2, 0, 0, 400, 250) !== 0) {
-    alert('初始化失败')
+    // alert('初始化失败')
+    location.reload(true)
     return false
   }
 

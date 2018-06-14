@@ -33,9 +33,19 @@ let app = new Vue({
       location.href = './journal.02-detail.html'
     },
     jsy: function (event) {
-      $('#auth').modal()
-      app.op_cat = 'jsy'
-      app.op_id = event.target.getAttribute('data-id')
+      // $('#auth').modal()
+      // app.op_cat = 'jsy'
+      // app.op_id = event.target.getAttribute('data-id')
+      // 签字
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-check.html',
+        to: './journalal.02-unnamed.html',
+        operation: 'jsy',
+        item_id: event.target.getAttribute('data-id')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
     },
     jsyChange: function (event) {
       if (app.journal.p_jsy_content === '同意') {
@@ -106,8 +116,12 @@ let app = new Vue({
       app.op_cat = 'dd'
       app.op_id = event.target.getAttribute('data-id')
     },
+    submitSign: function (event) {
+      console.log(1123)
+    },
     submit: function (event) {
       $('#auth').modal('hide')
+      // $('#sign').modal('hide')
       axios({
         method: 'POST',
         url: './api/user/login',

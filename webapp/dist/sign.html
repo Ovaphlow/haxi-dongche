@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>哈尔滨动车段 - 账项管理系统</title>
+
+  <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
+
+  <link href="assets/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">账项管理系统</a>
+    <ul class="navbar-nav px-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="login.html">
+          <i class="fa fa-sign-out"></i> 注销
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fa fa-home"></i>
+                账项
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="journal.01.html">
+                <i class="fa fa-file-o fa-fw"></i>&nbsp;01.检修车间禁动牌管理台账
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="journal.02.html">
+                <i class="fa fa-file-o fa-fw"></i>&nbsp;02.一体化作业申请单
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
+            <i class="fa fa-user"></i>&nbsp;当前用户
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                用户信息
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                修改密码
+              </a>
+            </li>
+          </ul>
+
+          <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
+            <i class="fa fa-cogs"></i>&nbsp;系统管理
+          </h6>
+          <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+              <a class="nav-link" href="admin.dept-list.html">
+                <i class="fa fa-cubes fa-fw"></i> 部门
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.user-list.html">
+                <i class="fa fa-users fa-fw"></i> 用户
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h3>
+            签字确认
+          </h3>
+        </div>
+
+        <div class="row">
+          <div class="col-6 text-center">
+            <object width="400" height="250" id="signpad" classid="clsid:BFAA2FD5-B6E7-41D0-B104-A433ED33F461" border="0"></object>
+          </div>
+          <div class="col-6 text-center">
+            <img src="" id="result" alt="签字结果">
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-12">
+            <div class="btn-group pull-right">
+              <button type="button" id="back" class="btn btn-secondary">
+                <i class="fa fa-arrow-left fa-fw"></i> 取消
+              </button>
+              <button type="button" id="submit" class="btn btn-primary">
+                <i class="fa fa-check-square-o fa-fw"></i> 确认
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.min.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script src="./vendor/PenPower/ppsign.ovaph.js"></script>
+
+  <script>
+    window.onload = function () {
+      init()
+
+      var sign = JSON.parse(sessionStorage.getItem('sign'))
+
+      var elBack = document.getElementById('back')
+      var elSubmit = document.getElementById('submit')
+
+      back.onclick = function () {
+        location.href = sign.from
+      }
+
+      submit.onclick = function () {
+        var elResult = document.getElementById('result')
+        if (!!!elResult.getAttribute('src')) {
+          alert('请先签名再进行下一步操作。')
+          return false
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
