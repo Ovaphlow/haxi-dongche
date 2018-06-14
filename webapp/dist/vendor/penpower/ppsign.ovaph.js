@@ -38,7 +38,7 @@ function init() {
 
   setTimeout(function() {
     var result = el.PPL398_SignatureStatusCallback(2, 'eventCallback');
-  }, 50);
+  }, 100);
 }
 
 function eventCallback(event) {
