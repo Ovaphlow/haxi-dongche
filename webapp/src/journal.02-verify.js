@@ -25,10 +25,12 @@ let app = new Vue({
     op_id: 0
   },
   methods: {
+
     detail: function (event) {
       sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
       location.href = './journal.02-detail.html'
     },
+
     verifyLeader: function (event) {
       app.op_cat = 'leader'
       app.op_id = event.target.getAttribute('data-id')
@@ -37,16 +39,19 @@ let app = new Vue({
       sessionStorage.setItem('verifyId', app.op_id)
       location.href = './journal.02-verify.leader.html'
     },
+
     verifyLeaderBz: function (event) {
       app.op_cat = 'leaderBz'
       app.op_id = event.target.getAttribute('data-id')
       $('#auth').modal()
     },
+
     verifyLeaderQc: function (event) {
       app.op_cat = 'leaderQc'
       app.op_id = event.target.getAttribute('data-id')
       $('#auth').modal()
     },
+
     verify: function (event) {
       app.op_cat = 'verify'
       app.op_id = event.target.getAttribute('data-id')
@@ -55,6 +60,7 @@ let app = new Vue({
       sessionStorage.setItem('verifyId', app.op_id)
       location.href = './journal.02-verify.verify.html'
     },
+
     submit: function () {
       axios({
         method: 'POST',
@@ -105,6 +111,7 @@ let app = new Vue({
       })
     }
   },
+
   created: function () {
     axios({
       method: 'GET',
