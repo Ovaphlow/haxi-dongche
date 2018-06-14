@@ -37,6 +37,12 @@
 
         <div class="card">
           <div class="card-body row">
+            <div class="col-12">
+              <div class="alert alert-danger" role="alert" v-if="message">
+                {{message}}
+              </div>
+            </div>
+
             <div class="col-4">
               <div class="form-group">
                 <label>申请单位</label>
@@ -170,8 +176,7 @@
                   返回
                 </button>
                 <button type="button" class="btn btn-primary" v-on:click="save">
-                  <i class="fa fa-check"></i>
-                  保存
+                  <i class="fa fa-check-square-o fa-fw"></i> 保存
                 </button>
               </div>
             </div>

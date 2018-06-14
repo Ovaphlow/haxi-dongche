@@ -11,12 +11,17 @@ const user = JSON.parse(sessionStorage.getItem('auth'))
 
 let app = new Vue({
   el: '#app',
-  data: { req: {} },
+  data: { message: '', req: {} },
   methods: {
     back: function () {
       location.href = './journal.02.html'
     },
     save: function () {
+      app.message = ''
+      if (!!!app.req.groupSN || !!!app.req.leader || !!!app.req.leaderPhone || !!!app.req.content) {
+        app.message = '请完整填写申请内容。'
+        return false
+      }
       axios({
         method: 'POST',
         url: './api/journal02/',
@@ -42,18 +47,7 @@ let app = new Vue({
         responseType: 'json'
       }).then(function (response) {
         if (response.data.status !== 200) {
-          alert(response.data.message)
-        // } else {
-        //   sessionStorage.setItem('journal02', response.data.content.last_id)
-        //   if (app.req.content === '一般部件普查记录单') {
-        //     location.href = './journal.02-save.01.html'
-        //   } else if (app.req.content === '一般配件更换记录表') {
-        //     location.href = './journal.02-save.02.html'
-        //   } else if (app.req.content === '关键配件更换记录表') {
-        //     location.href = './journal.02-save.03.html'
-        //   } else if (app.req.content === '加装改造（软件升级）记录单') {
-        //     location.href = './journal.02-save.04.html'
-        //   } else {}
+          app.message = response.data.message
         } else {
           location.href = './journal.02.html'
         }
@@ -72,6 +66,7 @@ let app = new Vue({
     this.req.dateEnd = moment().format('YYYY-MM-DD')
     hour = moment({ hours: parseInt(hour) + 1 }).format('HH')
     this.req.timeEnd = hour + ':00'
+    this.req.content_detail = ''
     this.req.p_yq_xdc = '无要求'
     this.req.p_yq_jcw = '无要求'
     this.req.p_yq_zydd = '无要求'

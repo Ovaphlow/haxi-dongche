@@ -41,7 +41,7 @@
             </div>
 
             <div class="col-6">
-              <span class="text-secondary">申请人：</span>{{ journal.applicant }}
+              <span class="text-secondary">申请人：</span><u>{{ journal.applicant }}</u>
             </div>
             <div class="col-6">
               <span class="text-secondary">联系电话：</span>{{ journal.applicant_phone }}
@@ -49,7 +49,7 @@
             <div class="clearfix"></div>
 
             <div class="col-6">
-              <span class="text-secondary">作业负责人：</span>{{ journal.leader }}
+              <span class="text-secondary">作业负责人：</span><u>{{ journal.leader }}</u>
             </div>
             <div class="col-6">
               <span class="text-secondary">联系电话：</span>{{ journal.leader_phone }}
@@ -57,16 +57,19 @@
             <div class="clearfix"></div>
 
             <div class="col-12">
-              <span class="text-secondary">作业车组号：</span>{{ journal.group_sn }}
+              <span class="text-secondary">作业车组号：</span><span class="text-primary">{{ journal.group_sn }}</span>
             </div>
 
-            <div class="col-12">
-              <span class="text-secondary">申请作业时间：</span>{{ journal.date_begin }} {{ journal.time_begin }} 至 {{ journal.date_end }} {{ journal.time_end
-              }}
+            <div class="col-6">
+              <span class="text-secondary">申请作业时间：</span>{{ journal.date_begin }} {{ journal.time_begin }}
             </div>
+            <div class="col-6">
+              <span class="text-secondary">至：</span>{{ journal.date_end }} {{ journal.time_end }}
+            </div>
+            <div class="clearfix"></div>
 
             <div class="col-12">
-              <span class="text-secondary">作业内容：</span>{{ journal.content }}
+              <span class="text-secondary">作业内容：</span><span class="text-danger">{{ journal.content }}</span> // <span class="text-danger">{{ journal.content_detail }}</span>
             </div>
 
             <div class="col-12">
