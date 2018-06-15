@@ -175,6 +175,19 @@
                 alert(response.data.message)
               }
             })
+          } else if (sign.operation === 'jsy-qc') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/jsy/qc',
+              data: { sign: elResult.getAttribute('src') },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else { 
+                alert(response.data.message)
+              }
+            })
           }
         }
       }

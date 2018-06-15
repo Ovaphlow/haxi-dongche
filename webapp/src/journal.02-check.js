@@ -27,11 +27,13 @@ let app = new Vue({
     op_cat: '',
     op_id: 0
   },
+
   methods: {
     detail: function (event) {
       sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
       location.href = './journal.02-detail.html'
     },
+
     jsy: function (event) {
       // $('#auth').modal()
       // app.op_cat = 'jsy'
@@ -47,6 +49,7 @@ let app = new Vue({
       sessionStorage.setItem('sign', JSON.stringify(sign))
       location.href = './sign.html'
     },
+
     jsyChange: function (event) {
       if (app.journal.p_jsy_content === '同意') {
         document.getElementById('p-jsy.p-bz').setAttribute('disabled', true)
@@ -62,6 +65,7 @@ let app = new Vue({
         app.journal.p_jsy_qc = ''
       }
     },
+
     submitJSYContent: function (event) {
       axios({
         method: 'PUT',
@@ -76,6 +80,7 @@ let app = new Vue({
         location.reload(true)
       })
     },
+
     submitJsyBz: function (event) {
       let sign = {
         category: 'journal02',
@@ -87,34 +92,44 @@ let app = new Vue({
       sessionStorage.setItem('sign', JSON.stringify(sign))
       location.href = './sign.html'
     },
+
     submitJsyQc: function (event) {
-      axios({
-        method: 'PUT',
-        url: './api/journal02/jsy/qc/' + event.target.getAttribute('data-id'),
-        data: { user_id: user.id, user: user.name },
-        responseType: 'json'
-      }).then(function (response) {
-        if (response.data.status === 200) {
-          alert('数据已发送到服务器，请稍后查看结果。')
-          location.reload(true)
-        } else {
-          alert(response.data.message)
-        }
-      })
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-check.html',
+        to: './journal.02-check.html',
+        operation: 'jsy-qc',
+        item_id: event.target.getAttribute('data-id')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
     },
+
     zbsz: function (event) {
-      $('#auth').modal()
-      app.op_cat = 'zbsz'
-      app.op_id = event.target.getAttribute('data-id')
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-check.html',
+        to: './journal.02-check.html',
+        operation: 'zbsz',
+        item_id: event.target.getAttribute('data-id')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
+      // $('#auth').modal()
+      // app.op_cat = 'zbsz'
+      // app.op_id = event.target.getAttribute('data-id')
     },
+    
     dd: function (event) {
       $('#auth').modal()
       app.op_cat = 'dd'
       app.op_id = event.target.getAttribute('data-id')
     },
+
     submitSign: function (event) {
       console.log(1123)
     },
+
     submit: function (event) {
       $('#auth').modal('hide')
       // $('#sign').modal('hide')
