@@ -40,7 +40,7 @@ let app = new Vue({
       let sign = {
         category: 'journal02',
         from: './journal.02-check.html',
-        to: './journalal.02-unnamed.html',
+        to: './journal.02-jsy.content.html',
         operation: 'jsy',
         item_id: event.target.getAttribute('data-id')
       }
@@ -77,19 +77,15 @@ let app = new Vue({
       })
     },
     submitJsyBz: function (event) {
-      axios({
-        method: 'PUT',
-        url: './api/journal02/jsy/bz/' + event.target.getAttribute('data-id'),
-        data: { user_id: user.id, user: user.name },
-        resposneType: 'json'
-      }).then(function (response) {
-        if (response.data.status === 200) {
-          alert('数据已发送到服务器，请稍后查看结果。')
-          location.reload(true)
-        } else {
-          alert(response.data.message)
-        }
-      })
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-check.html',
+        to: './journal.02-check.html',
+        operation: 'jsy-bz',
+        item_id: event.target.getAttribute('data-id')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
     },
     submitJsyQc: function (event) {
       axios({

@@ -126,7 +126,8 @@
   <script>
     window.onload = function () {
       init()
-
+      
+      var auth = JSON.parse(sessionStorage.getItem('auth'))
       var sign = JSON.parse(sessionStorage.getItem('sign'))
 
       var elBack = document.getElementById('back')
@@ -141,6 +142,40 @@
         if (!!!elResult.getAttribute('src')) {
           alert('请先签名再进行下一步操作。')
           return false
+        }
+
+        if (sign.category === 'journal02') {
+          if (sign.operation === 'jsy') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/jsy',
+              data: {
+                p_jsy_id: auth.id,
+                p_jsy: auth.name,
+                sign: elResult.getAttribute('src')
+              },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else {
+                alert(response.data.message)
+              }
+            })
+          } else if (sign.operation === 'jsy-bz') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/jsy/bz',
+              data: { sign: elResult.getAttribute('src') },
+              resposneType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else {
+                alert(response.data.message)
+              }
+            })
+          }
         }
       }
     }
