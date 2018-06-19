@@ -121,9 +121,18 @@ let app = new Vue({
     },
     
     dd: function (event) {
-      $('#auth').modal()
-      app.op_cat = 'dd'
-      app.op_id = event.target.getAttribute('data-id')
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-check.html',
+        to: './journal.02-check.html',
+        operation: 'dd',
+        item_id: event.target.getAttribute('data-id')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
+      // $('#auth').modal()
+      // app.op_cat = 'dd'
+      // app.op_id = event.target.getAttribute('data-id')
     },
 
     submitSign: function (event) {
@@ -250,7 +259,7 @@ let app = new Vue({
     if (auth.auth_p_jsy) {
       axios({
         method: 'GET',
-        url: './api/journal02/jsy/',
+        url: './api/journal02/jsy/?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(function (response) {
         app.content_jsy = response.data.content
@@ -260,7 +269,7 @@ let app = new Vue({
     if (auth.auth_p_zbsz) {
       axios({
         method: 'GET',
-        url: './api/journal02/zbsz/',
+        url: './api/journal02/zbsz/?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(function (response) {
         app.content_zbsz = response.data.content
@@ -270,7 +279,7 @@ let app = new Vue({
     if (auth.auth_p_dd) {
       axios({
         method: 'GET',
-        url: './api/journal02/dd/',
+        url: './api/journal02/dd/?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(function (response) {
         app.content_dd = response.data.content

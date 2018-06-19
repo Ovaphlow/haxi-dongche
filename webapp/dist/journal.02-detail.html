@@ -92,14 +92,20 @@
             <div class="col-4">
               <span class="text-secondary">动车所调度审核：</span>
               <span class="badge badge-danger">{{ journal.p_dd }}</span>
+              <br>
+              <img src="#" alt="调度员签字" v-if="journal.sign_p_dd" v-bind:src="journal.sign_p_dd">
             </div>
             <div class="col-4">
               <span class="text-secondary">动车所技术员审核：</span>
               <span class="badge badge-info">{{ journal.p_jsy }}</span>
+              <br>
+              <img src="#" alt="技术员签字" v-if="journal.sign_p_jsy" v-bind:src="journal.sign_p_jsy">
             </div>
             <div class="col-4">
               <span class="text-secondary">值班所长审批：</span>
               <span class="badge badge-warning">{{ journal.p_zbsz }}</span>
+              <br>
+              <img src="#" alt="值班所长签字" v-if="journal.sign_p_zbsz" v-bind:src="journal.sign_p_zbsz">
             </div>
             <div class="clearfix"></div>
 
@@ -135,6 +141,17 @@
 
             <div class="col-12">
               <span class="text-secondary">备注：</span>{{ journal.remark }}
+              <div class="row">
+                <br>
+                <div class="col-6">
+                  <span class="text-secondary" v-if="journal.sign_p_jsy_bz">班组签字：<br></span>
+                  <img src="#" alt="班组签字" v-if="journal.sign_p_jsy_bz" v-bind:src="journal.sign_p_jsy_bz">
+                </div>
+                <div class="col-6">
+                  <span class="text-secondary" v-if="journal.sign_p_jsy_qc">质检签字：<br></span>
+                  <img src="#" alt="质检签字" v-if="journal.sign_p_jsy_qc" v-bind:src="journal.sign_p_jsy_qc">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -189,7 +206,9 @@
                     <li class="list-inline-item">动车所现场监控人：{{ item.watcher }}</li>
                     <li class="list-inline-item">监控班组：{{ item.watcher_group }}</li>
                     <li class="list-inline-item">质检员：{{ item.qc }}</li>
-                    <li class="list-inline-item">备注：{{ item.remark }}</li>
+                    <li class="list-inline-item">
+                      备注1{{ item.remark }}
+                    </li>
                   </ul>
                 </li>
               </ul>

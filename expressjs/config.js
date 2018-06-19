@@ -35,8 +35,8 @@ const develConfig = {
   },
   storage: {
     user: 'ovaphlow',
-    password: 'ovaph@CDT.1123',
-    host: '192.168.0.101',
+    password: 'ovaph@HD.1123',
+    host: '192.168.1.248',
     database: 'haxi'
   },
   proxy: {

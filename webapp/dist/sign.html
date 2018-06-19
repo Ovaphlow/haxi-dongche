@@ -188,6 +188,40 @@
                 alert(response.data.message)
               }
             })
+          } else if (sign.operation === 'zbsz') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/zbsz',
+              data: {
+                p_zbsz: auth.name,
+                p_zbsz_id: auth.id,
+                sign: elResult.getAttribute('src')
+              },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else { 
+                alert(response.data.message)
+              }
+            })
+          } else if (sign.operation === 'dd') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/dd',
+              data: {
+                p_dd: auth.name,
+                p_dd_id: auth.id,
+                sign: elResult.getAttribute('src')
+              },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else { 
+                alert(response.data.message)
+              }
+            })
           }
         }
       }
