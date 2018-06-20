@@ -222,6 +222,58 @@
                 alert(response.data.message)
               }
             })
+          } else if (sign.operation === 'verify-leader') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/verify/leader/sign',
+              data: { sign: elResult.getAttribute('src') },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else { 
+                alert(response.data.message)
+              }
+            })
+          } else if (sign.operation === 'verify-leader-bz') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/verify/leader/bz',
+              data: { sign: elResult.getAttribute('src') },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else { 
+                alert(response.data.message)
+              }
+            })
+          } else if (sign.operation === 'verify-leader-qc') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/verify/leader/qc',
+              data: { sign: elResult.getAttribute('src') },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else {
+                alert(response.data.message)
+              }
+            })
+          } else if (sign.operation === 'verify') {
+            axios({
+              method: 'PUT',
+              url: './api/journal02/' + sign.item_id + '/verify/sign',
+              data: { sign: elResult.getAttribute('src') },
+              responseType: 'json'
+            }).then(function (response) {
+              if (response.data.status === 200) {
+                location.href = sign.to
+              } else {
+                alert(response.data.message)
+              }
+            })
           }
         }
       }

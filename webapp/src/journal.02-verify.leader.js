@@ -7,8 +7,7 @@ document.getElementById('sidebar').innerHTML = sidebar
 import toolbar from './journal.02-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
 
-import authDialog from './auth-dialog.html'
-document.getElementById('authDialog').innerHTML = authDialog
+let auth = JSON.parse(sessionStorage.getItem('auth'))
 
 let app = new Vue({
   el: '#app',
@@ -29,9 +28,41 @@ let app = new Vue({
         location.href = './journal.02-save.04.html'
       } else {}
     },
+
+    sign: function () {
+      axios({
+        method: 'PUT',
+        url: './api/journal02/verify/leader/' + app.content.id,
+        data: {
+          verify_report: app.request.verify_report,
+          verify_leader: auth.name,
+          verify_leader_id: auth.id,
+          verify_leader_date: app.request.verify_leader_date,
+          verify_leader_time: app.request.verify_leader_time,
+          remark: app.request.remark
+        },
+        responseType: 'json'
+      }).then(function (response) {
+        if (response.data.status !== 200) {
+          alert(response.data.message)
+          return false
+        }
+        let sign = {
+          category: 'journal02',
+          from: './journal.02-verify.leader.html',
+          to: './journal.02-verify.html',
+          operation: 'verify-leader',
+          item_id: sessionStorage.getItem('verifyId')
+        }
+        sessionStorage.setItem('sign', JSON.stringify(sign))
+        location.href = './sign.html'
+      })
+    },
+
     auth: function () {
       $('#auth').modal()
     },
+
     submit: function () {
       axios({
         method: 'POST',
@@ -69,6 +100,7 @@ let app = new Vue({
       })
     }
   },
+
   created: function () {
     axios({
       method: 'GET',
@@ -76,14 +108,14 @@ let app = new Vue({
       responseType: 'json'
     }).then(function (response) {
       if (response.data.status === 200) {
-        if (response.data.content.tag) {
-          document.getElementById('tag').value = response.data.content.tag
-          document.getElementById('tag').setAttribute('disabled', true)
-        }
         app.request.verify_leader_date = response.data.content.date_end
         app.request.verify_leader_time = response.data.content.time_end
         app.request.tag = response.data.content.tag
         app.content = response.data.content
+        if (response.data.content.tag) {
+          document.getElementById('tag').value = response.data.content.tag
+          document.getElementById('tag').setAttribute('disabled', true)
+        }
       }
     })
   }

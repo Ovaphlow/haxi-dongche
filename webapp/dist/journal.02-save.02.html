@@ -84,12 +84,13 @@
                   <ul class="list-inline">
                     <li class="list-inline-item">
                       <span class="text-secondary">更换原因：</span>
-                      <span class="text-danger">{{ item.reason }}</span></li>
+                      <span class="text-danger">{{ item.reason }}</span>
+                    </li>
                   </ul>
 
                   <ul class="list-inline">
                     <li class="list-inline-item">
-                     <span class="text-secondary">作业人员已阅读工艺文件并掌握各步骤：</span>
+                      <span class="text-secondary">作业人员已阅读工艺文件并掌握各步骤：</span>
                       <strong>{{ item.p_gywj ? '是' : '否' }}</strong>
                     </li>
                     <li class="list-inline-item">
@@ -121,13 +122,16 @@
                   <ul class="list-inline">
                     <li class="list-inline-item">
                       <span class="text-secondary">部件功能试验正常：</span>
-                      <strong>{{ item.p_bjgnsy ? '是' : '否' }}</strong></li>
+                      <strong>{{ item.p_bjgnsy ? '是' : '否' }}</strong>
+                    </li>
                     <li class="list-inline-item">
                       <span class="text-secondary">质检员：</span>
-                      <u>{{ item.qc }}</u></li>
+                      <u>{{ item.qc }}</u>
+                    </li>
                     <li class="list-inline-item">
                       <span class="text-secondary">值班干部：</span>
-                      <u>{{ item.duty_officer }}</u></li>
+                      <u>{{ item.duty_officer }}</u>
+                    </li>
                   </ul>
 
                   <div class="clearfix"></div>
@@ -143,7 +147,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
 
     <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style="font-size:0.875em">
@@ -258,10 +262,11 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 
+  <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="./lib/axios/dist/axios.min.js"></script>
   <script src="./lib/vue/dist/vue.min.js"></script>
   <script src="./lib/moment/min/moment.min.js"></script>

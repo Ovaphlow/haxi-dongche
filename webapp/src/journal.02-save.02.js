@@ -17,6 +17,7 @@ let app = new Vue({
     plus: function () {
       $('#save').modal()
     },
+
     save: function () {
       axios({
         method: 'POST',
@@ -31,6 +32,7 @@ let app = new Vue({
         }
       })
     },
+
     remove: function (event) {
       if (!!!confirm('确认删除选定的记录？')) return false
       axios({
@@ -41,16 +43,18 @@ let app = new Vue({
         location.reload(true)
       })
     },
+
     fin: function () {
       location.href = './journal.02-verify.leader.html'
     }
   },
+
   created: function () {
-    app.journal.date = moment().format('YYYY-MM-DD')
-    app.journal.p_gywj = '1'
-    app.journal.p_ljbs = '1'
-    app.journal.p_bjaz = '1'
-    app.journal.p_bjgnsy = '1'
+    this.journal.date = moment().format('YYYY-MM-DD')
+    this.journal.p_gywj = '1'
+    this.journal.p_ljbs = '1'
+    this.journal.p_bjaz = '1'
+    this.journal.p_bjgnsy = '1'
 
     axios({
       method: 'GET',
