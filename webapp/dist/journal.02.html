@@ -73,10 +73,16 @@
               <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
                 动车所调度审核
               </span>
-              <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
+              <span class="badge badge-warning pull-right" v-else-if="c.sign_p_jsy && ((c.p_jsy_content.indexOf('班组') && c.sign_p_jsy_bz) || (c.p_jsy_content.indexOf('质检签字') && c.sign_p_jsy_qc))">
                 值班所长审批
               </span>
-              <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
+              <span class="badge badge-info pull-right" v-else-if="c.sign_p_jsy_bz && c.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!c.sign_p_jsy_qc">
+                质检签字
+              </span>
+              <span class="badge badge-info pull-right" v-else-if="c.sign_p_jsy && c.p_jsy_content.indexOf('班组') !== -1 && !!!c.sign_p_jsy_bz">
+                班组签字
+              </span>
+              <span class="badge badge-info pull-right" v-else="!!!c.sign_p_jsy">
                 动车所技术员审核
               </span>
             </p>
@@ -94,9 +100,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>

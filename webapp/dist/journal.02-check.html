@@ -11,15 +11,6 @@
   <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
 
   <link href="assets/css/dashboard.css" rel="stylesheet">
-
-  <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
-  <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/vue/dist/vue.min.js"></script>
-  <script src="./lib/moment/min/moment.min.js"></script>
-  <script src="./lib/blueimp-md5/js/md5.min.js"></script>
-  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
-  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -47,21 +38,6 @@
           <li class="list-group-item" v-for="c in content_jsy">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
-                作业完成
-              </span>
-              <span class="badge badge-dark pull-right" v-else-if="c.verify_leader_id > 0">
-                调度员核销
-              </span>
-              <span class="badge badge-success pull-right" v-else-if="c.p_dd_id > 0">
-                作业负责人签字
-              </span>
-              <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
-                动车所调度审核
-              </span>
-              <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
-                值班所长审批
-              </span>
               <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
                 动车所技术员审核
               </span>
@@ -80,9 +56,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
@@ -128,9 +101,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
@@ -176,9 +146,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
@@ -206,23 +173,8 @@
           <li class="list-group-item" v-for="c in content_zbsz">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
-                作业完成
-              </span>
-              <span class="badge badge-dark pull-right" v-else-if="c.verify_leader_id > 0">
-                调度员核销
-              </span>
-              <span class="badge badge-success pull-right" v-else-if="c.p_dd_id > 0">
-                作业负责人签字
-              </span>
-              <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
-                动车所调度审核
-              </span>
               <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
                 值班所长审批
-              </span>
-              <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
-                动车所技术员审核
               </span>
             </p>
 
@@ -239,9 +191,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
@@ -269,23 +218,8 @@
           <li class="list-group-item" v-for="c in content_dd">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
-                作业完成
-              </span>
-              <span class="badge badge-dark pull-right" v-else-if="c.verify_leader_id > 0">
-                调度员核销
-              </span>
-              <span class="badge badge-success pull-right" v-else-if="c.p_dd_id > 0">
-                作业负责人签字
-              </span>
               <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
                 动车所调度审核
-              </span>
-              <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
-                值班所长审批
-              </span>
-              <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
-                动车所技术员审核
               </span>
             </p>
 
@@ -302,9 +236,6 @@
                 <span class="text-muted">作业负责人：</span>
                 <u>{{ c.leader }} ({{ c.leader_phone }})</u>
               </li>
-            </ul>
-
-            <ul class="list-inline">
               <li class="list-inline-item">
                 <span class="text-muted">作业车组号：</span>
                 <span class="text-primary">{{ c.group_sn }}</span>
@@ -329,7 +260,7 @@
         </ul>
       </main>
     </div>
-
+<!-- 
     <div id="authDialog"></div>
 
     <div id="p-jsy-content" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="infoTitleJSY" aria-hidden="true">
@@ -369,9 +300,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
+  <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
+  <script src="./lib/axios/dist/axios.min.js"></script>
+  <script src="./lib/vue/dist/vue.min.js"></script>
+  <script src="./lib/moment/min/moment.min.js"></script>
+  <script src="./lib/blueimp-md5/js/md5.min.js"></script>
+  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
+  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="./assets/js/journal.02-check.js"></script>
 </body>
 

@@ -16,6 +16,7 @@ let app = new Vue({
     journal: {},
     filter: {}
   },
+
   methods: {
     filterSubmit: function () {
       axios({
@@ -31,17 +32,19 @@ let app = new Vue({
         app.content = response.data.content
       })
     },
+
     detail: function (event) {
       // 跳转到详细信息页面
       sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
       location.href = './journal.02-detail.html'
     }
   },
+
   created: function () {
     this.filter.date_begin = moment().format('YYYY-MM-DD')
     axios({
       method: 'GET',
-      url: './api/journal02/',
+      url: './api/journal02/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(function (response) {
       app.content = response.data.content

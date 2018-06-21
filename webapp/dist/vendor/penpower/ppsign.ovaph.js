@@ -9,15 +9,14 @@ function init() {
     return false
   }
 
-  if (el.PPL398_InitialDevice(2, 0, 0, 400, 250) !== 0) {
-    // alert('初始化失败')
+  if (el.PPL398_InitialDevice(2, 0, 0, 160, 100) !== 0) {
     location.reload(true)
     return false
   }
 
-  // console.log(el.PPL398_GetHWPadID(2))
-  // console.log(el.PPL398_GetHWPenID(2))
-  // console.log(el.PPL398_GetHWVersionID(2))
+  // console.log('pad id', el.PPL398_GetHWPadID(2))
+  // console.log('pen id', el.PPL398_GetHWPenID(2))
+  // console.log('version', el.PPL398_GetHWVersionID(2))
 
   // if (el.PPL398_SetPenColor(2, 0, 0, 0) !== 0) { console.log('设定画笔颜色失败：') }
 
