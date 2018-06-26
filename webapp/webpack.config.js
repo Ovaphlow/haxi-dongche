@@ -3,6 +3,7 @@ const { resolve } = require('path')
 module.exports = {
   // mode: 'development',
   mode: 'production',
+
   entry: {
     'login': './src/login.js',
 
@@ -32,7 +33,11 @@ module.exports = {
     'admin.dept': './src/admin.dept.js',
     'admin.user-list': './src/admin.user-list.js',
     'admin.user': './src/admin.user.js',
-    'admin.user-save': './src/admin.user-save.js'
+    'admin.user-save': './src/admin.user-save.js',
+
+    'schedule/index': './src/schedule/index.js',
+    'schedule/mgr.model': './src/schedule/mgr.model.js',
+    'schedule/mgr.train': './src/schedule/mgr.train.js',
   },
 
   // devtool: 'inline-source-map',
