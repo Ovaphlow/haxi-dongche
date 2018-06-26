@@ -38,7 +38,7 @@ module.exports = {
   // devtool: 'inline-source-map',
 
   output: {
-    path: resolve(__dirname, './dist/assets/js'),
+    path: resolve(__dirname, './public/assets/js'),
     filename: '[name].js'
   },
 
