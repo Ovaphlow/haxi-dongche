@@ -49,10 +49,10 @@
                 <span class="text-danger">{{ c.borrow }}</span>
                 于 <span class="text-secondary">{{ c.borrow_date }} {{ c.borrow_time }}</span> 发放
               </li>
-              <li class="list-inline-item" v-if="c.return">
-                <span class="text-success">{{ c.return_by }}</span>
+              <li class="list-inline-item" v-if="c.return_by_id">
+                <span class="text-warning">{{ c.return_name }}</span>
                 于 <span class="text-muted">{{ c.return_date }} {{ c.return_time }}</span> 归还，
-                <span class="text-success">{{ c.return }}</span> 确认
+                <span class="text-success">{{ c.return_by }}</span> 确认
               </li>
             </ul>
           </li>

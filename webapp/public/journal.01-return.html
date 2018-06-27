@@ -45,11 +45,24 @@
             </h5>
             <p>
               <ul class="list-inline">
-                <li class="list-inline-item">申请人：
+                <li class="list-inline-item">
+                  <span class="text-secondary">申请人：</span>
                   <span>{{ c.applicant }}</span>
                 </li>
-                <li class="list-inline-item">作业部门：
+
+                <li class="list-inline-item">
+                  <span class="text-secondary">作业部门：</span>
                   <span>{{ c.dept }}</span>
+                </li>
+
+                <li class="list-inline-item">
+                  <span class="text-secondary">发放人：</span>
+                  {{ c.borrow }}
+                </li>
+
+                <li class="list-inline-item">
+                  <span class="text-secondary">发放时间：</span>
+                  {{ c.borrow_date }} {{ c.borrow_time }}
                 </li>
               </ul>
             </p>

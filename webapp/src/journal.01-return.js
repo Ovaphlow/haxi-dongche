@@ -34,7 +34,8 @@ let app = new Vue({
         url: './api/journal01/return/' + this.refId,
         data: {
           return_name: document.getElementById('cache.return').options[document.getElementById('cache.return').options.selectedIndex].text,
-          return_id: this.cache.return,
+          return_by_id: this.auth.id,
+          return_by: this.auth.name,
           remark: this.cache.remark
         }
       }).then(function (response) {
@@ -56,22 +57,13 @@ let app = new Vue({
       }).then(function (response) {
         app.content = response.data.content
       })
-    } else {
-      axios({
-        method: 'GET',
-        url: './api/journal01/applicant/' + auth.id + '/',
-        responseType: 'json'
-      }).then((response) => {
-        // app.content = response.data.content
-      })
     }
 
     axios({
       method: 'get',
-      url: './api/user/dept/' + this.auth.dept_id,
+      url: './api/user/',
       responseType: 'json'
     }).then(function (response) {
-      console.log(response.data.content)
       app.userList = response.data.content
     })
   }
