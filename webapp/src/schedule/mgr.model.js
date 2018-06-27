@@ -8,17 +8,68 @@ class MgrModel extends React.Component {
   constructor(props) {
     super(props)
   
-    this.state = { message: '', modelList: [] }
+    this.state = { message: '', tag: '', model: {} }
+    this.change = this.change.bind(this)
+    this.submit = this.submit.bind(this)
+  }
+
+  change(event) {
+    this.setState({ model: { value: event.target.value } })
+  }
+
+  submit() {
+    this.setState({ message: '' })
+
+    if (!!!document.getElementById('name').value) {
+      this.setState({ message: '请完整填写车型信息。' })
+      return false
+    }
+
+    if (this.state.tag === 'post') {
+      axios({
+        method: 'post',
+        url: '../api/common/model',
+        data: this.state.model,
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.message) {
+          this.setState({ message: response.data.message })
+          return false
+        }
+        location.href = './mgr.model-list.html'
+      })
+    } else if (this.state.tag === 'put') {
+      axios({
+        method: 'put',
+        url: '../api/common/model/' + urlParameter('uuid'),
+        data: this.state.model,
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.message) {
+          this.setState({ message: response.data.message })
+          return false
+        }
+        location.href = './mgr.model-list.html'
+      })
+    }
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: '../api/common/model/',
-      responseType: 'json'
-    }).then(response => {
-      console.log(response.data)
-    })
+    if (urlParameter('uuid')) {
+      this.setState({ tag: 'put' })
+
+      axios({
+        method: 'get',
+        url: '../api/common/model/' + urlParameter('uuid'),
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.content.length === 1) {
+          this.setState({ model: response.data.content[0] })
+        } else {
+          this.setState({ message: response.data.message || '数据异常。' })
+        }
+      })
+    } else this.setState({ tag: 'post' })
   }
 
   render() {
@@ -38,24 +89,33 @@ class MgrModel extends React.Component {
                   </h3>
 
                   <div className="btn-group pull-right">
-                    <a href="#" className="btn btn-outline-secondary btn-sm">
+                    <a href="./mgr.model-list.html" className="btn btn-outline-secondary btn-sm">
                       <i className="fa fa-fw fa-search"></i> 检索数据
+                    </a>
+
+                    <a href="./mgr.model.html" className="btn btn-outline-secondary btn-sm">
+                      <i className="fa fa-fw fa-plus"></i> 添加车型
                     </a>
                   </div>
                 </div>
               </div>
 
-              {this.state.message && <div className="col-12">
-                <div className="alert alert-danger">
-                  {this.state.message}
+              <div className="col-12">
+                <div className="form-group">
+                  <label>车型</label>
+                  <input type="text" className="form-control" id="name" value={this.state.model.value} onChange={this.change}/>
                 </div>
-              </div>}
+              </div>
 
               <div className="col-12">
-                <div className="list-group">
-                  <a href="#" className="list-group-item list-group-item-action">
-                    车型
+                <div className="btn-group pull-right">
+                  <a href="./mgr.model-list.html" className="btn btn-secondary">
+                    <i className="fa fa-fw fa-arrow-left"></i> 返回
                   </a>
+
+                  <button type="button" className="btn btn-primary" onClick={this.submit}>
+                    <i className="fa fa-fw fa-check-square-o"></i> 确定
+                  </button>
                 </div>
               </div>
             </main>

@@ -8,17 +8,80 @@ class MgrTrain extends React.Component {
   constructor(props) {
     super(props)
   
-    this.state = { message: '', modelList: [] }
+    this.state = { message: '', tag: '', modelList: [] }
+    this.submit = this.submit.bind(this)
+  }
+
+  componentWillMount() {
+    axios({
+      method: 'get',
+      url: '../api/common/model',
+      responseType: 'json'
+    }).then(response => {
+      this.setState({ modelList: response.data.content })
+    })
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: '../api/common/train/',
-      responseType: 'json'
-    }).then(response => {
-      console.log(response.data)
-    })
+    if (urlParameter('uuid')) {
+      this.setState({ tag: 'put' })
+
+      axios({
+        method: 'get',
+        url: '../api/common/train/' + urlParameter('uuid'),
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.content.length === 1) {
+          document.getElementById('name').value = response.data.content[0].name
+          document.getElementById('model').value = response.data.content[0].model
+        } else {
+          this.setState({ message: response.data.message || '数据异常。' })
+        }
+      })
+    } else this.setState({ tag: 'post' })
+  }
+
+  submit() {
+    this.setState({ message: '' })
+
+    if (!!!document.getElementById('name').value || !!!document.getElementById('model').value) {
+      this.setState({ message: '请完整填写车组信息。' })
+      return false
+    }
+
+    if (this.state.tag === 'post') {
+      axios({
+        method: 'post',
+        url: '../api/common/train',
+        data: {
+          name: document.getElementById('name').value,
+          model: document.getElementById('model').value
+        },
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.message) {
+          this.setState({ message: response.data.message })
+          return false
+        }
+        location.href = './mgr.model-list.html'
+      })
+    } else if (this.state.tag === 'put') {
+      axios({
+        method: 'put',
+        url: '../api/common/train/' + urlParameter('uuid'),
+        data: {
+          name: document.getElementById('name').value,
+          model: document.getElementById('model').value
+        },
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.message) {
+          this.setState({ message: response.data.message })
+          return false
+        }
+        location.href = './mgr.train-list.html'
+      })
+    }
   }
 
   render() {
@@ -38,24 +101,52 @@ class MgrTrain extends React.Component {
                   </h3>
 
                   <div className="btn-group pull-right">
-                    <a href="#" className="btn btn-outline-secondary btn-sm">
+                    <a href="./mgr.train-list.html" className="btn btn-outline-secondary btn-sm">
                       <i className="fa fa-fw fa-search"></i> 检索数据
+                    </a>
+
+                    <a href="./mgr.train.html" className="btn btn-outline-secondary btn-sm">
+                      <i className="fa fa-fw fa-plus"></i> 添加车型
                     </a>
                   </div>
                 </div>
               </div>
-
-              {this.state.message && <div className="col-12">
-                <div className="alert alert-danger">
-                  {this.state.message}
+              
+              {this.state.message &&
+                <div className="col-12">
+                  <div className="alert alert-danger">
+                    {this.state.message}
+                  </div>
                 </div>
-              </div>}
+              }
 
               <div className="col-12">
-                <div className="list-group">
-                  <a href="#" className="list-group-item list-group-item-action">
-                    车组
+                <div className="form-group">
+                  <label>车组</label>
+                  <input type="text" className="form-control" id="name"/>
+                </div>
+              </div>
+
+              <div className="col-12">
+                <div className="form-group">
+                  <label>车型</label>
+                  <select className="form-control" id="model">
+                    {this.state.modelList.map(item =>
+                      <option value={item.value} key={item.id}>{item.value}</option>
+                    )}
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-12">
+                <div className="btn-group pull-right">
+                  <a href="./mgr.train-list.html" className="btn btn-secondary">
+                    <i className="fa fa-fw fa-arrow-left"></i> 返回
                   </a>
+
+                  <button type="button" className="btn btn-primary" onClick={this.submit}>
+                    <i className="fa fa-fw fa-check-square-o"></i> 确定
+                  </button>
                 </div>
               </div>
             </main>
