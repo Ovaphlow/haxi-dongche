@@ -10,6 +10,7 @@ document.getElementById('toolbar').innerHTML = toolbar
 
 let app = new Vue({
   el: '#app',
+
   data: {
     content: [],
     journalList: [],

@@ -1,7 +1,7 @@
 import navbar from './navbar.html'
 document.getElementById('navbar').innerHTML = navbar
 
-import sidebar from './journal.sidebar.html'
+import sidebar from './sidebar-2.html'
 document.getElementById('sidebar').innerHTML = sidebar
 
 import toolbar from './journal.01-toolbar.html'
@@ -11,11 +11,13 @@ const user = JSON.parse(sessionStorage.getItem('auth'))
 
 let app = new Vue({
   el: '#app',
+
   data: {
     user: JSON.parse(sessionStorage.getItem('auth')),
     content: [],
     message: ''
   },
+
   methods: {
     borrow: function (event) {
       axios({
@@ -31,6 +33,7 @@ let app = new Vue({
       })
     },
   },
+
   created: function () {
     if (user.auth_01) {
       axios({
