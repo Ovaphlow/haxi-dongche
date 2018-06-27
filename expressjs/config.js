@@ -11,9 +11,9 @@ const prodConfig = {
     ]
   },
   storage: {
-    user: 'ovaphlow',
-    password: 'ovaph@HD.1123',
-    host: '192.168.1.154',
+    user: 'root',
+    password: 'root',
+    host: '127.0.0.1',
     database: 'haxi'
   },
   proxy: {

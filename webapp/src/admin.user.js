@@ -9,7 +9,9 @@ document.getElementById('toolbar').innerHTML = toolbar
 
 let app = new Vue({
   el: '#app',
-  data: { user: {}, deptList: [] },
+
+  data: { user: {}, deptList: [], auth: JSON.parse(sessionStorage.getItem('auth')) },
+
   methods: {
     remove: function () {
       if (!!!confirm('删除当前用户，确定或取消？')) return false
@@ -22,6 +24,7 @@ let app = new Vue({
         if (response.data.status === 200) location.href = './admin.user-list.html'
       })
     },
+
     save: function () {
       if (!!!app.user.name || !!!app.user.username) {
         alert('请完整填写用户信息')
@@ -54,7 +57,14 @@ let app = new Vue({
       })
     }
   },
+  
   created: function () {
+    if (!!!this.auth.auth_admin) {
+      alert('当前用户没有该页面的权限。')
+      location.href = './journal.index.html'
+      return false
+    }
+
     axios({
       method: 'GET',
       url: './api/user/' + sessionStorage.getItem('user'),

@@ -1,4 +1,4 @@
-import navbar from './navbar.html'
+import navbar from './navbar-2.html'
 document.getElementById('navbar').innerHTML = navbar
 
 import sidebar from './sidebar-2.html'

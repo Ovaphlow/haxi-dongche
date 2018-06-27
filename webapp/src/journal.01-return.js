@@ -1,4 +1,4 @@
-import navbar from './navbar.html'
+import navbar from './navbar-2.html'
 document.getElementById('navbar').innerHTML = navbar
 
 import sidebar from './sidebar-2.html'
@@ -7,31 +7,48 @@ document.getElementById('sidebar').innerHTML = sidebar
 import toolbar from './journal.01-toolbar.html'
 document.getElementById('toolbar').innerHTML = toolbar
 
-const user = JSON.parse(sessionStorage.getItem('auth'))
-
 let app = new Vue({
   el: '#app',
 
   data: {
-    user: user,
+    auth: JSON.parse(sessionStorage.getItem('auth')),
     userList: [],
     content: [],
-    cache: {}
+    cache: {},
+    refId: 0
   },
 
   methods: {
     linkReturn: function (event) {
       let journalId = event.target.getAttribute('data-id')
-      componentReturn.refId = journalId
+      this.refId = journalId
 
       $('#modal').modal({
         backdrop: 'static'
+      })
+    },
+
+    submit: function (event) {
+      axios({
+        method: 'put',
+        url: './api/journal01/return/' + this.refId,
+        data: {
+          return_name: document.getElementById('cache.return').options[document.getElementById('cache.return').options.selectedIndex].text,
+          return_id: this.cache.return,
+          remark: this.cache.remark
+        }
+      }).then(function (response) {
+        if (response.data.message) {
+          alert(response.data.message)
+          return false
+        }
+        location.reload(true)
       })
     }
   },
 
   created: function () {
-    if (user.auth_01) {
+    if (this.auth.auth_01) {
       axios({
         method: 'GET',
         url: './api/journal01/return/',
@@ -40,47 +57,22 @@ let app = new Vue({
         app.content = response.data.content
       })
     } else {
-      // axios({
-      //   method: 'GET',
-      //   url: './api/journal01/applicant/' + user.id + '/',
-      //   responseType: 'json'
-      // }).then((response) => {
-      //   // app.content = response.data.content
-      // })
-    }
-  }
-})
-
-let componentReturn = new Vue({
-  el: '#modal',
-  data: {
-    refId: 0,
-    cache: {},
-    userList: []
-  },
-  watch: {
-    refId: function () {
       axios({
         method: 'GET',
-        url: './api/journal01/' + app.refId,
+        url: './api/journal01/applicant/' + auth.id + '/',
         responseType: 'json'
-      }).then(response => {
-        // app.cache = response.data.content
+      }).then((response) => {
+        // app.content = response.data.content
       })
     }
-  },
-  methods: {
-    setReturn: function () {
-      var elReturn = document.getElementById('cache.return')
-    }
-  },
-  created: function () {
+
     axios({
-      method: 'GET',
-      url: './api/user/dept/' + user.dept_id,
+      method: 'get',
+      url: './api/user/dept/' + this.auth.dept_id,
       responseType: 'json'
     }).then(function (response) {
-      componentReturn.userList = response.data.content
+      console.log(response.data.content)
+      app.userList = response.data.content
     })
   }
 })
