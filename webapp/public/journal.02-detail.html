@@ -41,7 +41,8 @@
             </div>
 
             <div class="col-6">
-              <span class="text-secondary">申请人：</span><u>{{ journal.applicant }}</u>
+              <span class="text-secondary">申请人：</span>
+              <u>{{ journal.applicant }}</u>
             </div>
             <div class="col-6">
               <span class="text-secondary">联系电话：</span>{{ journal.applicant_phone }}
@@ -49,7 +50,8 @@
             <div class="clearfix"></div>
 
             <div class="col-6">
-              <span class="text-secondary">作业负责人：</span><u>{{ journal.leader }}</u>
+              <span class="text-secondary">作业负责人：</span>
+              <u>{{ journal.leader }}</u>
             </div>
             <div class="col-6">
               <span class="text-secondary">联系电话：</span>{{ journal.leader_phone }}
@@ -57,7 +59,8 @@
             <div class="clearfix"></div>
 
             <div class="col-12">
-              <span class="text-secondary">作业车组号：</span><span class="text-primary">{{ journal.group_sn }}</span>
+              <span class="text-secondary">作业车组号：</span>
+              <span class="text-primary">{{ journal.group_sn }}</span>
             </div>
 
             <div class="col-6">
@@ -69,7 +72,9 @@
             <div class="clearfix"></div>
 
             <div class="col-12">
-              <span class="text-secondary">作业内容：</span><span class="text-danger">{{ journal.content }}</span> // <span class="text-danger">{{ journal.content_detail }}</span>
+              <span class="text-secondary">作业内容：</span>
+              <span class="text-danger">{{ journal.content }}</span> //
+              <span class="text-danger">{{ journal.content_detail }}</span>
             </div>
 
             <div class="col-12">
@@ -106,6 +111,17 @@
               <span class="badge badge-warning">{{ journal.p_zbsz }}</span>
               <br>
               <img src="#" alt="值班所长签字" v-if="journal.sign_p_zbsz" v-bind:src="journal.sign_p_zbsz">
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="col-4">
+              <span class="text-secondary">技术员设置：</span>{{ journal.p_jsy_content }}
+            </div>
+            <div class="col-4">
+              <span class="text-secondary">班组：</span>{{ journal.p_jsy_bz }}
+            </div>
+            <div class="col-4">
+              <span class="text-secondary">质检：</span>{{ journal.p_jsy_qc }}
             </div>
             <div class="clearfix"></div>
 
@@ -148,11 +164,15 @@
               <div class="row">
                 <br>
                 <div class="col-6">
-                  <span class="text-secondary" v-if="journal.sign_p_jsy_bz">班组签字：<br></span>
+                  <span class="text-secondary" v-if="journal.sign_p_jsy_bz">班组签字：
+                    <br>
+                  </span>
                   <img src="#" alt="班组签字" v-if="journal.sign_p_jsy_bz" v-bind:src="journal.sign_p_jsy_bz">
                 </div>
                 <div class="col-6">
-                  <span class="text-secondary" v-if="journal.sign_p_jsy_qc">质检签字：<br></span>
+                  <span class="text-secondary" v-if="journal.sign_p_jsy_qc">质检签字：
+                    <br>
+                  </span>
                   <img src="#" alt="质检签字" v-if="journal.sign_p_jsy_qc" v-bind:src="journal.sign_p_jsy_qc">
                 </div>
               </div>

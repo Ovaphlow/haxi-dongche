@@ -57,6 +57,14 @@ let app = new Vue({
       }).then(function (response) {
         app.content = response.data.content
       })
+    } else {
+      axios({
+        method: 'get',
+        url: './api/journal01/return/user/' + this.auth.id,
+        responseType: 'json'
+      }).then(response => {
+        this.content = response.data.content
+      })
     }
 
     axios({
