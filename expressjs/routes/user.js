@@ -1,6 +1,5 @@
 const crypto = require('crypto')
 
-const axios = require('axios')
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const log4js = require('log4js')

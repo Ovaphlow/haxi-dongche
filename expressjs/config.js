@@ -3,7 +3,9 @@ const prodConfig = {
     env: 'development',
     logLevel: 'info',
     port: 8081,
-    secretKey: 'ovaphlow'
+    secretKey: 'ovaphlow',
+    webappPath: `${__dirname}/../webapp`,
+    webappFilePath: `/public/assets/file`
   },
   auth: {
     excludeUrl: [
@@ -16,9 +18,6 @@ const prodConfig = {
     host: '127.0.0.1',
     database: 'haxi'
   },
-  proxy: {
-    url: 'http://127.0.0.1:8080'
-  }
 }
 
 const develConfig = {
@@ -26,7 +25,9 @@ const develConfig = {
     env: 'development',
     logLevel: 'debug',
     port: 8081,
-    secretKey: 'ovaphlow'
+    secretKey: 'ovaphlow',
+    webappPath: `${__dirname}/../webapp`,
+    webappFilePath: `/public/assets/file`
   },
   auth: {
     excludeUrl: [
@@ -39,9 +40,6 @@ const develConfig = {
     host: '192.168.1.248',
     database: 'haxi'
   },
-  proxy: {
-    url: 'http://127.0.0.1:8080'
-  }
 }
 
 module.exports = develConfig
