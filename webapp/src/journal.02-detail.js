@@ -16,7 +16,17 @@ let app = new Vue({
     detail: {}
   },
 
-  methods: {},
+  methods: {
+    preview: function () {
+      axios({
+        method: 'get',
+        url: './api/excel/journal02/' + this.journal.id,
+        responseType: 'json'
+      }).then(function (response) {
+        location.href = response.data.content
+      })
+    }
+  },
 
   created: function () {
     axios({

@@ -36,6 +36,12 @@
 
         <div class="card">
           <div class="card-body row">
+            <div class="col-12 text-center">
+              <button type="button" class="btn btn-outline-success btn-sm" v-on:click="preview">
+                <i class="fa fa-fw fa-search"></i> 预览
+              </button>
+            </div>
+
             <div class="col-12">
               <span class="text-secondary">申请单位：</span>{{ journal.dept }}
             </div>
