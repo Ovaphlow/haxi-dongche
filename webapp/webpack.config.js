@@ -36,6 +36,7 @@ module.exports = {
     'admin.user-save': './src/admin.user-save.js',
 
     'schedule/index': './src/schedule/index.js',
+    'schedule/upload': './src/schedule/upload.js',
     'schedule/mgr.model-list': './src/schedule/mgr.model-list.js',
     'schedule/mgr.model': './src/schedule/mgr.model.js',
     'schedule/mgr.train-list': './src/schedule/mgr.train-list.js',

@@ -1,6 +1,6 @@
 const prodConfig = {
   app: {
-    env: 'development',
+    env: 'production',
     logLevel: 'info',
     port: 8081,
     secretKey: 'ovaphlow',

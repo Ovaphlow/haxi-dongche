@@ -19,7 +19,7 @@ export default class Sidebar extends React.Component {
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="./index.html">
+              <a className="nav-link" href="./upload.html">
                 <i className="fa fa-fw fa-upload"></i> 上传数据文件
               </a>
             </li>

@@ -29,8 +29,11 @@ app.use('/api/dept', dept)
 const common = require('./routes/common')
 app.use('/api/common', common)
 
-const excel = require('./routes/excel')
-app.use('/api/common/excel', excel)
+const commonUpload = require('./routes/upload')
+app.use('/api/common/upload', commonUpload)
+
+const commonExcel = require('./routes/excel')
+app.use('/api/common/excel', commonExcel)
 
 app.listen(config.app.port, () => {
   logger.info(`服务器启动于端口 ${config.app.port}。`)
