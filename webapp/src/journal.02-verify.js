@@ -141,7 +141,7 @@ let app = new Vue({
 
     axios({
       method: 'GET',
-      url: './api/journal02/verify/leader/bz/' + user.dept,
+      url: './api/journal02/verify/leader/bz/' + user.dept + '?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(function (response) {
       app.contentLeaderBz = response.data.content
@@ -150,7 +150,7 @@ let app = new Vue({
     if (user.dept === '质检') {
       axios({
         method: 'GET',
-        url: './api/journal02/verify/leader/qc/' + user.name,
+        url: './api/journal02/verify/leader/qc/' + user.name + '?timestamp=' + new Date().getTime(),
         responseTupe: 'json'
       }).then(function (response) {
         app.contentLeaderQc = response.data.content
@@ -160,7 +160,7 @@ let app = new Vue({
     if (user.auth_p_dd) {
       axios({
         method: 'GET',
-        url: './api/journal02/verify/',
+        url: './api/journal02/verify/' + '?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(function (response) {
         app.contentVerify = response.data.content

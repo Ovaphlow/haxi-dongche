@@ -72,7 +72,8 @@
               <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
                 动车所调度审核
               </span>
-              <span class="badge badge-warning pull-right" v-else-if="c.sign_p_jsy && ((c.p_jsy_content.indexOf('班组') && c.sign_p_jsy_bz) || (c.p_jsy_content.indexOf('质检签字') && c.sign_p_jsy_qc))">
+              <span class="badge badge-warning pull-right"
+                  v-else-if="c.sign_p_jsy && ((c.p_jsy_content.indexOf('班组') && c.sign_p_jsy_bz) || (c.p_jsy_content.indexOf('质检签字') && c.sign_p_jsy_qc) || c.p_jsy_content === '同意')">
                 值班所长审批
               </span>
               <span class="badge badge-info pull-right" v-else-if="c.sign_p_jsy_bz && c.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!c.sign_p_jsy_qc">

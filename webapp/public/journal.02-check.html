@@ -38,7 +38,7 @@
           <li class="list-group-item" v-for="c in content_jsy">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-info pull-right" v-else="c.p_jsy_id > 0">
+              <span class="badge badge-info pull-right">
                 动车所技术员审核
               </span>
             </p>
@@ -173,7 +173,7 @@
           <li class="list-group-item" v-for="c in content_zbsz">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-warning pull-right" v-else-if="c.p_jsy_id > 0">
+              <span class="badge badge-warning pull-right">
                 值班所长审批
               </span>
             </p>
@@ -218,7 +218,7 @@
           <li class="list-group-item" v-for="c in content_dd">
             <p class="lead">
               <strong>{{ c.content }}</strong>
-              <span class="badge badge-danger pull-right" v-else-if="c.p_zbsz_id > 0">
+              <span class="badge badge-danger pull-right">
                 动车所调度审核
               </span>
             </p>
