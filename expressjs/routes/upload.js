@@ -27,7 +27,6 @@ router.post('/schedule', upload.single('file'), (req, res) => {
   for (let i = 0; i < sheets.length; i++) {
     for (let j = 0; j < sheets[i].data.length; j++) {
       if (j < 2) continue
-      // console.info(new Date(new Date(1900, 0, sheets[i].data[j][5] - 1).getTime()))
       let sql = `
         select (max(counter) + 1) as max from schedule_source
       `
