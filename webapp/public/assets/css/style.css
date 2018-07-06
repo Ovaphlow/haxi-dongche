@@ -5,11 +5,11 @@ html {
 
 body {
   background-color: whitesmoke;
-  font-family: "微软雅黑", "黑体", "sans";
+  font-family: "微软雅黑", "黑体", "sans-serif";
   margin-top: 4em;
   margin-bottom: 4em;
   background-size: 100% 100%;
-  /* font-size: 0.875em; */
+  font-size: 16px;
 }
 
 .workspace {
