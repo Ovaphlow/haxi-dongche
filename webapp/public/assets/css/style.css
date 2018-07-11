@@ -25,8 +25,8 @@ body {
 }
 
 .title {
-  background-color: white;
-  border-radius: 2em;
+  /* background-color: white; */
+  /* border-radius: 2em; */
   padding: 0.5em;
 
   filter: alpha(opacity=95);
