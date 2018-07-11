@@ -12,6 +12,9 @@ const prodConfig = {
       '/api/user/login'
     ]
   },
+  cache: {
+    expire: 604800
+  },
   storage: {
     user: 'root',
     password: 'root',
@@ -33,6 +36,9 @@ const develConfig = {
     excludeUrl: [
       '/api/user/login'
     ]
+  },
+  cache: {
+    expire: 604800
   },
   storage: {
     user: 'ovaphlow',
