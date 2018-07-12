@@ -24,10 +24,11 @@ let app = new Vue({
       } else if (app.journal.p_jsy_content === '班组跟踪、质检确认') {
         document.getElementById('p-jsy.p-bz').removeAttribute('disabled')
         document.getElementById('p-jsy.qc').removeAttribute('disabled')
+        app.journal.p_jsy_qc = '质检1'
       } else if (app.journal.p_jsy_content === '班组、质检跟踪') {
         document.getElementById('p-jsy.p-bz').removeAttribute('disabled')
         document.getElementById('p-jsy.qc').removeAttribute('disabled')
-        app.journal.p_jsy_qc = ''
+        app.journal.p_jsy_qc = '质检1'
       }
     },
     submit: function () {

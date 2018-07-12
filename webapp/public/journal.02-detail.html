@@ -166,22 +166,34 @@
             </div>
 
             <div class="col-12">
-              <span class="text-secondary">备注：</span>{{ journal.remark }}
               <div class="row">
                 <br>
-                <div class="col-6">
+                <div class="col-3">
                   <span class="text-secondary" v-if="journal.sign_p_jsy_bz">班组签字：
                     <br>
                   </span>
                   <img src="#" alt="班组签字" v-if="journal.sign_p_jsy_bz" v-bind:src="journal.sign_p_jsy_bz">
                 </div>
-                <div class="col-6">
+                <div class="col-3">
+                  <span class="text-secondary" v-if="journal.sign_verify_leader_bz">班组签字：
+                    <br>
+                  </span>
+                  <img src="#" alt="班组签字" v-if="journal.sign_verify_leader_bz" v-bind:src="journal.sign_verify_leader_bz">
+                </div>
+                <div class="col-3">
                   <span class="text-secondary" v-if="journal.sign_p_jsy_qc">质检签字：
                     <br>
                   </span>
                   <img src="#" alt="质检签字" v-if="journal.sign_p_jsy_qc" v-bind:src="journal.sign_p_jsy_qc">
                 </div>
+                <div class="col-3">
+                  <span class="text-secondary" v-if="journal.sign_verify_leader_qc">质检签字：
+                    <br>
+                  </span>
+                  <img src="#" alt="质检签字" v-if="journal.sign_verify_leader_qc" v-bind:src="journal.sign_verify_leader_qc">
+                </div>
               </div>
+              <p><span class="text-secondary">备注：<br/></span>{{ journal.remark }}</p>
             </div>
           </div>
         </div>
