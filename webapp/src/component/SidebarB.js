@@ -11,13 +11,13 @@ export default class SidebarA extends React.Component {
         <div classNameName="sidebar-sticky">
           <ul classNameName="nav flex-column">
             <li classNameName="nav-item">
-              <a classNameName="nav-link" href="index.html">
+              <a classNameName="nav-link" href="./index.html">
                 <i classNameName="fa fa-home"></i>
                 单据
               </a>
             </li>
             <li classNameName="nav-item">
-              <a className="nav-link" href="journal.02.html">
+              <a className="nav-link" href="./journal.02.html">
                 <i className="fa fa-file-o fa-fw"></i>&nbsp;02.一体化作业申请单
               </a>
             </li>
