@@ -42,8 +42,18 @@ class Index extends React.Component {
     this.state = {
       alert5APEjx: [],
       alert5GPEjx: [],
+      alert380BGPEjx: [],
       alert5APTs: [],
       alert5GPTs: [],
+      alert5APXx: [],
+      alert5GPXx: [],
+      alert380BGPXx: [],
+      alert5APWxz: [],
+      alert5GPWxz: [],
+      alert5AM4: [],
+      alert5GM4: [],
+      alert380BGI2: [],
+      alert380BGM3: [],
     }
   }
 
@@ -101,6 +111,90 @@ class Index extends React.Component {
         this.setState({ alert5GPTs: list })
       })
     })
+
+    // 镟修 5A
+    axios({
+      method: 'get',
+      url: './api/schedule/turnRepair/CRH5A',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5APXx
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5APXx: list })
+      })
+    })
+
+    // 镟修 5G
+    axios({
+      method: 'get',
+      url: './api/schedule/turnRepair/CRH5G',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5GPXx
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5GPXx: list })
+      })
+    })
+
+    // 万向轴 5A
+    axios({
+      method: 'get',
+      url: './api/schedule/shaft/CRH5A',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5APWxz
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5APWxz: list })
+      })
+    })
+
+    // 万向轴 5G
+    axios({
+      method: 'get',
+      url: './api/schedule/shaft/CRH5G',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5GPWxz
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5GPWxz: list })
+      })
+    })
+
+    // M4 5A
+    axios({
+      method: 'get',
+      url: './api/schedule/m4/CRH5A',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5AM4
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5AM4: list })
+      })
+    })
+
+    // M4 5G
+    axios({
+      method: 'get',
+      url: './api/schedule/m4/CRH5G',
+      responseType: 'json'
+    }).then(response => {
+      console.info(response.data)
+      let list = this.state.alert5GM4
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5GM4: list })
+      })
+    })
   }
 
   render() {
@@ -126,7 +220,7 @@ class Index extends React.Component {
               <div className="col-12">
               </div>
 
-              <p className="lead">5A/5G 车型二级修 报警</p>
+              <p className="lead">CRH5A / CRH5G / CRH380BG 车型二级修 报警</p>
               <div className="list-group">
                 {this.state.alert5APEjx.map(item =>
                   <AlertItem item={item} />
@@ -136,12 +230,59 @@ class Index extends React.Component {
                 )}
               </div>
 
-              <p className="lead"><br/>5A/5G 车型探伤 报警</p>
+              <p className="lead"><br/>CRH5A / CRH5G 车型探伤 报警</p>
               <div className="list-group">
                 {this.state.alert5APTs.map(item =>
                   <AlertItem item={item} />
                 )}
                 {this.state.alert5GPTs.map(item =>
+                  <AlertItem item={item} />
+                )}
+              </div>
+
+              <p className="lead"><br/>CRH5A / CRH5G / CRH380BG 车型镟修 报警</p>
+              <div className="list-group">
+                {this.state.alert5APXx.map(item => {
+                  <AlertItem item={item} />
+                })}
+                {this.state.alert5GPXx.map(item => {
+                  <AlertItem item={item} />
+                })}
+                {this.state.alert380BGPXx.map(item => {
+                  <AlertItem item={item} />
+                })}
+              </div>
+
+              <p className="lead"><br/>CRH5A / CRH5G 车型万向轴 报警</p>
+              <div className="list-group">
+                {this.state.alert5APWxz.map(item => {
+                  <AlertItem item={item} />
+                })}
+                {this.state.alert5GPWxz.map(item => {
+                  <AlertItem item={item} />
+                })}
+              </div>
+
+              <p className="lead"><br/>CRH5A / CRH5G 车型M4 报警</p>
+              <div className="list-group">
+                {this.state.alert5AM4.map(item =>
+                  <AlertItem item={item} />
+                )}
+                {this.state.alert5GM4.map(item =>
+                  <AlertItem item={item} />
+                )}
+              </div>
+
+              <p className="lead"><br/>CRH380BG 车型I2 报警</p>
+              <div className="list-group">
+                {this.state.alert380BGI2.map(item =>
+                  <AlertItem item={item} />
+                )}
+              </div>
+
+              <p className="lead"><br/>CRH380BG 车型M3 报警</p>
+              <div className="list-group">
+                {this.state.alert380BGM3.map(item =>
                   <AlertItem item={item} />
                 )}
               </div>
