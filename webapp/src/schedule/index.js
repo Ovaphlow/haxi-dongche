@@ -25,10 +25,10 @@ class AlertItem extends React.Component {
           <li className="list-inline-item">上传时间：<span className="text-secondary">{this.props.item.upload_time.split('T')[0]}</span></li>
           <li className="list-inline-item">当前里程：<span className="text-primary"><strong>{this.props.item.total_mileage}</strong></span></li>
           <br/>
-          <li className="list-inline-item">上次修程里程：{this.props.item.last_total_mileage}</li>
+          <li className="list-inline-item">上次修程里程：{this.props.item.last_mileage}</li>
           <li className="list-inline-item">上次修程日期：<span className="text-secondary">{this.props.item.last_date.split('T')[0]}</span></li>
           <li className="list-inline-item">下次修程里程：{this.props.item.next_mileage}</li>
-          <li className="list-inline-item">下次修程日期：<span className="text-primary">{this.props.item.next_date.split('T')[0]}</span></li>
+          {this.props.item.next_date && <li className="list-inline-item">下次修程日期：<span className="text-primary">{this.props.item.next_date}</span></li>}
         </ul>
       </a>
     )
@@ -64,6 +64,9 @@ class Index extends React.Component {
       url: './api/schedule/second/CRH5A',
       responseType: 'json'
     }).then(response => {
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5APEjx
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -77,10 +80,29 @@ class Index extends React.Component {
       url: './api/schedule/second/CRH5G',
       responseType: 'json'
     }).then(response => {
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5GPEjx
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
         this.setState({ alert5GPEjx: list })
+      })
+    })
+
+    // 二级修：380BG
+    axios({
+      method: 'get',
+      url: './api/schedule/bgsecond/CRH380BG',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        return false
+      }
+      let list = this.state.alert380BGPEjx
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert380BGPEjx: list })
       })
     })
 
@@ -90,7 +112,9 @@ class Index extends React.Component {
       url: './api/schedule/detectionFlaw/CRH5A',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5APTs
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -104,7 +128,9 @@ class Index extends React.Component {
       url: './api/schedule/detectionFlaw/CRH5G',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5GPTs
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -118,7 +144,9 @@ class Index extends React.Component {
       url: './api/schedule/turnRepair/CRH5A',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5APXx
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -132,7 +160,25 @@ class Index extends React.Component {
       url: './api/schedule/turnRepair/CRH5G',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
+      let list = this.state.alert5GPXx
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert5GPXx: list })
+      })
+    })
+
+    // 镟修 380BG
+    axios({
+      method: 'get',
+      url: './api/schedule/turnbgRepair/CRH380BG',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5GPXx
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -146,7 +192,9 @@ class Index extends React.Component {
       url: './api/schedule/shaft/CRH5A',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5APWxz
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -160,7 +208,9 @@ class Index extends React.Component {
       url: './api/schedule/shaft/CRH5G',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5GPWxz
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -174,7 +224,9 @@ class Index extends React.Component {
       url: './api/schedule/m4/CRH5A',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5AM4
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
@@ -188,11 +240,45 @@ class Index extends React.Component {
       url: './api/schedule/m4/CRH5G',
       responseType: 'json'
     }).then(response => {
-      console.info(response.data)
+      if (response.data.message) {
+        return false
+      }
       let list = this.state.alert5GM4
       response.data.content.map(item => {
         if (item.remark !== '正常') list.push(item)
         this.setState({ alert5GM4: list })
+      })
+    })
+
+    // I2 380BG
+    axios({
+      method: 'get',
+      url: './api/schedule/i2bgRepair/CRH380BG',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        return false
+      }
+      let list = this.state.alert380BGI2
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert380BGI2: list })
+      })
+    })
+
+    // M3 380BG
+    axios({
+      method: 'get',
+      url: './api/schedule/m3Repair/CRH380BG',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        return false
+      }
+      let list = this.state.alert380BGM3
+      response.data.content.map(item => {
+        if (item.remark !== '正常') list.push(item)
+        this.setState({ alert380BGM3: list })
       })
     })
   }
@@ -228,6 +314,9 @@ class Index extends React.Component {
                 {this.state.alert5GPEjx.map(item =>
                   <AlertItem item={item} />
                 )}
+                {this.state.alert380BGPEjx.map(item =>
+                  <AlertItem item={item} />
+                )}
               </div>
 
               <p className="lead"><br/>CRH5A / CRH5G 车型探伤 报警</p>
@@ -242,25 +331,25 @@ class Index extends React.Component {
 
               <p className="lead"><br/>CRH5A / CRH5G / CRH380BG 车型镟修 报警</p>
               <div className="list-group">
-                {this.state.alert5APXx.map(item => {
+                {this.state.alert5APXx.map(item =>
                   <AlertItem item={item} />
-                })}
-                {this.state.alert5GPXx.map(item => {
+                )}
+                {this.state.alert5GPXx.map(item =>
                   <AlertItem item={item} />
-                })}
-                {this.state.alert380BGPXx.map(item => {
+                )}
+                {this.state.alert380BGPXx.map(item =>
                   <AlertItem item={item} />
-                })}
+                )}
               </div>
 
               <p className="lead"><br/>CRH5A / CRH5G 车型万向轴 报警</p>
               <div className="list-group">
-                {this.state.alert5APWxz.map(item => {
+                {this.state.alert5APWxz.map(item =>
                   <AlertItem item={item} />
-                })}
-                {this.state.alert5GPWxz.map(item => {
+                )}
+                {this.state.alert5GPWxz.map(item =>
                   <AlertItem item={item} />
-                })}
+                )}
               </div>
 
               <p className="lead"><br/>CRH5A / CRH5G 车型M4 报警</p>
