@@ -41,6 +41,7 @@ module.exports = {
     'schedule/mgr.model': './src/schedule/mgr.model.js',
     'schedule/mgr.train-list': './src/schedule/mgr.train-list.js',
     'schedule/mgr.train': './src/schedule/mgr.train.js',
+    'schedule/train': './src/schedule/train.js',
   },
 
   // devtool: 'inline-source-map',

@@ -11,7 +11,7 @@ class AlertItem extends React.Component {
 
   render() {
     return (
-      <a href={"./train/" + this.props.item.train} className="list-group-item list-group-item-action flex-column align-items-start">
+      <a href={"./train.html?train=" + this.props.item.train} className="list-group-item list-group-item-action flex-column align-items-start">
         <div calssName="d-flex w-100 justify-content-between">
           <h5 className="mb-1">
             {this.props.item.train} [{this.props.item.model}]
