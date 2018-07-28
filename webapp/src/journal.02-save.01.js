@@ -86,6 +86,7 @@ let app = new Vue({
     }
   },
   created: function () {
+    this.journal0.date = moment().format('YYYY-MM-DD')
     axios({
       method: 'GET',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',

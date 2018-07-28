@@ -41,18 +41,16 @@ let app = new Vue({
     },
 
     verifyLeaderBz: function (event) {
-      let sign = {
-        category: 'journal02',
-        from: './journal.02-verify.html',
-        to: './journal.02-verify.html',
-        operation: 'verify-leader-bz',
-        item_id: event.target.getAttribute('data-id')
-      }
-      sessionStorage.setItem('sign', JSON.stringify(sign))
-      location.href = './sign.html'
-      // app.op_cat = 'leaderBz'
-      // app.op_id = event.target.getAttribute('data-id')
-      // $('#auth').modal()
+      // let sign = {
+      //   category: 'journal02',
+      //   from: './journal.02-verify.html',
+      //   to: './journal.02-verify.html',
+      //   operation: 'verify-leader-bz',
+      //   item_id: event.target.getAttribute('data-id')
+      // }
+      // sessionStorage.setItem('sign', JSON.stringify(sign))
+      // location.href = './sign.html'
+      location.href = './journal.02-verify.p_bz.html'
     },
 
     verifyLeaderQc: function (event) {

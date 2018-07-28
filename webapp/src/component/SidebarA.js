@@ -7,12 +7,12 @@ export default class SidebarA extends React.Component {
 
   render() {
     return (
-      <nav classNameName="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div classNameName="sidebar-sticky">
-          <ul classNameName="nav flex-column">
-            <li classNameName="nav-item">
-              <a classNameName="nav-link" href="index.html">
-                <i classNameName="fa fa-home"></i>
+      <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div className="sidebar-sticky">
+          <ul className="nav flex-column">
+            <li className="nav-item">
+              <a className="nav-link" href="index.html">
+                <i className="fa fa-home"></i>
                 账项
               </a>
             </li>
