@@ -63,7 +63,7 @@
               <span class="badge badge-light pull-right" v-if="c.verify_id > 0">
                 作业完成
               </span>
-              <span class="badge badge-dark pull-right" v-else-if="c.verify_leader_id > 0 && ((c.p_jsy_content === '同意') || (c.p_jsy_content.indexOf('质检') !== -1 && c.sign_verify_leader_qc))">
+              <span class="badge badge-dark pull-right" v-else-if="c.sign_verify_leader && ((c.p_jsy_content === '同意') || (c.sign_verify_leader_qc))">
                 调度员核销
               </span>
               <span class="badge badge-danger pull-right" v-else-if="(c.p_jsy_content.indexOf('质检') !== -1) && c.sign_verify_leader_bz">

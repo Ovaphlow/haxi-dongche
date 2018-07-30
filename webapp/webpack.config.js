@@ -26,6 +26,7 @@ module.exports = {
     'journal.02-save.03': './src/journal.02-save.03.js',
     'journal.02-save.04': './src/journal.02-save.04.js',
     'journal.02-verify.p_bz': './src/journal.02-verify.p_bz.js',
+    'journal.02-verify.qc': './src/journal.02-verify.qc.js',
     'journal.02-verify.verify': './src/journal.02-verify.verify.js',
     'journal.02-stats': './src/journal.02-stats.js',
 

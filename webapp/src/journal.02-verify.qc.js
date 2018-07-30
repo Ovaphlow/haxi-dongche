@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import Navbar from './component/Navbar'
 import Sidebar from './component/SidebarA'
 
-class Journal02VerifyPbz extends React.Component {
+class Journal02VerifyQc extends React.Component {
   constructor(props) {
     super(props)
 
@@ -34,10 +34,9 @@ class Journal02VerifyPbz extends React.Component {
     this.setState({ message: '' })
     axios({
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id') + '/p_bz',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id') + '/qc',
       data: {
-        watcher: event.target.value === '确认' ? this.state.auth.name : '',
-        watcher_group: event.target.value === '确认' ? this.state.auth.dept : ''
+        qc: event.target.value === '确认' ? this.state.auth.dept : ''
       },
       responseType: 'json'
     }).then(response => {
@@ -54,9 +53,9 @@ class Journal02VerifyPbz extends React.Component {
   nextStep() {
     let sign = {
       category: 'journal02',
-      from: './journal.02-verify.p_bz.html',
+      from: './journal.02-verify.qc.html',
       to: './journal.02-verify.html',
-      operation: 'verify-leader-bz',
+      operation: 'verify-leader-qc',
       item_id: sessionStorage.getItem('journal02')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
@@ -81,7 +80,7 @@ class Journal02VerifyPbz extends React.Component {
 
               <div className="lead">
                 <div className="pull-right" id="toolbar"></div>
-                <i className="fa fa-archive fa-fw"></i> 作业完成销记 - 班组
+                <i className="fa fa-archive fa-fw"></i> 作业完成销记 - 质检
                 <br/>
                 <br/>
               </div>
@@ -154,4 +153,4 @@ class Journal02VerifyPbz extends React.Component {
   }
 }
 
-ReactDOM.render(<Journal02VerifyPbz />, document.getElementById('app'))
+ReactDOM.render(<Journal02VerifyQc />, document.getElementById('app'))

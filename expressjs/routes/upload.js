@@ -27,6 +27,9 @@ router.post('/schedule', upload.single('file'), (req, res) => {
   for (let i = 0; i < sheets.length; i++) {
     for (let j = 0; j < sheets[i].data.length; j++) {
       if (j < 2) continue
+      // console.info(new Date(new Date(1900, 0, sheets[i].data[j][5] - 1).getTime()))
+      // console.info(sheets[i].data[j][5])
+      // continue
       let sql = `
         select (max(counter) + 1) as max from schedule_source
       `
@@ -65,16 +68,20 @@ router.post('/schedule', upload.single('file'), (req, res) => {
             p_yys: sheets[i].data[j][2],
             model: sheets[i].data[j][3],
             train: sheets[i].data[j][4],
-            update_time: new Date(new Date(1900, 0, sheets[i].data[j][5] - 1).getTime()),
+            // update_time: new Date(new Date(1900, 0, sheets[i].data[j][5] - 1).getTime()),
+            update_time: sheets[i].data[j][5],
             total_mileage: sheets[i].data[j][6],
             last_p_gjx: sheets[i].data[j][7],
-            last_date_p_gjx: new Date(1900, 0, sheets[i].data[j][8] - 1).toLocaleDateString(),
+            // last_date_p_gjx: new Date(1900, 0, sheets[i].data[j][8] - 1).toLocaleDateString(),
+            last_date_p_gjx: sheets[i].data[j][8],
             last_total_mileage_gjx: sheets[i].data[j][9],
             mileage_after_last_p_gjx: sheets[i].data[j][10],
             next_p_gjx: sheets[i].data[j][11],
             next_mileage_p_gjx: sheets[i].data[j][12],
-            next_date: new Date(1900, 0, sheets[i].data[j][13] - 1).toLocaleDateString(),
-            date_p_sx: new Date(1900, 0, sheets[i].data[j][14] - 1).toLocaleDateString()
+            // next_date: new Date(1900, 0, sheets[i].data[j][13] - 1).toLocaleDateString(),
+            next_date: sheets[i].data[j][13],
+            // date_p_sx: new Date(1900, 0, sheets[i].data[j][14] - 1).toLocaleDateString()
+            date_p_sx: sheets[i].data[j][14]
           },
           type: sequelize.QueryTypes.INSERT
         }).then(result => {

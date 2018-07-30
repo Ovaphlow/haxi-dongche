@@ -41,6 +41,8 @@ let app = new Vue({
     },
 
     verifyLeaderBz: function (event) {
+      // 原功能：直接进入签字页面
+      // 改动：先由班组确认子帐单每条数据，再进入签字页面
       // let sign = {
       //   category: 'journal02',
       //   from: './journal.02-verify.html',
@@ -53,19 +55,22 @@ let app = new Vue({
       location.href = './journal.02-verify.p_bz.html'
     },
 
+    /**
+     * 质检点击作业完成
+     * 原功能：跳转签字页面
+     * 改动：跳转作业确认页面，完成后进入签字页面
+     */
     verifyLeaderQc: function (event) {
-      let sign = {
-        category: 'journal02',
-        from: './journal.02-verify.html',
-        to: './journal.02-verify.html',
-        operation: 'verify-leader-qc',
-        item_id: event.target.getAttribute('data-id')
-      }
-      sessionStorage.setItem('sign', JSON.stringify(sign))
-      location.href = './sign.html'
-      // app.op_cat = 'leaderQc'
-      // app.op_id = event.target.getAttribute('data-id')
-      // $('#auth').modal()
+      // let sign = {
+      //   category: 'journal02',
+      //   from: './journal.02-verify.html',
+      //   to: './journal.02-verify.html',
+      //   operation: 'verify-leader-qc',
+      //   item_id: event.target.getAttribute('data-id')
+      // }
+      // sessionStorage.setItem('sign', JSON.stringify(sign))
+      // location.href = './sign.html'
+      location.href = './journal.02-verify.qc.html'
     },
 
     verify: function (event) {
