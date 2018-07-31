@@ -4,6 +4,14 @@ import ReactDOM from 'react-dom'
 import Navbar from './component/Navbar'
 
 class Index extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    if (!!!sessionStorage.getItem('auth')) location.href = './login.html'
+  }
+
   render() {
     return (
       <div>
