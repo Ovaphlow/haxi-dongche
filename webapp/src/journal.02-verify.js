@@ -52,6 +52,7 @@ let app = new Vue({
       // }
       // sessionStorage.setItem('sign', JSON.stringify(sign))
       // location.href = './sign.html'
+      sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
       location.href = './journal.02-verify.p_bz.html'
     },
 
@@ -70,6 +71,7 @@ let app = new Vue({
       // }
       // sessionStorage.setItem('sign', JSON.stringify(sign))
       // location.href = './sign.html'
+      sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
       location.href = './journal.02-verify.qc.html'
     },
 

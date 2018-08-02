@@ -11,7 +11,7 @@ let app = new Vue({
   el: '#app',
   data: {
     list: [],
-    journal: {}
+    journal: {},
   },
   methods: {
     plus: function () {

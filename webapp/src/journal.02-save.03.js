@@ -11,7 +11,8 @@ let app = new Vue({
   el: '#app',
   data: {
     list: [],
-    journal: {}
+    journal: {},
+    trainList: []
   },
   methods: {
     plus: function () {
@@ -45,6 +46,7 @@ let app = new Vue({
       location.href = './journal.02-verify.leader.html'
     }
   },
+
   created: function () {
     this.journal.date = moment().format('YYYY-MM-DD')
     this.journal.p_gywj = '1'
@@ -58,6 +60,19 @@ let app = new Vue({
       responseType: 'json'
     }).then(function (response) {
       app.list = response.data.content
+    })
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(function (response) {
+      console.info(response.data)
+      if (response.data.message) {
+        app.message = response.data.message
+        return false
+      }
+      app.trainList = response.data.content
     })
   }
 })

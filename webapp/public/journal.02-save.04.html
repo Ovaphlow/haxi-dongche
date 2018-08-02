@@ -64,7 +64,9 @@
 
             <div class="col-6 form-group">
               <label>实施改造车组</label>
-              <input type="text" class="form-control" v-model="journal0.train">
+              <select class="form-control" v-model="journal0.train">
+                <option v-bind:value="item.name" v-for="item in trainList">{{ item.name }} ({{ item.model }})</option>
+              </select>
             </div>
 
             <div class="col-6 form-group">
@@ -76,13 +78,16 @@
 
             <div class="col-12">
               <button type="button" class="btn btn-secondary" v-on:click="plus">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-fw fa-plus"></i>
                 新增记录
               </button>
               <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary" v-on:click="update">
-                  <i class="fa fa-save"></i>
-                  保存记录单
+                  <i class="fa fa-fw fa-save"></i> 保存记录单
+                </button>
+
+                <button type="button" class="btn btn-secondary" v-on:click="fin">
+                  <i class=" fa fa-fw fa-check-square-o"></i> 完成
                 </button>
               </div>
             </div>
@@ -115,7 +120,7 @@
                     </li>
                   </ul>
 
-                  <ul class="list-inline">
+                  <!-- <ul class="list-inline">
                     <li class="list-inline-item">
                       <span class="text-secondary">动车所现场监控人：</span>
                       <u>{{ item.watcher }}</u>
@@ -128,7 +133,7 @@
                       <span class="text-secondary">质检员：</span>
                       <u>{{ item.qc }}</u>
                     </li>
-                  </ul>
+                  </ul> -->
 
                   <ul class="list-inline">
                     <li class="list-inline-item">
@@ -150,84 +155,84 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style="font-size:0.875em">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="title" class="modal-title">新增记录</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body row">
-            <div class="col-4 form-group">
-              <label>实施改造的车厢号</label>
-              <select class="form-control form-control-sm" v-model="journal.carriage">
-                <option value="01">01</option>
-                <option value="02">02</option>
-                <option value="03">03</option>
-                <option value="04">04</option>
-                <option value="05">05</option>
-                <option value="06">06</option>
-                <option value="07">07</option>
-                <option value="08">08</option>
-              </select>
+        <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style="font-size:0.875em">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 id="title" class="modal-title">新增记录</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body row">
+                <div class="col-4 form-group">
+                  <label>实施改造的车厢号</label>
+                  <select class="form-control form-control-sm" v-model="journal.carriage">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                  </select>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-4 form-group">
+                  <label>开工时间</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.time_begin">
+                </div>
+                <div class="col-4 form-group">
+                  <label>完工时间</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.time_end">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="col-6 form-group">
+                  <label>实施单位</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.dept">
+                </div>
+                <div class="col-6 form-group">
+                  <label>实施者</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.operator">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- <div class="col-4 form-group">
+                  <label>动车所现场监控人</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.watcher">
+                </div>
+                <div class="col-4 form-group">
+                  <label>监控班组</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.watcher_group">
+                </div>
+                <div class="col-4 form-group">
+                  <label>质检员</label>
+                  <input type="text" class="form-control form-control-sm" v-model="journal.qc">
+                </div>
+
+                <div class="clearfix"></div> -->
+
+                <div class="col-12 form-group">
+                  <label>备注</label>
+                  <textarea rows="2" class="form-control form-control-sm" v-model="journal.remark"></textarea>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" v-on:click="submit">
+                  <i class="fa fa-check-square-o"></i>
+                  确认
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+              </div>
             </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-4 form-group">
-              <label>开工时间</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.time_begin">
-            </div>
-            <div class="col-4 form-group">
-              <label>完工时间</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.time_end">
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-6 form-group">
-              <label>实施单位</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.dept">
-            </div>
-            <div class="col-6 form-group">
-              <label>实施者</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.operator">
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-4 form-group">
-              <label>动车所现场监控人</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher">
-            </div>
-            <div class="col-4 form-group">
-              <label>监控班组</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher_group">
-            </div>
-            <div class="col-4 form-group">
-              <label>质检员</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.qc">
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-12 form-group">
-              <label>备注</label>
-              <textarea rows="2" class="form-control form-control-sm" v-model="journal.remark"></textarea>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" v-on:click="submit">
-              <i class="fa fa-check-square-o"></i>
-              确认
-            </button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
           </div>
         </div>
       </main>

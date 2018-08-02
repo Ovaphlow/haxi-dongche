@@ -11,7 +11,7 @@ const user = JSON.parse(sessionStorage.getItem('auth'))
 
 let app = new Vue({
   el: '#app',
-  data: { message: '', req: {} },
+  data: { message: '', req: {}, trainList: [] },
   methods: {
     back: function () {
       location.href = './journal.02.html'
@@ -70,5 +70,17 @@ let app = new Vue({
     this.req.p_yq_xdc = '无要求'
     this.req.p_yq_jcw = '无要求'
     this.req.p_yq_zydd = '无要求'
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(function (response) {
+      if (response.data.message) {
+        app.message = response.data.message
+        return false
+      }
+      app.trainList = response.data.content
+    })
   }
 })

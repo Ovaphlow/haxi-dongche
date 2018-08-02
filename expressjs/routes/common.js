@@ -57,7 +57,7 @@ router.route('/train').post((req, res) => {
 
 router.route('/train').get((req, res) => {
   let sql = `
-    select * from train
+    select * from train order by name
   `
   sequelize.query(sql, {
     type: sequelize.QueryTypes.SELECT

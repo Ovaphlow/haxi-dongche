@@ -9,15 +9,19 @@ document.getElementById('toolbar').innerHTML = toolbar
 
 let app = new Vue({
   el: '#app',
+
   data: {
     journal0: {},
     journal: {},
-    list: []
+    list: [],
+    trainList: []
   },
+
   methods: {
     plus: function () {
       $('#save').modal()
     },
+
     submit: function () {
       axios({
         method: 'POST',
@@ -34,9 +38,6 @@ let app = new Vue({
           time_end: app.journal.time_end,
           dept: app.journal.dept,
           operator: app.journal.operator,
-          watcher: app.journal.watcher,
-          watcher_group: app.journal.watcher_group,
-          qc: app.journal.qc,
           remark: app.journal.remark
         },
         responseType: 'json'
@@ -48,6 +49,7 @@ let app = new Vue({
         }
       })
     },
+
     remove: function (event) {
       if (!!!confirm('确认删除选定的记录？')) return false
       axios({
@@ -58,6 +60,7 @@ let app = new Vue({
         location.reload(true)
       })
     },
+
     update: function () {
       axios({
         method: 'PUT',
@@ -76,10 +79,12 @@ let app = new Vue({
         location.reload(true)
       })
     },
+
     fin: function () {
       location.href = './journal.02-verify.leader.html'
     }
   },
+
   created: function () {
     axios({
       method: 'GET',
@@ -95,6 +100,20 @@ let app = new Vue({
         app.journal0.train = app.list[0].train
         app.journal0.date = app.list[0].date
       }
+    })
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(function (response) {
+      if (response.data.message) {
+        app.message = response.data.message
+        return false
+      }
+      app.trainList = response.data.content
+    }).catch(err => {
+      app.message = '服务器通信异常'
     })
   }
 })
