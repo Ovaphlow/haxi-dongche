@@ -16,17 +16,9 @@ let app = new Vue({
     request: {}
   },
   methods: {
-    plus: function () {
-      sessionStorage.setItem('journal02', sessionStorage.getItem('verifyId'))
-      if (app.request.tag === '一般部件普查记录单') {
-        location.href = './journal.02-save.01.html'
-      } else if (app.request.tag === '一般配件更换记录表') {
-        location.href = './journal.02-save.02.html'
-      } else if (app.request.tag === '关键配件更换记录表') {
-        location.href = './journal.02-save.03.html'
-      } else if (app.request.tag === '加装改造（软件升级）记录单') {
-        location.href = './journal.02-save.04.html'
-      } else {}
+    detail: function (event) {
+      let sn = event.target.getAttribute('data-id')
+      location.href = './journal.02-save.0' + sn + '.html'
     },
 
     sign: function () {
