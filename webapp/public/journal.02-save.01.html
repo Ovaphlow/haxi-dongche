@@ -67,7 +67,9 @@
             <div class="col-6">
               <div class="form-group">
                 <label>实施普查车组</label>
-                <input type="text" class="form-control" v-model="journal0.train_sn">
+                <select class="form-control" v-model="journal0.train_sn">
+                  <option v-bind:value="item.name" v-for="item in trainList">{{ item.name }} ({{ item.model }})</option>
+                </select>
               </div>
             </div>
             <div class="col-6">
@@ -86,8 +88,7 @@
               </button>
               <div class="btn-group pull-right">
                 <button type="button" class="btn btn-primary" v-on:click="save">
-                  <i class="fa fa-save"></i>
-                  保存并返回
+                  <i class="fa fa-fw fa-check-square-o"></i> 完成
                 </button>
               </div>
             </div>

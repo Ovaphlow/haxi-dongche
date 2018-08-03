@@ -13,7 +13,8 @@ let app = new Vue({
     journal0: {},
     journal: {},
     content: {},
-    contentList: []
+    contentList: [],
+    trainList: []
   },
   methods: {
     plus: function () {
@@ -34,7 +35,6 @@ let app = new Vue({
       })
     },
     submit: function () {
-      console.log(1123)
       axios({
         method: 'POST',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
@@ -99,6 +99,18 @@ let app = new Vue({
         app.journal0.train_sn = app.contentList[0].train_sn
         app.journal0.date = app.contentList[0].date
       }
+    })
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(function (response) {
+      if (response.data.message) {
+        app.message = response.data.message
+        return false
+      }
+      app.trainList = response.data.content
     })
   }
 })

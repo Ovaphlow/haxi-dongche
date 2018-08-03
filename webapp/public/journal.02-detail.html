@@ -14,191 +14,9 @@
 </head>
 
 <body>
-  <div id="navbar"></div>
+  <div id="app"></div>
 
-  <div class="container-fluid" id="app">
-    <div class="row">
-      <div id="sidebar"></div>
-
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h3>
-            02.一体化作业申请单
-          </h3>
-        </div>
-
-        <div class="lead">
-          <div id="toolbar" class="pull-right"></div>
-          <i class="fa fa-list fa-fw"></i> 详细信息
-          <br>
-          <br>
-        </div>
-
-        <div class="card">
-          <div class="card-body row">
-            <div class="col-12 text-center">
-              <button type="button" class="btn btn-outline-success btn-sm" v-on:click="preview">
-                <i class="fa fa-fw fa-search"></i> 预览
-              </button>
-            </div>
-
-            <div class="col-12">
-              <span class="text-secondary">申请单位：</span>{{ journal.dept }}
-            </div>
-
-            <div class="col-6">
-              <span class="text-secondary">申请人：</span>
-              <u>{{ journal.applicant }}</u>
-            </div>
-            <div class="col-6">
-              <span class="text-secondary">联系电话：</span>{{ journal.applicant_phone }}
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-6">
-              <span class="text-secondary">作业负责人：</span>
-              <u>{{ journal.leader }}</u>
-            </div>
-            <div class="col-6">
-              <span class="text-secondary">联系电话：</span>{{ journal.leader_phone }}
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-12">
-              <span class="text-secondary">作业车组号：</span>
-              <span class="text-primary">{{ journal.group_sn }}</span>
-            </div>
-
-            <div class="col-6">
-              <span class="text-secondary">申请作业时间：</span>{{ journal.date_begin }} {{ journal.time_begin }}
-            </div>
-            <div class="col-6">
-              <span class="text-secondary">至：</span>{{ journal.date_end }} {{ journal.time_end }}
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-12">
-              <span class="text-secondary">作业内容：</span>
-              <span class="text-danger">{{ journal.content }}</span> //
-              <span class="text-danger">{{ journal.content_detail }}</span>
-            </div>
-
-            <div class="col-12">
-              <span class="text-secondary">施修要求/蓄电池：</span>{{ journal.p_yq_xdc }}
-            </div>
-            <div class="col-12">
-              <span class="text-secondary">施修要求/接触网：</span>{{ journal.p_yq_jcw }}
-            </div>
-            <div class="col-12">
-              <span class="text-secondary">施修要求/作业地点：</span>{{ journal.p_yq_zydd }}
-            </div>
-            <div class="col-12">
-              <span class="text-secondary">施修要求/其它：</span>{{ journal.p_yq_zydd || '无' }}
-            </div>
-
-            <div class="col-12">
-              <hr>
-            </div>
-
-            <div class="col-4">
-              <span class="text-secondary">动车所调度审核：</span>
-              <span class="badge badge-danger">{{ journal.p_dd }}</span>
-              <br>
-              <img src="#" alt="调度员签字" v-if="journal.sign_p_dd" v-bind:src="journal.sign_p_dd">
-            </div>
-            <div class="col-4">
-              <span class="text-secondary">动车所技术员审核：</span>
-              <span class="badge badge-info">{{ journal.p_jsy }}</span>
-              <br>
-              <img src="#" alt="技术员签字" v-if="journal.sign_p_jsy" v-bind:src="journal.sign_p_jsy">
-            </div>
-            <div class="col-4">
-              <span class="text-secondary">值班所长审批：</span>
-              <span class="badge badge-warning">{{ journal.p_zbsz }}</span>
-              <br>
-              <img src="#" alt="值班所长签字" v-if="journal.sign_p_zbsz" v-bind:src="journal.sign_p_zbsz">
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-4">
-              <span class="text-secondary">技术员设置：</span>{{ journal.p_jsy_content }}
-            </div>
-            <div class="col-4">
-              <span class="text-secondary">班组：</span>{{ journal.p_jsy_bz }}
-            </div>
-            <div class="col-4">
-              <span class="text-secondary">质检：</span>{{ journal.p_jsy_qc }}
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-12">
-              <hr>
-            </div>
-
-            <div class="col-12">
-              <span class="text-secondary">作业完成情况：</span>{{ journal.verify_report }}
-            </div>
-
-            <div class="col-6">
-              <span class="text-secondary">作业完成时间：</span>{{ journal.verify_leader_date }} {{ journal.verify_leader_time }}
-            </div>
-            <div class="col-6">
-              <span class="text-secondary">作业负责人签字：</span>
-              <span class="badge badge-success">{{ journal.verify_leader }}</span>
-              <br>
-              <img src="#" alt="作业负责人签字" v-if="journal.sign_verify_leader" v-bind:src="journal.sign_verify_leader">
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-6">
-              <span class="text-secondary">调度核销时间：</span>{{ journal.verify_date }} {{ journal.verify_time }}
-            </div>
-            <div class="col-6">
-              <span class="text-secondary">调度员签字：</span>
-              <span class="badge badge-dark">{{ journal.verify }}</span>
-              <br>
-              <img src="#" alt="调度员签字" v-if="journal.sign_verify" v-bind:src="journal.sign_verify">
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="col-12">
-              <hr>
-            </div>
-
-            <div class="col-12">
-              <div class="row">
-                <br>
-                <div class="col-3">
-                  <span class="text-secondary" v-if="journal.sign_p_jsy_bz">班组签字：
-                    <br>
-                  </span>
-                  <img src="#" alt="班组签字" v-if="journal.sign_p_jsy_bz" v-bind:src="journal.sign_p_jsy_bz">
-                </div>
-                <div class="col-3">
-                  <span class="text-secondary" v-if="journal.sign_verify_leader_bz">班组签字：
-                    <br>
-                  </span>
-                  <img src="#" alt="班组签字" v-if="journal.sign_verify_leader_bz" v-bind:src="journal.sign_verify_leader_bz">
-                </div>
-                <div class="col-3">
-                  <span class="text-secondary" v-if="journal.sign_p_jsy_qc">质检签字：
-                    <br>
-                  </span>
-                  <img src="#" alt="质检签字" v-if="journal.sign_p_jsy_qc" v-bind:src="journal.sign_p_jsy_qc">
-                </div>
-                <div class="col-3">
-                  <span class="text-secondary" v-if="journal.sign_verify_leader_qc">质检签字：
-                    <br>
-                  </span>
-                  <img src="#" alt="质检签字" v-if="journal.sign_verify_leader_qc" v-bind:src="journal.sign_verify_leader_qc">
-                </div>
-              </div>
-              <p><span class="text-secondary">备注：<br/></span>{{ journal.remark }}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
+        <!-- <div class="card">
           <div class="card-header">
             动车组{{ journal.tag }}
           </div>
@@ -527,14 +345,13 @@
               </ul>
             </div>
           </div>
-        </div>
+        </div> -->
       </main>
     </div>
   </div>
 
   <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/vue/dist/vue.min.js"></script>
   <script src="./lib/moment/min/moment.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>

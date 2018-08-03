@@ -12,6 +12,7 @@ let app = new Vue({
   data: {
     list: [],
     journal: {},
+    trainList: [],
   },
   methods: {
     plus: function () {
@@ -62,6 +63,20 @@ let app = new Vue({
       responseType: 'json'
     }).then(function (response) {
       app.list = response.data.content
+    })
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(function (response) {
+      if (response.data.message) {
+        app.message = response.data.message
+        return false
+      }
+      app.trainList = response.data.content
+    }).catch(function (err) {
+      app.message = '服务器通信失败'
     })
   }
 })

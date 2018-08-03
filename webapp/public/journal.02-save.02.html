@@ -46,7 +46,7 @@
                 新增记录
               </button>
               <button type="button" class="btn btn-primary pull-right" v-on:click="fin">
-                <i class="fa fa-check"></i>
+                <i class="fa fa-fw fa-check-square-o"></i>
                 完成
               </button>
             </div>
@@ -166,11 +166,22 @@
             </div>
             <div class="form-group col-2">
               <label>车组</label>
-              <input type="text" class="form-control" v-model="journal.train">
+              <select class="form-control" v-model="journal.train">
+                <option v-bind:value="item.name" v-for="item in trainList">{{ item.name }} ({{ item.model }})</option>
+              </select>
             </div>
             <div class="form-group col-2">
               <label>车号</label>
-              <input type="text" class="form-control" v-model="journal.carriage">
+              <select class="form-control" v-model="journal.carriage">
+                <option value="01">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+              </select>
             </div>
             <div class="form-group col-4">
               <label>位置</label>

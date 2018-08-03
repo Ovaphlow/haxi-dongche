@@ -75,14 +75,9 @@ let app = new Vue({
         },
         responseType: 'json'
       }).then(function (response) {
-        alert('保存完毕。')
-        location.reload(true)
+        location.href = './journal.02-verify.leader.html'
       })
     },
-
-    fin: function () {
-      location.href = './journal.02-verify.leader.html'
-    }
   },
 
   created: function () {

@@ -104,10 +104,10 @@ let app = new Vue({
         app.request.verify_leader_time = response.data.content.time_end
         app.request.tag = response.data.content.tag
         app.content = response.data.content
-        if (response.data.content.tag) {
-          document.getElementById('tag').value = response.data.content.tag
-          document.getElementById('tag').setAttribute('disabled', true)
-        }
+        // if (response.data.content.tag) {
+        //   document.getElementById('tag').value = response.data.content.tag
+        //   document.getElementById('tag').setAttribute('disabled', true)
+        // }
       }
     })
   }
