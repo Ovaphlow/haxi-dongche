@@ -12,7 +12,8 @@ class Journal02Detail extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { message: '', journal: {} }
+    this.state = { message: '', journal: {}, detail01: [], detail02: [], detail03: [], detail04: [] }
+    this.back = this.back.bind(this)
   }
 
   componentDidMount() {
@@ -29,6 +30,66 @@ class Journal02Detail extends React.Component {
     }).catch(err => {
       this.setState({ message: '服务器通信异常' })
     })
+
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      this.setState({ detail01: response.data.content })
+    }).catch(err => {
+      this.setState({ message: '服务器通信异常' })
+    })
+
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      this.setState({ detail02: response.data.content })
+    }).catch(err => {
+      this.setState({ message: '服务器通信异常' })
+    })
+
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      this.setState({ detail03: response.data.content })
+    }).catch(err => {
+      this.setState({ message: '服务器通信异常' })
+    })
+
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      this.setState({ detail04: response.data.content })
+    }).catch(err => {
+      this.setState({ message: '服务器通信异常' })
+    })
+  }
+
+  back() {
+    window.history.go(-1)
   }
 
   render() {
@@ -67,9 +128,14 @@ class Journal02Detail extends React.Component {
               <div className="card">
                 <div className="card-body row">
                   <div className="col-12 text-center">
-                    <button type="button" className="btn btn-outline-success btn-sm">
-                      <i className="fa fa-fw fa-search"></i> 预览
-                    </button>
+                    <div className="btn-group">
+                      <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.back}>
+                        <i className="fa fa-fw fa-arrow-left"></i> 返回
+                      </button>
+                      <button type="button" className="btn btn-outline-success btn-sm">
+                        <i className="fa fa-fw fa-search"></i> 预览
+                      </button>
+                    </div>
                   </div>
 
                   <div className="col-12">
@@ -246,27 +312,29 @@ class Journal02Detail extends React.Component {
                 </div>
               </div>
 
-              {/* {this.state.detail01 &&
-                <Journal02Detail01 detail={this.state.detail01} p_bz={true} />
+              <p><hr /></p>
+
+              {this.state.detail01 &&
+                <Journal02Detail01 detail={this.state.detail01} />
               }
 
               <p><hr /></p>
 
               {this.state.detail02 &&
-                <Journal02Detail02 detail={this.state.detail02} p_bz={true} />
+                <Journal02Detail02 detail={this.state.detail02} />
               }
 
               <p><hr /></p>
 
               {this.state.detail03 &&
-                <Journal02Detail03 detail={this.state.detail03} p_bz={true} />
+                <Journal02Detail03 detail={this.state.detail03} />
               }
 
               <p><hr /></p>
 
               {this.state.detail04 &&
-                <Journal02Detail04 detail={this.state.detail04} p_bz={true} />
-              } */}
+                <Journal02Detail04 detail={this.state.detail04} />
+              }
             </main>
           </div>
         </div>

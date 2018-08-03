@@ -88,7 +88,8 @@ export default class Journal02Detail01 extends React.Component {
                     <li className="list-inline-item"><span className="text-secondary">实施者：</span>{item.executor}</li>
                   </ul>
                 </p>
-                <small>备注：{item.remark}</small>
+                <small><span className="text-secondary">备注：</span>{item.remark}</small>
+
                 {this.props.p_bz &&
                   <p>
                     <br />
