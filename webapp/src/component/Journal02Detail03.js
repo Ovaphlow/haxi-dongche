@@ -9,6 +9,22 @@ export default class Journal02Detail02 extends React.Component {
     this.submitDetailQc = this.submitDetailQc.bind(this)
   }
 
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      this.setState({ detail: response.data.content })
+    }).catch(err => {
+      this.setState({ message: '服务器通信异常' })
+    })
+  }
+
   submitDetailPbz(event) {
     this.setState({ message: '' })
 
@@ -52,7 +68,7 @@ export default class Journal02Detail02 extends React.Component {
     return (
       <div className="row">
         <div className="col-12">
-          <h4>动车组关键配件更换记录表</h4>
+          <h4 className="text-center">动车组关键配件更换记录表</h4>
         </div>
 
         {this.state.message &&
@@ -64,7 +80,52 @@ export default class Journal02Detail02 extends React.Component {
         }
 
         <div className="col-12">
-          <ul className="list-group">
+          <table className="table table-sm table-bordered" style={{ border: '2px solid black' }}>
+            <tr>
+              <td width="6%" className="text-center align-middle">部件名称</td>
+              <td width="6%" className="text-center align-middle">车组</td>
+              <td width="3%" className="text-center align-middle">车号</td>
+              <td width="3%" className="text-center align-middle">位置</td>
+              <td width="6%" className="text-center align-middle">日期</td>
+              <td width="6%" className="text-center align-middle">时间</td>
+              <td width="6%" className="text-center align-middle">生产日期</td>
+              <td className="text-center align-middle">更换原因</td>
+              <td width="6%" className="text-center align-middle">作业人员已阅读工艺文件并掌握各步骤</td>
+              <td width="4%" className="text-center align-middle">力矩扳手已校验</td>
+              <td width="6%" className="text-center align-middle">换下部件序列号</td>
+              <td width="6%" className="text-center align-middle">换上部件序列号</td>
+              <td width="4%" className="text-center align-middle">部件安装良好，螺栓力矩已套固，防松标记已涂打</td>
+              <td width="6%" className="text-center align-middle">作业者</td>
+              <td width="6%" className="text-center align-middle">检修工长</td>
+              <td width="4%" className="text-center align-middle">部件功能试验正常</td>
+              <td width="6%" className="text-center align-middle">质检员</td>
+              <td width="6%" className="text-center align-middle">值班干部</td>
+            </tr>
+            {this.state.detail.map(item =>
+              <tr>
+                <td width="6%" className="text-center align-middle">{item.name}</td>
+                <td width="6%" className="text-center align-middle">{item.train}</td>
+                <td width="3%" className="text-center align-middle">{item.carriage}</td>
+                <td width="3%" className="text-center align-middle">{item.position}</td>
+                <td width="6%" className="text-center align-middle">{item.date}</td>
+                <td width="6%" className="text-center align-middle">{item.time}</td>
+                <td width="6%" className="text-center align-middle">{item.production_date}</td>
+                <td className="text-center align-middle">{item.reason}</td>
+                <td width="6%" className="text-center align-middle">{item.p_gywj}</td>
+                <td width="4%" className="text-center align-middle">{item.p_ljbs}</td>
+                <td width="6%" className="text-center align-middle">{item.component_sn_old}</td>
+                <td width="6%" className="text-center align-middle">{item.component_sn_new}</td>
+                <td width="4%" className="text-center align-middle">{item.p_bjaz}</td>
+                <td width="6%" className="text-center align-middle">{item.operator}</td>
+                <td width="6%" className="text-center align-middle">{item.leader}</td>
+                <td width="4%" className="text-center align-middle">{item.p_bjgnsy}</td>
+                <td width="6%" className="text-center align-middle">{item.qc}</td>
+                <td width="6%" className="text-center align-middle">{item.duty_officer}</td>
+              </tr>
+            )}
+          </table>
+
+          {/* <ul className="list-group">
             {this.props.detail.map(item =>
               <li className="list-group-item">
                 <h5>
@@ -158,7 +219,7 @@ export default class Journal02Detail02 extends React.Component {
                 }
               </li>
             )}
-          </ul>
+          </ul> */}
         </div>
       </div>
     )
