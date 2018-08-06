@@ -232,7 +232,6 @@ let app = new Vue({
         url: './api/journal02/zbsz/?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(function (response) {
-        console && console.info(response.data.content)
         app.content_zbsz = response.data.content
       })
     }

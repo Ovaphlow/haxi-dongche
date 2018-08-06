@@ -122,25 +122,25 @@ class Journal02VerifyPbz extends React.Component {
               }
 
               {this.state.detail01 &&
-                <Journal02Detail01 detail={this.state.detail01} p_bz={true}/>
+                <Journal02Detail01 detail={this.state.detail01} p_bz={true} auth={this.state.auth} />
               }
 
               <p><hr/></p>
 
               {this.state.detail02 &&
-                <Journal02Detail02 detail={this.state.detail02} p_bz={true} />
+                <Journal02Detail02 detail={this.state.detail02} p_bz={true} auth={this.state.auth} />
               }
 
               <p><hr/></p>
 
               {this.state.detail03 &&
-                <Journal02Detail03 detail={this.state.detail03} p_bz={true} />
+                <Journal02Detail03 detail={this.state.detail03} p_bz={true} auth={this.state.auth} />
               }
 
               <p><hr/></p>
 
               {this.state.detail04 &&
-                <Journal02Detail04 detail={this.state.detail04} p_bz={true} />
+                <Journal02Detail04 detail={this.state.detail04} p_bz={true} auth={this.state.auth} />
               }
 
               <div className="row">

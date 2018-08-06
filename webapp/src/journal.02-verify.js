@@ -138,7 +138,7 @@ let app = new Vue({
   created: function () {
     axios({
       method: 'GET',
-      url: './api/journal02/verify/leader/' + user.name + '?timestamp=' + new Date().getTime(),
+      url: './api/journal02/verify/leader/' + user.id + '?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(function (response) {
       app.contentLeader = response.data.content

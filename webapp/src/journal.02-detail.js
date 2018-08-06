@@ -9,7 +9,6 @@ import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'
 import Journal02Detail04 from './component/Journal02Detail04'
-import Journal02Toolbar from './component/Journal02Toolbar';
 
 class Journal02Detail extends React.Component {
   constructor(props) {

@@ -116,7 +116,16 @@ export default class Journal02Detail02 extends React.Component {
                 <td width="4%" className="text-center align-middle">{item.p_bjaz}</td>
                 <td width="6%" className="text-center align-middle">{item.operator}</td>
                 <td width="6%" className="text-center align-middle">{item.leader}</td>
-                <td width="4%" className="text-center align-middle">{item.p_bjgnsy}</td>
+                <td width="4%" className="text-center align-middle">
+                  {item.p_bjgnsy}
+                  {this.props.qc &&
+                    <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                      <option value="">部件功能是否正常</option>
+                      <option value="是">是</option>
+                      <option value="否">否</option>
+                    </select>
+                  }
+                </td>
                 <td width="6%" className="text-center align-middle">{item.qc}</td>
                 <td width="6%" className="text-center align-middle">{item.duty_officer}</td>
               </tr>

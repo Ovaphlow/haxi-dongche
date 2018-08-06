@@ -124,9 +124,25 @@ export default class Journal02Detail01 extends React.Component {
                 <td width="14%" className="text-center align-middle">{item.report}</td>
                 <td width="8%" className="text-center align-middle">{item.dept}</td>
                 <td width="7%" className="text-center align-middle">{item.executor}</td>
-                <td width="8%" className="text-center align-middle">{item.watcher}</td>
+                <td width="8%" className="text-center align-middle">
+                  {item.watcher}
+                  {this.props.p_bz &&
+                    <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <option value="">监控结果</option>
+                      <option value="确认">确认</option>
+                    </select>
+                  }
+                </td>
                 <td width="8%" className="text-center align-middle">{item.watcher_group}</td>
-                <td width="8%" className="text-center align-middle">{item.qc}</td>
+                <td width="8%" className="text-center align-middle">
+                  {item.qc}
+                  {this.props.qc &&
+                    <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
+                      <option value="">监控结果</option>
+                      <option value="确认">确认</option>
+                    </select>
+                  }
+                </td>
                 <td className="text-center align-middle">{item.remark}</td>
               </tr>
             )}

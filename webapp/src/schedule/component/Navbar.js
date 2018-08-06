@@ -4,7 +4,7 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-        <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">哈尔滨动车段</a>
+        <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">账项管理系统</a>
 
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap">

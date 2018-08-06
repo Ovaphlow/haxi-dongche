@@ -14,7 +14,6 @@
 
   <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/vue/dist/vue.js"></script>
   <script src="./lib/moment/min/moment.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
@@ -22,7 +21,9 @@
 </head>
 
 <body>
-  <div id="navbar"></div>
+  <div id="app"></div>
+
+  <!-- <div id="navbar"></div>
 
   <div class="container-fluid" id="app">
 
@@ -113,9 +114,6 @@
                   <ul class="list-inline">
                     <li class="list-inline-item">实施单位：{{ item.dept }}</li>
                     <li class="list-inline-item">实施者：{{ item.executor }}</li>
-                    <!-- <li class="list-inline-item">动车所现场监控人：{{ item.watcher }}</li> -->
-                    <!-- <li class="list-inline-item">监控班组：{{ item.watcher_group }}</li> -->
-                    <!-- <li class="list-inline-item">质检员：{{ item.qc }}</li> -->
                     <li class="list-inline-item">备注：{{ item.remark }}</li>
                   </ul>
 
@@ -135,7 +133,6 @@
       </main>
     </div>
 
-    <!-- 新增记录对话框 -->
     <div id="save" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style="font-size:0.875em">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -200,23 +197,6 @@
 
             <div class="clearfix"></div>
 
-            <!-- 
-            <div class="col-3 form-group">
-              <label>动车所现场监控人</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher">
-            </div>
-            <div class="col-6 form-group">
-              <label>监控班组</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.watcher_group">
-            </div>
-            <div class="col-3 form-group">
-              <label>质检员</label>
-              <input type="text" class="form-control form-control-sm" v-model="journal.qc">
-            </div>
-
-            <div class="clearfix"></div>
-            -->
-
             <div class="col-12 form-group">
               <label>备注</label>
               <textarea rows="2" class="form-control form-control-sm" v-model="journal.remark"></textarea>
@@ -234,7 +214,7 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 
   <script src="./assets/js/journal.02-save.01.js"></script>
 </body>
