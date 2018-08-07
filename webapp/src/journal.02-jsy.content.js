@@ -33,16 +33,16 @@ let app = new Vue({
     },
     submit: function () {
       axios({
-        method: 'PUT',
+        method: 'put',
         url: './api/journal02/' + sign.item_id + '/jsy/content',
         data: app.journal,
         responseType: 'json'
       }).then(function (response) {
-        if (response.data.status === 200) {
-          location.href = './journal.02-check.html'
-        } else {
+        if (response.data.message) {
           alert(response.data.message)
+          return false
         }
+        location.href = './journal.02-check.html'
       })
     }
   },

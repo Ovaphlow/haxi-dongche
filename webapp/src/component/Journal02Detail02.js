@@ -7,6 +7,7 @@ export default class Journal02Detail02 extends React.Component {
     this.state = { message: '', detail: [], auth: {} }
     this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   componentDidMount() {
@@ -64,6 +65,21 @@ export default class Journal02Detail02 extends React.Component {
     })
   }
 
+  remove(event) {
+    if (!!!confirm('确认删除选定的记录？')) return false
+    axios({
+      method: 'delete',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id'),
+      responseType: 'json'
+    }).then(function (response) {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      location.reload(true)
+    })
+  }
+
   render() {
     return (
       <div className="row">
@@ -102,7 +118,12 @@ export default class Journal02Detail02 extends React.Component {
             </tr>
             {this.state.detail.map(item =>
               <tr>
-                <td width="6%" className="text-center align-middle">{item.name}</td>
+                <td width="6%" className="text-center align-middle">
+                  {item.name}
+                  {!!!this.props.read &&
+                    <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
+                  }
+                </td>
                 <td width="6%" className="text-center align-middle">{item.train}</td>
                 <td width="3%" className="text-center align-middle">{item.carriage}</td>
                 <td width="3%" className="text-center align-middle">{item.position}</td>
@@ -228,4 +249,3 @@ export default class Journal02Detail02 extends React.Component {
     )
   }
 }
-

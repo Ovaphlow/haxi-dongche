@@ -13,6 +13,7 @@ class Journal02Save04 extends React.Component {
     this.dialog = this.dialog.bind(this)
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
+    this.back = this.back.bind(this)
   }
 
   componentDidMount() {
@@ -33,7 +34,6 @@ class Journal02Save04 extends React.Component {
     })
 
     let detail = JSON.parse(sessionStorage.getItem('journal02-detail'))
-    console.info(detail)
     if (detail) {
       document.getElementById('subject').value = detail.subject
       document.getElementById('software_version_new').value = detail.software_version_new
@@ -68,7 +68,7 @@ class Journal02Save04 extends React.Component {
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
       data: body,
       responseType: 'json'
-    }).then(function (response) {
+    }).then(response => {
       if (response.data.message) {
         this.setState({ message: response.data.message })
         return false
@@ -101,6 +101,10 @@ class Journal02Save04 extends React.Component {
     }).catch(err => {
       this.setState({ message: '服务器通信异常' })
     })
+  }
+
+  back() {
+    window.history.go(-1)
   }
 
   render() {
@@ -187,8 +191,11 @@ class Journal02Save04 extends React.Component {
                           <i className="fa fa-fw fa-plus"></i> 新增记录
                         </button>
                         <div className="btn-group pull-right">
+                          <button type="button" className="btn btn-secondary" onClick={this.back}>
+                            <i className=" fa fa-fw fa-arrow-left"></i> 返回
+                          </button>
                           <button type="button" className="btn btn-primary" onClick={this.save}>
-                            <i className=" fa fa-fw fa-check-square-o"></i> 完成
+                            <i className=" fa fa-fw fa-check-square-o"></i> 保存
                           </button>
                         </div>
                       </div>
@@ -261,7 +268,7 @@ class Journal02Save04 extends React.Component {
 
                   <div className="row"><br /><br /></div>
 
-                  <Journal02Detail04 read={true} />
+                  <Journal02Detail04 />
                 </div>
               </div>
             </main>

@@ -194,15 +194,15 @@ class Journal02Save03 extends React.Component {
                       <div className="form-group col-3">
                         <label>工艺文件及各步骤</label>
                         <select className="form-control" id="p_gywj">
-                          <option value="1">已阅读并掌握</option>
-                          <option value="0">未阅读并掌握</option>
+                          <option value="是">已阅读并掌握</option>
+                          <option value="否">未阅读并掌握</option>
                         </select>
                       </div>
                       <div className="form-group col-3">
                         <label>力矩扳手</label>
                         <select className="form-control" id="p_ljbs">
-                          <option value="1">已校验</option>
-                          <option value="0">未校验</option>
+                          <option value="是">已校验</option>
+                          <option value="否">未校验</option>
                         </select>
                       </div>
                       <div className="col-3 form-group">
@@ -219,8 +219,8 @@ class Journal02Save03 extends React.Component {
                       <div className="col-4 form-group">
                         <label>部件、螺栓力矩、防松标记</label>
                         <select className="form-control" id="p_bjaz">
-                          <option value="1">部件安装良好，螺栓力矩已紧固，放松标记已涂打</option>
-                          <option value="0">否</option>
+                          <option value="是">部件安装良好，螺栓力矩已紧固，放松标记已涂打</option>
+                          <option value="否">否</option>
                         </select>
                       </div>
                       <div className="col-4 form-group">
@@ -245,7 +245,9 @@ class Journal02Save03 extends React.Component {
                 </div>
               </div>
 
-              <Journal02Detail03 read={true} />
+              <div className="row"><br /></div>
+
+              <Journal02Detail03 />
             </main>
           </div>
         </div>

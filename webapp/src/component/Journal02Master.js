@@ -6,6 +6,7 @@ export default class Journal02Master extends React.Component {
 
     this.state = { message: '', trainList: [], master: {} }
     this.save = this.save.bind(this)
+    this.preview = this.preview.bind(this)
   }
 
   componentDidMount() {
@@ -116,7 +117,7 @@ export default class Journal02Master extends React.Component {
       },
       responseType: 'json'
     }).then(response => {
-      if (response.data.status !== 200) {
+      if (response.data.message) {
         this.setState({ message: response.data.message })
         return false
       }
@@ -124,9 +125,27 @@ export default class Journal02Master extends React.Component {
     })
   }
 
+  preview() {
+    axios({
+      method: 'get',
+      url: './api/excel/journal02/' + sessionStorage.getItem('journal02'),
+      responseType: 'json'
+    }).then(function (response) {
+      location.href = response.data.content
+    })
+  }
+
   render() {
     return (
       <div className="row">
+        <div className="col-12 text-center">
+          <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
+            <i class="fa fa-fw fa-search"></i> 预览
+          </button>
+        </div>
+
+        <div className="col-12"><br /></div>
+
         <div className="col-12">
           <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
             <tbody>
