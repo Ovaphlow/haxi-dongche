@@ -152,7 +152,7 @@ export default class Journal02Item extends React.Component {
   }
 
   verify(event) {
-    sessionStorage.setItem('verifyId', event.target.getAttribute('data-id'))
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     location.href = './journal.02-verify.p_dd.html'
   }
 

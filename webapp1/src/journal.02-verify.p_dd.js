@@ -11,6 +11,62 @@ import './dashboard.css'
 class Journal02VerifyPdd extends React.Component {
   constructor(props) {
     super(props)
+    this.state = { message: '' }
+    this.sign = this.sign.bind(this)
+    this.back = this.back.bind(this)
+  }
+
+  componentDidMount() {
+    axios({
+      method: 'get',
+      url: './api/journal02/' + sessionStorage.getItem('journal02'),
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      if (response.data.content.remark) {
+        document.getElementById('remark').value = response.data.content.remark
+      }
+    }).catch(err => {
+      this.setState({ message: `服务器通信异常 ${err}`})
+    })
+  }
+
+  sign() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+
+    axios({
+      method: 'put',
+      url: './api/journal02/verify/' + sessionStorage.getItem('journal02'),
+      data: {
+        verify: auth.name,
+        verify_id: auth.id,
+        remark: document.getElementById('remark').value
+      },
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      let sign = {
+        category: 'journal02',
+        from: './journal.02-verify.verify.html',
+        to: './journal.02-verify.html',
+        operation: 'verify',
+        item_id: sessionStorage.getItem('verifyId')
+      }
+      sessionStorage.setItem('sign', JSON.stringify(sign))
+      location.href = './sign.html'
+    }).catch(err => {
+      this.setState({ message: `服务器通信异常 ${err}`})
+    })
+  }
+
+  back() {
+    location.href = './journal.02-verify.html'
   }
 
   render() {
@@ -47,6 +103,33 @@ class Journal02VerifyPdd extends React.Component {
               }
 
               <div className="row">
+                <div className="col-12">
+                  <div className="card">
+                    <div className="card-header">
+                      <h5>调度员</h5>
+                    </div>
+
+                    <div className="card-body row">
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label>备注</label>
+                          <textarea rows="3" className="form-control" id="remark"></textarea>
+                        </div>
+                      </div>
+
+                      <div className="col-12">
+                        <div className="btn-group pull-right">
+                          <button type="button" className="btn btn-primary" onClick={this.sign}>
+                            <i className="fa fa-fw fa-check-square-o"></i> 确认
+                          </button>
+                          <button type="button" className="btn btn-light" onClick={this.back}>
+                            取消
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -55,3 +138,5 @@ class Journal02VerifyPdd extends React.Component {
     )
   }
 }
+
+ReactDOM.render(<Journal02VerifyPdd />, document.getElementById('app'))
