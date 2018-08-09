@@ -140,7 +140,7 @@ export default class Journal02Master extends React.Component {
       <div className="row">
         <div className="col-12 text-center">
           <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
-            <i class="fa fa-fw fa-search"></i> 预览
+            <i className="fa fa-fw fa-search"></i> 预览
           </button>
         </div>
 
@@ -150,23 +150,23 @@ export default class Journal02Master extends React.Component {
           <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
             <tbody>
               <tr>
-                <td rowspan="2" width="20%" className="text-center align-middle">CRH</td>
+                <td rowSpan="2" width="20%" className="text-center align-middle">CRH</td>
                 <td><strong>哈尔滨动车段哈尔滨西动车组运用所</strong></td>
                 <td width="15%"></td>
               </tr>
               <tr>
-                <td colspan="2"><strong>一体化作业申请单</strong></td>
+                <td colSpan="2"><strong>一体化作业申请单</strong></td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div className="col-12">
-          <table class="table table-bordered table-sm" style={{ border: '2px solid black' }}>
+          <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
             <tbody>
               <tr>
                 <td width="15%" className="text-center align-middle">申请单位</td>
-                <td colspan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.read ? true : false} /></td>
+                <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.read ? true : false} /></td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
@@ -182,17 +182,17 @@ export default class Journal02Master extends React.Component {
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>
-                <td colspan="3">
+                <td colSpan="3">
                   <select className="form-control form-control-sm" id="groupSN" disabled={this.props.read ? true : false}>
                     {this.state.trainList.map(item =>
-                      <option value={item.name}>{item.name} ({item.model})</option>
+                      <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
                     )}
                   </select>
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请作业时间</td>
-                <td colspan="3" className="text-center">
+                <td colSpan="3" className="text-center">
                   <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.read ? true : false} />
                   日 &nbsp; &nbsp;
                   <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin0" readOnly={this.props.read ? true : false} />
@@ -209,7 +209,7 @@ export default class Journal02Master extends React.Component {
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业内容</td>
-                <td colspan="3">
+                <td colSpan="3">
                   <select className="form-control form-control-sm" id="content" disabled={this.props.read ? true : false}>
                     <option value="普查">普查</option>
                     <option value="检查">检查</option>
@@ -223,56 +223,58 @@ export default class Journal02Master extends React.Component {
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">施修要求</td>
-                <td colspan="3">
+                <td colSpan="3">
                   <table className="table table-sm">
-                    <tr>
-                      <td width="15%" className="text-center">蓄电池({this.state.master.p_yq_xdc})</td>
-                      <td className="text-center">
-                        <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_xdc-0">供</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_xdc-1">断</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_xdc-2">无要求</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="15%" className="text-center">接触网</td>
-                      <td className="text-center">
-                        <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_jcw-0">供</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_jcw-1">断</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_jcw-2">无要求</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="15%" className="text-center">作业地点</td>
-                      <td className="text-center">
-                        <input name="p_yq_zydd" type="radio" value="融冰除雪库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_zydd-0">融冰除雪库</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_zydd" type="radio" value="停留线" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_zydd-1">停留线</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <input name="p_yq_zydd" type="radio" value="其它" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
-                        <label for="p_yq_zydd-2">其它</label>
-                        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="15%" className="text-center">其它</td>
-                      <td className="text-center">
-                        <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.read ? true : false} />
-                      </td>
-                    </tr>
+                    <tbody>
+                      <tr>
+                        <td width="15%" className="text-center">蓄电池({this.state.master.p_yq_xdc})</td>
+                        <td className="text-center">
+                          <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_xdc-0">供</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_xdc-1">断</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_xdc-2">无要求</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="15%" className="text-center">接触网</td>
+                        <td className="text-center">
+                          <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_jcw-0">供</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_jcw-1">断</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_jcw-2">无要求</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="15%" className="text-center">作业地点</td>
+                        <td className="text-center">
+                          <input name="p_yq_zydd" type="radio" value="融冰除雪库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-0">融冰除雪库</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_zydd" type="radio" value="停留线" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-1">停留线</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input name="p_yq_zydd" type="radio" value="其它" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-2">其它</label>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="15%" className="text-center">其它</td>
+                        <td className="text-center">
+                          <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.read ? true : false} />
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </td>
               </tr>
@@ -298,7 +300,7 @@ export default class Journal02Master extends React.Component {
             <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
               <tbody>
                 <tr>
-                  <td colspan="6" className="text-center align-middle"><h6 className="text-center">动车所审核</h6></td>
+                  <td colSpan="6" className="text-center align-middle"><h6 className="text-center">动车所审核</h6></td>
                 </tr>
                 <tr>
                   <td width="15%" className="text-center align-middle">动车所调度审核</td>
@@ -327,14 +329,14 @@ export default class Journal02Master extends React.Component {
 
         {this.props.verify &&
           <div className="col-12">
-            <table class="table table-bordered table-sm" style={{ border: '2px solid black' }}>
+            <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
               <tbody>
                 <tr>
-                  <td colspan="4"><h6 className="text-center align-middle">作业完成销记</h6></td>
+                  <td colSpan="4"><h6 className="text-center align-middle">作业完成销记</h6></td>
                 </tr>
                 <tr>
                   <td width="15%" className="text-center align-middle">作业完成情况</td>
-                  <td colspan="3" className="text-center align-middle">
+                  <td colSpan="3" className="text-center align-middle">
                     {this.state.master.verify_report}
                   </td>
                 </tr>
@@ -364,7 +366,7 @@ export default class Journal02Master extends React.Component {
                 </tr>
                 <tr>
                   <td width="15%" className="text-center align-middle">备注</td>
-                  <td colspan="3" className="text-center align-middle">
+                  <td colSpan="3" className="text-center align-middle">
                     <p>{this.state.master.remark}</p>
                     <ul className="list-inline">
                       <li className="list-inline-item">{this.state.master.p_jsy_content}</li>

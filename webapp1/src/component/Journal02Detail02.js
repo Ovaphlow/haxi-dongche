@@ -97,60 +97,62 @@ export default class Journal02Detail02 extends React.Component {
 
         <div className="col-12">
           <table className="table table-sm table-bordered" style={{ border: '2px solid black' }}>
-            <tr>
-              <td width="6%" className="text-center align-middle">部件名称</td>
-              <td width="6%" className="text-center align-middle">车组</td>
-              <td width="3%" className="text-center align-middle">车号</td>
-              <td width="3%" className="text-center align-middle">位置</td>
-              <td width="6%" className="text-center align-middle">日期</td>
-              <td width="6%" className="text-center align-middle">时间</td>
-              <td className="text-center align-middle">更换原因</td>
-              <td width="6%" className="text-center align-middle">作业人员已阅读工艺文件并掌握各步骤</td>
-              <td width="4%" className="text-center align-middle">力矩扳手已校验</td>
-              <td width="6%" className="text-center align-middle">换下部件序列号</td>
-              <td width="6%" className="text-center align-middle">换上部件序列号</td>
-              <td width="4%" className="text-center align-middle">部件安装良好，螺栓力矩已套固，防松标记已涂打</td>
-              <td width="6%" className="text-center align-middle">作业者</td>
-              <td width="6%" className="text-center align-middle">检修工长</td>
-              <td width="4%" className="text-center align-middle">部件功能试验正常</td>
-              <td width="6%" className="text-center align-middle">质检员</td>
-              <td width="6%" className="text-center align-middle">值班干部</td>
-            </tr>
-            {this.state.detail.map(item =>
+            <tbody>
               <tr>
-                <td width="6%" className="text-center align-middle">
-                  {item.name}
-                  {!!!this.props.read &&
-                    <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
-                  }
-                </td>
-                <td width="6%" className="text-center align-middle">{item.train}</td>
-                <td width="3%" className="text-center align-middle">{item.carriage}</td>
-                <td width="3%" className="text-center align-middle">{item.position}</td>
-                <td width="6%" className="text-center align-middle">{item.date}</td>
-                <td width="6%" className="text-center align-middle">{item.time}</td>
-                <td className="text-center align-middle">{item.reason}</td>
-                <td width="6%" className="text-center align-middle">{item.p_gywj}</td>
-                <td width="4%" className="text-center align-middle">{item.p_ljbs}</td>
-                <td width="6%" className="text-center align-middle">{item.component_sn_old}</td>
-                <td width="6%" className="text-center align-middle">{item.component_sn_new}</td>
-                <td width="4%" className="text-center align-middle">{item.p_bjaz}</td>
-                <td width="6%" className="text-center align-middle">{item.operator}</td>
-                <td width="6%" className="text-center align-middle">{item.leader}</td>
-                <td width="4%" className="text-center align-middle">
-                  {item.p_bjgnsy}
-                  {this.props.qc &&
-                    <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
-                      <option value="">部件功能是否正常</option>
-                      <option value="是">是</option>
-                      <option value="否">否</option>
-                    </select>
-                  }
-                </td>
-                <td width="6%" className="text-center align-middle">{item.qc}</td>
-                <td width="6%" className="text-center align-middle">{item.duty_officer}</td>
+                <td width="6%" className="text-center align-middle">部件名称</td>
+                <td width="6%" className="text-center align-middle">车组</td>
+                <td width="3%" className="text-center align-middle">车号</td>
+                <td width="3%" className="text-center align-middle">位置</td>
+                <td width="6%" className="text-center align-middle">日期</td>
+                <td width="6%" className="text-center align-middle">时间</td>
+                <td className="text-center align-middle">更换原因</td>
+                <td width="6%" className="text-center align-middle">作业人员已阅读工艺文件并掌握各步骤</td>
+                <td width="4%" className="text-center align-middle">力矩扳手已校验</td>
+                <td width="6%" className="text-center align-middle">换下部件序列号</td>
+                <td width="6%" className="text-center align-middle">换上部件序列号</td>
+                <td width="4%" className="text-center align-middle">部件安装良好，螺栓力矩已套固，防松标记已涂打</td>
+                <td width="6%" className="text-center align-middle">作业者</td>
+                <td width="6%" className="text-center align-middle">检修工长</td>
+                <td width="4%" className="text-center align-middle">部件功能试验正常</td>
+                <td width="6%" className="text-center align-middle">质检员</td>
+                <td width="6%" className="text-center align-middle">值班干部</td>
               </tr>
-            )}
+              {this.state.detail.map(item =>
+                <tr key={item.id}>
+                  <td width="6%" className="text-center align-middle">
+                    {item.name}
+                    {!!!this.props.read &&
+                      <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
+                    }
+                  </td>
+                  <td width="6%" className="text-center align-middle">{item.train}</td>
+                  <td width="3%" className="text-center align-middle">{item.carriage}</td>
+                  <td width="3%" className="text-center align-middle">{item.position}</td>
+                  <td width="6%" className="text-center align-middle">{item.date}</td>
+                  <td width="6%" className="text-center align-middle">{item.time}</td>
+                  <td className="text-center align-middle">{item.reason}</td>
+                  <td width="6%" className="text-center align-middle">{item.p_gywj}</td>
+                  <td width="4%" className="text-center align-middle">{item.p_ljbs}</td>
+                  <td width="6%" className="text-center align-middle">{item.component_sn_old}</td>
+                  <td width="6%" className="text-center align-middle">{item.component_sn_new}</td>
+                  <td width="4%" className="text-center align-middle">{item.p_bjaz}</td>
+                  <td width="6%" className="text-center align-middle">{item.operator}</td>
+                  <td width="6%" className="text-center align-middle">{item.leader}</td>
+                  <td width="4%" className="text-center align-middle">
+                    {item.p_bjgnsy}
+                    {this.props.qc &&
+                      <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                        <option value="">部件功能是否正常</option>
+                        <option value="是">是</option>
+                        <option value="否">否</option>
+                      </select>
+                    }
+                  </td>
+                  <td width="6%" className="text-center align-middle">{item.qc}</td>
+                  <td width="6%" className="text-center align-middle">{item.duty_officer}</td>
+                </tr>
+              )}
+            </tbody>
           </table>
 
           {/* <ul className="list-group">

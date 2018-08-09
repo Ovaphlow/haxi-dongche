@@ -8,6 +8,12 @@ export default class Journal02Item extends React.Component {
     this.checkPjsy = this.checkPjsy.bind(this)
     this.checkPjsybz = this.checkPjsybz.bind(this)
     this.checkPjsyQc = this.checkPjsyQc.bind(this)
+    this.checkPzbsz = this.checkPzbsz.bind(this)
+    this.checkPdd = this.checkPdd.bind(this)
+    this.verifyLeader = this.verifyLeader.bind(this)
+    this.verifyLeaderPbz = this.verifyLeaderPbz.bind(this)
+    this.verifyLeaderQc = this.verifyLeaderQc.bind(this)
+    this.verify = this.verify.bind(this)
   }
 
   detail(event) {
@@ -106,6 +112,50 @@ export default class Journal02Item extends React.Component {
     location.href = './sign.html'
   }
 
+  checkPzbsz(event) {
+    let sign = {
+      category: 'journal02',
+      from: './journal.02-check.html',
+      to: './journal.02-check.html',
+      operation: 'zbsz',
+      item_id: event.target.getAttribute('data-id')
+    }
+    sessionStorage.setItem('sign', JSON.stringify(sign))
+    location.href = './sign.html'
+  }
+
+  checkPdd(event) {
+    let sign = {
+      category: 'journal02',
+      from: './journal.02-check.html',
+      to: './journal.02-check.html',
+      operation: 'dd',
+      item_id: event.target.getAttribute('data-id')
+    }
+    sessionStorage.setItem('sign', JSON.stringify(sign))
+    location.href = './sign.html'
+  }
+
+  verifyLeader(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+    location.href = './journal.02-verify.leader.html'
+  }
+
+  verifyLeaderPbz(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+    location.href = './journal.02-verify.p_bz.html'
+  }
+
+  verifyLeaderQc(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+    location.href = './journal.02-verify.qc.html'
+  }
+
+  verify(event) {
+    sessionStorage.setItem('verifyId', event.target.getAttribute('data-id'))
+    location.href = './journal.02-verify.p_dd.html'
+  }
+
   render() {
     return (
       <li className="list-group-item">
@@ -156,6 +206,36 @@ export default class Journal02Item extends React.Component {
               {this.props.p_jsy_qc &&
                 <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPjsyQc}>
                   质检签字
+                </button>
+              }
+              {this.props.p_zbsz &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPzbsz}>
+                  值班所长审批
+                </button>
+              }
+              {this.props.p_dd &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPdd}>
+                  调度审核
+                </button>
+              }
+              {this.props.verify_leader &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeader}>
+                  作业完成
+                </button>
+              }
+              {this.props.verify_p_bz &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeaderPbz}>
+                  作业完成
+                </button>
+              }
+              {this.props.verify_qc &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeaderQc}>
+                  作业完成
+                </button>
+              }
+              {this.props.verify_p_dd &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verify}>
+                  调度员签字
                 </button>
               }
             </div>

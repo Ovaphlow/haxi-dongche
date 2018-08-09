@@ -75,7 +75,7 @@ export default class Journal02Detail02 extends React.Component {
     })
   }
 
-  remove() {
+  remove(event) {
     if (!!!confirm('确认删除选定的记录？')) return false
     axios({
       method: 'delete',
@@ -105,72 +105,74 @@ export default class Journal02Detail02 extends React.Component {
 
         <div className="col-12">
           <table className="table table-sm table-bordered" style={{ border: '2px solid black' }}>
-            <tr>
-              <td width="15%" className="text-center align-middle">实施改造项目(升级系统)</td>
-              <td colspan="8" className="text-center align-middle" id="detail04-subject"></td>
-            </tr>
-            <tr>
-              <td width="15%" className="text-center align-middle">软件版本号</td>
-              <td width="10%" className="text-center align-middle">新</td>
-              <td width="10%" className="text-center align-middle" id="detail04-software_version_new"></td>
-              <td width="10%" className="text-center align-middle">旧</td>
-              <td width="10%" className="text-center align-middle" id="detail04-software_version_old"></td>
-              <td width="20%" colspan="2" className="text-center align-middle">批准文件号</td>
-              <td width="30%" colspan="2" className="text-center align-middle" id="detail04-approval_sn"></td>
-            </tr>
-            <tr>
-              <td width="15%" className="text-center align-middle">实施改造车组</td>
-              <td width="40$" colspan="4" className="text-center align-middle" id="detail04-train"></td>
-              <td width="20%" colspan="2" className="text-center align-middle">实施改造日期</td>
-              <td width="30%" colspan="2" className="text-center align-middle" id="detail04-date"></td>
-            </tr>
-            <tr>
-              <td width="15%" className="text-center align-middle">实施改造的车厢号</td>
-              <td width="10%" className="text-center align-middle">开工时间</td>
-              <td width="10%" className="text-center align-middle">完工时间</td>
-              <td width="10%" className="text-center align-middle">实施单位</td>
-              <td width="10%" className="text-center align-middle">实施者</td>
-              <td width="10%" className="text-center align-middle">动车所现场监控人</td>
-              <td width="10%" className="text-center align-middle">监控班组</td>
-              <td width="10%" className="text-center align-middle">质检员</td>
-              <td width="15%" className="text-center align-middle">备注</td>
-            </tr>
-            {this.state.detail.map(item =>
+            <tbody>
               <tr>
-                <td width="15%" className="text-center align-middle">
-                  {item.carriage}
-                  {!!!this.props.read &&
-                    <span className="text-danger">
-                      <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
-                    </span>
-                  }
-                </td>
-                <td width="10%" className="text-center align-middle">{item.time_begin}</td>
-                <td width="10%" className="text-center align-middle">{item.time_end}</td>
-                <td width="10%" className="text-center align-middle">{item.dept}</td>
-                <td width="10%" className="text-center align-middle">{item.operator}</td>
-                <td width="10%" className="text-center align-middle">
-                  {item.watcher}
-                  {this.props.p_bz &&
-                    <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  }
-                </td>
-                <td width="10%" className="text-center align-middle">{item.watcher_group}</td>
-                <td width="10%" className="text-center align-middle">
-                  {item.qc}
-                  {this.props.qc &&
-                    <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  }
-                </td>
-                <td width="15%" className="text-center align-middle">{item.remark}</td>
+                <td width="15%" className="text-center align-middle">实施改造项目(升级系统)</td>
+                <td colSpan="8" className="text-center align-middle" id="detail04-subject"></td>
               </tr>
-            )}
+              <tr>
+                <td width="15%" className="text-center align-middle">软件版本号</td>
+                <td width="10%" className="text-center align-middle">新</td>
+                <td width="10%" className="text-center align-middle" id="detail04-software_version_new"></td>
+                <td width="10%" className="text-center align-middle">旧</td>
+                <td width="10%" className="text-center align-middle" id="detail04-software_version_old"></td>
+                <td width="20%" colSpan="2" className="text-center align-middle">批准文件号</td>
+                <td width="30%" colSpan="2" className="text-center align-middle" id="detail04-approval_sn"></td>
+              </tr>
+              <tr>
+                <td width="15%" className="text-center align-middle">实施改造车组</td>
+                <td width="40$" colSpan="4" className="text-center align-middle" id="detail04-train"></td>
+                <td width="20%" colSpan="2" className="text-center align-middle">实施改造日期</td>
+                <td width="30%" colSpan="2" className="text-center align-middle" id="detail04-date"></td>
+              </tr>
+              <tr>
+                <td width="15%" className="text-center align-middle">实施改造的车厢号</td>
+                <td width="10%" className="text-center align-middle">开工时间</td>
+                <td width="10%" className="text-center align-middle">完工时间</td>
+                <td width="10%" className="text-center align-middle">实施单位</td>
+                <td width="10%" className="text-center align-middle">实施者</td>
+                <td width="10%" className="text-center align-middle">动车所现场监控人</td>
+                <td width="10%" className="text-center align-middle">监控班组</td>
+                <td width="10%" className="text-center align-middle">质检员</td>
+                <td width="15%" className="text-center align-middle">备注</td>
+              </tr>
+              {this.state.detail.map(item =>
+                <tr key={item.id}>
+                  <td width="15%" className="text-center align-middle">
+                    {item.carriage}
+                    {!!!this.props.read &&
+                      <span className="text-danger">
+                        <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
+                      </span>
+                    }
+                  </td>
+                  <td width="10%" className="text-center align-middle">{item.time_begin}</td>
+                  <td width="10%" className="text-center align-middle">{item.time_end}</td>
+                  <td width="10%" className="text-center align-middle">{item.dept}</td>
+                  <td width="10%" className="text-center align-middle">{item.operator}</td>
+                  <td width="10%" className="text-center align-middle">
+                    {item.watcher}
+                    {this.props.p_bz &&
+                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
+                  <td width="10%" className="text-center align-middle">{item.watcher_group}</td>
+                  <td width="10%" className="text-center align-middle">
+                    {item.qc}
+                    {this.props.qc &&
+                      <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
+                  <td width="15%" className="text-center align-middle">{item.remark}</td>
+                </tr>
+              )}
+            </tbody>
           </table>
 
           {/* <ul id="list" className="list-group">

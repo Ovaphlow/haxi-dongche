@@ -117,25 +117,25 @@ class Journal02Detail extends React.Component {
 
               <Journal02Master read={true} check={true} verify={true} />
 
-              <p><hr /></p>
+              <div className="row"><hr /></div>
 
               {this.state.detail01 > 0 &&
                 <Journal02Detail01 read={true} />
               }
 
-              <p><hr /></p>
+              <div className="row"><hr /></div>
 
               {this.state.detail02 > 0 &&
                 <Journal02Detail02 read={true} />
               }
 
-              <p><hr /></p>
+              <div className="row"><hr /></div>
 
               {this.state.detail03 > 0 &&
                 <Journal02Detail03 read={true} />
               }
 
-              <p><hr /></p>
+              <div className="row"><hr /></div>
 
               {this.state.detail04 > 0 &&
                 <Journal02Detail04 read={true} />

@@ -344,7 +344,7 @@
             })
           } else if (sign.operation === 'jsy-qc') {
             axios({
-              method: 'PUT',
+              method: 'put',
               url: './api/journal02/' + sign.item_id + '/jsy/qc',
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
@@ -357,7 +357,7 @@
             })
           } else if (sign.operation === 'zbsz') {
             axios({
-              method: 'PUT',
+              method: 'put',
               url: './api/journal02/' + sign.item_id + '/zbsz',
               data: {
                 p_zbsz: auth.name,
@@ -417,11 +417,12 @@
             })
           } else if (sign.operation === 'verify-leader-qc') {
             axios({
-              method: 'PUT',
+              method: 'put',
               url: './api/journal02/' + sign.item_id + '/verify/leader/qc',
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
+              console.info(response.data)
               if (response.data.status === 200) {
                 location.href = sign.to
               } else {

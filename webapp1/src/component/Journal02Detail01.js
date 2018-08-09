@@ -104,69 +104,71 @@ export default class Journal02Detail01 extends React.Component {
 
         <div className="col-12">
           <table className="table table-sm table-bordered" style={{ border: '2px solid black' }}>
-            <tr>
-              <td width="8%" className="text-center align-middle">普查项目</td>
-              <td width="42%" colspan="5" className="text-center align-middle" id="detail01-subject"></td>
-              <td width="15%" colspan="2" className="text-center align-middle">批准文件号</td>
-              <td width="35%" colspan="4" className="text-center align-middle" id="detail01-approval_sn"></td>
-            </tr>
-            <tr>
-              <td width="10%" className="text-center align-middle">实施普查车组</td>
-              <td width="40%" colspan="5" className="text-center align-middle" id="detail01-train_sn"></td>
-              <td width="10%" colspan="2" className="text-center align-middle">实施普查日期</td>
-              <td width="40%" colspan="4" className="text-center align-middle" id="detail01-date"></td>
-            </tr>
-            <tr>
-              <td width="8%" className="text-center align-middle">实施普查<br />的车厢号</td>
-              <td width="10%" className="text-center align-middle">具体项点</td>
-              <td width="6%" className="text-center align-middle">开工<br />时间</td>
-              <td width="6%" className="text-center align-middle">完工<br />时间</td>
-              <td width="6%" className="text-center align-middle">检查<br />结果</td>
-              <td width="14%" className="text-center align-middle">故障及处理情况</td>
-              <td width="8%" className="text-center align-middle">实施单位</td>
-              <td width="7%" className="text-center align-middle">实施者</td>
-              <td width="8%" className="text-center align-middle">动车组<br />现场监控人</td>
-              <td width="8%" className="text-center align-middle">监控班组</td>
-              <td width="8%" className="text-center align-middle">质检员</td>
-              <td className="text-center align-middle">备注</td>
-            </tr>
-            {this.state.detail.map(item =>
+            <tbody>
               <tr>
-                <td width="8%" className="text-center align-middle">
-                  {item.carriage}
-                  {!!!this.props.read &&
-                    <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
-                  }
-                </td>
-                <td width="10%" className="text-center align-middle">{item.carriage_subject}</td>
-                <td width="6%" className="text-center align-middle">{item.time_begin}</td>
-                <td width="6%" className="text-center align-middle">{item.time_end}</td>
-                <td width="6%" className="text-center align-middle">{item.result}</td>
-                <td width="14%" className="text-center align-middle">{item.report}</td>
-                <td width="8%" className="text-center align-middle">{item.dept}</td>
-                <td width="7%" className="text-center align-middle">{item.executor}</td>
-                <td width="8%" className="text-center align-middle">
-                  {item.watcher}
-                  {this.props.p_bz &&
-                    <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  }
-                </td>
-                <td width="8%" className="text-center align-middle">{item.watcher_group}</td>
-                <td width="8%" className="text-center align-middle">
-                  {item.qc}
-                  {this.props.qc &&
-                    <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  }
-                </td>
-                <td className="text-center align-middle">{item.remark}</td>
+                <td width="8%" className="text-center align-middle">普查项目</td>
+                <td width="42%" colSpan="5" className="text-center align-middle" id="detail01-subject"></td>
+                <td width="15%" colSpan="2" className="text-center align-middle">批准文件号</td>
+                <td width="35%" colSpan="4" className="text-center align-middle" id="detail01-approval_sn"></td>
               </tr>
-            )}
+              <tr>
+                <td width="10%" className="text-center align-middle">实施普查车组</td>
+                <td width="40%" colSpan="5" className="text-center align-middle" id="detail01-train_sn"></td>
+                <td width="10%" colSpan="2" className="text-center align-middle">实施普查日期</td>
+                <td width="40%" colSpan="4" className="text-center align-middle" id="detail01-date"></td>
+              </tr>
+              <tr>
+                <td width="8%" className="text-center align-middle">实施普查<br />的车厢号</td>
+                <td width="10%" className="text-center align-middle">具体项点</td>
+                <td width="6%" className="text-center align-middle">开工<br />时间</td>
+                <td width="6%" className="text-center align-middle">完工<br />时间</td>
+                <td width="6%" className="text-center align-middle">检查<br />结果</td>
+                <td width="14%" className="text-center align-middle">故障及处理情况</td>
+                <td width="8%" className="text-center align-middle">实施单位</td>
+                <td width="7%" className="text-center align-middle">实施者</td>
+                <td width="8%" className="text-center align-middle">动车组<br />现场监控人</td>
+                <td width="8%" className="text-center align-middle">监控班组</td>
+                <td width="8%" className="text-center align-middle">质检员</td>
+                <td className="text-center align-middle">备注</td>
+              </tr>
+              {this.state.detail.map(item =>
+                <tr key={item.id}>
+                  <td width="8%" className="text-center align-middle">
+                    {item.carriage}
+                    {!!!this.props.read &&
+                      <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
+                    }
+                  </td>
+                  <td width="10%" className="text-center align-middle">{item.carriage_subject}</td>
+                  <td width="6%" className="text-center align-middle">{item.time_begin}</td>
+                  <td width="6%" className="text-center align-middle">{item.time_end}</td>
+                  <td width="6%" className="text-center align-middle">{item.result}</td>
+                  <td width="14%" className="text-center align-middle">{item.report}</td>
+                  <td width="8%" className="text-center align-middle">{item.dept}</td>
+                  <td width="7%" className="text-center align-middle">{item.executor}</td>
+                  <td width="8%" className="text-center align-middle">
+                    {item.watcher}
+                    {this.props.p_bz &&
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
+                  <td width="8%" className="text-center align-middle">{item.watcher_group}</td>
+                  <td width="8%" className="text-center align-middle">
+                    {item.qc}
+                    {this.props.qc &&
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
+                  <td className="text-center align-middle">{item.remark}</td>
+                </tr>
+              )}
+            </tbody>
           </table>
 
           {/* <ul className="list-group">
