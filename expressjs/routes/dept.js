@@ -18,12 +18,12 @@ router.route('/:id').put((req, res) => {
     type: sequelize.QueryTypes.UPDATE
   }).then(result => {
     if (result[1] === 1) {
-      res.json({ content: '', message: '', status: 200 })
+      res.json({ content: '', message: '' })
     } else {
-      res.json({ content: '', message: '数据异常。', status: 400 })
+      res.json({ content: '', message: '数据异常。' })
     }
   }).catch(err => {
-    res.json({ content: '', message: '提交数据失败。', status: 500 })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -36,13 +36,13 @@ router.route('/:id').get((req, res) => {
     type: sequelize.QueryTypes.SELECT
   }).then(result => {
     if (result.length === 1) {
-      res.json({ content: result[0], message: '', status: 200 })
+      res.json({ content: result[0], message: '' })
     } else {
-      res.json({ content: '', message: '数据异常。', status: 400 })
+      res.json({ content: '', message: '数据异常。' })
     }
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '检索数据失败。', status: 500 })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -55,13 +55,12 @@ router.route('/').post((req, res) => {
     type: sequelize.QueryTypes.INSERT
   }).then(result => {
     if (result[1] === 1) {
-      res.json({ content: '', message: '', status: 200 })
+      res.json({ content: '', message: '' })
     } else {
-      res.json({ content: '', message: '操作异常。', status: 202 })
+      res.json({ content: '', message: '操作异常。' })
     }
   }).catch(error => {
-    logger.error(error)
-    res.json({ content: '', message: '提交数据失败。', status: 500 })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
