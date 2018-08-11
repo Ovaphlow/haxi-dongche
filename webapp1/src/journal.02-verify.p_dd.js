@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
-import Sidebar from './component/SidebarB'
+import Sidebar from './component/Sidebar'
 import Toolbar from './component/Journal02Toolbar'
 import Journal02Item from './component/Journal02Item'
 
@@ -53,10 +53,10 @@ class Journal02VerifyPdd extends React.Component {
       }
       let sign = {
         category: 'journal02',
-        from: './journal.02-verify.verify.html',
+        from: './journal.02-verify.html',
         to: './journal.02-verify.html',
         operation: 'verify',
-        item_id: sessionStorage.getItem('verifyId')
+        item_id: sessionStorage.getItem('journal02')
       }
       sessionStorage.setItem('sign', JSON.stringify(sign))
       location.href = './sign.html'
@@ -76,7 +76,7 @@ class Journal02VerifyPdd extends React.Component {
 
         <div className="container-fluid">
           <div className="row">
-            <Sidebar />
+            <Sidebar category='单据' />
 
             <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

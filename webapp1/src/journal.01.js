@@ -3,48 +3,30 @@ import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
 import Sidebar from './component/Sidebar'
-import Toolbar from './component/Journal02Toolbar'
+import Toolbar from './component/Journal01Toolbar'
+import Journal01Item from './component/Journal01Item'
 
 import './dashboard.css'
 
-class Journal02Stats extends React.Component {
+class Journal01 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '' }
+    this.state = { message: '', list: [] }
   }
 
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal02/stats',
+      url: './api/journal01/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
-      var chart = echarts.init(document.getElementById('chart'))
-      var option = {
-        title: {
-          text: '作业车组数据统计',
-          x: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br>{b} : {c} ({d}%)'
-        },
-        series: [
-          {
-            name: '作业次数',
-            type: 'pie',
-            radius: '75%',
-            center: ['50%', '50%'],
-            data: response.data.content,
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
-            }
-          }
-        ]
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
       }
-      chart.setOption(option)
+      this.setState({ list: response.data.content })
+    }).catch(err => {
+      this.setState({ message: `服务器通信异常 ${err}` })
     })
   }
 
@@ -53,20 +35,20 @@ class Journal02Stats extends React.Component {
       <div>
         <Navbar />
 
-        <div className="container-fluid">
+        <div className="contrainer-fluid">
           <div className="row">
-            <Sidebar category='单据' />
+            <Sidebar category='账项' />
 
             <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h3>
-                  02.一体化作业申请单
+                  01.检修车间禁动牌管理台账
                 </h3>
               </div>
 
               <div className="lead">
                 <Toolbar className="pull-right" />
-                <i className="fa fa-pie-chart fa-fw"></i> 数据统计
+                <i className="fa fa-search fa-fw"></i> 检索数据
                 <br />
                 <br />
               </div>
@@ -82,8 +64,12 @@ class Journal02Stats extends React.Component {
               }
 
               <div className="row">
-                <div className="col-12 text-center">
-                  <div id="chart" style={{ width: '100%', height: '40em' }}></div>
+                <div className="col-12">
+                  <ul className="list-group">
+                    {this.state.list.map(item =>
+                      <Journal01Item key={item.id} item={item} />
+                    )}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -94,4 +80,4 @@ class Journal02Stats extends React.Component {
   }
 }
 
-ReactDOM.render(<Journal02Stats />, document.getElementById('app'))
+ReactDOM.render(<Journal01 />, document.getElementById('app'))

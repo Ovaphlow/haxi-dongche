@@ -42,21 +42,21 @@ export default class Journal02Item extends React.Component {
         班组签字
       </span>
     )
-    else if (this.props.item.p_dd_id > 0) return (
+    else if (this.props.item.sign_p_zbsz) return (
       <span className="badge badge-success pull-right">
-        作业负责人签字
+        作业负责人销记
       </span>
     )
-    else if (this.props.item.p_zbsz_id > 0) return (
-      <span className="badge badge-danger pull-right">
-        动车所调度审核
+    else if (this.props.item.sign_p_dd) return (
+      <span className="badge badge-warning pull-right">
+        值班所长审批
       </span>
     )
     else if (this.props.item.sign_p_jsy && ((this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 && this.props.item.sign_p_jsy_bz) ||
         (this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && this.props.item.sign_p_jsy_qc) ||
         this.props.item.p_jsy_content === '同意')) return (
-      <span className="badge badge-warning pull-right">
-        值班做账审批
+      <span className="badge badge-danger pull-right">
+        动车所调度审核
       </span>
     )
     else if (this.props.item.sign_p_jsy_bz && this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!this.props.item.sign_p_jsy_qc) return (
@@ -77,6 +77,7 @@ export default class Journal02Item extends React.Component {
   }
 
   checkPjsy(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
       from: './journal.02-check.html',
@@ -89,6 +90,7 @@ export default class Journal02Item extends React.Component {
   }
 
   checkPjsybz(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
       from: './journal.02-check.html',
@@ -101,6 +103,7 @@ export default class Journal02Item extends React.Component {
   }
 
   checkPjsyQc(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
       from: './journal.02-check.html',
@@ -113,6 +116,7 @@ export default class Journal02Item extends React.Component {
   }
 
   checkPzbsz(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
       from: './journal.02-check.html',
@@ -125,6 +129,7 @@ export default class Journal02Item extends React.Component {
   }
 
   checkPdd(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
       from: './journal.02-check.html',

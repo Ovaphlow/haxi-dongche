@@ -9,6 +9,7 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+// 修改车组信息
 router.route('/train/:uuid').put((req, res) => {
   req.body.uuid = req.params.uuid
   let sql = `
@@ -21,10 +22,11 @@ router.route('/train/:uuid').put((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
+// 获取车组信息
 router.route('/train/:uuid').get((req, res) => {
   let sql =`
     select * from train where uuid = :uuid
@@ -36,10 +38,11 @@ router.route('/train/:uuid').get((req, res) => {
     res.json({ content: result, message: '' })
   }).error(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
+// 添加车组
 router.route('/train').post((req, res) => {
   let sql = `
     insert into train set uuid = :uuid, model = :model, name = :name
@@ -51,10 +54,11 @@ router.route('/train').post((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
+// 车组列表
 router.route('/train').get((req, res) => {
   let sql = `
     select * from train order by name
@@ -65,7 +69,7 @@ router.route('/train').get((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -83,7 +87,7 @@ router.route('/model/:uuid').delete((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -99,7 +103,7 @@ router.route('/model/:uuid').put((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -114,7 +118,7 @@ router.route('/model/:uuid').get((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -134,7 +138,7 @@ router.route('/model').post((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -148,7 +152,7 @@ router.route('/model').get((req, res) => {
     res.json({ content: result, message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误。' })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 

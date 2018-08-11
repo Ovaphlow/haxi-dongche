@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
-import Sidebar from './component/SidebarB'
+import Sidebar from './component/Sidebar'
 import Toolbar from './component/Journal02Toolbar'
-import Journal02Detail01 from './component/Journal02Detail01'
+import Journal02Item from './component/Journal02Item'
 
 import './dashboard.css'
 
@@ -69,7 +69,7 @@ class Journal02 extends React.Component {
         (item.p_jsy_content.indexOf('质检跟踪') !== -1 && item.sign_p_jsy_qc) ||
         item.p_jsy_content === '同意')) return (
       <span className="badge badge-warning pull-right">
-        值班做账审批
+        值班所长审批
       </span>
     )
     else if (item.sign_p_jsy_bz && item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!item.sign_p_jsy_qc) return (
@@ -122,7 +122,7 @@ class Journal02 extends React.Component {
 
         <div className="contrainer-fluid">
           <div className="row">
-            <Sidebar />
+            <Sidebar category='单据' />
 
             <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -173,45 +173,7 @@ class Journal02 extends React.Component {
                 <div className="col-12">
                   <ul className="list-group">
                     {this.state.list.map(item =>
-                      <li className="list-group-item" key={item.id}>
-                        <p className="lead">
-                          <strong>{item.content}</strong>
-                          {this.renderBadge(item)}
-                        </p>
-
-                        <ul className="list-inline">
-                          <li className="list-inline-item">
-                            <span className="text-secondary">申请单位：</span>
-                            {item.dept}
-                          </li>
-                          <li className="list-inline-item">
-                            <span className="text-secondary">申请人：</span>
-                            {item.applicant} ({item.applicant_phone})
-                          </li>
-                          <li className="list-inline-item">
-                            <span className="text-secondary">作业负责人：</span>
-                            {item.leader} ({item.leader})
-                          </li>
-                          <li className="list-inline-item">
-                            <span className="text-secondary">作业车组号：</span>
-                            {item.group_sn}
-                          </li>
-                          <li className="list-inline-item">
-                            <span className="text-secondary">申请作业时间：</span>
-                            {item.date_begin} {item.time_begin} 至 {item.date_end} {item.time_end}
-                          </li>
-                        </ul>
-
-                        <div className="row">
-                          <div className="col-12">
-                            <div className="btn-group pull-right">
-                              <button type="button" className="btn btn-light" data-id={item.id} onClick={this.detail}>
-                                详细信息
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
+                      <Journal02Item key={item.id} item={item} />
                     )}
                   </ul>
                 </div>

@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
 import Sidebar from './component/Sidebar'
-import Toolbar from './component/Journal02Toolbar'
+import Toolbar from './component/Journal01Toolbar'
 
 import './dashboard.css'
 
-class Journal02Stats extends React.Component {
+class Journal01Stats extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '' }
@@ -16,13 +16,17 @@ class Journal02Stats extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal02/stats',
+      url: './api/journal01/stats',
       responseType: 'json'
     }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
       var chart = echarts.init(document.getElementById('chart'))
       var option = {
         title: {
-          text: '作业车组数据统计',
+          text: '借出禁动牌次数 数据统计',
           x: 'center'
         },
         tooltip: {
@@ -31,7 +35,7 @@ class Journal02Stats extends React.Component {
         },
         series: [
           {
-            name: '作业次数',
+            name: '借出次数',
             type: 'pie',
             radius: '75%',
             center: ['50%', '50%'],
@@ -45,6 +49,8 @@ class Journal02Stats extends React.Component {
         ]
       }
       chart.setOption(option)
+    }).catch(err => {
+      this.setState({ message: `服务器通信异常 ${err}` })
     })
   }
 
@@ -55,12 +61,12 @@ class Journal02Stats extends React.Component {
 
         <div className="container-fluid">
           <div className="row">
-            <Sidebar category='单据' />
+            <Sidebar category='账项' />
 
             <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h3>
-                  02.一体化作业申请单
+                  01.检修车间禁动牌管理台账
                 </h3>
               </div>
 
@@ -94,4 +100,4 @@ class Journal02Stats extends React.Component {
   }
 }
 
-ReactDOM.render(<Journal02Stats />, document.getElementById('app'))
+ReactDOM.render(<Journal01Stats />, document.getElementById('app'))

@@ -163,22 +163,6 @@
               </a>
             </li>
           </ul>
-<!--
-          <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
-            <i class="fa fa-user"></i>&nbsp;当前用户
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                用户信息
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                修改密码
-              </a>
-            </li>
-          </ul> -->
 
           <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
             <i class="fa fa-cogs"></i>&nbsp;系统管理
@@ -231,7 +215,6 @@
 
   <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/moment/min/moment.min.js"></script>
   <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
   <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
   <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -305,6 +288,7 @@
       }
 
       submit.onclick = function () {
+        console.info(1123)
         var elResult = document.getElementById('result')
         if (!!!elResult.getAttribute('src')) {
           alert('请先签名再进行下一步操作。')
@@ -431,7 +415,7 @@
             })
           } else if (sign.operation === 'verify') {
             axios({
-              method: 'PUT',
+              method: 'put',
               url: './api/journal02/' + sign.item_id + '/verify/sign',
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'

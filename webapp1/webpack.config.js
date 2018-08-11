@@ -22,6 +22,14 @@ module.exports = {
     'admin.user-list': './src/admin.user-list.js',
     'admin.user-save': './src/admin.user-save.js',
     'admin.user': './src/admin.user.js',
+    'admin.train-list': './src/admin.train-list.js',
+    'admin.train': './src/admin.train.js',
+
+    'journal.01': './src/journal.01.js',
+    'journal.01-save': './src/journal.01-save.js',
+    'journal.01-borrow': './src/journal.01-borrow.js',
+    'journal.01-return': './src/journal.01-return.js',
+    'journal.01-stats': './src/journal.01-stats.js',
 
     'journal.02': './src/journal.02.js',
     'journal.02-detail': './src/journal.02-detail.js',
@@ -68,7 +76,7 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ filename: 'sign.html', template: './src/sign.html' }),
+    new HtmlWebpackPlugin({ chunks: [], filename: 'sign.html', template: './src/sign.html' }),
 
     new HtmlWebpackPlugin({ chunks: ['login'], filename: 'login.html', template: './src/login.html' }),
     new HtmlWebpackPlugin({ chunks: ['index'], filename: 'index.html', template: './src/index.html' }),
@@ -79,6 +87,14 @@ module.exports = {
     new HtmlWebpackPlugin({ chunks: ['admin.user-list'], filename: 'admin.user-list.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['admin.user-save'], filename: 'admin.user-save.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['admin.user'], filename: 'admin.user.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['admin.train-list'], filename: 'admin.train-list.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['admin.train'], filename: 'admin.train.html', template: './src/index.html' }),
+
+    new HtmlWebpackPlugin({ chunks: ['journal.01'], filename: 'journal.01.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['journal.01-save'], filename: 'journal.01-save.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['journal.01-borrow'], filename: 'journal.01-borrow.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['journal.01-return'], filename: 'journal.01-return.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['journal.01-stats'], filename: 'journal.01-stats.html', template: './src/index.html' }),
 
     new HtmlWebpackPlugin({ chunks: ['journal.02'], filename: 'journal.02.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['journal.02-detail'], filename: 'journal.02-detail.html', template: './src/index.html' }),

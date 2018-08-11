@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
-import Sidebar from './component/SidebarB'
+import Sidebar from './component/Sidebar'
 import Toolbar from './component/Journal02Toolbar'
 import Journal02Detail04 from './component/Journal02Detail04'
 
@@ -116,7 +116,7 @@ class Journal02Save04 extends React.Component {
 
         <div className="container-fluid">
           <div className="row">
-            <Sidebar />
+            <Sidebar category='单据' />
 
             <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

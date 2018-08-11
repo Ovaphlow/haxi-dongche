@@ -164,11 +164,11 @@ router.route('/dept/:id').get((req, res) => {
 router.route('/login').post((req, res) => {
   let sql = `
     select
-      u.id, u.uuid, username, u.name, d.name as dept, d.id as dept_id, u.phone,
+      u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone,
       auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd
     from
       user as u
-      left join dept as d
+      left join common_data as d
         on d.id = u.dept_id
     where
       username = :account

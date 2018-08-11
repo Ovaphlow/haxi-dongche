@@ -367,7 +367,14 @@ export default class Journal02Master extends React.Component {
                 <tr>
                   <td width="15%" className="text-center align-middle">备注</td>
                   <td colSpan="3" className="text-center align-middle">
-                    <p>{this.state.master.remark}</p>
+                    {this.state.master.remark &&
+                      <div>
+                        <p className="text-left">
+                          {this.state.master.remark}
+                        </p>
+                        <hr />
+                      </div>
+                    }
                     <ul className="list-inline">
                       <li className="list-inline-item">{this.state.master.p_jsy_content}</li>
                       <li className="list-inline-item"><span className="text-secondary">班组：</span>{this.state.master.p_jsy_bz}</li>
