@@ -24,7 +24,7 @@ class AdminDeptList extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/dept/',
+      url: './api/dept/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {

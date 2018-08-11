@@ -9,9 +9,21 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+router.delete('/:id', async (req, res) => {
+  let sql = `
+    delete from common_data where id = :id
+  `
+  let result = sequelize.query(sql, {
+    type: sequelize.QueryTypes.DELETE,
+    replacements: { id: req.params.id }
+  })
+  logger.info(result)
+  res.json({ content: '', message: '' })
+})
+
 router.route('/:id').put((req, res) => {
   let sql = `
-    update dept set name = :name where id = :id
+    update common_data set value = :name where id = :id
   `
   sequelize.query(sql, {
     replacements: { name: req.body.name, id: parseInt(req.params.id) },
@@ -29,7 +41,7 @@ router.route('/:id').put((req, res) => {
 
 router.route('/:id').get((req, res) => {
   let sql = `
-    select * from dept where id = :id
+    select id, uuid, value as name, remark as category from common_data where id = :id and category = '部门'
   `
   sequelize.query(sql, {
     replacements: { id: parseInt(req.params.id) },
@@ -48,7 +60,7 @@ router.route('/:id').get((req, res) => {
 
 router.route('/').post((req, res) => {
   let sql = `
-    insert into dept set uuid = uuid(), name = :name
+    insert into common_data set uuid = uuid(), value = :name, category = '部门'
   `
   sequelize.query(sql, {
     replacements: { name: req.body.name },
@@ -66,7 +78,7 @@ router.route('/').post((req, res) => {
 
 router.route('/').get((req, res) => {
   let sql = `
-    select * from dept
+    select id, uuid, value as name, remark as category from common_data where category = '部门'
   `
   sequelize.query(sql, {
     type: sequelize.QueryTypes.SELECT

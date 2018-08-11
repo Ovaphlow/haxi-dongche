@@ -40,13 +40,14 @@ class AdminUser extends React.Component {
         return false
       }
       document.getElementById('name').value = response.data.content.name
-      document.getElementById('account').value = response.data.content.account
+      document.getElementById('account').value = response.data.content.username
       document.getElementById('phone').value = response.data.content.phone
-      document.getElementById('dept').value = response.data.content.dept
+      document.getElementById('dept').value = response.data.content.dept_id
+      document.getElementById('auth_admin').value = response.data.content.auth_admin
       document.getElementById('auth_01').value = response.data.content.auth_01
       document.getElementById('auth_p_jsy').value = response.data.content.auth_p_jsy
-      document.getElementById('auth_p_dd').value = response.data.content.p_dd
-      document.getElementById('auth_p_zbsz').value = response.data.content.p_zbsz
+      document.getElementById('auth_p_dd').value = response.data.content.auth_p_dd
+      document.getElementById('auth_p_zbsz').value = response.data.content.auth_p_zbsz
     }).catch(err => {
       this.setState({ message: `服务器通信异常 ${err} `})
     })
@@ -62,17 +63,17 @@ class AdminUser extends React.Component {
       url: './api/user/' + sessionStorage.getItem('admin'),
       data: {
         name: document.getElementById('name').value,
-        account: document.getElementById('account').value,
-        password: md5(document.getElementById('password').value),
+        username: document.getElementById('account').value,
         phone: document.getElementById('phone').value,
-        dept: document.getElementById('dept').value,
+        dept_id: document.getElementById('dept').value,
+        auth_admin: document.getElementById('auth_admin').value,
         auth_01: document.getElementById('auth_01').value,
         auth_p_jsy: document.getElementById('auth_p_jsy').value,
         auth_p_dd: document.getElementById('auth_p_dd').value,
         auth_p_zbsz: document.getElementById('auth_p_zbsz').value
       },
       responseType: 'json'
-    }).then(function (response) {
+    }).then(response => {
       if (response.data.message) {
         this.setState({ message: response.data.message })
         return false
@@ -105,7 +106,7 @@ class AdminUser extends React.Component {
 
               <div className="lead">
                 <Toolbar className="pull-right" />
-                <i className="fa fa-plus fa-fw"></i> 新增用户
+                <i className="fa fa-edit fa-fw"></i> 用户信息
                 <br />
                 <br />
               </div>
@@ -134,12 +135,7 @@ class AdminUser extends React.Component {
                     <input type="text" className="form-control" id="account" />
                   </div>
                 </div>
-                <div className="col-4">
-                  <div className="form-group">
-                    <label>密码</label>
-                    <input type="password" className="form-control" id="password" />
-                  </div>
-                </div>
+                <div className="col-4"></div>
                 <div className="col-4">
                   <div className="form-group">
                     <label>电话</label>
@@ -155,6 +151,16 @@ class AdminUser extends React.Component {
                       {this.state.deptList.map(item =>
                         <option value={item.id} key={item.id}>{item.name}</option>
                       )}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-12">
+                  <div className="form-group">
+                    <label>权限：管理员</label>
+                    <select className="form-control" id="auth_admin">
+                      <option value="0">否</option>
+                      <option value="1">是</option>
                     </select>
                   </div>
                 </div>
@@ -218,4 +224,4 @@ class AdminUser extends React.Component {
   }
 }
 
-ReactDOM.render(<AdminUserSave />, document.getElementById('app'))
+ReactDOM.render(<AdminUser />, document.getElementById('app'))

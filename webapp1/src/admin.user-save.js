@@ -41,17 +41,18 @@ class AdminUserSave extends React.Component {
       url: './api/user/',
       data: {
         name: document.getElementById('name').value,
-        account: document.getElementById('account').value,
+        username: document.getElementById('account').value,
         password: md5(document.getElementById('password').value),
         phone: document.getElementById('phone').value,
-        dept: document.getElementById('dept').value,
+        dept_id: document.getElementById('dept').value,
+        auth_admin: document.getElementById('auth_admin').value,
         auth_01: document.getElementById('auth_01').value,
         auth_p_jsy: document.getElementById('auth_p_jsy').value,
         auth_p_dd: document.getElementById('auth_p_dd').value,
         auth_p_zbsz: document.getElementById('auth_p_zbsz').value
       },
       responseType: 'json'
-    }).then(function (response) {
+    }).then(response => {
       if (response.data.message) {
         this.setState({ message: response.data.message })
         return false
@@ -134,6 +135,16 @@ class AdminUserSave extends React.Component {
                       {this.state.deptList.map(item =>
                         <option value={item.id} key={item.id}>{item.name}</option>
                       )}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="col-12">
+                  <div className="form-group">
+                    <label>权限：管理员</label>
+                    <select className="form-control" id="auth_admin">
+                      <option value="0">否</option>
+                      <option value="1">是</option>
                     </select>
                   </div>
                 </div>

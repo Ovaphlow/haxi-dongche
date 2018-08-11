@@ -57,7 +57,7 @@ router.route('/').post((req, res) => {
     },
     type: sequelize.QueryTypes.INSERT
   }).then(result => {
-    res.json({ content: '', message: '数据已提交至服务器，请稍后检查操作结果。', status: 200 })
+    res.json({ content: '', message: '' })
   }).catch(err => {
     logger.error(err)
     res.json({ content: '', message: '提交数据失败。', status: 500 })
@@ -96,10 +96,10 @@ router.route('/:id').put((req, res) => {
     },
     type: sequelize.QueryTypes.UPDATE
   }).then(result => {
-    res.json({ content: '', message: '数据已提交至服务器，请稍后检查操作结果。', status: 200 })
+    res.json({ content: '', message: '' })
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '提交数据失败。', status: 500 })
+    res.json({ content: '', message: '服务器错误' })
   })
 })
 
@@ -125,7 +125,7 @@ router.route('/').get((req, res) => {
   let sql = `
     select
       id, uuid, username, name, phone, auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd,
-      (select name from dept where id = u.dept_id) as dept
+      (select value from common_data where id = u.dept_id) as dept
     from
       user as u
     order by
