@@ -1,22 +1,17 @@
 import React from 'react'
 
-export default class SidebarA extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+export default class SidebarB extends React.Component {
   render() {
     return (
-      <nav classNameName="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div classNameName="sidebar-sticky">
-          <ul classNameName="nav flex-column">
-            <li classNameName="nav-item">
-              <a classNameName="nav-link" href="./index.html">
-                <i classNameName="fa fa-home"></i>
-                单据
+      <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div className="sidebar-sticky">
+          <ul className="nav flex-column">
+            <li className="nav-item">
+              <a className="nav-link" href="./index.html">
+                <i className="fa fa-fw fa-home"></i> 单据
               </a>
             </li>
-            <li classNameName="nav-item">
+            <li className="nav-item">
               <a className="nav-link" href="./journal.02.html">
                 <i className="fa fa-file-o fa-fw"></i>&nbsp;02.一体化作业申请单
               </a>

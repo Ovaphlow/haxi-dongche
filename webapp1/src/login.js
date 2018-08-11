@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import './login.css'
+
 class Login extends React.Component {
   constructor(props) {
     super(props)
@@ -65,7 +67,12 @@ class Login extends React.Component {
           <div className="col-4 col-xl-3">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">用户登录</h5>
+                <h5 className="card-title">
+                  用户登录
+                  <small className="pull-right">
+                    <a href="#">返回</a>
+                  </small>
+                </h5>
                 <hr />
 
                 {this.state.message &&

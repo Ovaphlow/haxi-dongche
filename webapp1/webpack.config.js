@@ -58,6 +58,12 @@ module.exports = {
         loader: 'babel-loader',
         options: { presets: ['env'] }
       },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
+      }
     ]
   },
 

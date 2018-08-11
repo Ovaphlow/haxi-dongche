@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
-import Sidebar from './component/SidebarA'
+import Sidebar from './component/SidebarB'
 import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'

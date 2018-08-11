@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Navbar from './component/Navbar'
-import Sidebar from './component/SidebarA'
+import Sidebar from './component/SidebarB'
 import Toolbar from './component/Journal02Toolbar'
 
 import './dashboard.css'
@@ -82,7 +82,7 @@ class Journal02Stats extends React.Component {
               }
 
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 text-center">
                   <div id="chart" style={{ width: '100%', height: '40em' }}></div>
                 </div>
               </div>
