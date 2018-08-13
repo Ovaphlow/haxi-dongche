@@ -16,6 +16,9 @@ module.exports = {
     'login': './src/login.js',
     'index': './src/index.js',
 
+    'user': './src/user.js',
+    'user.password': './src/user.password.js',
+
     'admin.dept-list': './src/admin.dept-list.js',
     'admin.dept-save': './src/admin.dept-save.js',
     'admin.dept': './src/admin.dept.js',
@@ -80,6 +83,9 @@ module.exports = {
 
     new HtmlWebpackPlugin({ chunks: ['login'], filename: 'login.html', template: './src/login.html' }),
     new HtmlWebpackPlugin({ chunks: ['index'], filename: 'index.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['user'], filename: 'user.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['user.password'], filename: 'user.password.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: [], filename: 'user.sign.html', template: './src/user.sign.html' }),
 
     new HtmlWebpackPlugin({ chunks: ['admin.dept-list'], filename: 'admin.dept-list.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['admin.dept-save'], filename: 'admin.dept-save.html', template: './src/index.html' }),

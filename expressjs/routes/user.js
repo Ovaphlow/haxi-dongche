@@ -12,6 +12,55 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+// 设置签名
+router.put('/:id/sign', async (req, res) => {
+  let sql = `
+    update user set sign = :sign where id = :id
+  `
+  req.body.id = req.params.id
+  await sequelize.query(sql, {
+    type: sequelize.QueryTypes.UPDATE,
+    replacements: req.body
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  res.json({ content: '', message: '' })
+})
+
+// 修改密码
+router.put('/:id/password', async (req, res) => {
+  let sql = `
+    update user set password = :password where id = :id
+  `
+  req.body.id = req.params.id
+  await sequelize.query(sql, {
+    type: sequelize.QueryTypes.UPDATE,
+    replacements: req.body
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  res.json({ content: '', message: '' })
+})
+
+// 编辑用户信息
+router.put('/:id', async (req, res) => {
+  let sql = `
+    update user set username = :account, name = :name, phone = :phone where id = :id
+  `
+  req.body.id = req.params.id
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.UPDATE,
+    replacements: req.body
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  logger.info(result)
+  res.json({ content: '', message: '' })
+})
+
 router.route('/:id').delete((req, res) => {
   let sql = `delete from user where id = :id`
   sequelize.query(sql, {
@@ -165,7 +214,7 @@ router.route('/login').post((req, res) => {
   let sql = `
     select
       u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone,
-      auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd
+      auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd, sign
     from
       user as u
       left join common_data as d
