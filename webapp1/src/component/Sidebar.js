@@ -1,6 +1,55 @@
 import React from 'react'
 
 export default class Sidebar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { message: '', todoQty: 0 }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) {
+      location.href = './login.html'
+      return false
+    }
+    if (this.props.category === '单据') {
+      axios({
+        method: 'get',
+        url: './api/journal02/todo/p_bz/' + auth.dept + '?timestamp=' + new Date().getTime(),
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+
+      axios({
+        method: 'get',
+        url: './api/journal02/todo/qc/' + auth.name + '?timestamp=' + new Date().getTime(),
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+
+      if (auth.auth_p_dd) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_dd?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+      }
+      if (auth.auth_p_zbsz) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_zbsz?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty })
+        }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+      }
+    }
+  }
+
   render() {
     return (
       <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
@@ -26,7 +75,10 @@ export default class Sidebar extends React.Component {
             {this.props.category === '单据' &&
               <li className="nav-item">
                 <a className="nav-link" href="./journal.02.html">
-                  <i className="fa fa-file-o fa-fw"></i>&nbsp;02.一体化作业申请单
+                  <i className="fa fa-file-o fa-fw"></i>02.一体化作业申请单&nbsp;
+                  {this.state.todoQty > 0 &&
+                    <span className="badge badge-pill badge-danger">{this.state.todoQty}</span>
+                  }
                 </a>
               </li>
             }

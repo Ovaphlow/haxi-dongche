@@ -288,7 +288,6 @@
       }
 
       submit.onclick = function () {
-        console.info(1123)
         var elResult = document.getElementById('result')
         if (!!!elResult.getAttribute('src')) {
           alert('请先签名再进行下一步操作。')
@@ -307,11 +306,11 @@
               },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return fasle
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'jsy-bz') {
             axios({
@@ -320,11 +319,11 @@
               data: { sign: elResult.getAttribute('src') },
               resposneType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'jsy-qc') {
             axios({
@@ -333,11 +332,11 @@
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'zbsz') {
             axios({
@@ -350,11 +349,11 @@
               },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'dd') {
             axios({
@@ -367,24 +366,24 @@
               },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'verify-leader') {
             axios({
-              method: 'PUT',
+              method: 'put',
               url: './api/journal02/' + sign.item_id + '/verify/leader/sign',
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'verify-leader-bz') {
             axios({
@@ -393,11 +392,11 @@
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'verify-leader-qc') {
             axios({
@@ -406,12 +405,11 @@
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
-              console.info(response.data)
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           } else if (sign.operation === 'verify') {
             axios({
@@ -420,11 +418,11 @@
               data: { sign: elResult.getAttribute('src') },
               responseType: 'json'
             }).then(function (response) {
-              if (response.data.status === 200) {
-                location.href = sign.to
-              } else {
+              if (response.data.message) {
                 alert(response.data.message)
+                return false
               }
+              location.href = sign.to
             })
           }
         }
