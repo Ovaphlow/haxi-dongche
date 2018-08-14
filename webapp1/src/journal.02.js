@@ -11,9 +11,10 @@ import './dashboard.css'
 class Journal02 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', list: [] }
-    this.renderBadge = this.renderBadge.bind(this)
+    this.state = { message: '', list: [], trainList: [], deptList: [] }
     this.submit = this.submit.bind(this)
+    this.submit1 = this.submit1.bind(this)
+    this.reload = this.reload.bind(this)
     this.detail = this.detail.bind(this)
   }
 
@@ -32,61 +33,18 @@ class Journal02 extends React.Component {
     }).catch(err => {
       this.setState({ message: `服务器通信异常 ${err}`})
     })
-  }
 
-  renderBadge(item) {
-    if (item.verify_id > 0) return (
-      <span className="badge badge-light pull-right">
-        作业完成
-      </span>
-    )
-    else if (item.sign_verify_leader && (item.p_jsy_content === '同意') || item.sign_verify_leader_qc) return (
-      <span className="badge badge-dark pull-right">
-        调度员核销
-      </span>
-    )
-    else if ((item.p_jsy_content.indexOf('质检') !== 1) && item.sign_verify_leader_bz) return (
-      <span className="badge badge-danger pull-right">
-        质检签字
-      </span>
-    )
-    else if (item.sign_verify_leader && (item.p_jsy_content.indexOf('班组') !== -1)) return (
-      <span className="badge badge-danger pull-right">
-        班组签字
-      </span>
-    )
-    else if (item.p_dd_id > 0) return (
-      <span className="badge badge-success pull-right">
-        作业负责人签字
-      </span>
-    )
-    else if (item.p_zbsz_id > 0) return (
-      <span className="badge badge-danger pull-right">
-        动车所调度审核
-      </span>
-    )
-    else if (item.sign_p_jsy && ((item.p_jsy_content.indexOf('班组跟踪') !== -1 && item.sign_p_jsy_bz) ||
-        (item.p_jsy_content.indexOf('质检跟踪') !== -1 && item.sign_p_jsy_qc) ||
-        item.p_jsy_content === '同意')) return (
-      <span className="badge badge-warning pull-right">
-        值班所长审批
-      </span>
-    )
-    else if (item.sign_p_jsy_bz && item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!item.sign_p_jsy_qc) return (
-      <span className="badge badge-info pull-right">
-        质检签字
-      </span>
-    )
-    else if (item.sign_p_jsy && item.p_jsy_content.indexOf('班组') !== -1 && !!!item.sign_p_jst_bz) return (
-      <span className="badge badge-info pull-right">
-        班组签字
-      </span>
-    )
-    else if (!!!item.sign_p_jsy) return (
-      <span className="badge badge-info pull-right">
-        动车所技术员审核
-      </span>
-    )
+    axios({
+      method: 'get',
+      url: './api/dept/',
+      responseType: 'json'
+    }).then(response => this.setState({ deptList: response.data.content }))
+
+    axios({
+      method: 'get',
+      url: './api/common/train',
+      responseType: 'json'
+    }).then(response => this.setState({ trainList: response.data.content }))
   }
 
   submit() {
@@ -94,9 +52,9 @@ class Journal02 extends React.Component {
       method: 'post',
       url: './api/journal02/filter/',
       data: {
-        dept: app.filter.dept || '',
-        group: app.filter.group_sn || '',
-        date: app.filter.date_begin || ''
+        dept: document.getElementById('dept').value || '',
+        group: document.getElementById('group').value || '',
+        date: document.getElementById('date_begin').value || ''
       },
       responseType: 'json'
     }).then(response => {
@@ -105,9 +63,25 @@ class Journal02 extends React.Component {
         return false
       }
       this.setState({ list: response.data.content })
-    }).catch(err => {
-      this.setState({ message: `服务器通信异常 ${err}`})
-    })
+    }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+  }
+
+  submit1() {
+    console.info(1123)
+    axios({
+      method: 'post',
+      url: './api/journal02/filter/notcomplete',
+      data: {
+        dept: document.getElementById('dept').value,
+        group: document.getElementById('group').value,
+        date: document.getElementById('date_begin').value
+      },
+      responseType: 'json'
+    }).then(response => this.setState({ list: response.data.content }))
+  }
+
+  reload() {
+    location.reload(true)
   }
 
   detail(event) {
@@ -149,23 +123,53 @@ class Journal02 extends React.Component {
               }
 
               <div className="row">
-                <div className="form-group col-3">
-                  <label>作业车组号</label>
-                  <input type="text" className="form-control form-control-sm" id="group" />
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>作业车组号</label>
+                    <select className="form-control" id="group">
+                      <option value="">选择车组</option>
+                      {this.state.trainList.map(item =>
+                        <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
+                      )}
+                    </select>
+                  </div>
                 </div>
-                <div className="form-group col-3">
-                  <label>申请单位</label>
-                  <input type="text" className="form-control form-control-sm" id="dept" />
+
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>申请单位</label>
+                    <select className="form-control" id="dept">
+                      <option value="">选择单位</option>
+                      {this.state.deptList.map(item =>
+                        <option value={item.name} key={item.id}>{item.name}</option>
+                      )}
+                    </select>
+                  </div>
                 </div>
-                <div className="form-group col-3">
-                  <label>申请作业时间</label>
-                  <input type="date" className="form-control form-control-sm" id="date_begin" />
+
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>申请作业时间</label>
+                    <input type="date" className="form-control" id="date_begin" />
+                  </div>
                 </div>
-                <div className="form-group col-3">
-                  <label>&nbsp;</label>
-                  <button type="button" className="btn btn-outline-secondary btn-sm form-control" onClick={this.submit}>
-                    <i className="fa fa-fw fa-search"></i> 查询
-                  </button>
+              </div>
+
+              <div className="row">
+                <div className="col-12">
+                  <div className="btn-group pull-right">
+                    <button type="button" className="btn btn-outline-primary btn-sm" onClick={this.submit}>
+                      <i className="fa fa-fw fa-search"></i> 查询
+                    </button>
+
+                    <button type="button" className="btn btn-outline-info btn-sm" onClick={this.submit1}>
+                      <i className="fa fa-fw fa-search"></i> 未完成申请单
+                    </button>
+
+                    <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.reload}>
+                      <i className="fa fa-fw fa-refresh"></i> 重置
+                    </button>
+                  </div>
                 </div>
               </div>
 
