@@ -49,7 +49,7 @@ class User extends React.Component {
 
         <div className="contrainer-fluid">
           <div className="row">
-            <Sidebar category='单据' />
+            <Sidebar />
 
             <div role="main" className="col-md-9 col-lg-10 ml-sm-auto px-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">

@@ -4,7 +4,7 @@ export default class Journal02Detail02 extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { message: '', auth: {}, detail: [] }
+    this.state = { message: '', detail: [] }
     this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
     this.remove = this.remove.bind(this)
@@ -32,16 +32,14 @@ export default class Journal02Detail02 extends React.Component {
     axios({
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/p_bz',
-      data: { content: event.target.value, p_bz: this.props.auth.name },
+      data: { leader: event.target.value === '' ? '' : this.props.auth.name },
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
         this.setState({ message: response.data.message })
         return false
       }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailQc(event) {
@@ -141,7 +139,15 @@ export default class Journal02Detail02 extends React.Component {
                   <td width="6%" className="text-center align-middle">{item.component_sn_new}</td>
                   <td width="4%" className="text-center align-middle">{item.p_bjaz}</td>
                   <td width="6%" className="text-center align-middle">{item.operator}</td>
-                  <td width="6%" className="text-center align-middle">{item.leader}</td>
+                  <td width="6%" className="text-center align-middle">
+                    {item.leader}
+                    {this.props.p_bz &&
+                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
                   <td width="4%" className="text-center align-middle">
                     {item.p_bjgnsy}
                     {this.props.qc &&

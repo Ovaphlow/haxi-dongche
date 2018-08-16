@@ -18,6 +18,7 @@ class Journal02Save03 extends React.Component {
 
   componentDidMount() {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
+    document.getElementById('operator').value = this.props.auth.name
 
     axios({
       method: 'get',
@@ -56,8 +57,7 @@ class Journal02Save03 extends React.Component {
         component_sn_old: document.getElementById('component_sn_old').value,
         component_sn_new: document.getElementById('component_sn_new').value,
         p_bjaz: document.getElementById('p_bjaz').value,
-        operator: document.getElementById('operator').value,
-        leader: document.getElementById('leader').value
+        operator: document.getElementById('operator').value
       },
       responseType: 'json'
     }).then(response => {
@@ -218,20 +218,16 @@ class Journal02Save03 extends React.Component {
 
                       <div className="clearfix"></div>
 
-                      <div className="col-4 form-group">
+                      <div className="col-6 form-group">
                         <label>部件、螺栓力矩、防松标记</label>
                         <select className="form-control" id="p_bjaz">
                           <option value="是">部件安装良好，螺栓力矩已紧固，放松标记已涂打</option>
                           <option value="否">否</option>
                         </select>
                       </div>
-                      <div className="col-4 form-group">
+                      <div className="col-6 form-group">
                         <label>作业者</label>
                         <input type="text" className="form-control" id="operator" />
-                      </div>
-                      <div className="col-4 form-group">
-                        <label>检修工长</label>
-                        <input type="text" className="form-control" id="leader" />
                       </div>
 
                       <div className="clearfix"></div>
@@ -258,7 +254,10 @@ class Journal02Save03 extends React.Component {
   }
 }
 
-ReactDOM.render(<Journal02Save03 />, document.getElementById('app'))
+let auth = JSON.parse(sessionStorage.getItem('auth'))
+if (!!!auth.id) location.href = './login.html'
+
+ReactDOM.render(<Journal02Save03 auth={auth}/>, document.getElementById('app'))
 
 // import navbar from './navbar-2.html'
 // document.getElementById('navbar').innerHTML = navbar

@@ -23,7 +23,7 @@ class Journal02Detail extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/qty',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/qty?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -37,7 +37,7 @@ class Journal02Detail extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/qty',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/qty?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -51,7 +51,7 @@ class Journal02Detail extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/qty',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/qty?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -65,7 +65,7 @@ class Journal02Detail extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/qty',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/qty?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {

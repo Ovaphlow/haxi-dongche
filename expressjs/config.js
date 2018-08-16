@@ -41,8 +41,8 @@ const develConfig = {
     expire: 604800
   },
   storage: {
-    user: 'wangxn',
-    password: 'wang@HD.1123',
+    user: 'root',
+    password: '',
     host: '127.0.0.1',
     database: 'haxi'
   },

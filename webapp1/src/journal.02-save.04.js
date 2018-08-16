@@ -20,6 +20,8 @@ class Journal02Save04 extends React.Component {
 
   componentDidMount() {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
+    document.getElementById('dept').value = this.props.auth.dept
+    document.getElementById('operator').value = this.props.auth.name
 
     axios({
       method: 'get',
@@ -243,7 +245,7 @@ class Journal02Save04 extends React.Component {
 
                           <div className="col-6 form-group">
                             <label>实施单位</label>
-                            <input type="text" className="form-control form-control-sm" id="dept" />
+                            <input type="text" readOnly className="form-control form-control-sm" id="dept" />
                           </div>
                           <div className="col-6 form-group">
                             <label>实施者</label>
@@ -281,7 +283,10 @@ class Journal02Save04 extends React.Component {
   }
 }
 
-ReactDOM.render(<Journal02Save04 />, document.getElementById('app'))
+let auth = JSON.parse(sessionStorage.getItem('auth'))
+if (!!!auth.id) location.href = './login.html'
+
+ReactDOM.render(<Journal02Save04 auth={auth} />, document.getElementById('app'))
 
 // import navbar from './navbar-2.html'
 // document.getElementById('navbar').innerHTML = navbar
