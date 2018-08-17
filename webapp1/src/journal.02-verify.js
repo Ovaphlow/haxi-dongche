@@ -11,7 +11,7 @@ import './dashboard.css'
 class Journal02Verify extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', list_leader: [], list_p_bz: [], list_qc: [], list_p_dd: [] }
+    this.state = { message: '', list_leader: [], list_p_bz: [], list_qc: [], list_p_jsy: [], list_p_dd: [] }
   }
 
   componentDidMount() {
@@ -63,6 +63,20 @@ class Journal02Verify extends React.Component {
       }).catch(err => {
         this.setState({ message: `服务器通信异常 ${err}`})
       })
+    }
+
+    if (auth.auth_p_jsy) {
+      axios({
+        method: 'get',
+        url: './api/journal02/verify/p_jsy?timestamp=' + new Date().getTime(),
+        responseType: 'json'
+      }).then(response => {
+        if (response.data.message) {
+          this.setState({ message: response.data.message })
+          return false
+        }
+        this.setState({ list_p_jsy: response.data.content })
+      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
     }
 
     if (auth.auth_p_dd) {
@@ -126,6 +140,9 @@ class Journal02Verify extends React.Component {
                     )}
                     {this.state.list_qc.map(item =>
                       <Journal02Item key={item.id} verify_qc={true} item={item} />
+                    )}
+                    {this.state.list_p_jsy.map(item =>
+                      <Journal02Item key={item.id} verify_p_jsy={true} item={item} />
                     )}
                     {this.state.list_p_dd.map(item =>
                       <Journal02Item key={item.id} verify_p_dd={true} item={item} />

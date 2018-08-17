@@ -47,6 +47,7 @@ module.exports = {
     'journal.02-save.04': './src/journal.02-save.04.js',
     'journal.02-verify.p_bz': './src/journal.02-verify.p_bz.js',
     'journal.02-verify.qc': './src/journal.02-verify.qc.js',
+    'journal.02-verify.p_jsy': './src/journal.02-verify.p_jsy.js',
     'journal.02-verify.p_dd': './src/journal.02-verify.p_dd.js',
     'journal.02-stats': './src/journal.02-stats.js',
   },
@@ -115,6 +116,7 @@ module.exports = {
     new HtmlWebpackPlugin({ chunks: ['journal.02-save.04'], filename: 'journal.02-save.04.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['journal.02-verify.p_bz'], filename: 'journal.02-verify.p_bz.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['journal.02-verify.qc'], filename: 'journal.02-verify.qc.html', template: './src/index.html' }),
+    new HtmlWebpackPlugin({ chunks: ['journal.02-verify.p_jsy'], filename: 'journal.02-verify.p_jsy.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['journal.02-verify.p_dd'], filename: 'journal.02-verify.p_dd.html', template: './src/index.html' }),
     new HtmlWebpackPlugin({ chunks: ['journal.02-stats'], filename: 'journal.02-stats.html', template: './src/index.html' }),
     new webpack.HotModuleReplacementPlugin()

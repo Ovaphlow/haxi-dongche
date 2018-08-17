@@ -7,13 +7,14 @@ export default class Journal02Detail02 extends React.Component {
     this.state = { message: '', detail: [] }
     this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
+    this.submitDetailPjsy = this.submitDetailPjsy.bind(this)
     this.remove = this.remove.bind(this)
   }
 
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -60,9 +61,22 @@ export default class Journal02Detail02 extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+  }
+
+  submitDetailPjsy(event) {
+    this.setState({ message: '' })
+    axios({
+      method: 'put',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/p_jsy',
+      data: { duty_officer: event.target.value === '' ? '' : this.props.auth.name },
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+    }).catch(err => this.setState({ message: '服务器通信异常 ${err}' }))
   }
 
   remove(event) {
@@ -157,7 +171,15 @@ export default class Journal02Detail02 extends React.Component {
                     }
                   </td>
                   <td width="6%" className="text-center align-middle">{item.qc}</td>
-                  <td width="6%" className="text-center align-middle">{item.duty_officer}</td>
+                  <td width="6%" className="text-center align-middle">
+                    {item.duty_officer}
+                    {this.props.p_jsy &&
+                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPjsy}>
+                        <option value="">监控结果</option>
+                        <option value="确认">确认</option>
+                      </select>
+                    }
+                  </td>
                 </tr>
               )}
             </tbody>

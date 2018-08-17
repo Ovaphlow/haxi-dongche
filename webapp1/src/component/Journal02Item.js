@@ -13,7 +13,12 @@ export default class Journal02Item extends React.Component {
     this.verifyLeader = this.verifyLeader.bind(this)
     this.verifyLeaderPbz = this.verifyLeaderPbz.bind(this)
     this.verifyLeaderQc = this.verifyLeaderQc.bind(this)
+    this.verifyPjsy = this.verifyPjsy.bind(this)
     this.verify = this.verify.bind(this)
+  }
+
+  componentDidMount() {
+    // console.info(this.props.item)
   }
 
   detail(event) {
@@ -22,14 +27,29 @@ export default class Journal02Item extends React.Component {
   }
 
   renderBadge() {
-    if (this.props.item.verify_id > 0) return (
+    if (this.props.item.sign_verify) return (
       <span className="badge badge-light pull-right">
         作业完成
       </span>
     )
-    else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content === '同意') || this.props.item.sign_verify_leader_qc) return (
+    else if (
+        this.props.item.sign_verify_leader &&
+        (
+          this.props.item.p_jsy_content === '同意' ||
+          (
+            this.props.item.sign_verify_leader_qc &&
+            this.props.item.qty_verify_p_jsy_02 === 0 &&
+            this.props.item.qty_verify_p_jsy_03 === 0
+          )
+        )
+    ) return (
       <span className="badge badge-dark pull-right">
         调度员核销
+      </span>
+    )
+    else if (this.props.item.qty_verify_p_jsy_02 > 0 || this.props.item.qty_verify_p_jsy_03 > 0) return (
+      <span className="badge badge-dark pull-right">
+        值班干部签字
       </span>
     )
     else if ((this.props.item.p_jsy_content.indexOf('质检') !== 1) && this.props.item.sign_verify_leader_bz) return (
@@ -156,6 +176,11 @@ export default class Journal02Item extends React.Component {
     location.href = './journal.02-verify.qc.html'
   }
 
+  verifyPjsy(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+    location.href = './journal.02-verify.p_jsy.html'
+  }
+
   verify(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     location.href = './journal.02-verify.p_dd.html'
@@ -236,6 +261,11 @@ export default class Journal02Item extends React.Component {
               {this.props.verify_qc &&
                 <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeaderQc}>
                   作业完成
+                </button>
+              }
+              {this.props.verify_p_jsy &&
+                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyPjsy}>
+                  值班干部签字
                 </button>
               }
               {this.props.verify_p_dd &&

@@ -13,6 +13,16 @@ export default class Sidebar extends React.Component {
       return false
     }
     if (this.props.category === '单据') {
+      if (auth.auth_p_jsy) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_jsy?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoPjsy: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        })
+      }
+
       axios({
         method: 'get',
         url: './api/journal02/todo/p_bz/' + auth.dept + '?timestamp=' + new Date().getTime(),

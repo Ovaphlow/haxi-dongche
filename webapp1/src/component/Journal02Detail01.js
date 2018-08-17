@@ -13,7 +13,7 @@ export default class Journal02Detail01 extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
+      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
