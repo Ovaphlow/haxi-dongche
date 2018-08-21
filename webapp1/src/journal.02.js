@@ -67,7 +67,6 @@ class Journal02 extends React.Component {
   }
 
   submit1() {
-    console.info(1123)
     axios({
       method: 'post',
       url: './api/journal02/filter/notcomplete',

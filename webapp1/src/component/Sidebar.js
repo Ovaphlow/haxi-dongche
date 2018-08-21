@@ -19,7 +19,7 @@ export default class Sidebar extends React.Component {
           url: './api/journal02/todo/p_jsy?timestamp=' + new Date().getTime(),
           responseType: 'json'
         }).then(response => {
-          this.setState({ todoPjsy: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
         })
       }
 

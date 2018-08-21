@@ -31,10 +31,7 @@ class Journal02Save01 extends React.Component {
         return false
       }
       this.setState({ trainList: response.data.content })
-    }).catch(err => {
-      console && console.error(err)
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   dialog() {

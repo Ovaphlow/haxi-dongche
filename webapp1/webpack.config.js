@@ -52,8 +52,8 @@ module.exports = {
     'journal.02-stats': './src/journal.02-stats.js',
   },
 
-  mode: 'development',
-  // mode: 'production',
+  // mode: 'development',
+  mode: 'production',
 
   module: {
     rules: [
