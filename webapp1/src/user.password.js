@@ -35,7 +35,7 @@ class UserPassword extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/user/' + this.state.auth.id + '/password',
+      url: './api/common/user/' + this.state.auth.id + '/password',
       data: {
         password: md5(document.getElementById('password1').value)
       },

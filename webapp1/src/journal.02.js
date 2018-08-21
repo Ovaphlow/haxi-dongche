@@ -36,7 +36,7 @@ class Journal02 extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/dept/',
+      url: './api/common/dept/',
       responseType: 'json'
     }).then(response => this.setState({ deptList: response.data.content }))
 

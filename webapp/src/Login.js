@@ -18,7 +18,7 @@ export default class Login extends React.Component {
 
     axios({
       method: 'post',
-      url: './api/user/login',
+      url: './api/common/user/login',
       data: {
         account: document.getElementById('account').value,
         password: md5(document.getElementById('password').value)

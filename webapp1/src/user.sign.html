@@ -288,7 +288,7 @@
       submit.onclick = function () {
         axios({
           method: 'put',
-          url: './api/user/' + auth.id + '/sign',
+          url: './api/common/user/' + auth.id + '/sign',
           data: {
             sign: document.getElementById('result').getAttribute('src')
           },

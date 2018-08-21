@@ -260,7 +260,7 @@ ReactDOM.render(<Journal02VerifyLeader />, document.getElementById('app'))
 //     submit: function () {
 //       axios({
 //         method: 'POST',
-//         url: './api/user/login',
+//         url: './api/common/user/login',
 //         data: {
 //           account: document.getElementById('authAccount').value,
 //           password: md5(document.getElementById('authPassword').value)

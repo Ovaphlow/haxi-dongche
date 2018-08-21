@@ -19,7 +19,7 @@ class AdminDept extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/dept/' + sessionStorage.getItem('admin') + '?timestamp=' + new Date().getTime(),
+      url: './api/common/dept/' + sessionStorage.getItem('admin') + '?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -43,7 +43,7 @@ class AdminDept extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/dept/' + sessionStorage.getItem('admin'),
+      url: './api/common/dept/' + sessionStorage.getItem('admin'),
       data: { name: document.getElementById('name').value },
       responseType: 'json'
     }).then(response => {
@@ -60,7 +60,7 @@ class AdminDept extends React.Component {
   remove() {
     axios({
       method: 'delete',
-      url: './api/dept/' + sessionStorage.getItem('admin'),
+      url: './api/common/dept/' + sessionStorage.getItem('admin'),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
