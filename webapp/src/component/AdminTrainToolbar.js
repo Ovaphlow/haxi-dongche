@@ -1,16 +1,17 @@
 import React from 'react'
 
-export default class AdminUserToolbar extends React.Component {
+export default class ToolbarAdminDept extends React.Component {
   render() {
-    return(
+    return (
       <div className="btn-group pull-right" role="group">
-        <a href="./#/admin.user-list" className="btn btn-outline-secondary btn-sm">
+        <a href="./#/admin.train-list" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-search"></i>
           检索数据
         </a>
-        <a href="./#/admin.user-save" className="btn btn-outline-secondary btn-sm">
+
+        <a href="./#/admin.train" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-plus"></i>
-          新增用户
+          添加车组
         </a>
       </div>
     )

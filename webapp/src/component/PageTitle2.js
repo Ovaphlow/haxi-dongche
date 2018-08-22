@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 
+import AdminDeptToolbar from './AdminDeptToolbar'
+import AdminUserToolbar from './AdminUserToolbar'
+import AdminTrainToolbar from './AdminTrainToolbar'
 import Journal01Toolbar from './Journal01Toolbar'
 import Journal02Toolbar from './Journal02Toolbar'
 
@@ -7,6 +10,15 @@ export default class PageTitle2 extends Component {
   render() {
     return (
       <div className="lead">
+        {this.props.toolbar === 'AdminDeptToolbar' &&
+          <AdminDeptToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'AdminUserToolbar' &&
+          <AdminUserToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'AdminTrainToolbar' &&
+          <AdminTrainToolbar className="pull-right" />
+        }
         {this.props.toolbar === 'Journal01Toolbar' &&
           <Journal01Toolbar className="pull-right" />
         }

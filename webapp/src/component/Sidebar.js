@@ -107,19 +107,19 @@ export default class Sidebar extends React.Component {
 
           <ul className="nav flex-column mb-2">
             <li className="nav-item">
-              <a className="nav-link" href="admin.dept-list.html">
+              <a className="nav-link" href="./#/admin.dept-list">
                 <i className="fa fa-fw fa-cubes"></i>
                 部门
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="admin.user-list.html">
+              <a className="nav-link" href="./#/admin.user-list">
                 <i className="fa fa-fw fa-users"></i>
                 用户
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="admin.train-list.html">
+              <a className="nav-link" href="./#/admin.train-list">
                 <i className="fa fa-fw fa-train"></i>
                 车组
               </a>

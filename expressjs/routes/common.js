@@ -45,7 +45,7 @@ router.route('/train/:uuid').get((req, res) => {
 // 添加车组
 router.route('/train').post((req, res) => {
   let sql = `
-    insert into train set uuid = :uuid, model = :model, name = :name
+    insert into train set uuid = uuid(), model = :model, name = :name
   `
   sequelize.query(sql, {
     replacements: req.body,

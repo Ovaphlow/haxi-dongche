@@ -81,11 +81,9 @@ export default class Journal01Return extends React.Component {
           <PageTitle2 fa="fa-download" title="返还" toolbar="Journal01Toolbar" />
 
           {this.state.message &&
-            <div className="row">
-              <div className="col-12">
-                <div className="alert alert-danger">
-                  {this.state.message}
-                </div>
+            <div className="col-12">
+              <div className="alert alert-danger">
+                {this.state.message}
               </div>
             </div>
           }
