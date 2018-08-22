@@ -68,28 +68,28 @@ export default class Sidebar extends React.Component {
         <div className="sidebar-sticky">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <a className="nav-link" href="./#/journal01">
+              <a className="nav-link" href="./#/journal.01">
                 <i className="fa fa-fw fa-home"></i>
                 账项
               </a>
             </li>
             {this.props.category === '账项' &&
               <li className="nav-item">
-                <a className="nav-link" href="./#/journal01">
+                <a className="nav-link" href="./#/journal.01">
                   <i className="fa fa-file-o fa-fw"></i>
                   01.检修车间禁动牌管理台账
                 </a>
               </li>
             }
             <li className="nav-item">
-              <a className="nav-link" href="./#/journal02">
+              <a className="nav-link" href="./#/journal.02">
                 <i className="fa fa-fw fa-home"></i>
                 单据
               </a>
             </li>
             {this.props.category === '单据' &&
               <li className="nav-item">
-                <a className="nav-link" href="./#/journal02">
+                <a className="nav-link" href="./#/journal.02">
                   <i className="fa fa-file-o fa-fw"></i>
                   02.一体化作业申请单&nbsp;
                   {this.state.todoQty > 0 &&

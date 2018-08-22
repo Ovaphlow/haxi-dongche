@@ -23,7 +23,7 @@ export default class Journal02Item extends React.Component {
 
   detail(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-detail.html'
+    window.location.href = './#/journal.02-detail'
   }
 
   renderBadge() {
@@ -100,90 +100,90 @@ export default class Journal02Item extends React.Component {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
-      from: './journal.02-check.html',
-      to: './journal.02-jsy.content.html',
+      from: './#/journal.02-check',
+      to: './#/journal.02-p_jsy.content',
       operation: 'jsy',
       item_id: event.target.getAttribute('data-id')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
-    location.href = './sign.html'
+    window.location.href = './sign.html'
   }
 
   checkPjsybz(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
-      from: './journal.02-check.html',
-      to: './journal.02-check.html',
+      from: './#/journal.02-check',
+      to: './#/journal.02-check',
       operation: 'jsy-bz',
       item_id: event.target.getAttribute('data-id')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
-    location.href = './sign.html'
+    window.location.href = './sign.html'
   }
 
   checkPjsyQc(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
-      from: './journal.02-check.html',
-      to: './journal.02-check.html',
+      from: './#/journal.02-check',
+      to: './#/journal.02-check',
       operation: 'jsy-qc',
       item_id: event.target.getAttribute('data-id')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
-    location.href = './sign.html'
+    window.location.href = './sign.html'
   }
 
   checkPzbsz(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
-      from: './journal.02-check.html',
-      to: './journal.02-check.html',
+      from: './#/journal.02-check',
+      to: './#/journal.02-check',
       operation: 'zbsz',
       item_id: event.target.getAttribute('data-id')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
-    location.href = './sign.html'
+    window.location.href = './sign.html'
   }
 
   checkPdd(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     let sign = {
       category: 'journal02',
-      from: './journal.02-check.html',
-      to: './journal.02-check.html',
+      from: './#/journal.02-check',
+      to: './#/journal.02-check',
       operation: 'dd',
       item_id: event.target.getAttribute('data-id')
     }
     sessionStorage.setItem('sign', JSON.stringify(sign))
-    location.href = './sign.html'
+    window.location.href = './sign.html'
   }
 
   verifyLeader(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-verify.leader.html'
+    window.location.href = './#/journal.02-verify.leader'
   }
 
   verifyLeaderPbz(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-verify.p_bz.html'
+    window.location.href = './#/journal.02-verify.p_bz'
   }
 
   verifyLeaderQc(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-verify.qc.html'
+    window.location.href = './#/journal.02-verify.qc'
   }
 
   verifyPjsy(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-verify.p_jsy.html'
+    window.location.href = './#/journal.02-verify.p_jsy'
   }
 
   verify(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    location.href = './journal.02-verify.p_dd.html'
+    window.location.href = './#/journal.02-verify.p_dd'
   }
 
   render() {

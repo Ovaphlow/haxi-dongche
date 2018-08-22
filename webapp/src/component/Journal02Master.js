@@ -1,29 +1,15 @@
+import axios from 'axios'
 import React from 'react'
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
     super(props)
-
     this.state = { message: '', trainList: [], master: {} }
     this.save = this.save.bind(this)
     this.preview = this.preview.bind(this)
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: './api/common/train',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ trainList: response.data.content })
-    }).catch(err => {
-      this.setState({ message: '' })
-    })
-
     if (this.props.read) {
       axios({
         method: 'get',
@@ -70,10 +56,16 @@ export default class Journal02Master extends React.Component {
         } else if (response.data.content.p_yq_zydd === '其它') {
           document.getElementById('p_yq_zydd-2').checked = true
         }
-      }).catch(err => {
-        this.setState({ message: '服务器通信异常' })
-      })
+      }).catch(err => this.setState({ message: '服务器通信异常' }))
       return false
+    } else {
+      axios({
+        method: 'get',
+        url: './api/common/train',
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ trainList: response.data.content })
+      })
     }
   }
 
@@ -121,7 +113,7 @@ export default class Journal02Master extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-      location.href = './journal.02.html'
+      window.location.href = './#/journal.02'
     })
   }
 
@@ -131,18 +123,21 @@ export default class Journal02Master extends React.Component {
       url: './api/excel/journal02/' + sessionStorage.getItem('journal02'),
       responseType: 'json'
     }).then(function (response) {
-      location.href = response.data.content
+      window.location.href = response.data.content
     })
   }
 
   render() {
     return (
       <div className="row">
-        <div className="col-12 text-center">
-          <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
-            <i className="fa fa-fw fa-search"></i> 预览
-          </button>
-        </div>
+        {this.props.read &&
+          <div className="col-12 text-center">
+            <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
+              <i className="fa fa-fw fa-download"></i>
+              下载Excel
+            </button>
+          </div>
+        }
 
         <div className="col-12"><br /></div>
 
@@ -184,8 +179,11 @@ export default class Journal02Master extends React.Component {
                 <td width="15%" className="text-center align-middle">作业车组号</td>
                 <td colSpan="3">
                   <select className="form-control form-control-sm" id="groupSN" disabled={this.props.read ? true : false}>
-                    {this.state.trainList.map(item =>
-                      <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
+                    {this.props.read &&
+                      <option value={this.state.master.group_sn}>{this.state.master.group_sn}</option>
+                    }
+                    {!!!this.props.read && this.state.trainList.map(item =>
+                        <option value={item.name} key={item.id}>{item.name}</option>
                     )}
                   </select>
                 </td>
@@ -348,7 +346,7 @@ export default class Journal02Master extends React.Component {
                   <td width="15%" className="text-center align-middle">作业负责人签字</td>
                   <td width="35%" className="text-center align-middle">
                     {this.state.master.sign_verify_leader &&
-                      <img src="#" alt="作业负责人签字" src={this.state.master.sign_verify_leader} />
+                      <img alt="作业负责人签字" src={this.state.master.sign_verify_leader} />
                     }
                   </td>
                 </tr>
@@ -360,7 +358,7 @@ export default class Journal02Master extends React.Component {
                   <td width="15%" className="text-center align-middle">调度员签字</td>
                   <td width="35%" className="text-center align-middle">
                     {this.state.master.sign_verify &&
-                      <img src="#" alt="调度员签字" src={this.state.master.sign_verify} />
+                      <img alt="调度员签字" src={this.state.master.sign_verify} />
                     }
                   </td>
                 </tr>
@@ -385,28 +383,28 @@ export default class Journal02Master extends React.Component {
                         <span className="text-secondary">班组签字：<br />
                         </span>
                         {this.state.master.sign_p_jsy_bz &&
-                          <img src="#" alt="班组签字" src={this.state.master.sign_p_jsy_bz} />
+                          <img alt="班组签字" src={this.state.master.sign_p_jsy_bz} />
                         }
                       </div>
                       <div className="col-3">
                         <span className="text-secondary">班组签字：<br />
                         </span>
                         {this.state.master.sign_verify_leader_bz &&
-                          <img src="#" alt="班组签字" src={this.state.master.sign_verify_leader_bz} />
+                          <img alt="班组签字" src={this.state.master.sign_verify_leader_bz} />
                         }
                       </div>
                       <div className="col-3">
                         <span className="text-secondary">质检签字：<br />
                         </span>
                         {this.state.master.sign_p_jsy_qc &&
-                          <img src="#" alt="质检签字" src={this.state.master.sign_p_jsy_qc} />
+                          <img alt="质检签字" src={this.state.master.sign_p_jsy_qc} />
                         }
                       </div>
                       <div className="col-3">
                         <span className="text-secondary">质检签字：<br />
                         </span>
                         {this.state.master.sign_verify_leader_qc &&
-                          <img src="#" alt="质检签字" src={this.state.master.sign_verify_leader_qc} />
+                          <img alt="质检签字" src={this.state.master.sign_verify_leader_qc} />
                         }
                       </div>
                     </div>

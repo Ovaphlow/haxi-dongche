@@ -28,7 +28,7 @@ class Journal02PjsyContent extends React.Component {
       }
       this.setState({ deptList: response.data.content })
     }).catch(err => {
-      this.setState({ message: `服务器通信异常 ${err}`})
+      this.setState({ message: `服务器通信异常` })
     })
   }
 
@@ -118,6 +118,7 @@ class Journal02PjsyContent extends React.Component {
                       </div>
                       <div className="form-group col-4">
                         <select id="p_jsy_bz" className="form-control" disabled>
+                          <option value="">未选择</option>
                           {this.state.deptList.map(item =>
                             <option value={item.name} key={item.id}>{item.name}</option>
                           )}

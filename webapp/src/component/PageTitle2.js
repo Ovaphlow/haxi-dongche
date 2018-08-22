@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import UserToolbar from './UserToolbar'
 import AdminDeptToolbar from './AdminDeptToolbar'
 import AdminUserToolbar from './AdminUserToolbar'
 import AdminTrainToolbar from './AdminTrainToolbar'
@@ -10,6 +11,9 @@ export default class PageTitle2 extends Component {
   render() {
     return (
       <div className="lead">
+        {this.props.toolbar === 'UserToolbar' &&
+          <UserToolbar className="pull-right" />
+        }
         {this.props.toolbar === 'AdminDeptToolbar' &&
           <AdminDeptToolbar className="pull-right" />
         }

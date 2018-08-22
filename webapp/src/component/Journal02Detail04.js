@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 
 export default class Journal02Detail02 extends React.Component {
@@ -29,9 +30,7 @@ export default class Journal02Detail02 extends React.Component {
         document.getElementById('detail04-train').innerText = response.data.content[0].train
         document.getElementById('detail04-date').innerText = response.data.content[0].date
       }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPbz(event) {
@@ -50,9 +49,7 @@ export default class Journal02Detail02 extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailQc(event) {
@@ -70,13 +67,11 @@ export default class Journal02Detail02 extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
-    })
+    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
-    if (!!!confirm('确认删除选定的记录？')) return false
+    if (!!!window.confirm('确认删除选定的记录？')) return false
     axios({
       method: 'delete',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id'),
@@ -86,7 +81,7 @@ export default class Journal02Detail02 extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-      location.reload(true)
+      window.location.reload(true)
     })
   }
 
@@ -174,66 +169,6 @@ export default class Journal02Detail02 extends React.Component {
               )}
             </tbody>
           </table>
-
-          {/* <ul id="list" className="list-group">
-            {this.props.detail.map(item =>
-              <li className="list-group-item">
-                <h5>
-                  <span className="text-secondary">车厢号：</span>
-                  <span className="text-info">{item.carriage}</span>
-                  <span className="pull-right">{item.carriage_subject}</span>
-                </h5>
-
-                <ul className="list-inline">
-                  <li className="list-inline-item">
-                    <span className="text-secondary">开工时间：</span>
-                    <span className="text-secondary">{item.time_begin}</span>
-                  </li>
-                  <li className="list-inline-item">
-                    <span className="text-secondary">完工时间：</span>
-                    <span className="text-secondary">{item.time_end}</span>
-                  </li>
-                  <li className="list-inline-item">
-                    <span className="text-secondary">实施单位：</span>
-                    {item.dept}
-                  </li>
-                  <li className="list-inline-item">
-                    <span className="text-secondary">实施者：</span>
-                    <u>{item.operator}</u>
-                  </li>
-                </ul>
-
-                <ul className="list-inline">
-                  <li className="list-inline-item">
-                    <span className="text-secondary">备注：</span>
-                    {item.remark}
-                  </li>
-                </ul>
-
-                <div className="clearfix"></div>
-
-                {this.props.p_bz &&
-                  <p>
-                    <br />
-                    <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  </p>
-                }
-
-                {this.props.qc &&
-                  <p>
-                    <br />
-                    <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
-                      <option value="">监控结果</option>
-                      <option value="确认">确认</option>
-                    </select>
-                  </p>
-                }
-              </li>
-            )}
-          </ul> */}
         </div>
       </div>
     )

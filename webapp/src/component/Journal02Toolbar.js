@@ -4,23 +4,24 @@ export default class Journal02Toolbar extends React.Component {
   render() {
     return (
       <div className="btn-group pull-right" role="group">
-        <a href="./journal.02.html" className="btn btn-light btn-sm">
-          <i className="fa fa-search"></i> 检索数据
+        <a href="./#/journal.02" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-search"></i>
+          检索数据
         </a>
-        <a href="./journal.02-save.html" className="btn btn-light btn-sm">
-          <i className="fa fa-plus"></i>
+        <a href="./#/journal.02-save" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-plus"></i>
           新增申请
         </a>
-        <a href="./journal.02-check.html" className="btn btn-light btn-sm">
-          <i className="fa fa-check-square-o"></i>
+        <a href="./#/journal.02-check" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-check-square-o"></i>
           动车所审核
         </a>
-        <a href="./journal.02-verify.html" className="btn btn-light btn-sm">
-          <i className="fa fa-archive"></i>
+        <a href="./#/journal.02-verify" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-archive"></i>
           作业完成销记
         </a>
-        <a href="./journal.02-stats.html" className="btn btn-light btn-sm">
-          <i className="fa fa-pie-chart"></i>
+        <a href="./#/journal.02-stats" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-pie-chart"></i>
           数据统计
         </a>
       </div>
