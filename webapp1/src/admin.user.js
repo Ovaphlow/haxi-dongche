@@ -18,7 +18,7 @@ class AdminUser extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/dept/',
+      url: './api/common/dept/',
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -32,7 +32,7 @@ class AdminUser extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/user/' + sessionStorage.getItem('admin'),
+      url: './api/common/user/' + sessionStorage.getItem('admin'),
       response: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -60,7 +60,7 @@ class AdminUser extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/user/' + sessionStorage.getItem('admin'),
+      url: './api/common/user/' + sessionStorage.getItem('admin'),
       data: {
         name: document.getElementById('name').value,
         username: document.getElementById('account').value,

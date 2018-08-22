@@ -17,7 +17,7 @@ class User extends React.Component {
   submit() {
     axios({
       method: 'put',
-      url: './api/user/' + this.state.auth.id,
+      url: './api/common/user/' + this.state.auth.id,
       data: {
         account: document.getElementById('account').value,
         name: document.getElementById('name').value,

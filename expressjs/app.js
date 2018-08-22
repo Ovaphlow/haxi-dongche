@@ -21,10 +21,10 @@ app.use('/', (req, res, next) => {
 })
 
 const user = require('./routes/user')
-app.use('/api/user', user)
+app.use('/api/common/user', user)
 
 const dept = require('./routes/dept')
-app.use('/api/dept', dept)
+app.use('/api/common/dept', dept)
 
 const common = require('./routes/common')
 app.use('/api/common', common)
@@ -32,11 +32,11 @@ app.use('/api/common', common)
 const commonUpload = require('./routes/upload')
 app.use('/api/common/upload', commonUpload)
 
-const commonExcel = require('./routes/excel')
-app.use('/api/common/excel', commonExcel)
+// const commonExcel = require('./routes/excel')
+// app.use('/api/common/excel', commonExcel)
 
-const schedule = require('./routes/schedule')
-app.use('/api/common/schedule', schedule)
+// const schedule = require('./routes/schedule')
+// app.use('/api/common/schedule', schedule)
 
 app.listen(config.app.port, () => {
   logger.info(`服务器启动于端口 ${config.app.port}。`)

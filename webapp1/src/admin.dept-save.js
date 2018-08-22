@@ -22,7 +22,7 @@ class AdminDeptSave extends React.Component {
     }
     axios({
       method: 'post',
-      url: './api/dept/',
+      url: './api/common/dept/',
       data: { name: document.getElementById('name').value },
       responseType: 'json'
     }).then(response => {

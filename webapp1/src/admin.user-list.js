@@ -24,7 +24,7 @@ class AdminUserList extends React.Component {
 
     axios({
       method: 'get',
-      url: './api/user/?timestamp=' + new Date().getTime(),
+      url: './api/common/user/?timestamp=' + new Date().getTime(),
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {

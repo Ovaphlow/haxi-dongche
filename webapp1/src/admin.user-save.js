@@ -18,7 +18,7 @@ class AdminUserSave extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/dept/',
+      url: './api/common/dept/',
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -38,7 +38,7 @@ class AdminUserSave extends React.Component {
     }
     axios({
       method: 'post',
-      url: './api/user/',
+      url: './api/common/user/',
       data: {
         name: document.getElementById('name').value,
         username: document.getElementById('account').value,

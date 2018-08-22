@@ -19,7 +19,7 @@ class Journal02PjsyContent extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/dept/',
+      url: './api/common/dept/',
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {

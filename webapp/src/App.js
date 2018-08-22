@@ -8,6 +8,7 @@ import Journal01 from './Journal01'
 import Journal01Save from './Journal01Save'
 import Journal01Borrow from './Journal01Borrow'
 import Journal01Return from './Journal01Return'
+import Journal01Stats from './Journal01Stats'
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path="/journal.01-save" component={Journal01Save} />
             <Route path="/journal.01-borrow" component={Journal01Borrow} />
             <Route path="/journal.01-return" component={Journal01Return} />
+            <Route path="/journal.01-stats" component={Journal01Stats} />
           </div>
         </div>
       </HashRouter>
