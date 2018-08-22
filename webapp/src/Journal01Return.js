@@ -27,7 +27,7 @@ export default class Journal01Return extends React.Component {
         }
         this.setState({ list: response.data.content })
       }).catch(err => {
-        this.setState({ message: `服务器通信异常 ${err}` })
+        this.setState({ message: `服务器通信异常` })
       })
     } else if (auth.id) {
       axios({
@@ -41,7 +41,7 @@ export default class Journal01Return extends React.Component {
         }
         this.setState({ listByUser: response.data.content })
       }).catch(err => {
-        this.setState({ message: `服务器通信异常 ${err}` })
+        this.setState({ message: `服务器通信异常` })
       })
     }
   }

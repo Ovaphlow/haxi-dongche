@@ -31,7 +31,7 @@ export default class Sidebar extends React.Component {
         responseType: 'json'
       }).then(response => {
         this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
-      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+      }).catch(err => this.setState({ message: `服务器通信异常` }))
 
       axios({
         method: 'get',
@@ -39,7 +39,7 @@ export default class Sidebar extends React.Component {
         responseType: 'json'
       }).then(response => {
         this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
-      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+      }).catch(err => this.setState({ message: `服务器通信异常` }))
 
       if (auth.auth_p_dd) {
         axios({
@@ -48,7 +48,7 @@ export default class Sidebar extends React.Component {
           responseType: 'json'
         }).then(response => {
           this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
-        }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+        }).catch(err => this.setState({ message: `服务器通信异常` }))
       }
       if (auth.auth_p_zbsz) {
         axios({
@@ -57,7 +57,7 @@ export default class Sidebar extends React.Component {
           responseType: 'json'
         }).then(response => {
           this.setState({ todoQty: this.state.todoQty + response.data.content.qty })
-        }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+        }).catch(err => this.setState({ message: `服务器通信异常` }))
       }
     }
   }

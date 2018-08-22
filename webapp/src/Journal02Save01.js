@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
-import $ from 'jquery'
 
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
@@ -12,7 +11,6 @@ export default class Journal02Save01 extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', trainList: [] }
-    this.dialog = this.dialog.bind(this)
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
     this.back = this.back.bind(this)
@@ -45,10 +43,6 @@ export default class Journal02Save01 extends React.Component {
       document.getElementById('train').value = detail.train_sn
       document.getElementById('date').value = detail.date
     }
-  }
-
-  dialog() {
-    $('#dialog-save').modal()
   }
 
   submit() {
@@ -166,34 +160,8 @@ export default class Journal02Save01 extends React.Component {
 
                   <div className="clearfix"></div>
 
-                  <div className="col-12">
-                    <button type="button" className="btn btn-secondary" onClick={this.dialog}>
-                      <i className="fa fa-fw fa-plus"></i> 新增记录
-                    </button>
-                    <div className="btn-group pull-right">
-                      <button type="button" className="btn btn-secondary" onClick={this.back}>
-                        <i className="fa fa-fw fa-arrow-left"></i> 返回
-                      </button>
-                      <button type="button" className="btn btn-primary" onClick={this.save}>
-                        <i className="fa fa-fw fa-check-square-o"></i> 保存
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                  <div className="col-12"></div>
 
-          <div id="dialog-save" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style={{ fontSize: '0.875em' }}>
-            <div className="modal-dialog modal-lg" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 id="title" className="modal-title">新增记录</h5>
-                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body row">
                   <div className="col-4 form-group">
                     <label>实施普查的车厢号</label>
                     <select className="form-control form-control-sm" id="carriage">
@@ -207,6 +175,7 @@ export default class Journal02Save01 extends React.Component {
                       <option value="08">08</option>
                     </select>
                   </div>
+
                   <div className="col-8 form-group">
                     <label>具体项点</label>
                     <input type="text" className="form-control form-control-sm" id="carriage_subject" />
@@ -252,13 +221,19 @@ export default class Journal02Save01 extends React.Component {
                     <label>备注</label>
                     <textarea rows="2" className="form-control form-control-sm" id="remark"></textarea>
                   </div>
-                </div>
-
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-primary" onClick={this.submit}>
-                    <i className="fa fa-fw fa-check-square-o"></i> 确认
-                  </button>
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">取消</button>
+                  <div className="col-12">
+                    <button type="button" className="btn btn-secondary" onClick={this.submit}>
+                      <i className="fa fa-fw fa-plus"></i> 新增记录
+                    </button>
+                    <div className="btn-group pull-right">
+                      <button type="button" className="btn btn-secondary" onClick={this.back}>
+                        <i className="fa fa-fw fa-arrow-left"></i> 返回
+                      </button>
+                      <button type="button" className="btn btn-primary" onClick={this.save}>
+                        <i className="fa fa-fw fa-check-square-o"></i> 保存
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

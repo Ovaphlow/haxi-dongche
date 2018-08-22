@@ -49,7 +49,7 @@ export default class Journal01Stats extends React.Component {
       }
       chart.setOption(option)
     }).catch(err => {
-      this.setState({ message: `服务器通信异常 ${err}` })
+      this.setState({ message: `服务器通信异常` })
     })
   }
 

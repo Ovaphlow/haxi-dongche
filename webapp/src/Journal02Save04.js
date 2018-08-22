@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
-import $ from 'jquery'
 
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
@@ -12,7 +11,6 @@ export default class Journal02Save04 extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', trainList: [] }
-    this.dialog = this.dialog.bind(this)
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
     this.back = this.back.bind(this)
@@ -47,10 +45,6 @@ export default class Journal02Save04 extends React.Component {
       document.getElementById('train').value = detail.train_sn
       document.getElementById('date').value = detail.date
     }
-  }
-
-  dialog() {
-    $('#dialog-save').modal()
   }
 
   submit() {
@@ -172,8 +166,51 @@ export default class Journal02Save04 extends React.Component {
 
                 <div className="clearfix"></div>
 
+                <div className="col-4 form-group">
+                  <label>实施改造的车厢号</label>
+                  <select className="form-control form-control-sm" id="carriage">
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                  </select>
+                </div>
+
+                <div className="clearfix"></div>
+
+                <div className="col-4 form-group">
+                  <label>开工时间</label>
+                  <input type="text" className="form-control form-control-sm" id="time_begin" />
+                </div>
+                <div className="col-4 form-group">
+                  <label>完工时间</label>
+                  <input type="text" className="form-control form-control-sm" id="time_end" />
+                </div>
+
+                <div className="clearfix"></div>
+
+                <div className="col-6 form-group">
+                  <label>实施单位</label>
+                  <input type="text" readOnly className="form-control form-control-sm" id="dept" />
+                </div>
+                <div className="col-6 form-group">
+                  <label>实施者</label>
+                  <input type="text" className="form-control form-control-sm" id="operator" />
+                </div>
+
+                <div className="clearfix"></div>
+
+                <div className="col-12 form-group">
+                  <label>备注</label>
+                  <textarea rows="2" className="form-control form-control-sm" id="remark"></textarea>
+                </div>
+
                 <div className="col-12">
-                  <button type="button" className="btn btn-secondary" onClick={this.dialog}>
+                  <button type="button" className="btn btn-secondary" onClick={this.submit}>
                     <i className="fa fa-fw fa-plus"></i> 新增记录
                   </button>
                   <div className="btn-group pull-right">
@@ -186,77 +223,12 @@ export default class Journal02Save04 extends React.Component {
                   </div>
                 </div>
               </div>
-
-              <div id="dialog-save" className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="title" aria-hidden="true" style={{ fontSize: '0.875em' }}>
-                <div className="modal-dialog modal-lg" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 id="title" className="modal-title">新增记录</h5>
-                      <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div className="modal-body row">
-                      <div className="col-4 form-group">
-                        <label>实施改造的车厢号</label>
-                        <select className="form-control form-control-sm" id="carriage">
-                          <option value="01">01</option>
-                          <option value="02">02</option>
-                          <option value="03">03</option>
-                          <option value="04">04</option>
-                          <option value="05">05</option>
-                          <option value="06">06</option>
-                          <option value="07">07</option>
-                          <option value="08">08</option>
-                        </select>
-                      </div>
-
-                      <div className="clearfix"></div>
-
-                      <div className="col-4 form-group">
-                        <label>开工时间</label>
-                        <input type="text" className="form-control form-control-sm" id="time_begin" />
-                      </div>
-                      <div className="col-4 form-group">
-                        <label>完工时间</label>
-                        <input type="text" className="form-control form-control-sm" id="time_end" />
-                      </div>
-
-                      <div className="clearfix"></div>
-
-                      <div className="col-6 form-group">
-                        <label>实施单位</label>
-                        <input type="text" readOnly className="form-control form-control-sm" id="dept" />
-                      </div>
-                      <div className="col-6 form-group">
-                        <label>实施者</label>
-                        <input type="text" className="form-control form-control-sm" id="operator" />
-                      </div>
-
-                      <div className="clearfix"></div>
-
-                      <div className="col-12 form-group">
-                        <label>备注</label>
-                        <textarea rows="2" className="form-control form-control-sm" id="remark"></textarea>
-                      </div>
-                    </div>
-
-                    <div className="modal-footer">
-                      <button type="button" className="btn btn-primary" onClick={this.submit}>
-                        <i className="fa fa-fw fa-check-square-o"></i>
-                        确认
-                      </button>
-                      <button type="button" className="btn btn-secondary" data-dismiss="modal">取消</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="row"><br /><br /></div>
-
-              <Journal02Detail04 />
             </div>
           </div>
+
+          <div className="row"><br /><br /></div>
+
+          <Journal02Detail04 />
         </div>
       </div>
     )

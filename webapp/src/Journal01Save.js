@@ -43,7 +43,7 @@ export default class Journal01Save extends React.Component {
       }
       window.location.href = './#/journal.01'
     }).catch(err => {
-      this.setState({ message: `服务器通信异常 ${err}` })
+      this.setState({ message: `服务器通信异常` })
     })
   }
 

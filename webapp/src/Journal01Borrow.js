@@ -37,7 +37,7 @@ export default class Journal01Borrow extends React.Component {
           return false
         }
         this.setState({ listByUser: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常 ${err}` }))
+      }).catch(err => this.setState({ message: `服务器通信异常` }))
     }
   }
 

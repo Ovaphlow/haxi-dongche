@@ -1,12 +1,10 @@
 import axios from 'axios'
 import React from 'react'
-import $ from 'jquery'
 
 export default class Journal01Item extends React.Component {
   constructor(props) {
     super(props)
     this.borrow = this.borrow.bind(this)
-    this.dialog = this.dialog.bind(this)
     this.submitReturn = this.submitReturn.bind(this)
   }
 
@@ -31,13 +29,6 @@ export default class Journal01Item extends React.Component {
       }
       window.location.reload(true)
     }).catch(err => this.setState({ message: `服务器通信异常` }))
-  }
-
-  dialog() {
-    document.getElementById('modal.return_by').value = this.props.item.applicant
-    document.getElementById('modal.remark').value = this.props.item.remark
-    document.getElementById('modal.id').setAttribute('data-id', this.props.item.id)
-    $('#modal').modal()
   }
 
   submitReturn(event) {

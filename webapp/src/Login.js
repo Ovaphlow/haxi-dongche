@@ -39,7 +39,7 @@ export default class Login extends React.Component {
         // this.props.history.push('/')
       }
     }).catch(err => {
-      this.setState({ message: `服务器通信异常 ${err}` })
+      this.setState({ message: `服务器通信异常` })
     })
   }
 
