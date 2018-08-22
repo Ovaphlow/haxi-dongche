@@ -46,7 +46,7 @@ export default class User extends React.Component {
         <Sidebar />
 
         <div role="main" className="col-md-9 col-lg-10 ml-sm-auto px-4">
-          <PageTitle title="系统管理" />
+          <PageTitle title="当前用户" />
           <PageTitle2 fa="fa-user" title="用户信息" toolbar="UserToolbar" />
 
           {this.state.message &&

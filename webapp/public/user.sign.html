@@ -98,8 +98,8 @@
       padding-top: .75rem;
       padding-bottom: .75rem;
       font-size: 1rem;
-      /* background-color: rgba(0, 0, 0, .25); */
-      background-color: rgba(4, 79, 163, 0.548);
+      background-color: rgba(0, 0, 0, .25);
+      /* background-color: rgba(4, 79, 163, 0.548); */
       box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
     }
 
@@ -135,7 +135,7 @@
 
 <body>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">账项管理系统</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="./#/">账项管理系统</a>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
         <a class="nav-link" href="./user.html">
@@ -147,40 +147,46 @@
 
   <div class="container-fluid">
     <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+      <!-- <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
         <div class="sidebar-sticky">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="./journal.01.html">
-                <i class="fa fa-fw fa-home"></i> 账项
+              <a class="nav-link" href="./#/journal.01">
+                <i class="fa fa-fw fa-home"></i>
+                账项
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./journal.02.html">
-                <i class="fa fa-fw fa-home"></i> 单据
+              <a class="nav-link" href="./#/journal.02">
+                <i class="fa fa-fw fa-home"></i>
+                单据
               </a>
             </li>
           </ul>
 
           <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
-            <i class="fa fa-cogs"></i>&nbsp;系统管理
+            <i class="fa fa-fw fa-cogs"></i>
+            系统管理
           </h6>
           <ul class="nav flex-column mb-2">
             <li class="nav-item">
-              <a class="nav-link" href="./admin.dept-list.html">
-                <i class="fa fa-cubes fa-fw"></i> 部门
+              <a class="nav-link" href="./#/admin.dept-list">
+                <i class="fa fa-cubes fa-fw"></i>
+                部门
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./admin.user-list.html">
-                <i class="fa fa-users fa-fw"></i> 用户
+              <a class="nav-link" href="./#/admin.user-list">
+                <i class="fa fa-users fa-fw"></i>
+                用户
               </a>
             </li>
           </ul>
         </div>
-      </nav>
+      </nav> -->
 
-      <div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <!-- <div role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"> -->
+      <div role="main" class="col-12">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h3>
             当前用户：设置签字
@@ -213,15 +219,11 @@
 
   <script src="./lib/babel-polyfill/dist/polyfill.min.js"></script>
   <script src="./lib/axios/dist/axios.min.js"></script>
-  <script src="./lib/jquery/dist/jquery.slim.min.js"></script>
-  <script src="./lib/popper.js/dist/umd/popper.min.js"></script>
-  <script src="./lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <script>
     var el = document.getElementById('signpad')
 
     function init() {
-
       // window.onunload = PPL398_UnInitialDevice(2)
 
       if (!!!el.PPL398_GetProtectValidStatus(2)) {
@@ -282,13 +284,13 @@
       var elSubmit = document.getElementById('submit')
 
       back.onclick = function () {
-        location.href = './user.html'
+        location.href = './#/user'
       }
 
       submit.onclick = function () {
         axios({
           method: 'put',
-          url: './api/user/' + auth.id + '/sign',
+          url: './api/common/user/' + auth.id + '/sign',
           data: {
             sign: document.getElementById('result').getAttribute('src')
           },
@@ -298,7 +300,7 @@
             alert(response.data.message)
             return false
           }
-          location.href = './login.html'
+          location.href = './#/login'
         }).catch(function (err) {
           alert('服务器通信异常')
         })

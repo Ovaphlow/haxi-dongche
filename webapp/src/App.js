@@ -5,6 +5,7 @@ import Navbar from './component/Navbar'
 import Home from './Home'
 import Login from './Login'
 import User from './User'
+import UserPassword from './UserPassword'
 import AdminDeptList from './AdminDeptList'
 import AdminDeptSave from './AdminDeptSave'
 import AdminDept from './AdminDept'
@@ -45,6 +46,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/user" component={User} />
+            <Route path="/user.password" component={UserPassword} />
             <Route path="/admin.dept-list" component={AdminDeptList} />
             <Route path="/admin.dept-save" component={AdminDeptSave} />
             <Route path="/admin.dept" component={AdminDept} />

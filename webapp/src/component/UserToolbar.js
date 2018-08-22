@@ -12,7 +12,7 @@ export default class UserToolbar extends React.Component {
           <i className="fa fa-fw fa-language"></i>
           修改密码
         </a>
-        <a href="./#/user.sign" className="btn btn-outline-secondary btn-sm">
+        <a href="./user.sign.html" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-crop"></i>
           设定签字
         </a>
