@@ -105,7 +105,7 @@ export default class AdminDept extends React.Component {
           <div className="col-12">
             <button type="button" className="btn btn-secondary" onClick={this.back}>
               <i className="fa fa-fw fa-arrow-left"></i>
-              取消
+              返回
             </button>
             <div className="btn btn-group pull-right">
               <button type="button" className="btn btn-primary" onClick={this.submit}>

@@ -183,11 +183,13 @@ export default class AdminUser extends React.Component {
 
             <div className="col-12">
               <button type="button" className="btn btn-secondary" onClick={this.back}>
-                <i className="fa fa-fw fa-arrow-left"></i> 取消
+                <i className="fa fa-fw fa-arrow-left"></i>
+                返回
               </button>
               <div className="btn btn-group pull-right text-right">
                 <button type="button" className="btn btn-primary" onClick={this.submit}>
-                  <i className="fa fa-fw fa-check-square-o"></i> 确定
+                  <i className="fa fa-fw fa-check-square-o"></i>
+                  确定
                 </button>
               </div>
             </div>

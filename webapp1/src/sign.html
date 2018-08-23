@@ -294,6 +294,7 @@
 
         if (sign.category === 'journal02') {
           if (sign.operation === 'jsy') {
+            console.info(123)
             axios({
               method: 'PUT',
               url: './api/journal02/' + sign.item_id + '/jsy',
