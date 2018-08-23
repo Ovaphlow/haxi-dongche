@@ -5,6 +5,7 @@ export default class Journal02Master extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', trainList: [], master: {} }
+    this.back = this.back.bind(this)
     this.save = this.save.bind(this)
     this.preview = this.preview.bind(this)
   }
@@ -69,6 +70,10 @@ export default class Journal02Master extends React.Component {
     }
   }
 
+  back() {
+    window.history.go(-1)
+  }
+
   save() {
     this.setState({ message: '' })
     if (
@@ -131,11 +136,17 @@ export default class Journal02Master extends React.Component {
     return (
       <div className="row">
         {this.props.read &&
-          <div className="col-12 text-center">
-            <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
-              <i className="fa fa-fw fa-download"></i>
-              下载Excel
+          <div className="col-12">
+            <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.back}>
+              <i className="fa fa-fw fa-arrow-left"></i>
+              返回
             </button>
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
+                <i className="fa fa-fw fa-download"></i>
+                下载Excel
+              </button>
+            </div>
           </div>
         }
 

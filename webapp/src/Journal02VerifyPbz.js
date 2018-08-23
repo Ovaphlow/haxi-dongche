@@ -17,8 +17,9 @@ export default class Journal02VerifyPbz extends React.Component {
   }
 
   componentDidMount() {
-    console.info(1123)
-    this.setState({ auth: JSON.parse(sessionStorage.getItem('auth')) })
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) window.location.href = './#/login'
+    this.setState({ auth: auth })
     axios({
       method: 'get',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
@@ -69,15 +70,27 @@ export default class Journal02VerifyPbz extends React.Component {
   }
 
   nextStep() {
-    let sign = {
-      category: 'journal02',
-      from: './#/journal.02-verify.p_bz',
-      to: './#/journal.02-verify',
-      operation: 'verify-leader-bz',
-      item_id: sessionStorage.getItem('journal02')
-    }
-    sessionStorage.setItem('sign', JSON.stringify(sign))
-    window.location.href = './sign.html'
+    // let sign = {
+    //   category: 'journal02',
+    //   from: './#/journal.02-verify.p_bz',
+    //   to: './#/journal.02-verify',
+    //   operation: 'verify-leader-bz',
+    //   item_id: sessionStorage.getItem('journal02')
+    // }
+    // sessionStorage.setItem('sign', JSON.stringify(sign))
+    // window.location.href = './sign.html'
+
+    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/verify/leader/bz', {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        sign: this.state.auth.sign
+      })
+    })
+    .then(res => res.json())
+    .then(response => window.location.href = './#/journal.02-verify')
   }
 
   render() {

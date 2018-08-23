@@ -60,6 +60,9 @@ export default class AdminDeptList extends React.Component {
               {this.state.deptList.map(item =>
                 <a className="list-group-item list-group-item-action" data-id={item.id} key={item.id} onClick={this.detail}>
                   {item.name}
+                  <span className="text-secondary pull-right">
+                    {item.qty} 人
+                  </span>
                 </a>
               )}
             </div>

@@ -106,19 +106,19 @@ export default class Journal02Verify extends React.Component {
           <div className="col-12">
             <ul className="list-group">
               {this.state.list_leader.map(item =>
-                <Journal02Item key={item.id} verify_leader={true} item={item} />
+                <Journal02Item key={item.id} operation="verify_leader" item={item} />
               )}
               {this.state.list_p_bz.map(item =>
-                <Journal02Item key={item.id} verify_p_bz={true} item={item} />
+                <Journal02Item key={item.id} operation="verify_p_bz" item={item} />
               )}
               {this.state.list_qc.map(item =>
-                <Journal02Item key={item.id} verify_qc={true} item={item} />
+                <Journal02Item key={item.id} operation="verify_qc" item={item} />
               )}
               {this.state.list_p_jsy.map(item =>
-                <Journal02Item key={item.id} verify_p_jsy={true} item={item} />
+                <Journal02Item key={item.id} operation="verify_p_jsy" item={item} />
               )}
               {this.state.list_p_dd.map(item =>
-                <Journal02Item key={item.id} verify_p_dd={true} item={item} />
+                <Journal02Item key={item.id} operation="verify_p_dd" item={item} />
               )}
             </ul>
           </div>

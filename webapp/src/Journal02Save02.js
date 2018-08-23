@@ -128,7 +128,7 @@ export default class Journal02Save01 extends React.Component {
                   <input type="date" className="form-control" id="date" />
                 </div>
                 <div className="form-group col-3">
-                  <label>时间</label>
+                  <label>时间 (格式：12:34:56 或 123456)</label>
                   <input type="text" className="form-control" id="time" />
                 </div>
                 <div className="form-group col-6">
@@ -177,14 +177,10 @@ export default class Journal02Save01 extends React.Component {
                 <div className="clearfix"></div>
 
                 <div className="col-12">
-                  <button type="button" className="btn btn-secondary" onClick={this.submit}>
-                    <i className="fa fa-fw fa-plus"></i>
-                    新增记录
-                  </button>
                   <div className="btn-group pull-right">
-                    <button type="button" className="btn btn-primary" onClick={this.save}>
-                      <i className="fa fa-fw fa-check-square-o"></i>
-                      完成
+                    <button type="button" className="btn btn-secondary" onClick={this.submit}>
+                      <i className="fa fa-fw fa-plus"></i>
+                      新增记录
                     </button>
                   </div>
                 </div>
@@ -195,6 +191,15 @@ export default class Journal02Save01 extends React.Component {
           <div className="row"><br /></div>
 
           <Journal02Detail02 />
+
+          <div className="col-12">
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-primary" onClick={this.save}>
+                <i className="fa fa-fw fa-check-square-o"></i>
+                完成
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     )

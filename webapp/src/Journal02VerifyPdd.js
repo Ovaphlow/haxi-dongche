@@ -8,12 +8,15 @@ import PageTitle2 from './component/PageTitle2'
 export default class Journal02VerifyPdd extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '' }
+    this.state = { auth: {}, message: '' }
     this.sign = this.sign.bind(this)
     this.back = this.back.bind(this)
   }
 
   componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) window.location.href = './#/login'
+    this.setState({ auth: auth })
     axios({
       method: 'get',
       url: './api/journal02/' + sessionStorage.getItem('journal02'),
@@ -30,32 +33,44 @@ export default class Journal02VerifyPdd extends React.Component {
   }
 
   sign() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-
-    axios({
+    fetch('./api/journal02/verify/' + sessionStorage.getItem('journal02'), {
       method: 'put',
-      url: './api/journal02/verify/' + sessionStorage.getItem('journal02'),
-      data: {
-        verify: auth.name,
-        verify_id: auth.id,
-        remark: document.getElementById('remark').value
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
       },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      let sign = {
-        category: 'journal02',
-        from: './#/journal.02-verify',
-        to: './#/journal.02-verify',
-        operation: 'verify',
-        item_id: sessionStorage.getItem('journal02')
-      }
-      sessionStorage.setItem('sign', JSON.stringify(sign))
-      window.location.href = './sign.html'
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+      body: JSON.stringify({
+        verify: this.state.auth.name,
+        verify_id: this.state.auth.id,
+        remark: document.getElementById('remark').value,
+        sign: this.state.auth.sign
+      })
+    })
+    .then(res => res.json())
+    .then(response => window.history.go(-1))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/verify/' + sessionStorage.getItem('journal02'),
+    //   data: {
+    //     verify: this.state.auth.name,
+    //     verify_id: this.state.auth.id,
+    //     remark: document.getElementById('remark').value
+    //   },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   let sign = {
+    //     category: 'journal02',
+    //     from: './#/journal.02-verify',
+    //     to: './#/journal.02-verify',
+    //     operation: 'verify',
+    //     item_id: sessionStorage.getItem('journal02')
+    //   }
+    //   sessionStorage.setItem('sign', JSON.stringify(sign))
+    //   window.location.href = './sign.html'
+    // }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   back() {
@@ -94,13 +109,13 @@ export default class Journal02VerifyPdd extends React.Component {
                 </div>
 
                 <div className="col-12">
+                  <button type="button" className="btn btn-outline-secondary" onClick={this.back}>
+                    取消
+                  </button>
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-primary" onClick={this.sign}>
                       <i className="fa fa-fw fa-check-square-o"></i>
                       确认
-                    </button>
-                    <button type="button" className="btn btn-light" onClick={this.back}>
-                      取消
                     </button>
                   </div>
                 </div>

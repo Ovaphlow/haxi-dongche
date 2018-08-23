@@ -11,7 +11,6 @@ export default class Sidebar extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
       window.location.href = './#/login'
-      // this.props.history.push('./login')
       return false
     }
     if (this.props.category === '单据') {

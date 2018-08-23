@@ -104,23 +104,23 @@ export default class Journal02Check extends React.Component {
           <div className="col-12">
             <ul className="list-group">
               {this.state.list_p_jsy.map(item =>
-                <Journal02Item key={item.id} item={item} p_jsy={true} />
+                <Journal02Item key={item.id} item={item} operation="p_jsy" />
               )}
 
               {this.state.list_p_jsy_bz.map(item =>
-                <Journal02Item key={item.id} item={item} p_jsy_bz={true} />
+                <Journal02Item key={item.id} item={item} operation="p_jsy_bz" />
               )}
 
               {this.state.list_p_jsy_qc.map(item =>
-                <Journal02Item key={item.id} item={item} p_jsy_qc={true} />
+                <Journal02Item key={item.id} item={item} operation="p_jsy_qc" />
               )}
 
               {this.state.list_p_zbsz.map(item =>
-                <Journal02Item key={item.id} item={item} p_zbsz={true} />
+                <Journal02Item key={item.id} item={item} operation="p_zbsz" />
               )}
 
               {this.state.list_p_dd.map(item =>
-                <Journal02Item key={item.id} item={item} p_dd={true} />
+                <Journal02Item key={item.id} item={item} operation="p_dd" />
               )}
             </ul>
           </div>

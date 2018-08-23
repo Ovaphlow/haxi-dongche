@@ -8,7 +8,7 @@ import PageTitle2 from './component/PageTitle2'
 export default class Journal02VerifyLeader extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', master: {} }
+    this.state = { auth: {}, message: '', master: {} }
     this.detail = this.detail.bind(this)
     this.back = this.back.bind(this)
   }
@@ -19,6 +19,7 @@ export default class Journal02VerifyLeader extends React.Component {
       window.location.href = './#/login'
       return false
     }
+    this.setState({ auth: auth })
 
     axios({
       method: 'get',
@@ -153,13 +154,13 @@ export default class Journal02VerifyLeader extends React.Component {
 
                 <div className="col-12">
                   <hr />
+                  <button type="button" className="btn btn-outline-secondary" onClick={this.back}>
+                    取消
+                  </button>
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-primary" onClick={this.submit}>
                       <i className="fa fa-fw fa-check-square-o"></i>
                       确认
-                    </button>
-                    <button type="button" className="btn btn-light" onClick={this.back}>
-                      取消
                     </button>
                   </div>
                 </div>

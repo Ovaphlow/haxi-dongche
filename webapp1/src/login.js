@@ -53,7 +53,7 @@ class Login extends React.Component {
               <br />
               <strong>哈尔滨动车段</strong>
               <br />
-              <strong>Harbin ENU Depot</strong>
+              <strong>Harbin EMU Depot</strong>
             </small>
           </h2>
         </div>

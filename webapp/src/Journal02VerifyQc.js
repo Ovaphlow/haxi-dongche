@@ -17,7 +17,9 @@ export default class Journal02VerifyQc extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ auth: JSON.parse(sessionStorage.getItem('auth')) })
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) window.location.href = './#/login'
+    this.setState({ auth: auth })
 
     axios({
       method: 'get',
@@ -69,17 +71,40 @@ export default class Journal02VerifyQc extends React.Component {
   }
 
   nextStep() {
-    this.setState({ message: '' })
+    // let sign = {
+    //   category: 'journal02',
+    //   from: './#/journal.02-verify.qc',
+    //   to: './#/journal.02-verify',
+    //   operation: 'verify-leader-qc',
+    //   item_id: sessionStorage.getItem('journal02')
+    // }
+    // sessionStorage.setItem('sign', JSON.stringify(sign))
+    // window.location.href = './sign.html'
 
-    let sign = {
-      category: 'journal02',
-      from: './#/journal.02-verify.qc',
-      to: './#/journal.02-verify',
-      operation: 'verify-leader-qc',
-      item_id: sessionStorage.getItem('journal02')
-    }
-    sessionStorage.setItem('sign', JSON.stringify(sign))
-    window.location.href = './sign.html'
+    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/verify/leader/qc', {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        sign: this.state.auth.sign
+      })
+    })
+    .then(res => res.json())
+    .then(response => window.location.href = './#/journal.02-verify')
+
+            // axios({
+            //   method: 'put',
+            //   url: './api/journal02/' + sign.item_id + '/verify/leader/qc',
+            //   data: { sign: elResult.getAttribute('src') },
+            //   responseType: 'json'
+            // }).then(function (response) {
+            //   if (response.data.message) {
+            //     alert(response.data.message)
+            //     return false
+            //   }
+            //   location.href = sign.to
+            // })
   }
 
   render() {

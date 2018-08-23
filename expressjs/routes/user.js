@@ -12,6 +12,21 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+// 指定部门用户列表
+router.get('/dept/:dept_id', async (req, res) => {
+  let sql = `
+    select id, name, phone from user where dept_id = :dept_id
+  `
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.SELECT,
+    replacements: req.params
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  res.json({ content: result, message: '' })
+})
+
 // 设置签名
 router.put('/:id/sign', async (req, res) => {
   let sql = `

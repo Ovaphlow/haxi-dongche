@@ -8,7 +8,7 @@ import PageTitle2 from './component/PageTitle2'
 export default class AdminDept extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '' }
+    this.state = { message: '', userList: [] }
     this.back = this.back.bind(this)
     this.submit = this.submit.bind(this)
     this.remove = this.remove.bind(this)
@@ -26,6 +26,19 @@ export default class AdminDept extends React.Component {
       }
       document.getElementById('name').value = response.data.content.name
     }).catch(err => this.setState({ message: `服务器通信异常` }))
+
+    fetch('./api/common/user/dept/' + sessionStorage.getItem('admin') + '?timestamp=' + new Date().getTime(), {
+      method: 'get',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) window.console && console.error(response.message)
+      this.setState({ userList: response.content })
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   back() {
@@ -104,6 +117,22 @@ export default class AdminDept extends React.Component {
                 删除
               </button>
             </div>
+          </div>
+
+          <div className="col-12"><hr /></div>
+
+          <div className="col-12">
+            <p className="lead text-center">用户</p>
+            <ul className="list-group">
+              {this.state.userList.map(item =>
+                <li className="list-group-item" key={item.id}>
+                  {item.name}
+                  <span className="text-secondary pull-right">
+                    {item.phone}
+                  </span>
+                </li>
+              )}
+            </ul>
           </div>
         </div>
       </div>

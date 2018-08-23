@@ -78,7 +78,13 @@ router.route('/').post((req, res) => {
 
 router.route('/').get((req, res) => {
   let sql = `
-    select id, uuid, value as name, remark as category from common_data where category = '部门'
+    select
+      id, uuid, value as name, remark as category,
+      (select count(*) from user where dept_id = cd.id) as qty
+    from
+      common_data as cd
+    where
+      category = '部门'
   `
   sequelize.query(sql, {
     type: sequelize.QueryTypes.SELECT

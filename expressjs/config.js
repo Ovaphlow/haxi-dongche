@@ -19,7 +19,8 @@ const prodConfig = {
     user: 'root',
     password: 'root',
     host: '127.0.0.1',
-    database: 'haxi'
+    database: 'haxi',
+    logging: false
   },
 }
 
@@ -44,7 +45,8 @@ const develConfig = {
     user: 'root',
     password: '',
     host: '127.0.0.1',
-    database: 'haxi'
+    database: 'haxi',
+    logging: true
   },
 }
 

@@ -184,11 +184,11 @@ export default class Journal02Save01 extends React.Component {
                   <div className="clearfix"></div>
 
                   <div className="col-4 form-group">
-                    <label>开工时间</label>
+                    <label>开工时间 (格式：12:34:56 或 123456)</label>
                     <input type="text" className="form-control form-control-sm" id="time_begin" />
                   </div>
                   <div className="col-4 form-group">
-                    <label>完工时间</label>
+                    <label>完工时间 (格式：12:34:56 或 123456)</label>
                     <input type="text" className="form-control form-control-sm" id="time_end" />
                   </div>
                   <div className="col-4 form-group">
@@ -222,15 +222,14 @@ export default class Journal02Save01 extends React.Component {
                     <textarea rows="2" className="form-control form-control-sm" id="remark"></textarea>
                   </div>
                   <div className="col-12">
-                    <button type="button" className="btn btn-secondary" onClick={this.submit}>
-                      <i className="fa fa-fw fa-plus"></i> 新增记录
+                    <button type="button" className="btn btn-secondary" onClick={this.back}>
+                      <i className="fa fa-fw fa-arrow-left"></i>
+                      返回
                     </button>
                     <div className="btn-group pull-right">
-                      <button type="button" className="btn btn-secondary" onClick={this.back}>
-                        <i className="fa fa-fw fa-arrow-left"></i> 返回
-                      </button>
-                      <button type="button" className="btn btn-primary" onClick={this.save}>
-                        <i className="fa fa-fw fa-check-square-o"></i> 保存
+                      <button type="button" className="btn btn-secondary" onClick={this.submit}>
+                        <i className="fa fa-fw fa-plus"></i>
+                        新增记录
                       </button>
                     </div>
                   </div>
@@ -242,6 +241,15 @@ export default class Journal02Save01 extends React.Component {
           <div className="row"><br /></div>
 
           <Journal02Detail01 />
+
+          <div className="col-12">
+            <div className="btn-group pull-right">
+              <button type="button" className="btn btn-primary" onClick={this.save}>
+                <i className="fa fa-fw fa-check-square-o"></i>
+                保存
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     )

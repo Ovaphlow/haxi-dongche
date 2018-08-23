@@ -1,4 +1,3 @@
-import axios from 'axios'
 import echarts from 'echarts'
 import React from 'react'
 
@@ -13,11 +12,14 @@ export default class Journal02Stats extends React.Component {
   }
 
   componentDidMount() {
-    axios({
+    fetch('./api/journal02/stats', {
       method: 'get',
-      url: './api/journal02/stats',
-      responseType: 'json'
-    }).then(response => {
+      headers: [
+        'content-type': 'application/json; charset=utf-8'
+      ]
+    })
+    .then(res => res.json())
+    .then(response => {
       var chart = echarts.init(document.getElementById('chart'))
       var option = {
         title: {
@@ -34,7 +36,7 @@ export default class Journal02Stats extends React.Component {
             type: 'pie',
             radius: '75%',
             center: ['50%', '50%'],
-            data: response.data.content,
+            data: response.content,
             itemStyle: {
               shadowBlur: 10,
               shadowOffsetX: 0,

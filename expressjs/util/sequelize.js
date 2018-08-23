@@ -12,10 +12,13 @@ const sequelize = new Sequelize(config.storage.database, config.storage.user, co
   port: 3306,
 
   pool: {
-    max: os.cpus().length * 2 + 1,
-    idle: os.cpus().length * 2 + 1,
-    acquire: 60000,
+    max: os.cpus().length * 2,
+    min: 0,
+    idle: 10000,
+    acquire: 30000,
   },
+
+  logging: config.storage.logging
 })
 
 module.exports = sequelize
