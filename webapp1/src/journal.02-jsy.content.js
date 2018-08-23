@@ -55,7 +55,7 @@ class Journal02PjsyContent extends React.Component {
 
   submit() {
     if (!!!document.getElementById('p_jsy_bs').value) {
-      this.setState({ message: ‘请选择班组’ })
+      this.setState({ message: '请选择班组' })
       return false
     }
     axios({
