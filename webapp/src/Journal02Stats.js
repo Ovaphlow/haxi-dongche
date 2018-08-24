@@ -14,9 +14,9 @@ export default class Journal02Stats extends React.Component {
   componentDidMount() {
     fetch('./api/journal02/stats', {
       method: 'get',
-      headers: [
+      headers: {
         'content-type': 'application/json; charset=utf-8'
-      ]
+      }
     })
     .then(res => res.json())
     .then(response => {

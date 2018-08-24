@@ -222,24 +222,24 @@ export default class Journal02Master extends React.Component {
             <tbody>
               <tr>
                 <td width="15%" className="text-center align-middle">申请单位</td>
-                <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.read ? true : false} /></td>
+                <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.mode === 'read' ? true : false} /></td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicant" readOnly={this.props.read ? true : false} /></td>
+                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicant" readOnly={this.props.mode === 'read' ? true : false} /></td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicantPhone" readOnly={this.props.read ? true : false} /></td>
+                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicantPhone" readOnly={this.props.mode === 'read' ? true : false} /></td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业负责人</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leader" readOnly={this.props.read ? true : false} /></td>
+                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leader" readOnly={this.props.mode === 'read' ? true : false} /></td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leaderPhone" readOnly={this.props.read ? true : false} /></td>
+                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leaderPhone" readOnly={this.props.mode === 'read' ? true : false} /></td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>
                 <td colSpan="3">
-                  <select className="form-control form-control-sm" id="groupSN" disabled={this.props.read ? true : false}>
+                  <select className="form-control form-control-sm" id="groupSN" disabled={this.props.mode === 'read' ? true : false}>
                     {this.props.mode === 'read' &&
                       <option value={this.state.master.group_sn}>{this.state.master.group_sn}</option>
                     }
@@ -252,24 +252,24 @@ export default class Journal02Master extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">申请作业时间</td>
                 <td colSpan="3" className="text-center">
-                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.read ? true : false} />
+                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.mode === 'read' ? true : false} />
                   日 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin0" readOnly={this.props.read ? true : false} />
+                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin0" readOnly={this.props.mode === 'read' ? true : false} />
                   时 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin1" readOnly={this.props.read ? true : false} />
+                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin1" readOnly={this.props.mode === 'read' ? true : false} />
                   分 &nbsp; &nbsp; --- &nbsp; &nbsp;
-                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateEnd" readOnly={this.props.read ? true : false} />
+                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateEnd" readOnly={this.props.mode === 'read' ? true : false} />
                   日 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd0" readOnly={this.props.read ? true : false} />
+                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd0" readOnly={this.props.mode === 'read' ? true : false} />
                   时 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd1" readOnly={this.props.read ? true : false} />
+                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd1" readOnly={this.props.mode === 'read' ? true : false} />
                   分
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业内容</td>
                 <td colSpan="3">
-                  <select className="form-control form-control-sm" id="content" disabled={this.props.read ? true : false}>
+                  <select className="form-control form-control-sm" id="content" disabled={this.props.mode === 'read' ? true : false}>
                     <option value="普查">普查</option>
                     <option value="检查">检查</option>
                     <option value="故障处理">故障处理</option>
@@ -277,7 +277,7 @@ export default class Journal02Master extends React.Component {
                     <option value="其它">其它</option>
                   </select>
                   <br />
-                  <input type="text" className="form-control form-control-sm" id="content_detail" readOnly={this.props.read ? true : false} />
+                  <input type="text" className="form-control form-control-sm" id="content_detail" readOnly={this.props.mode === 'read' ? true : false} />
                 </td>
               </tr>
               <tr>
@@ -288,13 +288,13 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">蓄电池({this.state.master.p_yq_xdc})</td>
                         <td className="text-center">
-                          <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_xdc-0">供</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_xdc-1">断</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_xdc-2">无要求</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
@@ -302,13 +302,13 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">接触网</td>
                         <td className="text-center">
-                          <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_jcw-0">供</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_jcw-1">断</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_jcw-2">无要求</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
@@ -316,13 +316,13 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">作业地点</td>
                         <td className="text-center">
-                          <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_zydd-0">检查库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_zydd-1">临修库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
+                          <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.mode === 'read' ? true : false} />
                           <label htmlFor="p_yq_zydd-2">无要求</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
@@ -330,7 +330,7 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">其它</td>
                         <td className="text-center">
-                          <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.read ? true : false} />
+                          <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.mode === 'read' ? true : false} />
                         </td>
                       </tr>
                     </tbody>

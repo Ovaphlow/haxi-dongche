@@ -54,6 +54,11 @@ class Journal02PjsyContent extends React.Component {
   }
 
   submit() {
+    this.setState({ message: '' })
+    if (!!!document.getElementById('p_jsy_content').value) {
+      this.setState({ message: '请选择工作形式' })
+      return false
+    }
     if (!!!document.getElementById('p_jsy_bz').value) {
       this.setState({ message: '请选择班组' })
       return false
@@ -115,7 +120,8 @@ class Journal02PjsyContent extends React.Component {
                     <div className="card-body row">
                       <div className="form-group col-4">
                         <select className="form-control" id="p_jsy_content" onChange={this.change}>
-                          <option value="同意">同意</option>
+                          <option value="">未选择</option>
+                          <option value="无要求">无要求</option>
                           <option value="班组跟踪、质检确认">班组跟踪、质检确认</option>
                           <option value="班组、质检跟踪">班组、质检跟踪</option>
                         </select>
