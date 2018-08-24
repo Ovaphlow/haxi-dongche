@@ -190,7 +190,10 @@ export default class Journal02Item extends React.Component {
     return (
       <li className="list-group-item">
         <p className="lead">
+          【
           <strong>{this.props.item.content}</strong>
+          】
+          {this.props.item.content_detail}
           {this.renderBadge(this.props.item)}
         </p>
 

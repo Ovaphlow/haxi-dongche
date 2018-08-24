@@ -63,11 +63,11 @@ export default class Journal02Master extends React.Component {
         } else if (response.data.content.p_yq_jcw === '无要求') {
           document.getElementById('p_yq_jcw-2').checked = true
         }
-        if (response.data.content.p_yq_zydd === '融冰除雪库') {
+        if (response.data.content.p_yq_zydd === '检查库') {
           document.getElementById('p_yq_zydd-0').checked = true
-        } else if (response.data.content.p_yq_zydd === '停留线') {
+        } else if (response.data.content.p_yq_zydd === '临修库') {
           document.getElementById('p_yq_zydd-1').checked = true
-        } else if (response.data.content.p_yq_zydd === '其它') {
+        } else if (response.data.content.p_yq_zydd === '无要求') {
           document.getElementById('p_yq_zydd-2').checked = true
         }
       }).catch(err => {
@@ -112,7 +112,7 @@ export default class Journal02Master extends React.Component {
           (document.getElementById('p_yq_jcw-2').checked && document.getElementById('p_yq_jcw-2').value) || '无要求',
         p_yq_zydd: (document.getElementById('p_yq_zydd-0').checked && document.getElementById('p_yq_zydd-0').value) ||
           (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
-          (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '其它',
+          (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
         p_yq_qt: document.getElementById('p_yq_qt').value
       },
       responseType: 'json'
@@ -257,14 +257,14 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">作业地点</td>
                         <td className="text-center">
-                          <input name="p_yq_zydd" type="radio" value="融冰除雪库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-0">融冰除雪库</label>
+                          <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-0">检查库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="停留线" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-1">停留线</label>
+                          <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-1">临修库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="其它" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-2">其它</label>
+                          <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-2">无要求</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
                       </tr>

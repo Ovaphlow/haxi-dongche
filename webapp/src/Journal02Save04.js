@@ -18,7 +18,7 @@ export default class Journal02Save04 extends React.Component {
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) window.location.href = './#/login.html'
+    if (!!!auth) window.location.href = './#/login'
 
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('dept').value = auth.dept

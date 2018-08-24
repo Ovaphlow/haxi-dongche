@@ -7,11 +7,22 @@ export default class Journal02Master extends React.Component {
     this.state = { message: '', trainList: [], master: {} }
     this.back = this.back.bind(this)
     this.save = this.save.bind(this)
+    this.update = this.update.bind(this)
     this.preview = this.preview.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.read) {
+    if (this.props.mode === 'save' || this.props.mode === 'update') {
+      axios({
+        method: 'get',
+        url: './api/common/train',
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ trainList: response.data.content })
+      })
+    }
+
+    if (this.props.mode === 'read' || this.props.mode === 'update') {
       axios({
         method: 'get',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '?timestamp=' + new Date().getTime(),
@@ -50,23 +61,14 @@ export default class Journal02Master extends React.Component {
         } else if (response.data.content.p_yq_jcw === '无要求') {
           document.getElementById('p_yq_jcw-2').checked = true
         }
-        if (response.data.content.p_yq_zydd === '融冰除雪库') {
+        if (response.data.content.p_yq_zydd === '检查库') {
           document.getElementById('p_yq_zydd-0').checked = true
-        } else if (response.data.content.p_yq_zydd === '停留线') {
+        } else if (response.data.content.p_yq_zydd === '临修库') {
           document.getElementById('p_yq_zydd-1').checked = true
-        } else if (response.data.content.p_yq_zydd === '其它') {
+        } else if (response.data.content.p_yq_zydd === '无要求') {
           document.getElementById('p_yq_zydd-2').checked = true
         }
       }).catch(err => this.setState({ message: '服务器通信异常' }))
-      return false
-    } else {
-      axios({
-        method: 'get',
-        url: './api/common/train',
-        responseType: 'json'
-      }).then(response => {
-        this.setState({ trainList: response.data.content })
-      })
     }
   }
 
@@ -109,7 +111,55 @@ export default class Journal02Master extends React.Component {
           (document.getElementById('p_yq_jcw-2').checked && document.getElementById('p_yq_jcw-2').value) || '无要求',
         p_yq_zydd: (document.getElementById('p_yq_zydd-0').checked && document.getElementById('p_yq_zydd-0').value) ||
           (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
-          (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '其它',
+          (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
+        p_yq_qt: document.getElementById('p_yq_qt').value
+      },
+      responseType: 'json'
+    }).then(response => {
+      if (response.data.message) {
+        this.setState({ message: response.data.message })
+        return false
+      }
+      window.location.href = './#/journal.02'
+    })
+  }
+
+  update() {
+    this.setState({ message: '' })
+    if (
+      !!!document.getElementById('dept').value || !!!document.getElementById('applicant').value ||
+      !!!document.getElementById('leader').value || !!!document.getElementById('groupSN').value ||
+      !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
+    ) {
+      this.setState({ message: '请完整填写申请信息' })
+      return false
+    }
+    axios({
+      method: 'put',
+      url: './api/journal02/' + sessionStorage.getItem('journal02'),
+      data: {
+        applicant: document.getElementById('applicant').value,
+        applicantId: this.props.auth.id,
+        applicantPhone: document.getElementById('applicantPhone').value,
+        leader: document.getElementById('leader').value,
+        leaderPhone: document.getElementById('leaderPhone').value,
+        dept: document.getElementById('dept').value,
+        groupSN: document.getElementById('groupSN').value,
+        dateBegin: document.getElementById('dateBegin').value,
+        timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
+        dateEnd: document.getElementById('dateEnd').value,
+        timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
+        content: document.getElementById('content').value,
+        content_detail: document.getElementById('content_detail').value,
+        p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
+          (document.getElementById('p_yq_xdc-1').checked && document.getElementById('p_yq_xdc-1').value) ||
+          (document.getElementById('p_yq_xdc-2').checked && document.getElementById('p_yq_xdc-2').value) || '无要求',
+        p_yq_jcw: (document.getElementById('p_yq_jcw-0').checked && document.getElementById('p_yq_jcw-0').value) ||
+          (document.getElementById('p_yq_jcw-1').checked && document.getElementById('p_yq_jcw-1').value) ||
+          (document.getElementById('p_yq_jcw-2').checked && document.getElementById('p_yq_jcw-2').value) || '无要求',
+        p_yq_zydd: (document.getElementById('p_yq_zydd-0').checked && document.getElementById('p_yq_zydd-0').value) ||
+          (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
+          (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
         p_yq_qt: document.getElementById('p_yq_qt').value
       },
       responseType: 'json'
@@ -190,11 +240,11 @@ export default class Journal02Master extends React.Component {
                 <td width="15%" className="text-center align-middle">作业车组号</td>
                 <td colSpan="3">
                   <select className="form-control form-control-sm" id="groupSN" disabled={this.props.read ? true : false}>
-                    {this.props.read &&
+                    {this.props.mode === 'read' &&
                       <option value={this.state.master.group_sn}>{this.state.master.group_sn}</option>
                     }
-                    {!!!this.props.read && this.state.trainList.map(item =>
-                        <option value={item.name} key={item.id}>{item.name}</option>
+                    {this.props.mode !== 'read' && this.state.trainList.map(item =>
+                      <option value={item.name} key={item.id}>{item.name}</option>
                     )}
                   </select>
                 </td>
@@ -266,14 +316,14 @@ export default class Journal02Master extends React.Component {
                       <tr>
                         <td width="15%" className="text-center">作业地点</td>
                         <td className="text-center">
-                          <input name="p_yq_zydd" type="radio" value="融冰除雪库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-0">融冰除雪库</label>
+                          <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-0">检查库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="停留线" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-1">停留线</label>
+                          <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-1">临修库</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="其它" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
-                          <label htmlFor="p_yq_zydd-2">其它</label>
+                          <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.read ? true : false} />
+                          <label htmlFor="p_yq_zydd-2">无要求</label>
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
                       </tr>
@@ -291,14 +341,31 @@ export default class Journal02Master extends React.Component {
           </table>
         </div>
 
-        {!!!this.props.read &&
+        {this.props.mode === 'save' &&
           <div className="col-12">
             <div className="btn-group pull-right">
-              <a href="./journal.02.html" className="btn btn-secondary">
-                <i className="fa fa-fw fa-arrow-left"></i> 取消
+              <a href="./#/journal.02" className="btn btn-secondary">
+                <i className="fa fa-fw fa-arrow-left"></i>
+                取消
               </a>
               <button type="button" className="btn btn-primary" onClick={this.save}>
-                <i className="fa fa-fw fa-check-square-o"></i> 确定
+                <i className="fa fa-fw fa-check-square-o"></i>
+                确定
+              </button>
+            </div>
+          </div>
+        }
+
+        {this.props.mode === 'update' &&
+          <div className="col-12">
+            <div className="btn-group pull-right">
+              <a href="./#/journal.02" className="btn btn-secondary">
+                <i className="fa fa-fw fa-arrow-left"></i>
+                取消
+              </a>
+              <button type="button" className="btn btn-primary" onClick={this.update}>
+                <i className="fa fa-fw fa-check-square-o"></i>
+                确定
               </button>
             </div>
           </div>

@@ -89,7 +89,7 @@ export default class Journal02Detail extends React.Component {
             </div>
           }
 
-          <Journal02Master read={true} check={true} verify={true} />
+          <Journal02Master mode="read" check={true} verify={true} />
 
           <div className="row"><hr /></div>
 

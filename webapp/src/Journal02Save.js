@@ -48,7 +48,7 @@ export default class Journal02Save extends React.Component {
             </div>
           }
 
-          <Journal02Master auth={this.state.auth} trainList={this.state.trainList} read={false} />
+          <Journal02Master auth={this.state.auth} trainList={this.state.trainList} mode="save" />
         </div>
       </div>
     )

@@ -22,6 +22,7 @@ import Journal01Stats from './Journal01Stats'
 import Journal02 from './Journal02'
 import Journal02Detail from './Journal02Detail'
 import Journal02Save from './Journal02Save'
+import Journal02Update from './Journal02Update'
 import Journal02Check from './Journal02Check'
 import Journal02PjsyContent from './Journal02PjsyContent'
 import Journal02Verify from './Journal02Verify'
@@ -63,6 +64,7 @@ class App extends Component {
             <Route path="/journal.02" component={Journal02} />
             <Route path="/journal.02-detail" component={Journal02Detail} />
             <Route path="/journal.02-save" component={Journal02Save} />
+            <Route path="/journal.02-update" component={Journal02Update} />
             <Route path="/journal.02-check" component={Journal02Check} />
             <Route path="/journal.02-p_jsy.content" component={Journal02PjsyContent} />
             <Route path="/journal.02-verify" component={Journal02Verify} />

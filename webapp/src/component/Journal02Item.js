@@ -53,6 +53,7 @@ export default class Journal02Item extends React.Component {
   constructor(props) {
     super(props)
     this.state = { auth: {} }
+    this.update = this.update.bind(this)
     this.renderBadge = this.renderBadge.bind(this)
     this.detail = this.detail.bind(this)
     this.checkPjsy = this.checkPjsy.bind(this)
@@ -71,6 +72,11 @@ export default class Journal02Item extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
+  }
+
+  update(event) {
+    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+    window.location.href = './#/journal.02-update'
   }
 
   detail(event) {
@@ -355,7 +361,10 @@ export default class Journal02Item extends React.Component {
     return (
       <li className="list-group-item">
         <p className="lead">
+          【
           <strong>{this.props.item.content}</strong>
+          】
+          {this.props.item.content_detail}
           {this.renderBadge(this.props.item)}
         </p>
 
@@ -370,7 +379,7 @@ export default class Journal02Item extends React.Component {
           </li>
           <li className="list-inline-item">
             <span className="text-secondary">作业负责人：</span>
-            {this.props.item.leader} ({this.props.item.leader})
+            {this.props.item.leader} ({this.props.item.leader_phone})
           </li>
           <li className="list-inline-item">
             <span className="text-secondary">作业车组号：</span>
@@ -384,6 +393,12 @@ export default class Journal02Item extends React.Component {
 
         <div className="row">
           <div className="col-12 mt-3">
+            {this.props.item.applicant === this.state.auth.name && (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
+              <button type="button" className="btn btn-sm btn-outline-secondary" data-id={this.props.item.id} onClick={this.update}>
+                <i className="fa fa-fw fa-edit"></i>
+                修改
+              </button>
+            }
             {this.props.operation === 'p_jsy' &&
               <Reject id={this.props.item.id} operation={this.props.operation} />
             }
