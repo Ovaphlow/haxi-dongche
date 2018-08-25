@@ -17,9 +17,7 @@ export default class Journal02Item extends React.Component {
     this.verify = this.verify.bind(this)
   }
 
-  componentDidMount() {
-    // console.info(this.props.item)
-  }
+  componentDidMount() {}
 
   detail(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
