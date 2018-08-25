@@ -138,8 +138,9 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.html">账项管理系统</a>
     <ul class="navbar-nav px-3">
       <li class="nav-item text-nowrap">
-        <a class="nav-link" href="login.html">
-          <i class="fa fa-fw fa-user"></i> 当前用户
+        <a class="nav-link" href="./login.html">
+          <i class="fa fa-fw fa-user"></i>
+          当前用户
         </a>
       </li>
     </ul>
@@ -294,7 +295,6 @@
 
         if (sign.category === 'journal02') {
           if (sign.operation === 'jsy') {
-            console.info(123)
             axios({
               method: 'PUT',
               url: './api/journal02/' + sign.item_id + '/jsy',
