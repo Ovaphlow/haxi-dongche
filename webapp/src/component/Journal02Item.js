@@ -40,7 +40,7 @@ class Reject extends React.Component {
             <br />
           </div>
         }
-        <button type="button" className="btn btn-outline-danger" onClick={this.reject}>
+        <button type="button" className="btn btn-sm btn-outline-danger" onClick={this.reject}>
           <i className="fa fa-fw fa-reply"></i>
           退回
         </button>
