@@ -222,7 +222,7 @@
 
     function init() {
 
-      // window.onunload = PPL398_UnInitialDevice(2)
+      window.onunload = el.PPL398_UnInitialDevice(2)
 
       if (!!!el.PPL398_GetProtectValidStatus(2)) {
         alert('设备不可用')

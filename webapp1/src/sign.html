@@ -223,7 +223,7 @@
 
     function init() {
 
-      // window.onunload = PPL398_UnInitialDevice(2)
+      window.onunload = el.PPL398_UnInitialDevice(2)
 
       if (!!!el.PPL398_GetProtectValidStatus(2)) {
         alert('设备不可用')
@@ -233,7 +233,7 @@
       var result = el.PPL398_InitialDevice(2, 0, 0, 160, 100)
       if (result !== 0) {
         alert('设备初始化失败：' + result)
-        location.reload(true)
+        // location.reload(true)
         return false
       }
 

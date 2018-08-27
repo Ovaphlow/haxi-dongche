@@ -33,7 +33,7 @@ class Reject extends React.Component {
       <span>
         {this.state.isReject &&
           <div className="form-inline">
-            <label>退回原因：</label>
+            <label>驳回原因：</label>
             <input type="text" className="col-2 form-control form-control-sm" id="input-reject" />
             <button type="button" className="btn btn-sm btn-danger" onClick={this.submitReject}>确认</button>
             <br />
@@ -42,7 +42,7 @@ class Reject extends React.Component {
         }
         <button type="button" className="btn btn-sm btn-outline-danger" onClick={this.reject}>
           <i className="fa fa-fw fa-reply"></i>
-          退回
+          驳回
         </button>
       </span>
     )
@@ -87,7 +87,7 @@ export default class Journal02Item extends React.Component {
   renderBadge() {
     if (this.props.item.reject) return (
       <span className="badge badge-danger pull-right">
-        退回：{this.props.item.reject}
+        驳回：{this.props.item.reject}
       </span>
     )
     else if (this.props.item.sign_verify) return (
@@ -400,6 +400,12 @@ export default class Journal02Item extends React.Component {
               </button>
             }
             {this.props.operation === 'p_jsy' &&
+              <Reject id={this.props.item.id} operation={this.props.operation} />
+            }
+            {this.props.operation === 'p_dd' &&
+              <Reject id={this.props.item.id} operation={this.props.operation} />
+            }
+            {this.props.operation === 'p_zbsz' &&
               <Reject id={this.props.item.id} operation={this.props.operation} />
             }
             <div className="btn-group pull-right">
