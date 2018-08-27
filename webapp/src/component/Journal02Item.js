@@ -8,7 +8,7 @@ class Reject extends React.Component {
     this.submitReject = this.submitReject.bind(this)
   }
 
-  reject(event) {
+  reject() {
     this.setState({ isReject: !!!this.state.isReject })
   }
 
@@ -19,7 +19,9 @@ class Reject extends React.Component {
         'content-type': 'application/json; charset=utf-8'
       },
       body: JSON.stringify({
-        reject: document.getElementById('input-reject').value
+        reject: document.getElementById('input-reject').value,
+        reject_by: this.props.auth.name,
+        reject_by_id: this.props.auth.id
       })
     })
     .then(res => res.json())
@@ -87,7 +89,7 @@ export default class Journal02Item extends React.Component {
   renderBadge() {
     if (this.props.item.reject) return (
       <span className="badge badge-danger pull-right">
-        驳回：{this.props.item.reject}
+        {this.props.item.reject_by} 驳回：{this.props.item.reject}
       </span>
     )
     else if (this.props.item.sign_verify) return (
@@ -152,7 +154,7 @@ export default class Journal02Item extends React.Component {
         班组签字
       </span>
     )
-    else if (!!!this.props.item.sign_p_jsy) return (
+    else if (!!!this.props.item.sign_p_jsy || !!!this.props.item.p_jsy_content) return (
       <span className="badge badge-info pull-right">
         动车所技术员审核
       </span>
@@ -400,13 +402,13 @@ export default class Journal02Item extends React.Component {
               </button>
             }
             {this.props.operation === 'p_jsy' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} />
+              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             {this.props.operation === 'p_dd' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} />
+              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             {this.props.operation === 'p_zbsz' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} />
+              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             <div className="btn-group pull-right">
               <button type="button" className="btn btn-light" data-id={this.props.item.id} onClick={this.detail}>
