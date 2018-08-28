@@ -11,6 +11,7 @@ export default class AdminUser extends React.Component {
     this.state = { message: '', deptList: [] }
     this.submit = this.submit.bind(this)
     this.back = this.back.bind(this)
+    this.remove = this.remove.bind(this)
   }
 
   componentDidMount() {
@@ -78,6 +79,22 @@ export default class AdminUser extends React.Component {
 
   back() {
     window.history.go(-1)
+  }
+
+  remove() {
+    this.setState({ message: '' })
+    fetch('./api/common/user/' + sessionStorage.getItem('admin'), {
+      method: 'delete'
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        this.setState({ message: response.message })
+        return false
+      }
+      window.location.href = './#/admin.user-list'
+    })
+    .catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {
@@ -190,6 +207,10 @@ export default class AdminUser extends React.Component {
                 <button type="button" className="btn btn-primary" onClick={this.submit}>
                   <i className="fa fa-fw fa-check-square-o"></i>
                   确定
+                </button>
+                <button type="button" className="btn btn-danger" onClick={this.remove}>
+                  <i className="fa fa-fw fa-remove"></i>
+                  删除
                 </button>
               </div>
             </div>

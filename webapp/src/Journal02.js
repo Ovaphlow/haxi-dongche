@@ -27,6 +27,7 @@ export default class Journal02 extends React.Component {
     this.setState({ auth: auth })
 
     document.getElementById('date_begin').value = moment().format('YYYY-MM-DD')
+    document.getElementById('date_end').value = moment().format('YYYY-MM-DD')
     axios({
       method: 'get',
       url: './api/journal02/?timestamp=' + new Date().getTime(),
@@ -59,7 +60,8 @@ export default class Journal02 extends React.Component {
       data: {
         dept: document.getElementById('dept').value || '',
         group: document.getElementById('group').value || '',
-        date: document.getElementById('date_begin').value || ''
+        date_begin: document.getElementById('date_begin').value || '',
+        date_end: document.getElementById('date_end').value || ''
       },
       responseType: 'json'
     }).then(response => {
@@ -123,7 +125,7 @@ export default class Journal02 extends React.Component {
           }
 
           <div className="row">
-            <div className="col-4">
+            <div className="col-3">
               <div className="form-group">
                 <label>作业车组号</label>
                 <select className="form-control" id="group">
@@ -135,7 +137,7 @@ export default class Journal02 extends React.Component {
               </div>
             </div>
 
-            <div className="col-4">
+            <div className="col-3">
               <div className="form-group">
                 <label>申请单位</label>
                 <select className="form-control" id="dept">
@@ -147,10 +149,17 @@ export default class Journal02 extends React.Component {
               </div>
             </div>
 
-            <div className="col-4">
+            <div className="col-3">
               <div className="form-group">
                 <label>申请作业时间</label>
                 <input type="date" className="form-control" id="date_begin" />
+              </div>
+            </div>
+
+            <div className="col-3">
+              <div className="form-group">
+                <label>申请作业时间</label>
+                <input type="date" className="form-control" id="date_end" />
               </div>
             </div>
           </div>

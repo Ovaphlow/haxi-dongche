@@ -55,7 +55,8 @@ export default class Journal02VerifyLeader extends React.Component {
         verify_leader_id: auth.id,
         verify_leader_date: document.getElementById('verify_leader_date').value,
         verify_leader_time: document.getElementById('verify_leader_time').value,
-        remark: document.getElementById('remark').value
+        remark: document.getElementById('remark').value,
+        sign: auth.sign
       },
       responseType: 'json'
     }).then(response => {
@@ -63,15 +64,16 @@ export default class Journal02VerifyLeader extends React.Component {
         this.setState({ message: response.data.message })
         return false
       }
-      let sign = {
-        category: 'journal02',
-        from: './#/journal.02-verify.leader',
-        to: './#/journal.02-verify',
-        operation: 'verify-leader',
-        item_id: sessionStorage.getItem('journal02')
-      }
-      sessionStorage.setItem('sign', JSON.stringify(sign))
-      window.location.href = './sign.html'
+      window.location.href = './#/journal.02-verify'
+      // let sign = {
+      //   category: 'journal02',
+      //   from: './#/journal.02-verify.leader',
+      //   to: './#/journal.02-verify',
+      //   operation: 'verify-leader',
+      //   item_id: sessionStorage.getItem('journal02')
+      // }
+      // sessionStorage.setItem('sign', JSON.stringify(sign))
+      // window.location.href = './sign.html'
     })
   }
 

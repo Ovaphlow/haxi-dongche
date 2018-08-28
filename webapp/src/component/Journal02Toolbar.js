@@ -24,6 +24,10 @@ export default class Journal02Toolbar extends React.Component {
           <i className="fa fa-fw fa-pie-chart"></i>
           数据统计
         </a>
+        <a href="./#/journal.02-reject.list" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-reply"></i>
+          已驳回申请
+        </a>
       </div>
     )
   }

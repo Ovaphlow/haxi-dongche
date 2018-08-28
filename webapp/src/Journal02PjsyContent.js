@@ -4,6 +4,7 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { DeptListPbz, QCList } from './component/Common'
 
 export default class Journal02PjsyContent extends React.Component {
   constructor(props) {
@@ -15,41 +16,52 @@ export default class Journal02PjsyContent extends React.Component {
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: './api/common/dept/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ deptList: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    // axios({
+    //   method: 'get',
+    //   url: './api/common/dept/filter/remark/班组',
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   this.setState({ deptList: response.data.content })
+    // }).catch(err => this.setState({ message: `服务器通信异常` }))
 
-    fetch('./api/common/user/dept/name/质检')
-    .then(res => res.json())
-    .then(response => this.setState({ qcList: response.content }))
+    // fetch('./api/common/user/dept/name/质检')
+    // .then(res => res.json())
+    // .then(response => this.setState({ qcList: response.content }))
+
+    document.getElementById('component.p_bz-list').setAttribute('disabled', true)
+    document.getElementById('component.qc-list').setAttribute('disabled', true)
   }
 
   change() {
-    if (document.getElementById('p_jsy_content').value === '同意') {
-      document.getElementById('p_jsy_bz').setAttribute('disabled', true)
+    if (document.getElementById('p_jsy_content').value === '无要求') {
+      // document.getElementById('p_jsy_bz').setAttribute('disabled', true)
+      // document.getElementById('p_jsy_bz').value = ''
+      document.getElementById('component.p_bz-list').setAttribute('disabled', true)
+      document.getElementById('component.p_bz-list').value = ''
       // document.getElementById('p_jsy_qc').setAttribute('disabled', true)
-      document.getElementById('qc').setAttribute('disabled', true)
-      document.getElementById('p_jsy_bz').value = ''
+      // document.getElementById('qc').setAttribute('disabled', true)
+      document.getElementById('component.qc-list').setAttribute('disabled', true)
+      document.getElementById('component.qc-list').value = ''
       // document.getElementById('p_jsy_qc').value = ''
-      document.getElementById('qc').value = ''
+      // document.getElementById('qc').value = ''
     } else if (document.getElementById('p_jsy_content').value === '班组跟踪、质检确认') {
-      document.getElementById('p_jsy_bz').removeAttribute('disabled')
+      // document.getElementById('p_jsy_bz').removeAttribute('disabled')
+      document.getElementById('component.p_bz-list').removeAttribute('disabled')
       // document.getElementById('p_jsy_qc').removeAttribute('disabled')
       // document.getElementById('p_jsy_qc').value = '质检1'
-      document.getElementById('qc').removeAttribute('disabled')
+      // document.getElementById('qc').removeAttribute('disabled')
+      document.getElementById('component.qc-list').removeAttribute('disabled')
     } else if (document.getElementById('p_jsy_content').value === '班组、质检跟踪') {
-      document.getElementById('p_jsy_bz').removeAttribute('disabled')
+      // document.getElementById('p_jsy_bz').removeAttribute('disabled')
+      document.getElementById('component.p_bz-list').removeAttribute('disabled')
       // document.getElementById('p_jsy_qc').removeAttribute('disabled')
       // document.getElementById('p_jsy_qc').value = '质检1'
-      document.getElementById('qc').removeAttribute('disabled')
+      // document.getElementById('qc').removeAttribute('disabled')
+      document.getElementById('component.qc-list').removeAttribute('disabled')
     }
   }
 
@@ -63,11 +75,17 @@ export default class Journal02PjsyContent extends React.Component {
       this.setState({ message: '请选择工作形式' })
       return false
     }
-    if (!!!document.getElementById('p_jsy_bz').value) {
+    // if (!!!document.getElementById('p_jsy_bz').value &&
+    if (!!!document.getElementById('component.p_bz-list').value &&
+        document.getElementById('p_jsy_content').value !== '无要求' &&
+        document.getElementById('p_jsy_content').value !== '') {
       this.setState({ message: '请选择班组' })
       return false
     }
-    if (!!!document.getElementById('qc').value) {
+    // if (!!!document.getElementById('qc').value &&
+    if (!!!document.getElementById('component.qc-list').value &&
+        document.getElementById('p_jsy_content').value !== '无要求' &&
+        document.getElementById('p_jsy_content').value !== '') {
       this.setState({ message: '请选择质检' })
       return false
     }
@@ -76,8 +94,8 @@ export default class Journal02PjsyContent extends React.Component {
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/jsy/content',
       data: {
         p_jsy_content: document.getElementById('p_jsy_content').value,
-        p_jsy_bz: document.getElementById('p_jsy_bz').value,
-        p_jsy_qc: document.getElementById('qc').value
+        p_jsy_bz: document.getElementById('component.p_bz-list').value,
+        p_jsy_qc: document.getElementById('component.qc-list').value
       },
       responseType: 'json'
     }).then(response => {
@@ -119,20 +137,10 @@ export default class Journal02PjsyContent extends React.Component {
                     </select>
                   </div>
                   <div className="form-group col-4">
-                    <select id="p_jsy_bz" className="form-control" disabled>
-                      <option value="">未选择</option>
-                      {this.state.deptList.map(item =>
-                        <option value={item.name} key={item.id}>{item.name}</option>
-                      )}
-                    </select>
+                    <DeptListPbz />
                   </div>
                   <div className="form-group col-4">
-                    <select id="qc" className="form-control" disabled>
-                      <option value="">未选择</option>
-                      {this.state.qcList.map(item =>
-                        <option value={item.name} key={item.id}>{item.name}</option>
-                      )}
-                    </select>
+                    <QCList />
                   </div>
                   <div className="clearfix"></div>
 

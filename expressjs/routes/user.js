@@ -97,13 +97,16 @@ router.put('/:id', async (req, res) => {
   res.json({ content: '', message: '' })
 })
 
+/**
+ * 删除用户
+ */
 router.route('/:id').delete((req, res) => {
   let sql = `delete from user where id = :id`
   sequelize.query(sql, {
     replacements: { id: req.params.id },
     type: sequelize.QueryTypes.DELETE
   }).then(result => {
-   res.json({ content: '', message: '数据已提交至服务器，请稍后检查操作结果。', status: 200 })
+   res.json({ content: '', message: '' })
   }).catch(err => {
     logger.error(err)
     res.json({ content: '', message: '提交数据失败。', status: 500 })

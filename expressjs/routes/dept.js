@@ -9,6 +9,32 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+/**
+ * 所有班组
+ */
+router.get('/filter/remark/:remark', async (req, res) => {
+  let sql = `
+    select
+      id, uuid, value as name, remark as category
+    from
+      common_data
+    where
+      category = '部门'
+      and remark = :remark
+  `
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.SELECT,
+    replacements: req.params
+  }).catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  res.json({ content: result, message: '' })
+})
+
+/**
+ * 删除部门
+ */
 router.delete('/:id', async (req, res) => {
   let sql = `
     delete from common_data where id = :id
@@ -21,6 +47,9 @@ router.delete('/:id', async (req, res) => {
   res.json({ content: '', message: '' })
 })
 
+/**
+ * 修改部门
+ */
 router.route('/:id').put((req, res) => {
   let sql = `
     update common_data set value = :name where id = :id
@@ -39,6 +68,9 @@ router.route('/:id').put((req, res) => {
   })
 })
 
+/**
+ * 部门信息
+ */
 router.route('/:id').get((req, res) => {
   let sql = `
     select id, uuid, value as name, remark as category from common_data where id = :id and category = '部门'
@@ -58,6 +90,9 @@ router.route('/:id').get((req, res) => {
   })
 })
 
+/**
+ * 添加部门
+ */
 router.route('/').post((req, res) => {
   let sql = `
     insert into common_data set uuid = uuid(), value = :name, category = '部门'
@@ -76,6 +111,9 @@ router.route('/').post((req, res) => {
   })
 })
 
+/**
+ * 所有部门
+ */
 router.route('/').get((req, res) => {
   let sql = `
     select
@@ -85,6 +123,8 @@ router.route('/').get((req, res) => {
       common_data as cd
     where
       category = '部门'
+    order by
+      id desc
   `
   sequelize.query(sql, {
     type: sequelize.QueryTypes.SELECT

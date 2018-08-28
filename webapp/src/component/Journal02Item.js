@@ -100,7 +100,7 @@ export default class Journal02Item extends React.Component {
     else if (
         this.props.item.sign_verify_leader &&
         (
-          this.props.item.p_jsy_content === '同意' ||
+          this.props.item.p_jsy_content === '无要求' ||
           (
             this.props.item.sign_verify_leader_qc &&
             this.props.item.qty_verify_p_jsy_02 === 0 &&
@@ -114,7 +114,7 @@ export default class Journal02Item extends React.Component {
     )
     else if (this.props.item.qty_verify_p_jsy_02 > 0 || this.props.item.qty_verify_p_jsy_03 > 0) return (
       <span className="badge badge-success pull-right">
-        值班干部签字
+        技术员签字
       </span>
     )
     else if ((this.props.item.p_jsy_content.indexOf('质检') !== 1) && this.props.item.sign_verify_leader_bz) return (
@@ -139,7 +139,7 @@ export default class Journal02Item extends React.Component {
     )
     else if (this.props.item.sign_p_jsy && ((this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 && this.props.item.sign_p_jsy_bz) ||
         (this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && this.props.item.sign_p_jsy_qc) ||
-        this.props.item.p_jsy_content === '同意')) return (
+        this.props.item.p_jsy_content === '无要求')) return (
       <span className="badge badge-info pull-right">
         动车所调度审核
       </span>
@@ -456,7 +456,7 @@ export default class Journal02Item extends React.Component {
               }
               {this.props.operation === 'verify_p_jsy' &&
                 <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyPjsy}>
-                  值班干部签字
+                  作业完成
                 </button>
               }
               {this.props.operation === 'verify_p_dd' &&

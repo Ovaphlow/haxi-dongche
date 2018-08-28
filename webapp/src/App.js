@@ -35,6 +35,7 @@ import Journal02VerifyPbz from './Journal02VerifyPbz'
 import Journal02VerifyQc from './Journal02VerifyQc'
 import Journal02VerifyPdd from './Journal02VerifyPdd'
 import Journal02Stats from './Journal02Stats'
+import Journal02RejectList from './Journal02RejectList'
 
 class App extends Component {
   render() {
@@ -77,6 +78,7 @@ class App extends Component {
             <Route path="/journal.02-verify.qc" component={Journal02VerifyQc} />
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />
             <Route path="/journal.02-stats" component={Journal02Stats} />
+            <Route path="/journal.02-reject.list" component={Journal02RejectList} />
           </div>
         </div>
       </HashRouter>
