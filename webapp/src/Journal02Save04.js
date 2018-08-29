@@ -6,6 +6,7 @@ import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import Journal02Detail04 from './component/Journal02Detail04'
+import { BackButton, TrainList, CarriageList } from './component/Common'
 
 export default class Journal02Save04 extends React.Component {
   constructor(props) {
@@ -13,7 +14,6 @@ export default class Journal02Save04 extends React.Component {
     this.state = { message: '', trainList: [] }
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
-    this.back = this.back.bind(this)
   }
 
   componentDidMount() {
@@ -24,25 +24,13 @@ export default class Journal02Save04 extends React.Component {
     document.getElementById('dept').value = auth.dept
     document.getElementById('operator').value = auth.name
 
-    axios({
-      method: 'get',
-      url: './api/common/train',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ trainList: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
-
     let detail = JSON.parse(sessionStorage.getItem('journal02-detail'))
     if (detail.subject) {
       document.getElementById('subject').value = detail.subject
       document.getElementById('software_version_new').value = detail.software_version_new
       document.getElementById('software_version_old').value = detail.software_version_old
       document.getElementById('approval_sn').value = detail.approval_sn
-      document.getElementById('train').value = detail.train_sn
+      document.getElementById('component.train-list').value = detail.train_sn
       document.getElementById('date').value = detail.date
     }
   }
@@ -53,9 +41,9 @@ export default class Journal02Save04 extends React.Component {
       software_version_new: document.getElementById('software_version_new').value,
       software_version_old: document.getElementById('software_version_old').value,
       approval_sn: document.getElementById('approval_sn').value,
-      train: document.getElementById('train').value,
+      train: document.getElementById('component.train-list').value,
       date: document.getElementById('date').value,
-      carriage: document.getElementById('carriage').value,
+      carriage: document.getElementById('component.carriage-list').value,
       time_begin: document.getElementById('time_begin').value,
       time_end: document.getElementById('time_end').value,
       dept: document.getElementById('dept').value,
@@ -86,7 +74,7 @@ export default class Journal02Save04 extends React.Component {
         software_version_new: document.getElementById('software_version_new').value,
         software_version_old: document.getElementById('software_version_old').value,
         approval_sn: document.getElementById('approval_sn').value,
-        train: document.getElementById('train').value,
+        train: document.getElementById('component.train-list').value,
         date: document.getElementById('date').value
       },
       responseType: 'json'
@@ -98,10 +86,6 @@ export default class Journal02Save04 extends React.Component {
       sessionStorage.removeItem('journal02-detail')
       window.location.href = './#/journal.02-verify.leader'
     }).catch(err => this.setState({ message: '服务器通信异常' }))
-  }
-
-  back() {
-    window.history.go(-1)
   }
 
   render() {
@@ -152,11 +136,7 @@ export default class Journal02Save04 extends React.Component {
 
                 <div className="col-6 form-group">
                   <label>实施改造车组</label>
-                  <select className="form-control" id="train">
-                    {this.state.trainList.map(item =>
-                      <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
-                    )}
-                  </select>
+                  <TrainList />
                 </div>
 
                 <div className="col-6 form-group">
@@ -168,16 +148,7 @@ export default class Journal02Save04 extends React.Component {
 
                 <div className="col-4 form-group">
                   <label>实施改造的车厢号</label>
-                  <select className="form-control form-control-sm" id="carriage">
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                  </select>
+                  <CarriageList />
                 </div>
 
                 <div className="clearfix"></div>
@@ -210,10 +181,7 @@ export default class Journal02Save04 extends React.Component {
                 </div>
 
                 <div className="col-12">
-                  <button type="button" className="btn btn-secondary" onClick={this.back}>
-                    <i className=" fa fa-fw fa-arrow-left"></i>
-                    返回
-                  </button>
+                  <BackButton />
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-secondary" onClick={this.submit}>
                       <i className="fa fa-fw fa-plus"></i>

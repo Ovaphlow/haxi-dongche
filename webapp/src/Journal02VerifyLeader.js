@@ -4,13 +4,13 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { BackButton } from './component/Common'
 
 export default class Journal02VerifyLeader extends React.Component {
   constructor(props) {
     super(props)
     this.state = { auth: {}, message: '', master: {} }
     this.detail = this.detail.bind(this)
-    this.back = this.back.bind(this)
   }
 
   componentDidMount() {
@@ -79,10 +79,6 @@ export default class Journal02VerifyLeader extends React.Component {
       // sessionStorage.setItem('sign', JSON.stringify(sign))
       // window.location.href = './sign.html'
     })
-  }
-
-  back() {
-    window.location.href = './#/journal.02-verify'
   }
 
   render() {
@@ -160,9 +156,7 @@ export default class Journal02VerifyLeader extends React.Component {
 
                 <div className="col-12">
                   <hr />
-                  <button type="button" className="btn btn-outline-secondary" onClick={this.back}>
-                    取消
-                  </button>
+                  <BackButton />
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-primary" onClick={this.submit}>
                       <i className="fa fa-fw fa-check-square-o"></i>

@@ -4,69 +4,34 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
-import { DeptListPbz, QCList } from './component/Common'
+import { BackButton, DeptListPbz, QCList } from './component/Common'
 
 export default class Journal02PjsyContent extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', deptList: [], qcList: [] }
     this.change = this.change.bind(this)
-    this.back = this.back.bind(this)
     this.submit = this.submit.bind(this)
   }
 
   componentDidMount() {
-    // axios({
-    //   method: 'get',
-    //   url: './api/common/dept/filter/remark/班组',
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   this.setState({ deptList: response.data.content })
-    // }).catch(err => this.setState({ message: `服务器通信异常` }))
-
-    // fetch('./api/common/user/dept/name/质检')
-    // .then(res => res.json())
-    // .then(response => this.setState({ qcList: response.content }))
-
     document.getElementById('component.p_bz-list').setAttribute('disabled', true)
     document.getElementById('component.qc-list').setAttribute('disabled', true)
   }
 
   change() {
     if (document.getElementById('p_jsy_content').value === '无要求') {
-      // document.getElementById('p_jsy_bz').setAttribute('disabled', true)
-      // document.getElementById('p_jsy_bz').value = ''
       document.getElementById('component.p_bz-list').setAttribute('disabled', true)
       document.getElementById('component.p_bz-list').value = ''
-      // document.getElementById('p_jsy_qc').setAttribute('disabled', true)
-      // document.getElementById('qc').setAttribute('disabled', true)
       document.getElementById('component.qc-list').setAttribute('disabled', true)
       document.getElementById('component.qc-list').value = ''
-      // document.getElementById('p_jsy_qc').value = ''
-      // document.getElementById('qc').value = ''
     } else if (document.getElementById('p_jsy_content').value === '班组跟踪、质检确认') {
-      // document.getElementById('p_jsy_bz').removeAttribute('disabled')
       document.getElementById('component.p_bz-list').removeAttribute('disabled')
-      // document.getElementById('p_jsy_qc').removeAttribute('disabled')
-      // document.getElementById('p_jsy_qc').value = '质检1'
-      // document.getElementById('qc').removeAttribute('disabled')
       document.getElementById('component.qc-list').removeAttribute('disabled')
     } else if (document.getElementById('p_jsy_content').value === '班组、质检跟踪') {
-      // document.getElementById('p_jsy_bz').removeAttribute('disabled')
       document.getElementById('component.p_bz-list').removeAttribute('disabled')
-      // document.getElementById('p_jsy_qc').removeAttribute('disabled')
-      // document.getElementById('p_jsy_qc').value = '质检1'
-      // document.getElementById('qc').removeAttribute('disabled')
       document.getElementById('component.qc-list').removeAttribute('disabled')
     }
-  }
-
-  back() {
-    window.history.go(-1)
   }
 
   submit() {
@@ -75,14 +40,12 @@ export default class Journal02PjsyContent extends React.Component {
       this.setState({ message: '请选择工作形式' })
       return false
     }
-    // if (!!!document.getElementById('p_jsy_bz').value &&
     if (!!!document.getElementById('component.p_bz-list').value &&
         document.getElementById('p_jsy_content').value !== '无要求' &&
         document.getElementById('p_jsy_content').value !== '') {
       this.setState({ message: '请选择班组' })
       return false
     }
-    // if (!!!document.getElementById('qc').value &&
     if (!!!document.getElementById('component.qc-list').value &&
         document.getElementById('p_jsy_content').value !== '无要求' &&
         document.getElementById('p_jsy_content').value !== '') {
@@ -146,9 +109,7 @@ export default class Journal02PjsyContent extends React.Component {
 
                   <div className="col-12">
                     <div className="btn-group pull-right">
-                      <button type="button" className="btn btn-secondary" onClick={this.back}>
-                        <i className="fa fa-fw fa-arrow-left"></i> 后退
-                      </button>
+                      <BackButton />
                       <button type="button" className="btn btn-primary" onClick={this.submit}>
                         <i className="fa fa-fw fa-check-square-o"></i> 确定
                       </button>

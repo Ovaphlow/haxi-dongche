@@ -4,13 +4,13 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { BackButton } from './component/Common'
 
 export default class Journal02VerifyPdd extends React.Component {
   constructor(props) {
     super(props)
     this.state = { auth: {}, message: '' }
     this.sign = this.sign.bind(this)
-    this.back = this.back.bind(this)
   }
 
   componentDidMount() {
@@ -77,10 +77,6 @@ export default class Journal02VerifyPdd extends React.Component {
     // }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
-  back() {
-    window.location.href = './#/journal.02-verify'
-  }
-
   render() {
     return (
       <div className="row">
@@ -113,9 +109,7 @@ export default class Journal02VerifyPdd extends React.Component {
                 </div>
 
                 <div className="col-12">
-                  <button type="button" className="btn btn-outline-secondary" onClick={this.back}>
-                    取消
-                  </button>
+                  <BackButton />
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-primary" onClick={this.sign}>
                       <i className="fa fa-fw fa-check-square-o"></i>

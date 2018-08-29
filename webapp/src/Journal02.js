@@ -6,6 +6,7 @@ import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import Journal02Item from './component/Journal02Item'
+import { ReloadButton, DeptList, TrainList } from './component/Common'
 
 export default class Journal02 extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ export default class Journal02 extends React.Component {
     this.submit = this.submit.bind(this)
     this.submit1 = this.submit1.bind(this)
     this.listByUser = this.listByUser.bind(this)
-    this.reload = this.reload.bind(this)
     this.detail = this.detail.bind(this)
   }
 
@@ -39,18 +39,6 @@ export default class Journal02 extends React.Component {
       }
       this.setState({ list: response.data.content })
     }).catch(err => this.setState({ message: `服务器通信异常` }))
-
-    axios({
-      method: 'get',
-      url: './api/common/dept/',
-      responseType: 'json'
-    }).then(response => this.setState({ deptList: response.data.content }))
-
-    axios({
-      method: 'get',
-      url: './api/common/train',
-      responseType: 'json'
-    }).then(response => this.setState({ trainList: response.data.content }))
   }
 
   submit() {
@@ -58,8 +46,8 @@ export default class Journal02 extends React.Component {
       method: 'post',
       url: './api/journal02/filter/',
       data: {
-        dept: document.getElementById('dept').value || '',
-        group: document.getElementById('group').value || '',
+        dept: document.getElementById('component.dept-list').value || '',
+        group: document.getElementById('component.train-list').value || '',
         date_begin: document.getElementById('date_begin').value || '',
         date_end: document.getElementById('date_end').value || ''
       },
@@ -100,10 +88,6 @@ export default class Journal02 extends React.Component {
     .catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
-  reload() {
-    window.location.reload(true)
-  }
-
   detail(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     window.location.href = './#/journal.02-detail'
@@ -128,24 +112,14 @@ export default class Journal02 extends React.Component {
             <div className="col-3">
               <div className="form-group">
                 <label>作业车组号</label>
-                <select className="form-control" id="group">
-                  <option value="">选择车组</option>
-                  {this.state.trainList.map(item =>
-                    <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
-                  )}
-                </select>
+                <TrainList />
               </div>
             </div>
 
             <div className="col-3">
               <div className="form-group">
                 <label>申请单位</label>
-                <select className="form-control" id="dept">
-                  <option value="">选择单位</option>
-                  {this.state.deptList.map(item =>
-                    <option value={item.name} key={item.id}>{item.name}</option>
-                  )}
-                </select>
+                <DeptList />
               </div>
             </div>
 
@@ -166,10 +140,7 @@ export default class Journal02 extends React.Component {
 
           <div className="row">
             <div className="col-12">
-              <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.reload}>
-                <i className="fa fa-fw fa-refresh"></i>
-                重置
-              </button>
+              <ReloadButton />
               <div className="btn-group pull-right">
                 <button type="button" className="btn btn-outline-primary btn-sm" onClick={this.submit}>
                   <i className="fa fa-fw fa-search"></i>

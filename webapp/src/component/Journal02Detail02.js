@@ -4,7 +4,7 @@ import React from 'react'
 export default class Journal02Detail02 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', detail: [] }
+    this.state = { message: '', detail: [], auth: {} }
     this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
     this.submitDetailPjsy = this.submitDetailPjsy.bind(this)
@@ -12,6 +12,12 @@ export default class Journal02Detail02 extends React.Component {
   }
 
   componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) {
+      window.location.href = './#/login'
+      return false
+    }
+    this.setState({ auth: auth })
     axios({
       method: 'get',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/?timestamp=' + new Date().getTime(),

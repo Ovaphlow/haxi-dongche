@@ -4,13 +4,13 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { BackButton } from './component/Common'
 
 export default class AdminDeptSave extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '' }
     this.submit = this.submit.bind(this)
-    this.back = this.back.bind(this)
   }
 
   submit() {
@@ -30,10 +30,6 @@ export default class AdminDeptSave extends React.Component {
       }
       window.location.href = './#/admin.dept-list'
     })
-  }
-
-  back() {
-    window.history.go(-1)
   }
 
   render() {
@@ -59,10 +55,7 @@ export default class AdminDeptSave extends React.Component {
               <input type="text" className="form-control" id="name" />
             </div>
 
-            <button type="button" className="btn btn-secondary" onClick={this.back}>
-              <i className="fa fa-fw fa-arrow-left"></i>
-              取消
-            </button>
+            <BackButton />
             <div className="btn btn-group pull-right">
               <button type="button" className="btn btn-primary" onClick={this.submit}>
                 <i className="fa fa-fw fa-check-square-o"></i>

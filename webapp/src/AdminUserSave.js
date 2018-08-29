@@ -5,27 +5,13 @@ import md5 from 'blueimp-md5'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { BackButton, DeptList } from './component/Common'
 
 export default class AdminUserSave extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', deptList: [] }
+    this.state = { message: '' }
     this.submit = this.submit.bind(this)
-    this.back = this.back.bind(this)
-  }
-
-  componentDidMount() {
-    axios({
-      method: 'get',
-      url: './api/common/dept/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ deptList: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常 ` }))
   }
 
   submit() {
@@ -41,7 +27,7 @@ export default class AdminUserSave extends React.Component {
         username: document.getElementById('account').value,
         password: md5(document.getElementById('password').value),
         phone: document.getElementById('phone').value,
-        dept_id: document.getElementById('dept').value,
+        dept_id: document.getElementById('component.dept-list').value,
         auth_admin: document.getElementById('auth_admin').value,
         auth_01: document.getElementById('auth_01').value,
         auth_p_jsy: document.getElementById('auth_p_jsy').value,
@@ -56,10 +42,6 @@ export default class AdminUserSave extends React.Component {
       }
       window.location.href = './#/admin.user-list'
     }).catch(err => this.setState({ message: `服务器通信异常 ` }))
-  }
-
-  back() {
-    window.history.go(-1)
   }
 
   render() {
@@ -110,11 +92,7 @@ export default class AdminUserSave extends React.Component {
             <div className="col-12">
               <div className="form-group">
                 <label>部门</label>
-                <select className="form-control" id="dept">
-                  {this.state.deptList.map(item =>
-                    <option value={item.id} key={item.id}>{item.name}</option>
-                  )}
-                </select>
+                <DeptList />
               </div>
             </div>
 
@@ -169,9 +147,7 @@ export default class AdminUserSave extends React.Component {
             </div>
 
             <div className="col-12">
-              <button type="button" className="btn btn-secondary" onClick={this.back}>
-                <i className="fa fa-fw fa-arrow-left"></i> 取消
-              </button>
+              <BackButton />
               <div className="btn btn-group pull-right text-right">
                 <button type="button" className="btn btn-primary" onClick={this.submit}>
                   <i className="fa fa-fw fa-check-square-o"></i> 确定

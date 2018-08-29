@@ -6,11 +6,12 @@ import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import Journal02Detail02 from './component/Journal02Detail02'
+import { TrainList, CarriageList } from './component/Common'
 
 export default class Journal02Save01 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', trainList: [] }
+    this.state = { message: '' }
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
   }
@@ -20,18 +21,6 @@ export default class Journal02Save01 extends React.Component {
     if (!!!auth) window.location.href = './#/login'
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('operator').value = auth.name
-
-    axios({
-      method: 'get',
-      url: './api/common/train',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ trainList: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submit() {
@@ -40,8 +29,8 @@ export default class Journal02Save01 extends React.Component {
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
       data: {
         name: document.getElementById('name').value,
-        train: document.getElementById('train').value,
-        carriage: document.getElementById('carriage').value,
+        train: document.getElementById('component.train-list').value,
+        carriage: document.getElementById('component.carriage-list').value,
         position: document.getElementById('position').value,
         date: document.getElementById('date').value,
         time: document.getElementById('time').value,
@@ -97,24 +86,11 @@ export default class Journal02Save01 extends React.Component {
                 </div>
                 <div className="form-group col-2">
                   <label>车组</label>
-                  <select className="form-control" id="train">
-                    {this.state.trainList.map(item =>
-                      <option value={item.name} key={item.id}>{item.name} ({item.model})</option>
-                    )}
-                  </select>
+                  <TrainList />
                 </div>
                 <div className="form-group col-2">
                   <label>车号</label>
-                  <select className="form-control" id="carriage">
-                    <option value="01">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                  </select>
+                  <CarriageList />
                 </div>
                 <div className="form-group col-4">
                   <label>位置</label>

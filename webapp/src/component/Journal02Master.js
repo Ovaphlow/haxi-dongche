@@ -1,27 +1,18 @@
 import axios from 'axios'
 import React from 'react'
 
+import { BackButton, TrainList } from './Common'
+
 export default class Journal02Master extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', trainList: [], master: {} }
-    this.back = this.back.bind(this)
     this.save = this.save.bind(this)
     this.update = this.update.bind(this)
     this.preview = this.preview.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.mode === 'save' || this.props.mode === 'update') {
-      axios({
-        method: 'get',
-        url: './api/common/train',
-        responseType: 'json'
-      }).then(response => {
-        this.setState({ trainList: response.data.content })
-      })
-    }
-
     if (this.props.mode === 'read' || this.props.mode === 'update') {
       axios({
         method: 'get',
@@ -38,7 +29,7 @@ export default class Journal02Master extends React.Component {
         document.getElementById('applicantPhone').value = response.data.content.applicant_phone
         document.getElementById('leader').value = response.data.content.leader
         document.getElementById('leaderPhone').value = response.data.content.leader_phone
-        document.getElementById('groupSN').value = response.data.content.group_sn
+        document.getElementById('component.train-list').value = response.data.content.group_sn
         document.getElementById('dateBegin').value = response.data.content.date_begin
         document.getElementById('timeBegin0').value = response.data.content.time_begin.split(':')[0]
         document.getElementById('timeBegin1').value = response.data.content.time_begin.split(':')[1]
@@ -72,15 +63,11 @@ export default class Journal02Master extends React.Component {
     }
   }
 
-  back() {
-    window.history.go(-1)
-  }
-
   save() {
     this.setState({ message: '' })
     if (
       !!!document.getElementById('dept').value || !!!document.getElementById('applicant').value ||
-      !!!document.getElementById('leader').value || !!!document.getElementById('groupSN').value ||
+      !!!document.getElementById('leader').value || !!!document.getElementById('component.train-list').value ||
       !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
@@ -96,7 +83,7 @@ export default class Journal02Master extends React.Component {
         leader: document.getElementById('leader').value,
         leaderPhone: document.getElementById('leaderPhone').value,
         dept: document.getElementById('dept').value,
-        groupSN: document.getElementById('groupSN').value,
+        groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
         timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
@@ -187,10 +174,7 @@ export default class Journal02Master extends React.Component {
       <div className="row">
         {this.props.mode === 'read' &&
           <div className="col-12">
-            <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.back}>
-              <i className="fa fa-fw fa-arrow-left"></i>
-              返回
-            </button>
+            <BackButton />
             <div className="btn-group pull-right">
               <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
                 <i className="fa fa-fw fa-download"></i>
@@ -239,14 +223,7 @@ export default class Journal02Master extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>
                 <td colSpan="3">
-                  <select className="form-control form-control-sm" id="groupSN" disabled={this.props.mode === 'read' ? true : false}>
-                    {this.props.mode === 'read' &&
-                      <option value={this.state.master.group_sn}>{this.state.master.group_sn}</option>
-                    }
-                    {this.props.mode !== 'read' && this.state.trainList.map(item =>
-                      <option value={item.name} key={item.id}>{item.name}</option>
-                    )}
-                  </select>
+                  <TrainList mode={this.props.mode} />
                 </td>
               </tr>
               <tr>

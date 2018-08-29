@@ -4,12 +4,12 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
+import { BackButton } from './component/Common'
 
 export default class AdminDept extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', userList: [] }
-    this.back = this.back.bind(this)
     this.submit = this.submit.bind(this)
     this.remove = this.remove.bind(this)
   }
@@ -39,10 +39,6 @@ export default class AdminDept extends React.Component {
       this.setState({ userList: response.content })
     })
     .catch(err => window.console && console.error(err))
-  }
-
-  back() {
-    window.history.go(-1)
   }
 
   submit() {
@@ -103,10 +99,7 @@ export default class AdminDept extends React.Component {
           </div>
 
           <div className="col-12">
-            <button type="button" className="btn btn-secondary" onClick={this.back}>
-              <i className="fa fa-fw fa-arrow-left"></i>
-              返回
-            </button>
+            <BackButton />
             <div className="btn btn-group pull-right">
               <button type="button" className="btn btn-primary" onClick={this.submit}>
                 <i className="fa fa-fw fa-check-square-o"></i>
