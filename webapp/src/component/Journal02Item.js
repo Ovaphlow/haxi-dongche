@@ -172,7 +172,10 @@ export default class Journal02Item extends React.Component {
     // }
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
-
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy', {
       method: 'put',
       headers: {
@@ -217,6 +220,10 @@ export default class Journal02Item extends React.Component {
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
 
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy/bz', {
       method: 'put',
       headers: {
@@ -255,6 +262,10 @@ export default class Journal02Item extends React.Component {
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
 
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy/qc', {
       method: 'put',
       headers: {
@@ -293,6 +304,10 @@ export default class Journal02Item extends React.Component {
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
 
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/dd', {
       method: 'put',
       headers: {
@@ -319,6 +334,10 @@ export default class Journal02Item extends React.Component {
     // }
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/zbsz', {
       method: 'put',
       headers: {

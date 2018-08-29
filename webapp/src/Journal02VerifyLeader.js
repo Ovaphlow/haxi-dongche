@@ -46,6 +46,10 @@ export default class Journal02VerifyLeader extends React.Component {
   submit() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
 
+    if (!!!auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     axios({
       method: 'put',
       url: './api/journal02/verify/leader/' + sessionStorage.getItem('journal02-detail'),

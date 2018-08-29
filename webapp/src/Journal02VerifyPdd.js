@@ -33,6 +33,10 @@ export default class Journal02VerifyPdd extends React.Component {
   }
 
   sign() {
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/verify/' + sessionStorage.getItem('journal02'), {
       method: 'put',
       headers: {

@@ -81,6 +81,10 @@ export default class Journal02VerifyQc extends React.Component {
     // sessionStorage.setItem('sign', JSON.stringify(sign))
     // window.location.href = './sign.html'
 
+    if (!!!this.state.auth.sign) {
+      alert('请先设置签名')
+      return false
+    }
     fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/verify/leader/qc', {
       method: 'put',
       headers: {

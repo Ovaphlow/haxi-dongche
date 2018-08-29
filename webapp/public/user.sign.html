@@ -113,7 +113,8 @@
       }
 
       if (el.PPL398_InitialDevice(2, 0, 0, 160, 100) !== 0) {
-        location.reload(true)
+        alert('设备初始化失败')
+        // location.reload(true)
         return false
       }
 
