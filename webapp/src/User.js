@@ -38,6 +38,11 @@ export default class User extends React.Component {
       return false
     }
     this.setState({ auth: auth })
+    document.getElementById('auth_admin').value = auth.auth_admin ? '是' : '否'
+    document.getElementById('auth_01').value = auth.auth_01 ? '是' : '否'
+    document.getElementById('auth_p_jsy').value = auth.auth_p_jsy ? '是' : '否'
+    document.getElementById('auth_p_dd').value = auth.auth_p_dd ? '是' : '否'
+    document.getElementById('auth_p_zbsz').value = auth.auth_p_zbsz ? '是' : '否'
   }
 
   render() {
@@ -98,7 +103,7 @@ export default class User extends React.Component {
                   <div className="col-12">
                     <div className="form-group">
                       <label>权限：管理员</label>
-                      <input type="text" className="form-control" defaultValue={this.state.auth.auth_admin ? '是' : '否'} readOnly={true} />
+                      <input type="text" readOnly={true} className="form-control" id="auth_admin" />
                     </div>
                   </div>
                 </div>
@@ -107,7 +112,7 @@ export default class User extends React.Component {
                   <div className="col-12">
                     <div className="form-group">
                       <label>权限：禁动牌发放</label>
-                      <input type="text" className="form-control" defaultValue={this.state.auth.auth_01 ? '是' : '否'} readOnly={true} />
+                      <input type="text" readOnly={true} className="form-control" id="auth_01" />
                     </div>
                   </div>
                 </div>
@@ -116,21 +121,21 @@ export default class User extends React.Component {
                   <div className="col-4">
                     <div className="form-group">
                       <label>权限：技术员</label>
-                      <input type="text" className="form-control" defaultValue={this.state.auth.auth_p_jsy ? '是' : '否'} readOnly={true} />
+                      <input type="text" readOnly={true} className="form-control" id="auth_p_jsy" />
                     </div>
                   </div>
 
                   <div className="col-4">
                     <div className="form-group">
                       <label>权限：调度</label>
-                      <input type="text" className="form-control" defaultValue={this.state.auth.auth_p_dd ? '是' : '否'} readOnly={true} />
+                      <input type="text" readOnly={true} className="form-control" id="auth_p_dd" />
                     </div>
                   </div>
 
                   <div className="col-4">
                     <div className="form-group">
                       <label>权限：值班所长</label>
-                      <input type="text" className="form-control" defaultValue={this.state.auth.auth_p_zbsz ? '是' : '否'} readOnly={true} />
+                      <input type="text" readOnly={true} className="form-control" id="auth_p_zbsz" />
                     </div>
                   </div>
                 </div>

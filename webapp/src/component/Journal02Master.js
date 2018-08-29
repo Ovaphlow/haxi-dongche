@@ -185,7 +185,7 @@ export default class Journal02Master extends React.Component {
   render() {
     return (
       <div className="row">
-        {this.props.read &&
+        {this.props.mode === 'read' &&
           <div className="col-12">
             <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.back}>
               <i className="fa fa-fw fa-arrow-left"></i>
