@@ -19,34 +19,18 @@ export default class Journal02Verify extends React.Component {
       return false
     }
 
-    axios({
-      method: 'get',
-      url: './api/journal02/verify/leader/' + auth.id + '?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ list_leader: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    fetch('./api/journal02/verify/leader/' + auth.id + '?timestamp=' + new Date().getTime())
+    .then(res => res.json())
+    .then(response => this.setState({ list_leader: response.content }))
 
-    axios({
-      method: 'get',
-      url: './api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ list_p_bz: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    fetch('./api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime())
+    .then(res => res.json())
+    .then(response => this.setState({ list_p_bz: response.content }))
 
     if (auth.dept === '质检') {
       axios({
         method: 'get',
-        url: './api/journal02/verify/leader/qc/' + auth.name + '?timestamp=' + new Date().getTime(),
+        url: './api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
         responseTupe: 'json'
       }).then(response => {
         if (response.data.message) {

@@ -145,8 +145,8 @@ export class BackButton extends React.Component {
 
   render() {
     return (
-      <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.submit}>
-        <i className="fa fa-fw fa-left-arrow"></i>
+      <button type="button" className="btn btn-outline-secondary" onClick={this.submit}>
+        <i className="fa fa-fw fa-arrow-left"></i>
         返回
       </button>
     )

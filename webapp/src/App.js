@@ -33,6 +33,7 @@ import Journal02Save03 from './Journal02Save03'
 import Journal02Save04 from './Journal02Save04'
 import Journal02VerifyPbz from './Journal02VerifyPbz'
 import Journal02VerifyQc from './Journal02VerifyQc'
+import Journal02VerifyPjsy from './Journal02VerifyPjsy'
 import Journal02VerifyPdd from './Journal02VerifyPdd'
 import Journal02Stats from './Journal02Stats'
 import Journal02RejectList from './Journal02RejectList'
@@ -76,6 +77,7 @@ class App extends Component {
             <Route path="/journal.02-save.04" component={Journal02Save04} />
             <Route path="/journal.02-verify.p_bz" component={Journal02VerifyPbz} />
             <Route path="/journal.02-verify.qc" component={Journal02VerifyQc} />
+            <Route path="/journal.02-verify.p_jsy" component={Journal02VerifyPjsy} />
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />
             <Route path="/journal.02-stats" component={Journal02Stats} />
             <Route path="/journal.02-reject.list" component={Journal02RejectList} />

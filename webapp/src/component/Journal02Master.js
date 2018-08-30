@@ -206,11 +206,17 @@ export default class Journal02Master extends React.Component {
             <tbody>
               <tr>
                 <td width="15%" className="text-center align-middle">申请单位</td>
-                <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.mode === 'read' ? true : false} /></td>
+                {/* <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.mode === 'read' ? true : false} /></td> */}
+                <td colSpan="3">
+                  <input type="text" readOnly={true} className="form-control form-control-sm" id="dept" />
+                </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicant" readOnly={this.props.mode === 'read' ? true : false} /></td>
+                <td width="35%" className="text-center">
+                  {/* <input type="text" readOnly={true} className="form-control form-control-sm" id="applicant" readOnly={this.props.mode === 'read' ? true : false} /> */}
+                  <input type="text" readOnly={true} className="form-control form-control-sm" id="applicant" />
+                </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
                 <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicantPhone" readOnly={this.props.mode === 'read' ? true : false} /></td>
               </tr>

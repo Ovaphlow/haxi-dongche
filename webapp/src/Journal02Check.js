@@ -30,7 +30,7 @@ export default class Journal02Check extends React.Component {
     if (auth.dept === '质检') {
       axios({
         method: 'get',
-        url: './api/journal02/jsy/qc/' + auth.name + '?timestamp=' + new Date().getTime(),
+        url: './api/journal02/jsy/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(response => {
         if (response.data.message) {

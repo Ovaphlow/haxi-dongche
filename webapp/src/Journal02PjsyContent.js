@@ -4,7 +4,7 @@ import React from 'react'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
-import { BackButton, DeptListPbz, QCList } from './component/Common'
+import { BackButton, DeptListPbz } from './component/Common'
 
 export default class Journal02PjsyContent extends React.Component {
   constructor(props) {
@@ -16,21 +16,21 @@ export default class Journal02PjsyContent extends React.Component {
 
   componentDidMount() {
     document.getElementById('component.p_bz-list').setAttribute('disabled', true)
-    document.getElementById('component.qc-list').setAttribute('disabled', true)
+    document.getElementById('qc').setAttribute('disabled', true)
   }
 
   change() {
     if (document.getElementById('p_jsy_content').value === '无要求') {
       document.getElementById('component.p_bz-list').setAttribute('disabled', true)
       document.getElementById('component.p_bz-list').value = ''
-      document.getElementById('component.qc-list').setAttribute('disabled', true)
-      document.getElementById('component.qc-list').value = ''
+      document.getElementById('qc').setAttribute('disabled', true)
+      document.getElementById('qc').value = ''
     } else if (document.getElementById('p_jsy_content').value === '班组跟踪、质检确认') {
       document.getElementById('component.p_bz-list').removeAttribute('disabled')
-      document.getElementById('component.qc-list').removeAttribute('disabled')
+      document.getElementById('qc').removeAttribute('disabled')
     } else if (document.getElementById('p_jsy_content').value === '班组、质检跟踪') {
       document.getElementById('component.p_bz-list').removeAttribute('disabled')
-      document.getElementById('component.qc-list').removeAttribute('disabled')
+      document.getElementById('qc').removeAttribute('disabled')
     }
   }
 
@@ -46,7 +46,7 @@ export default class Journal02PjsyContent extends React.Component {
       this.setState({ message: '请选择班组' })
       return false
     }
-    if (!!!document.getElementById('component.qc-list').value &&
+    if (!!!document.getElementById('qc').value &&
         document.getElementById('p_jsy_content').value !== '无要求' &&
         document.getElementById('p_jsy_content').value !== '') {
       this.setState({ message: '请选择质检' })
@@ -58,7 +58,7 @@ export default class Journal02PjsyContent extends React.Component {
       data: {
         p_jsy_content: document.getElementById('p_jsy_content').value,
         p_jsy_bz: document.getElementById('component.p_bz-list').value,
-        p_jsy_qc: document.getElementById('component.qc-list').value
+        p_jsy_qc: document.getElementById('qc').value
       },
       responseType: 'json'
     }).then(response => {
@@ -103,7 +103,10 @@ export default class Journal02PjsyContent extends React.Component {
                     <DeptListPbz />
                   </div>
                   <div className="form-group col-4">
-                    <QCList />
+                    <select className="form-control" id="qc">
+                      <option value="">选择质检</option>
+                      <option value="质检">质检</option>
+                    </select>
                   </div>
                   <div className="clearfix"></div>
 
