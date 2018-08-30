@@ -5,6 +5,7 @@ import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import { BackButton } from './component/Common'
+import { ReviewApplicantSubmit } from './component/Journal02Util'
 
 export default class Journal02VerifyLeader extends React.Component {
   constructor(props) {
@@ -41,44 +42,6 @@ export default class Journal02VerifyLeader extends React.Component {
   detail(event) {
     let sn = event.target.getAttribute('data-id')
     window.location.href = `./#/journal.02-save.0${sn}`
-  }
-
-  submit() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-
-    if (!!!auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    axios({
-      method: 'put',
-      url: './api/journal02/verify/leader/' + sessionStorage.getItem('journal02-detail'),
-      data: {
-        verify_report: document.getElementById('verify_report').value,
-        verify_leader: auth.name,
-        verify_leader_id: auth.id,
-        verify_leader_date: document.getElementById('verify_leader_date').value,
-        verify_leader_time: document.getElementById('verify_leader_time').value,
-        remark: document.getElementById('remark').value,
-        sign: auth.sign
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      window.location.href = './#/journal.02-verify'
-      // let sign = {
-      //   category: 'journal02',
-      //   from: './#/journal.02-verify.leader',
-      //   to: './#/journal.02-verify',
-      //   operation: 'verify-leader',
-      //   item_id: sessionStorage.getItem('journal02')
-      // }
-      // sessionStorage.setItem('sign', JSON.stringify(sign))
-      // window.location.href = './sign.html'
-    })
   }
 
   render() {
@@ -158,10 +121,7 @@ export default class Journal02VerifyLeader extends React.Component {
                   <hr />
                   <BackButton />
                   <div className="btn-group pull-right">
-                    <button type="button" className="btn btn-primary" onClick={this.submit}>
-                      <i className="fa fa-fw fa-check-square-o"></i>
-                      确认
-                    </button>
+                    <ReviewApplicantSubmit />
                   </div>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'
 import Journal02Detail04 from './component/Journal02Detail04'
+import { ReviewPjsySubmit } from './component/Journal02Util'
 
 export default class Journal02VerifyPjsy extends React.Component {
   constructor() {
@@ -85,10 +86,7 @@ export default class Journal02VerifyPjsy extends React.Component {
 
           <div className="col-12 mt-3">
             <div className="btn-group pull-right">
-              <button type="button" className="btn btn-primary" onClick={this.nextStep}>
-                <i className="fa fa-fw fa-check-square-o"></i>
-                下一步
-              </button>
+              <ReviewPjsySubmit />
             </div>
           </div>
         </div>

@@ -8,12 +8,12 @@ import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'
 import Journal02Detail04 from './component/Journal02Detail04'
+import { ReviewQcSubmit } from './component/Journal02Util'
 
 export default class Journal02VerifyQc extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', auth: {}, detail01: [], detail02: [], detail03: [], detail04: [] }
-    this.nextStep = this.nextStep.bind(this)
   }
 
   componentDidMount() {
@@ -70,47 +70,6 @@ export default class Journal02VerifyQc extends React.Component {
     }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
-  nextStep() {
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-verify.qc',
-    //   to: './#/journal.02-verify',
-    //   operation: 'verify-leader-qc',
-    //   item_id: sessionStorage.getItem('journal02')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
-
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/verify/leader/qc', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.href = './#/journal.02-verify')
-
-            // axios({
-            //   method: 'put',
-            //   url: './api/journal02/' + sign.item_id + '/verify/leader/qc',
-            //   data: { sign: elResult.getAttribute('src') },
-            //   responseType: 'json'
-            // }).then(function (response) {
-            //   if (response.data.message) {
-            //     alert(response.data.message)
-            //     return false
-            //   }
-            //   location.href = sign.to
-            // })
-  }
-
   render() {
     return (
       <div className="row">
@@ -152,9 +111,7 @@ export default class Journal02VerifyQc extends React.Component {
 
           <div className="col-12 mt-3">
             <div className="btn-group pull-right">
-              <button type="button" className="btn btn-primary" onClick={this.nextStep}>
-                <i className="fa fa-fw fa-check-square-o"></i> 下一步
-              </button>
+              <ReviewQcSubmit />
             </div>
           </div>
         </div>

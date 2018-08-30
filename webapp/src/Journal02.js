@@ -125,7 +125,7 @@ export default class Journal02 extends React.Component {
 
             <div className="col-3">
               <div className="form-group">
-                <label>申请作业时间</label>
+                <label>申请作业时间<span className="text-danger">修改</span></label>
                 <input type="date" className="form-control" id="date_begin" />
               </div>
             </div>

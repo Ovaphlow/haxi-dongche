@@ -4,22 +4,16 @@ import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import { Message, BackButton, DeptListPbz } from './component/Common'
+import { ApprovePjsySubmit } from './component/Journal02Util'
 
 export default class Journal02PjsyContent extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { auth: {}, message: '', deptList: [], qcList: [] }
+    this.state = { message: '', deptList: [], qcList: [] }
     this.change = this.change.bind(this)
-    this.submit = this.submit.bind(this)
   }
 
   componentDidMount() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) {
-      window.location.href = './#/login'
-      return false
-    }
-    this.setState({ auth: auth })
     document.getElementById('component.p_bz-list').setAttribute('disabled', true)
     document.getElementById('qc').setAttribute('disabled', true)
   }
@@ -37,54 +31,6 @@ export default class Journal02PjsyContent extends React.Component {
       document.getElementById('component.p_bz-list').removeAttribute('disabled')
       document.getElementById('qc').removeAttribute('disabled')
     }
-  }
-
-  submit() {
-    this.setState({ message: '' })
-
-    if (!!!document.getElementById('p_jsy_content').value) {
-      this.setState({ message: '请选择工作形式' })
-      return false
-    }
-    if (!!!document.getElementById('component.p_bz-list').value &&
-        document.getElementById('p_jsy_content').value !== '无要求' &&
-        document.getElementById('p_jsy_content').value !== '') {
-      this.setState({ message: '请选择班组' })
-      return false
-    }
-    if (!!!document.getElementById('qc').value &&
-        document.getElementById('p_jsy_content').value !== '无要求' &&
-        document.getElementById('p_jsy_content').value !== '') {
-      this.setState({ message: '请选择质检' })
-      return false
-    }
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        p_jsy_id: this.state.auth.id,
-        p_jsy: this.state.auth.name,
-        p_jsy_content: document.getElementById('p_jsy_content').value,
-        p_jsy_bz: document.getElementById('component.p_bz-list').value,
-        p_jsy_qc: document.getElementById('qc').value,
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        this.setState({ message: response.message })
-        return false
-      }
-      window.location.href = './#/journal.02-check'
-    })
-    .catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {
@@ -126,11 +72,9 @@ export default class Journal02PjsyContent extends React.Component {
                   <div className="clearfix"></div>
 
                   <div className="col-12">
+                    <BackButton />
                     <div className="btn-group pull-right">
-                      <BackButton />
-                      <button type="button" className="btn btn-primary" onClick={this.submit}>
-                        <i className="fa fa-fw fa-check-square-o"></i> 确定
-                      </button>
+                      <ApprovePjsySubmit /> 
                     </div>
                   </div>
                 </div>

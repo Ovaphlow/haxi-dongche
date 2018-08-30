@@ -5,13 +5,19 @@ import md5 from 'blueimp-md5'
 import Sidebar from './component/Sidebar'
 import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
-import { BackButton, DeptList } from './component/Common'
+import { BackButton } from './component/Common'
 
 export default class AdminUserSave extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '' }
+    this.state = { message: '', deptList: [] }
     this.submit = this.submit.bind(this)
+  }
+
+  componentDidMount() {
+    fetch('./api/common/dept')
+    .then(res => res.json())
+    .then(response => this.setState({ deptList: response.content }))
   }
 
   submit() {
@@ -27,7 +33,7 @@ export default class AdminUserSave extends React.Component {
         username: document.getElementById('account').value,
         password: md5(document.getElementById('password').value),
         phone: document.getElementById('phone').value,
-        dept_id: document.getElementById('component.dept-list').value,
+        dept_id: document.getElementById('dept-select').value,
         auth_admin: document.getElementById('auth_admin').value,
         auth_01: document.getElementById('auth_01').value,
         auth_p_jsy: document.getElementById('auth_p_jsy').value,
@@ -92,7 +98,12 @@ export default class AdminUserSave extends React.Component {
             <div className="col-12">
               <div className="form-group">
                 <label>部门</label>
-                <DeptList />
+                <select className="form-control" id="dept-select">
+                  <option value="">选择部门</option>
+                  {this.state.deptList.map(item =>
+                    <option value={item.id} key={item.id}>{item.name}</option>
+                  )}
+                </select>
               </div>
             </div>
 

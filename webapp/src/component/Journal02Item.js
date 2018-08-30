@@ -149,7 +149,7 @@ export default class Journal02Item extends React.Component {
         质检签字
       </span>
     )
-    else if (this.props.item.sign_p_jsy && this.props.item.p_jsy_content.indexOf('班组') !== -1 && !!!this.props.item.sign_p_jst_bz) return (
+    else if (this.props.item.sign_p_jsy && this.props.item.p_jsy_content.indexOf('班组') !== -1 && !!!this.props.item.sign_p_jsy_bz) return (
       <span className="badge badge-info pull-right">
         班组签字
       </span>
