@@ -152,3 +152,11 @@ export class BackButton extends React.Component {
     )
   }
 }
+
+export class Message extends React.Component {
+  render() {
+    return (
+      <div className="alert alert-danger">{this.props.message}</div>
+    )
+  }
+}

@@ -186,6 +186,14 @@ export default class Journal02Master extends React.Component {
 
         <div className="col-12"><br /></div>
 
+        {this.state.message &&
+          <div className="col-12">
+            <div className="alert alert-danger">
+              {this.state.message}
+            </div>
+          </div>
+        }
+
         <div className="col-12">
           <table className="table table-bordered table-sm" style={{ border: '2px solid black' }}>
             <tbody>

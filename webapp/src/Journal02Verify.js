@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 
 import Sidebar from './component/Sidebar'
@@ -28,45 +27,21 @@ export default class Journal02Verify extends React.Component {
     .then(response => this.setState({ list_p_bz: response.content }))
 
     if (auth.dept === '质检') {
-      axios({
-        method: 'get',
-        url: './api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
-        responseTupe: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
-        }
-        this.setState({ list_qc: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+      fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
+      .then(res => res.json())
+      .then(response => this.setState({ list_qc: response.content }))
     }
 
     if (auth.auth_p_jsy) {
-      axios({
-        method: 'get',
-        url: './api/journal02/verify/p_jsy?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
-        }
-        this.setState({ list_p_jsy: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+      fetch('./api/journal02/verify/p_jsy?timestamp=' + new Date().getTime())
+      .then(res => res.json())
+      .then(response => this.setState({ list_p_jsy: response.content }))
     }
 
     if (auth.auth_p_dd) {
-      axios({
-        method: 'get',
-        url: './api/journal02/verify/?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
-        }
-        this.setState({ list_p_dd: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+      fetch('./api/journal02/verify/?timestamp=' + new Date().getTime())
+      .then(res => res.json())
+      .then(response => this.setState({ list_p_dd: response.content }))
     }
   }
 

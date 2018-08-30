@@ -10,15 +10,22 @@ import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'
 import Journal02Detail04 from './component/Journal02Detail04'
+import { RemoveButton } from './component/Journal02Util'
 
 export default class Journal02Detail extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', master: {}, detail01: 0, detail02: 0, detail03: 0, detail04: 0 }
+    this.state = { auth: {}, master: {}, detail01: 0, detail02: 0, detail03: 0, detail04: 0 }
     this.back = this.back.bind(this)
   }
 
   componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) {
+      window.location.href = './#/login'
+      return false
+    }
+    this.setState({ auth: auth })
     axios({
       method: 'get',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/qty?timestamp=' + new Date().getTime(),
@@ -81,15 +88,13 @@ export default class Journal02Detail extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-list" title="详细信息" toolbar="Journal02Toolbar" />
 
-          {this.state.message &&
+          <Journal02Master mode="read" check={true} verify={true} />
+
+          {this.state.auth.auth_admin &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <RemoveButton />
             </div>
           }
-
-          <Journal02Master mode="read" check={true} verify={true} />
 
           <div className="row"><hr /></div>
 

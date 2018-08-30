@@ -163,63 +163,11 @@ export default class Journal02Item extends React.Component {
 
   checkPjsy(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-check',
-    //   to: './#/journal.02-p_jsy.content',
-    //   operation: 'jsy',
-    //   item_id: event.target.getAttribute('data-id')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        p_jsy_id: this.state.auth.id,
-        p_jsy: this.state.auth.name,
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.href = './#/journal.02-p_jsy.content')
-
-            // axios({
-            //   method: 'PUT',
-            //   url: './api/journal02/' + sign.item_id + '/jsy',
-            //   data: {
-            //     p_jsy_id: auth.id,
-            //     p_jsy: auth.name,
-            //     sign: elResult.getAttribute('src')
-            //   },
-            //   responseType: 'json'
-            // }).then(function (response) {
-            //   if (response.data.message) {
-            //     alert(response.data.message)
-            //     return fasle
-            //   }
-            //   location.href = sign.to
-            // })
+    window.location.href = './#/journal.02-p_jsy.content'
   }
 
   checkPjsybz(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-check',
-    //   to: './#/journal.02-check',
-    //   operation: 'jsy-bz',
-    //   item_id: event.target.getAttribute('data-id')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
-
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
@@ -235,33 +183,10 @@ export default class Journal02Item extends React.Component {
     })
     .then(res => res.json())
     .then(response => window.location.reload(true))
-
-            // axios({
-            //   method: 'PUT',
-            //   url: './api/journal02/' + sign.item_id + '/jsy/bz',
-            //   data: { sign: elResult.getAttribute('src') },
-            //   resposneType: 'json'
-            // }).then(function (response) {
-            //   if (response.data.message) {
-            //     alert(response.data.message)
-            //     return false
-            //   }
-            //   location.href = sign.to
-            // })
   }
 
   checkPjsyQc(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-check',
-    //   to: './#/journal.02-check',
-    //   operation: 'jsy-qc',
-    //   item_id: event.target.getAttribute('data-id')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
-
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
@@ -277,33 +202,10 @@ export default class Journal02Item extends React.Component {
     })
     .then(res => res.json())
     .then(response => window.location.reload(true))
-
-            // axios({
-            //   method: 'put',
-            //   url: './api/journal02/' + sign.item_id + '/jsy/qc',
-            //   data: { sign: elResult.getAttribute('src') },
-            //   responseType: 'json'
-            // }).then(function (response) {
-            //   if (response.data.message) {
-            //     alert(response.data.message)
-            //     return false
-            //   }
-            //   location.href = sign.to
-            // })
   }
 
   checkPdd(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-check',
-    //   to: './#/journal.02-check',
-    //   operation: 'dd',
-    //   item_id: event.target.getAttribute('data-id')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
-
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
@@ -325,15 +227,6 @@ export default class Journal02Item extends React.Component {
 
   checkPzbsz(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    // let sign = {
-    //   category: 'journal02',
-    //   from: './#/journal.02-check',
-    //   to: './#/journal.02-check',
-    //   operation: 'zbsz',
-    //   item_id: event.target.getAttribute('data-id')
-    // }
-    // sessionStorage.setItem('sign', JSON.stringify(sign))
-    // window.location.href = './sign.html'
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
