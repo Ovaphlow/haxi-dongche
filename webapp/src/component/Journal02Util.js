@@ -34,7 +34,6 @@ export class ReviewPddSubmit extends React.Component {
       })
     })
     .then(() => window.location.href = './#/journal.02-verify')
-
   }
 
   render() {

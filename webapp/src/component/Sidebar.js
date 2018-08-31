@@ -2,15 +2,16 @@ import axios from 'axios'
 import React from 'react'
 
 export default class Sidebar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { message: '', todoQty: 0 }
+  constructor() {
+    super()
+    this.state = { todoQty: 0 }
   }
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
-      window.location.href = './#/login'
+      // 加载 Sidebar 时不跳转登录
+      // window.location.href = './#/login'
       return false
     }
     if (this.props.category === '单据') {

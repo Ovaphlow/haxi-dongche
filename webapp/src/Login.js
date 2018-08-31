@@ -3,8 +3,8 @@ import React from 'react'
 import md5 from 'blueimp-md5'
 
 export default class Login extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = { message: '' }
     this.submit = this.submit.bind(this)
   }
@@ -33,29 +33,6 @@ export default class Login extends React.Component {
         window.location.href = './#/'
       }
     }).catch(err => this.setState({ message: `服务器通信异常` }))
-
-    // axios({
-    //   method: 'post',
-    //   url: './api/common/user/login',
-    //   data: {
-    //     account: document.getElementById('account').value,
-    //     password: md5(document.getElementById('password').value)
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   if (response.data.content.length === 0) {
-    //     this.setState({ message: '账号或密码错误' })
-    //   } else if (response.data.content.length > 1) {
-    //     this.setState({ message: '账号数据异常' })
-    //   } else {
-    //     sessionStorage.setItem('auth', JSON.stringify(response.data.content[0]))
-    //     window.location.href = './#/'
-    //   }
-    // }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   render() {
@@ -89,7 +66,7 @@ export default class Login extends React.Component {
               <h5 className="card-title">
                 用户登录
                 <small className="pull-right">
-                  <a href="/">返回</a>
+                  <a href="./#/">首页</a>
                 </small>
               </h5>
               <hr />
