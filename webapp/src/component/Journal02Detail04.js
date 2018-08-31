@@ -12,6 +12,7 @@ export default class Journal02Detail02 extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ auth: JSON.parse(sessionStorage.getItem('auth')) })
     axios({
       method: 'get',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/?timestamp=' + new Date().getTime(),
@@ -40,8 +41,8 @@ export default class Journal02Detail02 extends React.Component {
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/p_bz',
       data: {
-        watcher: event.target.value ? this.props.auth.name : '',
-        watcher_group: event.target.value ? this.props.auth.dept : ''
+        watcher: event.target.value ? this.state.auth.name : '',
+        watcher_group: event.target.value ? this.state.auth.dept : ''
       },
       responseType: 'json'
     }).then(response => {
@@ -59,7 +60,7 @@ export default class Journal02Detail02 extends React.Component {
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/qc',
       data: {
-        qc: event.target.value ? this.props.auth.name : ''
+        qc: event.target.value ? this.state.auth.name : ''
       },
       responseType: 'json'
     }).then(response => {

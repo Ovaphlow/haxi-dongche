@@ -140,7 +140,8 @@ export default class Journal02Detail extends React.Component {
             </div>
           </div>
 
-          <div className="row"><hr /></div>
+          <div className="clearfix"></div>
+          <div className="col-12"><hr /></div>
 
           {this.state.detail01 > 0 &&
             <Journal02Detail01 read={true} />

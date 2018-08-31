@@ -37,7 +37,7 @@ export default class Journal02Detail02 extends React.Component {
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/p_bz',
       data: {
-        leader: event.target.value === '' ? '' : this.props.auth.name
+        leader: event.target.value === '' ? '' : this.state.auth.name
       },
       responseType: 'json'
     }).then(response => {
@@ -56,7 +56,7 @@ export default class Journal02Detail02 extends React.Component {
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/qc',
       data: {
         p_bjgnsy: event.target.value,
-        qc: this.props.auth.name
+        qc: this.state.auth.name
       },
       responseType: 'json'
     }).then(response => {
@@ -72,7 +72,7 @@ export default class Journal02Detail02 extends React.Component {
     axios({
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/p_jsy',
-      data: { duty_officer: event.target.value === '' ? '' : this.props.auth.name },
+      data: { duty_officer: event.target.value === '' ? '' : this.state.auth.name },
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
