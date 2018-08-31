@@ -72,7 +72,7 @@ export default class Journal02Item extends React.Component {
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) window.location.href = './#/login'
+    // if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
   }
 

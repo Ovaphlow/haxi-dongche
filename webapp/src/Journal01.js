@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 
 import Sidebar from './component/Sidebar'
@@ -13,17 +12,15 @@ export default class Journal01 extends React.Component {
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: './api/journal01/?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ list: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) {
+      sessionStorage.setItem('link2', './#/journal.01')
+      window.location.href = './#/login'
+      return false
+    }
+    fetch(`./api/journal01/?timestamp=${new Date().getTime()}`)
+    .then(res => res.json())
+    .then(response => this.setState({ list: response.content }))
   }
 
   render() {

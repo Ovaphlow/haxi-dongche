@@ -113,7 +113,7 @@ export default class Journal02Detail extends React.Component {
               }
               {
                 this.state.master.sign_verify_leader_bz &&
-                !!!this.state.master.sign_leader_qc &&
+                !!!this.state.master.sign_verify_leader_qc &&
                 this.state.master.p_jsy_content.indexOf('质检') &&
                 <ReviewQcLink />
               }

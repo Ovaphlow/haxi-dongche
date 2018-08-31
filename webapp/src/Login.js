@@ -5,8 +5,13 @@ import md5 from 'blueimp-md5'
 export default class Login extends React.Component {
   constructor() {
     super()
-    this.state = { message: '' }
+    this.state = { message: '', link2: '' }
     this.submit = this.submit.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({ link2: sessionStorage.getItem('link2') || '' })
+    sessionStorage.removeItem('link2')
   }
 
   submit() {
@@ -30,7 +35,7 @@ export default class Login extends React.Component {
         this.setState({ message: '账号数据异常' })
       } else {
         sessionStorage.setItem('auth', JSON.stringify(response.content[0]))
-        window.location.href = './#/'
+        window.location.href = this.state.link2 || './#/'
       }
     }).catch(err => this.setState({ message: `服务器通信异常` }))
   }

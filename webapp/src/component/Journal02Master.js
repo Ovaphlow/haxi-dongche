@@ -176,7 +176,7 @@ export default class Journal02Master extends React.Component {
           <div className="col-12">
             <BackButton />
             <div className="btn-group pull-right">
-              <button type="button" className="btn btn-outline-success btn-sm" onClick={this.preview}>
+              <button type="button" className="btn btn-outline-success" onClick={this.preview}>
                 <i className="fa fa-fw fa-download"></i>
                 下载Excel
               </button>

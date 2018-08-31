@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
@@ -21,6 +20,7 @@ export default class Journal02 extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
+      sessionStorage.setItem('link2', './#/journal.02')
       window.location.href = './#/login'
       return false
     }
@@ -28,50 +28,42 @@ export default class Journal02 extends React.Component {
 
     document.getElementById('date_begin').value = moment().format('YYYY-MM-DD')
     document.getElementById('date_end').value = moment().format('YYYY-MM-DD')
-    axios({
-      method: 'get',
-      url: './api/journal02/?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ list: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    fetch(`./api/journal02/?timestamp=${new Date().getTime()}`)
+    .then(res => res.json())
+    .then(response => this.setState({ list: response.content }))
   }
 
   submit() {
-    axios({
+    fetch(`./api/journal02/filter/`, {
       method: 'post',
-      url: './api/journal02/filter/',
-      data: {
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
         dept: document.getElementById('component.dept-list').value || '',
         group: document.getElementById('component.train-list').value || '',
         date_begin: document.getElementById('date_begin').value || '',
         date_end: document.getElementById('date_end').value || ''
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      this.setState({ list: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+      })
+    })
+    .then(res => res.json())
+    .then(response => this.setState({ list: response.content }))
   }
 
   submit1() {
-    axios({
+    fetch(`./api/journal02/filter/notcomplete`, {
       method: 'post',
-      url: './api/journal02/filter/notcomplete',
-      data: {
-        dept: document.getElementById('dept').value,
-        group: document.getElementById('group').value,
-        date: document.getElementById('date_begin').value
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
       },
-      responseType: 'json'
-    }).then(response => this.setState({ list: response.data.content }))
+      body: JSON.stringify({
+        dept: document.getElementById('component.dept-list').value,
+        group: document.getElementById('component.train-list').value,
+        date: document.getElementById('date_begin').value
+      })
+    })
+    .then(res => res.json())
+    .then(response => this.setState({ list: response.content }))
   }
 
   listByUser() {
@@ -82,10 +74,7 @@ export default class Journal02 extends React.Component {
       }
     })
     .then(res => res.json())
-    .then(response => {
-      this.setState({ list: response.content })
-    })
-    .catch(err => this.setState({ message: `服务器通信异常` }))
+    .then(response => this.setState({ list: response.content }))
   }
 
   detail(event) {
