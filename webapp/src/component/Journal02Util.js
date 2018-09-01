@@ -1,4 +1,113 @@
 import React from 'react'
+import moment from 'moment'
+
+export class ExportFilter2ExcelDownload extends React.Component {
+  constructor() {
+    super()
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    window.open(`./download/${JSON.parse(sessionStorage.getItem('auth')).uuid}.xlsx`)
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-success" onClick={this.handler}>
+        <i className="fa fa-fw fa-download"></i>
+        下载
+      </button>
+    )
+  }
+}
+
+// 导出查询结果到Excel
+export class ExportFilter2Excel extends React.Component {
+  constructor() {
+    super()
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    fetch('./api/common/journal02/export/filter', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        user_uuid: JSON.parse(sessionStorage.getItem('auth')).uuid,
+        train: document.getElementById('component.train-list').value,
+        dept: document.getElementById('component.dept-list').value,
+        date_begin: moment(document.getElementById('date_begin').value).format('YYYY-MM-DD'),
+        time_begin: moment(document.getElementById('date_begin').value).format('HH:mm:ss') || '00:00:00',
+        date_end: moment(document.getElementById('date_end').value).format('YYYY-MM-DD'),
+        time_end: moment(document.getElementById('date_end').value).format('HH:mm:ss') || '23:59:59'
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      window.location = response.content
+    })
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-success" onClick={this.handler}>
+        <i className="fa fa-fw fa-file-excel-o"></i>
+        导出查询结果到Excel
+      </button>
+    )
+  }
+}
+
+// 驳回
+export class RejectSubmit extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { isReject: false }
+    this.reject = this.reject.bind(this)
+    this.submitReject = this.submitReject.bind(this)
+  }
+
+  reject() {
+    this.setState({ isReject: !!!this.state.isReject })
+  }
+
+  submitReject() {
+    fetch(`./api/journal02/${this.props.id}/reject/${this.props.operation}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        reject: document.getElementById('input-reject').value,
+        reject_by: this.props.auth.name,
+        reject_by_id: this.props.auth.id
+      })
+    })
+    .then(() => window.location.reload(true))
+  }
+
+  render() {
+    return (
+      <span>
+        {this.state.isReject &&
+          <div className="form-inline">
+            <label>驳回原因：</label>
+            <input type="text" className="col-2 form-control form-control-sm" id="input-reject" />
+            <button type="button" className="btn btn-sm btn-danger" onClick={this.submitReject}>确认</button>
+            <br />
+            <br />
+          </div>
+        }
+        <button type="button" className="btn btn-sm btn-outline-danger" onClick={this.reject}>
+          <i className="fa fa-fw fa-reply"></i>
+          驳回
+        </button>
+      </span>
+    )
+  }
+}
 
 /**
  * 调度销记

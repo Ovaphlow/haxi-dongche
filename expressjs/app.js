@@ -32,8 +32,8 @@ app.use('/api/common', common)
 const commonUpload = require('./routes/upload')
 app.use('/api/common/upload', commonUpload)
 
-// const commonExcel = require('./routes/excel')
-// app.use('/api/common/excel', commonExcel)
+const commonExcel = require('./routes/excel')
+app.use('/api/common', commonExcel)
 
 // const schedule = require('./routes/schedule')
 // app.use('/api/common/schedule', schedule)

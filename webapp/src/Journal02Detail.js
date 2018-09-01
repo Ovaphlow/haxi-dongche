@@ -9,8 +9,9 @@ import Journal02Detail01 from './component/Journal02Detail01'
 import Journal02Detail02 from './component/Journal02Detail02'
 import Journal02Detail03 from './component/Journal02Detail03'
 import Journal02Detail04 from './component/Journal02Detail04'
-import { RemoveButton, ApprovePjsyLink, ApprovePbzSubmit, ApproveQcSubmit, ApprovePddSubmit, ApprovePzbszSubmit } from './component/Journal02Util'
+import { ApprovePjsyLink, ApprovePbzSubmit, ApproveQcSubmit, ApprovePddSubmit, ApprovePzbszSubmit } from './component/Journal02Util'
 import { ReviewApplicantLink, ReviewPbzLink, ReviewQcLink, ReviewPjsyLink, ReviewPddLink } from './component/Journal02Util'
+import { RemoveButton } from './component/Journal02Util'
 
 export default class Journal02Detail extends React.Component {
   constructor(props) {
@@ -59,11 +60,22 @@ export default class Journal02Detail extends React.Component {
           <Journal02Master mode="read" check={true} verify={true} />
 
           <div className="col-12">
-            {this.state.auth.auth_admin ? <RemoveButton /> : false}
+            {/* {this.state.auth.auth_admin ? <RemoveButton /> : false} */}
+            {
+              (
+                this.state.auth.auth_admin === 1 || (
+                  this.state.master.leader_id === this.state.auth.id &&
+                  !!!this.state.master.sign_p_jsy
+                )
+              ) &&
+              <RemoveButton />
+            }
             <div className="btn-group pull-right">
               {
                 !!!this.state.master.sign_p_jsy &&
-                <ApprovePjsyLink />
+                <span>
+                  <ApprovePjsyLink />
+                </span>
               }
               {
                 this.state.master.sign_p_jsy &&

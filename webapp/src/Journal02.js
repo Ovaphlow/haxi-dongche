@@ -6,6 +6,7 @@ import PageTitle from './component/PageTitle'
 import PageTitle2 from './component/PageTitle2'
 import Journal02Item from './component/Journal02Item'
 import { ReloadButton, DeptList, TrainList } from './component/Common'
+import { ExportFilter2Excel } from './component/Journal02Util'
 
 export default class Journal02 extends React.Component {
   constructor(props) {
@@ -26,8 +27,8 @@ export default class Journal02 extends React.Component {
     }
     this.setState({ auth: auth })
 
-    document.getElementById('date_begin').value = moment().format('YYYY-MM-DD')
-    document.getElementById('date_end').value = moment().format('YYYY-MM-DD')
+    document.getElementById('date_begin').value = moment().format('YYYY-MM-DDT00:00:00')
+    document.getElementById('date_end').value = moment().format('YYYY-MM-DDT23:59:59')
     fetch(`./api/journal02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
@@ -42,8 +43,10 @@ export default class Journal02 extends React.Component {
       body: JSON.stringify({
         dept: document.getElementById('component.dept-list').value || '',
         group: document.getElementById('component.train-list').value || '',
-        date_begin: document.getElementById('date_begin').value || '',
-        date_end: document.getElementById('date_end').value || ''
+        date_begin: moment(document.getElementById('date_begin').value).format('YYYY-MM-DD'),
+        time_begin: moment(document.getElementById('date_begin').value).format('HH:mm:ss') || '00:00:00',
+        date_end: moment(document.getElementById('date_end').value).format('YYYY-MM-DD'),
+        time_end: moment(document.getElementById('date_end').value).format('HH:mm:ss') || '23:59:59'
       })
     })
     .then(res => res.json())
@@ -67,12 +70,7 @@ export default class Journal02 extends React.Component {
   }
 
   listByUser() {
-    fetch('./api/journal02/filter/user/' + this.state.auth.id + '?timestamp=' + new Date().getTime(), {
-      method: 'get',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      }
-    })
+    fetch(`./api/journal02/filter/user/${this.state.auth.id}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
   }
@@ -115,14 +113,14 @@ export default class Journal02 extends React.Component {
             <div className="col-3">
               <div className="form-group">
                 <label>申请作业时间</label>
-                <input type="date" className="form-control" id="date_begin" />
+                <input type="datetime-local" className="form-control" id="date_begin" />
               </div>
             </div>
 
             <div className="col-3">
               <div className="form-group">
                 <label>申请作业时间</label>
-                <input type="date" className="form-control" id="date_end" />
+                <input type="datetime-local" className="form-control" id="date_end" />
               </div>
             </div>
           </div>
@@ -130,21 +128,25 @@ export default class Journal02 extends React.Component {
           <div className="row">
             <div className="col-12">
               <ReloadButton />
+
               <div className="btn-group pull-right">
-                <button type="button" className="btn btn-outline-primary btn-sm" onClick={this.submit}>
+                <button type="button" className="btn btn-outline-primary" onClick={this.submit}>
                   <i className="fa fa-fw fa-search"></i>
                   查询
                 </button>
 
-                <button type="button" className="btn btn-outline-dark btn-sm" onClick={this.submit1}>
+                <button type="button" className="btn btn-outline-dark" onClick={this.submit1}>
                   <i className="fa fa-fw fa-search"></i>
                   未完成申请单
                 </button>
 
-                <button type="button" className="btn btn-outline-info btn-sm" onClick={this.listByUser}>
+                <button type="button" className="btn btn-outline-info" onClick={this.listByUser}>
                   <i className="fa fa-fw fa-user"></i>
                   我的申请单
                 </button>
+
+                <ExportFilter2Excel />
+                {/* <ExportFilter2ExcelDownload /> */}
               </div>
             </div>
           </div>

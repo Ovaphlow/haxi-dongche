@@ -41,6 +41,31 @@ export class TrainList extends React.Component {
   }
 }
 
+export class UserSelectorDept extends React.Component {
+  constructor() {
+    super()
+    this.state = { list: [] }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    fetch(`./api/common/user/dept/name/${auth.dept}`)
+    .then(res => res.json())
+    .then(response => this.setState({ list: response.content }))
+  }
+
+  render() {
+    return (
+      <select className="form-control" id="component.user-selector">
+        <option value="">选择用户</option>
+        {this.state.list.map(item =>
+          <option value={item.name} key={item.id}>{item.name}</option>
+        )}
+      </select>
+    )
+  }
+}
+
 export class DeptList extends React.Component {
   constructor() {
     super()

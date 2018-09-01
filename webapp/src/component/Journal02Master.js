@@ -1,19 +1,33 @@
 import axios from 'axios'
 import React from 'react'
+import moment from 'moment'
 
-import { BackButton, TrainList } from './Common'
+import { BackButton, TrainList, UserSelectorDept } from './Common'
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', trainList: [], master: {} }
+    this.state = { message: '', master: {}, auth: {} }
     this.save = this.save.bind(this)
     this.update = this.update.bind(this)
     this.preview = this.preview.bind(this)
   }
 
   componentDidMount() {
-    if (this.props.mode === 'read' || this.props.mode === 'update') {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    this.setState({ auth: auth })
+    if (this.props.mode === 'save') {
+      document.getElementById('leader').value = auth.name
+      document.getElementById('leaderPhone').value = auth.phone
+      document.getElementById('dept').value = auth.dept
+      document.getElementById('component.user-selector').value = auth.name
+      document.getElementById('dateBegin').value = moment().format('YYYY-MM-DD')
+      document.getElementById('timeBegin0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH')
+      document.getElementById('timeBegin1').value = '00'
+      document.getElementById('dateEnd').value = moment().format('YYYY-MM-DD')
+      document.getElementById('timeEnd0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH')
+      document.getElementById('timeEnd1').value = '00'
+    } else if (this.props.mode === 'read' || this.props.mode === 'update') {
       axios({
         method: 'get',
         url: './api/journal02/' + sessionStorage.getItem('journal02') + '?timestamp=' + new Date().getTime(),
@@ -25,7 +39,7 @@ export default class Journal02Master extends React.Component {
         }
         this.setState({ master: response.data.content })
         document.getElementById('dept').value = response.data.content.dept
-        document.getElementById('applicant').value = response.data.content.applicant
+        document.getElementById('component.user-selector').value = response.data.content.applicant
         document.getElementById('applicantPhone').value = response.data.content.applicant_phone
         document.getElementById('leader').value = response.data.content.leader
         document.getElementById('leaderPhone').value = response.data.content.leader_phone
@@ -66,9 +80,9 @@ export default class Journal02Master extends React.Component {
   save() {
     this.setState({ message: '' })
     if (
-      !!!document.getElementById('dept').value || !!!document.getElementById('applicant').value ||
-      !!!document.getElementById('leader').value || !!!document.getElementById('component.train-list').value ||
-      !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
+        !!!document.getElementById('dept').value || !!!document.getElementById('component.user-selector').value ||
+        !!!document.getElementById('leader').value || !!!document.getElementById('component.train-list').value ||
+        !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
       return false
@@ -77,10 +91,10 @@ export default class Journal02Master extends React.Component {
       method: 'post',
       url: './api/journal02/',
       data: {
-        applicant: document.getElementById('applicant').value,
-        applicantId: this.props.auth.id,
+        applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
+        leaderId: this.state.auth.id,
         leaderPhone: document.getElementById('leaderPhone').value,
         dept: document.getElementById('dept').value,
         groupSN: document.getElementById('component.train-list').value,
@@ -114,9 +128,9 @@ export default class Journal02Master extends React.Component {
   update() {
     this.setState({ message: '' })
     if (
-      !!!document.getElementById('dept').value || !!!document.getElementById('applicant').value ||
-      !!!document.getElementById('leader').value || !!!document.getElementById('groupSN').value ||
-      !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
+          !!!document.getElementById('dept').value || !!!document.getElementById('component.user-selector').value ||
+          !!!document.getElementById('leader').value || !!!document.getElementById('component.train-list').value ||
+          !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
       return false
@@ -125,13 +139,13 @@ export default class Journal02Master extends React.Component {
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02'),
       data: {
-        applicant: document.getElementById('applicant').value,
-        applicantId: this.props.auth.id,
+        applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
+        leaderId: this.state.auth.id,
         leaderPhone: document.getElementById('leaderPhone').value,
         dept: document.getElementById('dept').value,
-        groupSN: document.getElementById('groupSN').value,
+        groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
         timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
@@ -216,23 +230,28 @@ export default class Journal02Master extends React.Component {
                 <td width="15%" className="text-center align-middle">申请单位</td>
                 {/* <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.mode === 'read' ? true : false} /></td> */}
                 <td colSpan="3">
-                  <input type="text" readOnly={true} className="form-control form-control-sm" id="dept" />
+                  <input type="text" readOnly={true} className="form-control" id="dept" />
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
                 <td width="35%" className="text-center">
-                  {/* <input type="text" readOnly={true} className="form-control form-control-sm" id="applicant" readOnly={this.props.mode === 'read' ? true : false} /> */}
-                  <input type="text" readOnly={true} className="form-control form-control-sm" id="applicant" />
+                  <UserSelectorDept />
                 </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="applicantPhone" readOnly={this.props.mode === 'read' ? true : false} /></td>
+                <td width="35%" className="text-center">
+                  <input type="text" className="form-control" id="applicantPhone" readOnly={this.props.mode === 'read' ? true : false} />
+                </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业负责人</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leader" readOnly={this.props.mode === 'read' ? true : false} /></td>
+                <td width="35%" className="text-center">
+                  <input type="text" readOnly={true} className="form-control" id="leader" />
+                </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
-                <td width="35%" className="text-center"><input type="text" className="form-control form-control-sm" id="leaderPhone" readOnly={this.props.mode === 'read' ? true : false} /></td>
+                <td width="35%" className="text-center">
+                  <input type="text" readOnly className="form-control" id="leaderPhone" />
+                </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>

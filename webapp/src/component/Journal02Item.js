@@ -1,55 +1,6 @@
 import React from 'react'
 
-class Reject extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { isReject: false }
-    this.reject = this.reject.bind(this)
-    this.submitReject = this.submitReject.bind(this)
-  }
-
-  reject() {
-    this.setState({ isReject: !!!this.state.isReject })
-  }
-
-  submitReject() {
-    fetch('./api/journal02/' + this.props.id + '/reject/' + this.props.operation, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        reject: document.getElementById('input-reject').value,
-        reject_by: this.props.auth.name,
-        reject_by_id: this.props.auth.id
-      })
-    })
-    .then(res => res.json())
-    .then(response => {
-      window.location.reload(true)
-    })
-  }
-
-  render() {
-    return (
-      <span>
-        {this.state.isReject &&
-          <div className="form-inline">
-            <label>驳回原因：</label>
-            <input type="text" className="col-2 form-control form-control-sm" id="input-reject" />
-            <button type="button" className="btn btn-sm btn-danger" onClick={this.submitReject}>确认</button>
-            <br />
-            <br />
-          </div>
-        }
-        <button type="button" className="btn btn-sm btn-outline-danger" onClick={this.reject}>
-          <i className="fa fa-fw fa-reply"></i>
-          驳回
-        </button>
-      </span>
-    )
-  }
-}
+import { RejectSubmit } from './Journal02Util'
 
 export default class Journal02Item extends React.Component {
   constructor(props) {
@@ -307,20 +258,26 @@ export default class Journal02Item extends React.Component {
 
         <div className="row">
           <div className="col-12 mt-3">
-            {this.props.item.applicant === this.state.auth.name && (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
+            {this.props.item.leader_id === this.state.auth.id && (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
               <button type="button" className="btn btn-sm btn-outline-secondary" data-id={this.props.item.id} onClick={this.update}>
                 <i className="fa fa-fw fa-edit"></i>
                 修改
               </button>
             }
             {this.props.operation === 'p_jsy' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
+              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
+            }
+            {this.props.operation === 'p_jsy_bz' &&
+              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
+            }
+            {this.props.operation === 'p_jsy_qc' &&
+              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             {this.props.operation === 'p_dd' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
+              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             {this.props.operation === 'p_zbsz' &&
-              <Reject id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
+              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             <div className="btn-group pull-right">
               <button type="button" className="btn btn-light" data-id={this.props.item.id} onClick={this.detail}>
