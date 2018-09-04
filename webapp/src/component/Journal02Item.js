@@ -1,225 +1,23 @@
 import React from 'react'
 
 import { RejectSubmit } from './Journal02Util'
+import { ProgressTag, DetailLink, ProgressButton } from './Journal02Util'
 
 export default class Journal02Item extends React.Component {
   constructor(props) {
     super(props)
     this.state = { auth: {} }
     this.update = this.update.bind(this)
-    this.renderBadge = this.renderBadge.bind(this)
-    this.detail = this.detail.bind(this)
-    this.checkPjsy = this.checkPjsy.bind(this)
-    this.checkPjsybz = this.checkPjsybz.bind(this)
-    this.checkPjsyQc = this.checkPjsyQc.bind(this)
-    this.checkPzbsz = this.checkPzbsz.bind(this)
-    this.checkPdd = this.checkPdd.bind(this)
-    this.verifyLeader = this.verifyLeader.bind(this)
-    this.verifyLeaderPbz = this.verifyLeaderPbz.bind(this)
-    this.verifyLeaderQc = this.verifyLeaderQc.bind(this)
-    this.verifyPjsy = this.verifyPjsy.bind(this)
-    this.verify = this.verify.bind(this)
   }
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
-    // if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
   }
 
   update(event) {
     sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
     window.location.href = './#/journal.02-update'
-  }
-
-  detail(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-detail'
-  }
-
-  renderBadge() {
-    if (this.props.item.reject) return (
-      <span className="badge badge-danger pull-right">
-        {this.props.item.reject_by} 驳回：{this.props.item.reject}
-      </span>
-    )
-    else if (this.props.item.sign_verify) return (
-      <span className="badge badge-light pull-right">
-        作业完成
-      </span>
-    )
-    else if (
-        this.props.item.sign_verify_leader &&
-        (
-          this.props.item.p_jsy_content === '无要求' ||
-          (
-            this.props.item.sign_verify_leader_qc &&
-            this.props.item.qty_verify_p_jsy_02 === 0 &&
-            this.props.item.qty_verify_p_jsy_03 === 0
-          )
-        )
-    ) return (
-      <span className="badge badge-success pull-right">
-        调度员核销
-      </span>
-    )
-    else if (this.props.item.qty_verify_p_jsy_02 > 0 || this.props.item.qty_verify_p_jsy_03 > 0) return (
-      <span className="badge badge-success pull-right">
-        技术员签字
-      </span>
-    )
-    else if ((this.props.item.p_jsy_content.indexOf('质检') !== 1) && this.props.item.sign_verify_leader_bz) return (
-      <span className="badge badge-success pull-right">
-        质检签字
-      </span>
-    )
-    else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content.indexOf('班组') !== -1)) return (
-      <span className="badge badge-success pull-right">
-        班组签字
-      </span>
-    )
-    else if (this.props.item.sign_p_zbsz) return (
-      <span className="badge badge-success pull-right">
-        作业负责人销记
-      </span>
-    )
-    else if (this.props.item.sign_p_dd) return (
-      <span className="badge badge-info pull-right">
-        值班所长审批
-      </span>
-    )
-    else if (this.props.item.sign_p_jsy && ((this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 && this.props.item.sign_p_jsy_bz) ||
-        (this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && this.props.item.sign_p_jsy_qc) ||
-        this.props.item.p_jsy_content === '无要求')) return (
-      <span className="badge badge-info pull-right">
-        动车所调度审核
-      </span>
-    )
-    else if (this.props.item.sign_p_jsy_bz && this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!this.props.item.sign_p_jsy_qc) return (
-      <span className="badge badge-info pull-right">
-        质检签字
-      </span>
-    )
-    else if (this.props.item.sign_p_jsy && this.props.item.p_jsy_content.indexOf('班组') !== -1 && !!!this.props.item.sign_p_jsy_bz) return (
-      <span className="badge badge-info pull-right">
-        班组签字
-      </span>
-    )
-    else if (!!!this.props.item.sign_p_jsy || !!!this.props.item.p_jsy_content) return (
-      <span className="badge badge-info pull-right">
-        动车所技术员审核
-      </span>
-    )
-  }
-
-  checkPjsy(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-p_jsy.content'
-  }
-
-  checkPjsybz(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy/bz', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.reload(true))
-  }
-
-  checkPjsyQc(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/jsy/qc', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.reload(true))
-  }
-
-  checkPdd(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/dd', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        p_dd: this.state.auth.name,
-        p_dd_id: this.state.auth.id,
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.reload(true))
-  }
-
-  checkPzbsz(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch('./api/journal02/' + event.target.getAttribute('data-id') + '/zbsz', {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        p_zbsz: this.state.auth.name,
-        p_zbsz_id: this.state.auth.id,
-        sign: this.state.auth.sign
-      })
-    })
-    .then(res => res.json())
-    .then(response => window.location.reload(true))
-  }
-
-  verifyLeader(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-verify.leader'
-  }
-
-  verifyLeaderPbz(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-verify.p_bz'
-  }
-
-  verifyLeaderQc(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-verify.qc'
-  }
-
-  verifyPjsy(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-verify.p_jsy'
-  }
-
-  verify(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-verify.p_dd'
   }
 
   render() {
@@ -230,7 +28,7 @@ export default class Journal02Item extends React.Component {
           <strong>{this.props.item.content}</strong>
           】
           {this.props.item.content_detail}
-          {this.renderBadge(this.props.item)}
+          <ProgressTag item={this.props.item} />
         </p>
 
         <ul className="list-inline">
@@ -280,59 +78,8 @@ export default class Journal02Item extends React.Component {
               <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             <div className="btn-group pull-right">
-              <button type="button" className="btn btn-light" data-id={this.props.item.id} onClick={this.detail}>
-                详细信息
-              </button>
-              {this.props.operation === 'p_jsy' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPjsy}>
-                  技术员审核
-                </button>
-              }
-              {this.props.operation === 'p_jsy_bz' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPjsybz}>
-                  班组签字
-                </button>
-              }
-              {this.props.operation === 'p_jsy_qc' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPjsyQc}>
-                  质检签字
-                </button>
-              }
-              {this.props.operation === 'p_zbsz' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPzbsz}>
-                  值班所长审批
-                </button>
-              }
-              {this.props.operation === 'p_dd' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.checkPdd}>
-                  调度审核
-                </button>
-              }
-              {this.props.operation === 'verify_leader' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeader}>
-                  作业完成
-                </button>
-              }
-              {this.props.operation === 'verify_p_bz' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeaderPbz}>
-                  作业完成
-                </button>
-              }
-              {this.props.operation === 'verify_qc' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyLeaderQc}>
-                  作业完成
-                </button>
-              }
-              {this.props.operation === 'verify_p_jsy' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verifyPjsy}>
-                  作业完成
-                </button>
-              }
-              {this.props.operation === 'verify_p_dd' &&
-                <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.verify}>
-                  调度员签字
-                </button>
-              }
+              <DetailLink id={this.props.item.id} />
+              <ProgressButton auth={this.state.auth} item={this.props.item} />
             </div>
           </div>
         </div>

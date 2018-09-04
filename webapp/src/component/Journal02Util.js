@@ -1,6 +1,229 @@
 import React from 'react'
 import moment from 'moment'
 
+export class ProgressButton extends React.Component {
+  constructor() {
+    super()
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    if (
+        !!!this.props.item.sign_p_jsy &&
+        this.props.auth.auth_p_jsy
+    ) return (
+      <ApprovePjsyLink />
+    )
+    else if (
+        this.props.item.sign_p_jsy &&
+        this.props.item.p_jsy_content.indexOf('班组') !== -1 &&
+        !!!this.props.item.sign_p_jsy_bz &&
+        this.props.auth.dept === this.props.item.p_jsy_bz
+    ) return (
+      <ApprovePbzSubmit />
+    )
+    else if (
+        this.props.item.sign_p_jsy_bz &&
+        this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
+        !!!this.props.item.sign_p_jsy_qc &&
+        this.props.auth.dept === this.props.item.p_jsy_qc
+    ) return (
+      <ApproveQcSubmit />
+    )
+    else if (
+        this.props.item.sign_p_jsy &&
+        (
+          (
+            this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 &&
+            this.props.item.sign_p_jsy_bz
+          ) ||
+          (
+            this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
+            this.props.item.sign_p_jsy_qc
+          ) ||
+          this.props.item.p_jsy_content === '无要求'
+        ) &&
+        !!!this.props.item.sign_p_dd &&
+        this.props.auth.auth_p_dd
+    ) return (
+      <ApprovePddSubmit />
+    )
+    else if (
+        this.props.item.sign_p_dd &&
+        !!!this.props.item.sign_p_zbsz &&
+        this.props.auth.auth_p_zbsz
+    ) return (
+      <ApprovePzbszSubmit />
+    )
+    else if (
+        this.props.item.sign_p_zbsz &&
+        !!!this.props.item.sign_verify_leader &&
+        this.props.auth.id === this.props.item.leader_id
+    ) return (
+      <ReviewApplicantLink />
+    )
+    else if (
+        this.props.item.sign_verify_leader &&
+        (
+          this.props.item.p_jsy_content.indexOf('班组') !== -1
+        ) &&
+        !!!this.props.item.sign_verify_leader_bz &&
+        this.props.auth.dept === this.props.item.p_jsy_bz
+    ) return (
+      <ReviewPbzLink />
+    )
+    else if (
+        this.props.item.sign_verify_leader_bz &&
+        !!!this.props.item.sign_verify_leader_qc &&
+        this.props.item.p_jsy_content.indexOf('质检') &&
+        this.props.auth.dept === this.props.item.p_jsy_qc
+    ) return (
+      <ReviewQcLink />
+    )
+    else if (
+        (
+          this.props.item.qty_verify_p_jsy_02 > 0 ||
+          this.props.item.qty_verify_p_jsy_03 > 0
+        ) &&
+        this.props.auth.auth_p_jsy
+    ) return (
+      <ReviewPjsyLink />
+    )
+    else if (
+        this.props.item.sign_verify_leader &&
+        (
+          this.props.item.p_jsy_content === '无要求' ||
+          (
+            this.props.item.sign_verify_leader_qc &&
+            this.props.item.qty_verify_p_jsy_02 === 0 &&
+            this.props.item.qty_verify_p_jsy_03 === 0
+          )
+        ) &&
+        !!!this.props.item.sign_verify &&
+        this.props.auth.auth_p_dd
+    ) return (
+      <ReviewPddLink />
+    )
+  }
+
+  render() {
+    return (
+      <span>{this.handler()}</span>
+    )
+  }
+}
+
+export class DetailLink extends React.Component {
+  constructor() {
+    super()
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    sessionStorage.setItem('journal02', this.props.id)
+    window.location.href = './#/journal.02-detail'
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-light" onClick={this.handler}>
+        <i className="fa fa-fw fa-file-text-o"></i>
+        详细信息
+      </button>
+    )
+  }
+}
+
+export class ProgressTag extends React.Component {
+  constructor() {
+    super()
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    if (this.props.item.reject) return (
+      <span className="badge badge-danger pull-right">
+        {this.props.item.reject_by} 驳回：{this.props.item.reject}
+      </span>
+    )
+    else if (this.props.item.sign_verify) return (
+      <span className="badge badge-light pull-right">
+        作业完成
+      </span>
+    )
+    else if (
+        this.props.item.sign_verify_leader &&
+        (
+          this.props.item.p_jsy_content === '无要求' ||
+          (
+            this.props.item.sign_verify_leader_qc &&
+            this.props.item.qty_verify_p_jsy_02 === 0 &&
+            this.props.item.qty_verify_p_jsy_03 === 0
+          )
+        )
+    ) return (
+      <span className="badge badge-success pull-right">
+        调度员核销
+      </span>
+    )
+    else if (this.props.item.qty_verify_p_jsy_02 > 0 || this.props.item.qty_verify_p_jsy_03 > 0) return (
+      <span className="badge badge-success pull-right">
+        技术员签字
+      </span>
+    )
+    else if ((this.props.item.p_jsy_content.indexOf('质检') !== 1) && this.props.item.sign_verify_leader_bz) return (
+      <span className="badge badge-success pull-right">
+        质检签字
+      </span>
+    )
+    else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content.indexOf('班组') !== -1)) return (
+      <span className="badge badge-success pull-right">
+        班组签字
+      </span>
+    )
+    else if (this.props.item.sign_p_zbsz) return (
+      <span className="badge badge-success pull-right">
+        作业负责人销记
+      </span>
+    )
+    else if (this.props.item.sign_p_dd) return (
+      <span className="badge badge-info pull-right">
+        值班所长审批
+      </span>
+    )
+    else if (this.props.item.sign_p_jsy && ((this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 && this.props.item.sign_p_jsy_bz) ||
+        (this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && this.props.item.sign_p_jsy_qc) ||
+        this.props.item.p_jsy_content === '无要求')) return (
+      <span className="badge badge-info pull-right">
+        动车所调度审核
+      </span>
+    )
+    else if (this.props.item.sign_p_jsy_bz && this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!this.props.item.sign_p_jsy_qc) return (
+      <span className="badge badge-info pull-right">
+        质检签字
+      </span>
+    )
+    else if (this.props.item.sign_p_jsy && this.props.item.p_jsy_content.indexOf('班组') !== -1 && !!!this.props.item.sign_p_jsy_bz) return (
+      <span className="badge badge-info pull-right">
+        班组签字
+      </span>
+    )
+    else if (!!!this.props.item.sign_p_jsy || !!!this.props.item.p_jsy_content) return (
+      <span className="badge badge-info pull-right">
+        动车所技术员审核
+      </span>
+    )
+  }
+
+  render() {
+    return (
+      <span>
+        {this.handler()}
+      </span>
+    )
+  }
+}
+
 export class ExportFilter2ExcelDownload extends React.Component {
   constructor() {
     super()

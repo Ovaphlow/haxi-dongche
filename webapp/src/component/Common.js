@@ -166,7 +166,7 @@ export class ReloadButton extends React.Component {
 
   render() {
     return (
-      <button type="button" className="btn btn-outline-secondary btn-sm" onClick={this.submit}>
+      <button type="button" className="btn btn-outline-secondary" onClick={this.submit}>
         <i className="fa fa-fw fa-refresh"></i>
         重置/刷新
       </button>
