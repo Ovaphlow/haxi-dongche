@@ -42,9 +42,10 @@ export class TrainList extends React.Component {
 }
 
 export class UserSelectorDept extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = { list: [] }
+    this.renderElement = this.renderElement.bind(this)
   }
 
   componentDidMount() {
@@ -52,16 +53,31 @@ export class UserSelectorDept extends React.Component {
     fetch(`./api/common/user/dept/name/${auth.dept}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
+    document.getElementById('component.user-selector').value = this.props.val
+  }
+
+  renderElement() {
+    if (this.props.mode !== 'read') {
+      return (
+        <select className="form-control" id="component.user-selector">
+          <option value="">选择用户</option>
+          {this.state.list.map(item =>
+            <option value={item.name} key={item.id}>{item.name}</option>
+          )}
+        </select>
+      )
+    } else {
+      return (
+        <input type="text" readOnly={this.props.mode === 'read' ? true : false} className="form-control" id="component.user-selector" />
+      )
+    }
   }
 
   render() {
     return (
-      <select className="form-control" id="component.user-selector">
-        <option value="">选择用户</option>
-        {this.state.list.map(item =>
-          <option value={item.name} key={item.id}>{item.name}</option>
-        )}
-      </select>
+      <div>
+        {this.renderElement()}
+      </div>
     )
   }
 }

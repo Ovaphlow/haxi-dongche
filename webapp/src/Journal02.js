@@ -135,6 +135,9 @@ export default class Journal02 extends React.Component {
                   查询
                 </button>
 
+                <ExportFilter2Excel />
+                {/* <ExportFilter2ExcelDownload /> */}
+
                 <button type="button" className="btn btn-outline-dark" onClick={this.submit1}>
                   <i className="fa fa-fw fa-search"></i>
                   未完成申请单
@@ -144,9 +147,6 @@ export default class Journal02 extends React.Component {
                   <i className="fa fa-fw fa-user"></i>
                   我的申请单
                 </button>
-
-                <ExportFilter2Excel />
-                {/* <ExportFilter2ExcelDownload /> */}
               </div>
             </div>
           </div>

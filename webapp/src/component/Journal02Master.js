@@ -128,9 +128,12 @@ export default class Journal02Master extends React.Component {
   update() {
     this.setState({ message: '' })
     if (
-          !!!document.getElementById('dept').value || !!!document.getElementById('component.user-selector').value ||
-          !!!document.getElementById('leader').value || !!!document.getElementById('component.train-list').value ||
-          !!!document.getElementById('dateBegin').value || !!!document.getElementById('dateEnd').value
+          !!!document.getElementById('dept').value ||
+          !!!document.getElementById('component.user-selector').value ||
+          !!!document.getElementById('leader').value ||
+          !!!document.getElementById('component.train-list').value ||
+          !!!document.getElementById('dateBegin').value ||
+          !!!document.getElementById('dateEnd').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
       return false
@@ -236,7 +239,9 @@ export default class Journal02Master extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
                 <td width="35%" className="text-center">
-                  <UserSelectorDept />
+                  {this.state.master.applicant &&
+                    <UserSelectorDept mode={this.props.mode} val={this.state.master.applicant} />
+                  }
                 </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
                 <td width="35%" className="text-center">
