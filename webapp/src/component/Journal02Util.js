@@ -283,6 +283,138 @@ export class ExportFilter2Excel extends React.Component {
   }
 }
 
+/**
+ * 驳回申请
+ * 驳回后通知各审批流程责任人
+ * 未通知作业负责人，班组，质检
+ */
+export class RejectButton extends React.Component {
+  constructor() {
+    super()
+    this.state = { isReject: false }
+    this.reject = this.reject.bind(this)
+    this.submitReject = this.submitReject.bind(this)
+  }
+
+  reject() {
+    this.setState({ isReject: !!!this.state.isReject })
+  }
+
+  submitReject() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/reject`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        reject: document.getElementById('component.reject-input').value,
+        reject_by: auth.name,
+        reject_by_id: auth.id
+      })
+    })
+    .then(() => {
+      if (this.props.item.leader) {
+        fetch(`./api/common/message/`, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            send_by: auth.name,
+            send_by_id: auth.id,
+            recieve_by: this.props.item.leader,
+            recieve_by_id: this.props.item.leader_id,
+            title: `一体化作业申请单被驳回，取消后续工作。`,
+            content: `由 ${this.props.item.applicant} 提交的一体化作业申请
+            （${this.props.item.content} ${this.props.item.content_detail}）被
+            ${auth.name} 驳回，驳回原因：${document.getElementById('component.reject-input').value}。
+            详细信息请在【已驳回申请】页面中查看。`
+          })
+        })
+      }
+      if (this.props.item.sign_p_jsy) {
+        fetch(`./api/common/message/`, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            send_by: auth.name,
+            send_by_id: auth.id,
+            recieve_by: this.props.item.p_jsy,
+            recieve_by_id: this.props.item.p_jsy_id,
+            title: `一体化作业申请单被驳回，取消后续工作。`,
+            content: `由 ${this.props.item.applicant} 提交的一体化作业申请
+            （${this.props.item.content} ${this.props.item.content_detail}）被
+            ${auth.name} 驳回，驳回原因：${document.getElementById('component.reject-input').value}。
+            详细信息请在【已驳回申请】页面中查看。`
+          })
+        })
+      }
+      if (this.props.item.sign_p_dd) {
+        fetch(`./api/common/message/`, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            send_by: auth.name,
+            send_by_id: auth.id,
+            recieve_by: this.props.item.p_dd,
+            recieve_by_id: this.props.item.p_dd_id,
+            title: `一体化作业申请单被驳回，取消后续工作。`,
+            content: `由 ${this.props.item.applicant} 提交的一体化作业申请
+            （${this.props.item.content} ${this.props.item.content_detail}）被
+            ${auth.name} 驳回，驳回原因：${document.getElementById('component.reject-input').value}。
+            详细信息请在【已驳回申请】页面中查看。`
+          })
+        })
+      }
+      if (this.props.item.sign_p_zbsz) {
+        fetch(`./api/common/message/`, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({
+            send_by: auth.name,
+            send_by_id: auth.id,
+            recieve_by: this.props.item.p_zbsz,
+            recieve_by_id: this.props.item.p_zbsz_id,
+            title: `一体化作业申请单被驳回，取消后续工作。`,
+            content: `由 ${this.props.item.applicant} 提交的一体化作业申请
+            （${this.props.item.content} ${this.props.item.content_detail}）被
+            ${auth.name} 驳回，驳回原因：${document.getElementById('component.reject-input').value}。
+            详细信息请在【已驳回申请】页面中查看。`
+          })
+        })
+      }
+      window.location = './#/journal.02'
+    })
+  }
+
+  render() {
+    return (
+      <span>
+        {this.state.isReject &&
+          <div className="form-inline">
+            <label>驳回原因：</label>
+            <input type="text" className="col-2 form-control form-control-sm" id="component.reject-input" />
+            <button type="button" className="btn btn-sm btn-danger" onClick={this.submitReject}>确认</button>
+            <br />
+            <br />
+          </div>
+        }
+        <button type="button" className="btn btn-outline-danger" onClick={this.reject}>
+          <i className="fa fa-fw fa-reply"></i>
+          驳回
+        </button>
+      </span>
+    )
+  }
+}
+
 // 驳回
 export class RejectSubmit extends React.Component {
   constructor(props) {

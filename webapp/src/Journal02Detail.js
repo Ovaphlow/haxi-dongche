@@ -6,7 +6,7 @@ import Journal02Master from './component/Journal02Master'
 import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
 import { ApprovePjsyLink, ApprovePbzSubmit, ApproveQcSubmit, ApprovePddSubmit, ApprovePzbszSubmit } from './component/Journal02Util'
 import { ReviewApplicantLink, ReviewPbzLink, ReviewQcLink, ReviewPjsyLink, ReviewPddLink } from './component/Journal02Util'
-import { RemoveButton } from './component/Journal02Util'
+import { RejectButton, RemoveButton } from './component/Journal02Util'
 
 export default class Journal02Detail extends React.Component {
   constructor(props) {
@@ -55,7 +55,6 @@ export default class Journal02Detail extends React.Component {
           <Journal02Master mode="read" check={true} verify={true} />
 
           <div className="col-12">
-            {/* {this.state.auth.auth_admin ? <RemoveButton /> : false} */}
             {
               (
                 this.state.auth.auth_admin === 1 || (
@@ -65,8 +64,14 @@ export default class Journal02Detail extends React.Component {
               ) &&
               <RemoveButton />
             }
+            {
+              !!!this.state.master.sign_verify &&
+              !!!this.state.master.reject &&
+              <RejectButton item={this.state.master} />
+            }
             <div className="btn-group pull-right">
               {
+                !!!this.state.master.reject &&
                 !!!this.state.master.sign_p_jsy &&
                 this.state.auth.auth_p_jsy &&
                 <span>
@@ -74,6 +79,7 @@ export default class Journal02Detail extends React.Component {
                 </span>
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_p_jsy &&
                 this.state.master.p_jsy_content.indexOf('班组') !== -1 &&
                 !!!this.state.master.sign_p_jsy_bz &&
@@ -81,6 +87,7 @@ export default class Journal02Detail extends React.Component {
                 <ApprovePbzSubmit />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_p_jsy_bz &&
                 this.state.master.p_jsy_content.indexOf('质检跟踪') !== -1 &&
                 !!!this.state.master.sign_p_jsy_qc &&
@@ -88,6 +95,7 @@ export default class Journal02Detail extends React.Component {
                 <ApproveQcSubmit />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_p_jsy &&
                 (
                   (
@@ -105,18 +113,21 @@ export default class Journal02Detail extends React.Component {
                 <ApprovePddSubmit />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_p_dd &&
                 !!!this.state.master.sign_p_zbsz &&
                 this.state.auth.auth_p_zbsz &&
                 <ApprovePzbszSubmit />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_p_zbsz &&
                 !!!this.state.master.sign_verify_leader &&
                 this.state.auth.id === this.state.master.leader_id &&
                 <ReviewApplicantLink />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_verify_leader &&
                 (
                   this.state.master.p_jsy_content.indexOf('班组') !== -1
@@ -126,6 +137,7 @@ export default class Journal02Detail extends React.Component {
                 <ReviewPbzLink />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_verify_leader_bz &&
                 !!!this.state.master.sign_verify_leader_qc &&
                 this.state.master.p_jsy_content.indexOf('质检') &&
@@ -133,6 +145,7 @@ export default class Journal02Detail extends React.Component {
                 <ReviewQcLink />
               }
               {
+                !!!this.state.master.reject &&
                 (
                   this.state.master.qty_verify_p_jsy_02 > 0 ||
                   this.state.master.qty_verify_p_jsy_03 > 0
@@ -141,6 +154,7 @@ export default class Journal02Detail extends React.Component {
                 <ReviewPjsyLink />
               }
               {
+                !!!this.state.master.reject &&
                 this.state.master.sign_verify_leader &&
                 (
                   this.state.master.p_jsy_content === '无要求' ||

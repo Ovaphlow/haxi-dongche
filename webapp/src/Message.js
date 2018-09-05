@@ -32,7 +32,6 @@ export class MessageList extends React.Component {
 
         <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="通知" />
-          {/* <PageTitle2 fa="fa-comments-o" title="通知列表" /> */}
 
           <div className="col">
             <div className="card">

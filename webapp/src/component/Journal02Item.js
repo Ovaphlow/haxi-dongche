@@ -79,7 +79,9 @@ export default class Journal02Item extends React.Component {
             }
             <div className="btn-group pull-right">
               <DetailLink id={this.props.item.id} />
-              <ProgressButton auth={this.state.auth} item={this.props.item} />
+              {!!!this.props.item.reject &&
+                <ProgressButton auth={this.state.auth} item={this.props.item} />
+              }
             </div>
           </div>
         </div>
