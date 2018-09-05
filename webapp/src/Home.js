@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 
 export default class Home extends Component {
   render() {

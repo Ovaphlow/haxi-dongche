@@ -1,14 +1,9 @@
 import React from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 
 import Journal02Master from './component/Journal02Master'
-import Journal02Detail01 from './component/Journal02Detail01'
-import Journal02Detail02 from './component/Journal02Detail02'
-import Journal02Detail03 from './component/Journal02Detail03'
-import Journal02Detail04 from './component/Journal02Detail04'
+import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
 import { ApprovePjsyLink, ApprovePbzSubmit, ApproveQcSubmit, ApprovePddSubmit, ApprovePzbszSubmit } from './component/Journal02Util'
 import { ReviewApplicantLink, ReviewPbzLink, ReviewQcLink, ReviewPjsyLink, ReviewPddLink } from './component/Journal02Util'
 import { RemoveButton } from './component/Journal02Util'

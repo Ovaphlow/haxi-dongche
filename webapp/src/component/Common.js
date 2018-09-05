@@ -1,4 +1,64 @@
+import axios from 'axios'
 import React from 'react'
+
+import UserToolbar from './UserToolbar'
+import AdminDeptToolbar from './AdminDeptToolbar'
+import AdminUserToolbar from './AdminUserToolbar'
+import AdminTrainToolbar from './AdminTrainToolbar'
+import Journal01Toolbar from './Journal01Toolbar'
+import Journal02Toolbar from './Journal02Util'
+
+export class MessageReadButton extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { message: '' }
+    this.handler = this.handler.bind(this)
+  }
+
+  handler() {
+    fetch(`./api/common/message/${this.props.id}/read`, {
+      method: 'put'
+    })
+    .then(() => window.location.reload(true))
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-dark" onClick={this.handler}>
+        <i className="fa fa-fw fa-check-square-o"></i>
+        标记为已读
+      </button>
+    )
+  }
+}
+
+export class MessageAlert extends React.Component {
+  constructor() {
+    super()
+    this.state = { message: '' }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    fetch(`./api/common/message/${auth.id}/unread/qty`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.content.qty === 0) return false
+      this.setState({ message: `您有 ${response.content.qty} 条新通知` })
+    })
+  }
+
+  render() {
+    return (
+      <div className="alert alert-success" style={{display: this.state.message ? 'block' : 'none'}}>
+        {this.state.message}
+        <span className="pull-right">
+          <a href="./#/message">查看</a>
+        </span>
+      </div>
+    )
+  }
+}
 
 export class CarriageList extends React.Component {
   render() {
@@ -198,6 +258,198 @@ export class Message extends React.Component {
   render() {
     return (
       <div className="alert alert-danger">{this.props.message}</div>
+    )
+  }
+}
+
+export class PageTitle2 extends React.Component {
+  render() {
+    return (
+      <div className="lead">
+        {this.props.toolbar === 'UserToolbar' &&
+          <UserToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'AdminDeptToolbar' &&
+          <AdminDeptToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'AdminUserToolbar' &&
+          <AdminUserToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'AdminTrainToolbar' &&
+          <AdminTrainToolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'Journal01Toolbar' &&
+          <Journal01Toolbar className="pull-right" />
+        }
+        {this.props.toolbar === 'Journal02Toolbar' &&
+          <Journal02Toolbar className="pull-right" />
+        }
+        <i className={'fa fa-fw ' + this.props.fa}></i>
+        {this.props.title}
+        <br />
+        <br />
+      </div>
+    )
+  }
+}
+
+export class PageTitle extends React.Component {
+  render() {
+    return (
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3>
+          {this.props.title}
+        </h3>
+      </div>
+    )
+  }
+}
+
+export class Sidebar extends React.Component {
+  constructor() {
+    super()
+    this.state = { todoQty: 0 }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) {
+      // 加载 Sidebar 时不跳转登录
+      // window.location.href = './#/login'
+      return false
+    }
+    if (this.props.category === '单据') {
+      if (auth.auth_p_jsy) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_jsy?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        })
+      }
+
+      axios({
+        method: 'get',
+        url: './api/journal02/todo/p_bz/' + auth.dept + '?timestamp=' + new Date().getTime(),
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+      }).catch(err => this.setState({ message: `服务器通信异常` }))
+
+      axios({
+        method: 'get',
+        url: './api/journal02/todo/qc/' + auth.name + '?timestamp=' + new Date().getTime(),
+        responseType: 'json'
+      }).then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+      }).catch(err => this.setState({ message: `服务器通信异常` }))
+
+      if (auth.auth_p_dd) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_dd?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        }).catch(err => this.setState({ message: `服务器通信异常` }))
+      }
+      if (auth.auth_p_zbsz) {
+        axios({
+          method: 'get',
+          url: './api/journal02/todo/p_zbsz?timestamp=' + new Date().getTime(),
+          responseType: 'json'
+        }).then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.data.content.qty })
+        }).catch(err => this.setState({ message: `服务器通信异常` }))
+      }
+    }
+  }
+
+  render() {
+    return (
+      <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
+        <div className="sidebar-sticky">
+          <ul className="nav flex-column">
+            <li className="nav-item">
+              <a className="nav-link" href="./#/journal.01">
+                <i className="fa fa-fw fa-home"></i>
+                账项
+              </a>
+            </li>
+            {this.props.category === '账项' &&
+              <li className="nav-item">
+                <a className="nav-link" href="./#/journal.01">
+                  <i className="fa fa-file-o fa-fw"></i>
+                  01.检修车间禁动牌管理台账
+                </a>
+              </li>
+            }
+            <li className="nav-item">
+              <a className="nav-link" href="./#/journal.02">
+                <i className="fa fa-fw fa-home"></i>
+                单据
+              </a>
+            </li>
+            {this.props.category === '单据' &&
+              <li className="nav-item">
+                <a className="nav-link" href="./#/journal.02">
+                  <i className="fa fa-file-o fa-fw"></i>
+                  02.一体化作业申请单&nbsp;
+                  {this.state.todoQty > 0 &&
+                    <span className="badge badge-pill badge-danger">{this.state.todoQty}</span>
+                  }
+                </a>
+              </li>
+            }
+          </ul>
+
+          <h6 className="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
+            <i className="fa fa-fw fa-cogs"></i>
+            系统管理
+          </h6>
+
+          <ul className="nav flex-column mb-2">
+            <li className="nav-item">
+              <a className="nav-link" href="./#/admin.dept-list">
+                <i className="fa fa-fw fa-cubes"></i>
+                部门
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="./#/admin.user-list">
+                <i className="fa fa-fw fa-users"></i>
+                用户
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="./#/admin.train-list">
+                <i className="fa fa-fw fa-train"></i>
+                车组
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    )
+  }
+}
+
+export class Navbar extends React.Component {
+  render() {
+    return (
+      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="./#/">账项管理系统</a>
+
+        <ul className="navbar-nav px-3">
+          <li className="nav-item text-nowrap">
+            <a className="nav-link" href="./#/user">
+              <i className="fa fa-fw fa-user"></i>
+              当前用户
+            </a>
+          </li>
+        </ul>
+      </nav>
     )
   }
 }

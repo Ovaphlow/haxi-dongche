@@ -1,12 +1,7 @@
 import React from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
-import Journal02Detail01 from './component/Journal02Detail01'
-import Journal02Detail02 from './component/Journal02Detail02'
-import Journal02Detail03 from './component/Journal02Detail03'
-import Journal02Detail04 from './component/Journal02Detail04'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
+import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
 import { ReviewPbzSubmit } from './component/Journal02Util'
 
 export default class Journal02VerifyPbz extends React.Component {

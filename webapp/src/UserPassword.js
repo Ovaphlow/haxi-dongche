@@ -2,9 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import md5 from 'blueimp-md5'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { Sidebar, PageTitle, PageTitle2 } from './component/Common'
 
 export default class UserPassword extends React.Component {
   constructor(props) {

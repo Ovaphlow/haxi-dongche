@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 import { Message, BackButton, DeptListPbz } from './component/Common'
 import { ApprovePjsySubmit } from './component/Journal02Util'
 

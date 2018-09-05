@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { HashRouter, Route } from 'react-router-dom'
 
-import Navbar from './component/Navbar'
+import { Navbar } from './component/Common'
 import Home from './Home'
 import Login from './Login'
 import User from './User'
 import UserPassword from './UserPassword'
+import { MessageList } from './Message'
 import AdminDeptList from './AdminDeptList'
 import AdminDeptSave from './AdminDeptSave'
 import AdminDept from './AdminDept'
@@ -50,6 +51,7 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/user" component={User} />
             <Route path="/user.password" component={UserPassword} />
+            <Route path="/message" component={MessageList} />
             <Route path="/admin.dept-list" component={AdminDeptList} />
             <Route path="/admin.dept-save" component={AdminDeptSave} />
             <Route path="/admin.dept" component={AdminDept} />

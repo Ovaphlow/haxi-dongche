@@ -1,11 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 import Journal02Item from './component/Journal02Item'
-import { ReloadButton, DeptList, TrainList } from './component/Common'
+import { Message, ReloadButton, DeptList, TrainList, MessageAlert } from './component/Common'
 import { ExportFilter2Excel } from './component/Journal02Util'
 
 export default class Journal02 extends React.Component {
@@ -89,9 +87,11 @@ export default class Journal02 extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-search" title="检索数据" toolbar="Journal02Toolbar" />
 
+          <MessageAlert />
+
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">{this.state.message}</div>
+              <Message message={this.state.message} />
             </div>
           }
 

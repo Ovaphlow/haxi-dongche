@@ -1,9 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { Sidebar, PageTitle, PageTitle2 } from './component/Common'
 
 export default class User extends React.Component {
   constructor(props) {

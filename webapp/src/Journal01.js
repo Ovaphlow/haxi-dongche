@@ -1,8 +1,6 @@
 import React from 'react'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 import Journal01Item from './component/Journal01Item'
 
 export default class Journal01 extends React.Component {

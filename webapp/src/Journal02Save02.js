@@ -2,10 +2,8 @@ import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
-import Sidebar from './component/Sidebar'
-import PageTitle from './component/PageTitle'
-import PageTitle2 from './component/PageTitle2'
-import Journal02Detail02 from './component/Journal02Detail02'
+import { PageTitle, PageTitle2, Sidebar } from './component/Common'
+import { Journal02Detail02 } from './component/Journal02Detail'
 import { TrainList, CarriageList } from './component/Common'
 
 export default class Journal02Save01 extends React.Component {
