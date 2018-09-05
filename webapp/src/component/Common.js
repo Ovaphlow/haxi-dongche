@@ -2,9 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 import UserToolbar from './UserToolbar'
-import AdminDeptToolbar from './AdminDeptToolbar'
-import AdminUserToolbar from './AdminUserToolbar'
-import AdminTrainToolbar from './AdminTrainToolbar'
+import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUtil'
 import Journal01Toolbar from './Journal01Toolbar'
 import Journal02Toolbar from './Journal02Util'
 
