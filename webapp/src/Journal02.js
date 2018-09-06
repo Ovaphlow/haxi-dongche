@@ -144,6 +144,15 @@ export class Journal02VerifyPdd extends React.Component {
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
+      document.getElementById('dtime_begin').value = moment(
+          `${response.content.date_begin} ${response.content.time_begin}`)
+          .format('YYYY-MM-DDThh:mm')
+      document.getElementById('dtime_end').value = moment(
+          `${response.content.date_end} ${response.content.time_end}`)
+          .format('YYYY-MM-DDThh:mm')
+      document.getElementById('dtime_end1').value = moment(
+          `${response.content.date_end} ${response.content.time_end}`)
+          .format('YYYY-MM-DDThh:mm')
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
       }
@@ -166,6 +175,24 @@ export class Journal02VerifyPdd extends React.Component {
               </div>
 
               <div className="card-body row">
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>作业起止时间</label>
+                    <input type="datetime-local" className="form-control" id="dtime_begin" />
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>&nbsp;</label>
+                    <input type="datetime-local" className="form-control" id="dtime_end" />
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div className="form-group">
+                    <label>作业销记时间</label>
+                    <input type="datetime-local" className="form-control" id="dtime_end1" />
+                  </div>
+                </div>
                 <div className="col-12">
                   <div className="form-group">
                     <label>备注</label>

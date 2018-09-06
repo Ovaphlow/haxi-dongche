@@ -235,7 +235,7 @@ export class ProgressTag extends React.Component {
 
 /**
  * 下载查询结果的Excel
- * 待移除
+ * 导出查询结果按钮运行正常后移除
  */
 export class ExportFilter2ExcelDownload extends React.Component {
   constructor() {
@@ -504,6 +504,12 @@ export class ReviewPddSubmit extends React.Component {
         'content-type': 'application/json; charset=utf-8'
       },
       body: JSON.stringify({
+        date_begin: moment(document.getElementById('dtime_begin').value).format('YYYY-MM-DD'),
+        time_begin: moment(document.getElementById('dtime_begin').value).format('hh:mm:00'),
+        date_end: moment(document.getElementById('dtime_end').value).format('YYYY-MM-DD'),
+        time_end: moment(document.getElementById('dtime_end').value).format('hh:mm:00'),
+        verify_leader_date: moment(document.getElementById('dtime_end1').value).format('YYYY-MM-DD'),
+        verify_leader_time: moment(document.getElementById('dtime_end1').value).format('hh:mm:00'),
         verify: this.state.auth.name,
         verify_id: this.state.auth.id,
         remark: document.getElementById('remark').value,
