@@ -14,12 +14,9 @@ import {
     Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04
 } from './component/Journal02Detail'
 import {
-    ApprovePjsyLink, ApprovePjsySubmit, ApprovePbzSubmit, ApproveQcSubmit,
-    ApprovePddSubmit, ApprovePzbszSubmit
-} from './component/Journal02Util'
-import {
-    ReviewApplicantLink, ReviewApplicantSubmit, ReviewPbzLink,
-    ReviewPbzSubmit, ReviewQcLink, ReviewQcSubmit, ReviewPjsyLink, ReviewPjsySubmit, ReviewPddLink, ReviewPddSubmit
+    ApprovePjsySubmit,
+    ReviewApplicantSubmit,
+    ReviewPbzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 
