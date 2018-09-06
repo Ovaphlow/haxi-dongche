@@ -20,6 +20,9 @@ import {
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 
+/**
+ * 已驳回申请列表
+ */
 export class Journal02RejectList extends React.Component {
   constructor(props) {
     super(props)
@@ -57,6 +60,10 @@ export class Journal02RejectList extends React.Component {
     )
   }
 }
+
+/**
+ * 统计图表
+ */
 export class Journal02Stats extends React.Component {
   constructor(props) {
     super(props)
@@ -127,6 +134,9 @@ export class Journal02Stats extends React.Component {
   }
 }
 
+/**
+ * 调度销记
+ */
 export class Journal02VerifyPdd extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
@@ -178,6 +188,9 @@ export class Journal02VerifyPdd extends React.Component {
   }
 }
 
+/**
+ * 技术员销记
+ */
 export class Journal02VerifyPjsy extends React.Component {
   constructor() {
     super()
@@ -264,6 +277,9 @@ export class Journal02VerifyPjsy extends React.Component {
   }
 }
 
+/**
+ * 质检销记
+ */
 export class Journal02VerifyQc extends React.Component {
   constructor(props) {
     super(props)
@@ -374,6 +390,9 @@ export class Journal02VerifyQc extends React.Component {
   }
 }
 
+/**
+ * 班组销记
+ */
 export class Journal02VerifyPbz extends React.Component {
   constructor(props) {
     super(props)
@@ -442,6 +461,9 @@ export class Journal02VerifyPbz extends React.Component {
   }
 }
 
+/**
+ * 作业负责人销记
+ */
 export class Journal02VerifyLeader extends React.Component {
   constructor(props) {
     super(props)
@@ -568,6 +590,9 @@ export class Journal02VerifyLeader extends React.Component {
   }
 }
 
+/**
+ * 作业完成销记列表页面
+ */
 export class Journal02Verify extends React.Component {
   constructor(props) {
     super(props)
@@ -650,6 +675,9 @@ export class Journal02Verify extends React.Component {
   }
 }
 
+/**
+ * 技术员设置作业形式
+ */
 export class Journal02PjsyContent extends React.Component {
   constructor(props) {
     super(props)
@@ -731,6 +759,9 @@ export class Journal02PjsyContent extends React.Component {
   }
 }
 
+/**
+ * 动车所审核列表
+ */
 export class Journal02Check extends React.Component {
   constructor(props) {
     super(props)
@@ -855,6 +886,9 @@ export class Journal02Check extends React.Component {
   }
 }
 
+/**
+ * 申请单详细信息
+ */
 export class Journal02Detail extends React.Component {
   constructor(props) {
     super(props)
@@ -951,6 +985,9 @@ export class Journal02Detail extends React.Component {
   }
 }
 
+/**
+ * 首页、查询页
+ */
 export class Journal02 extends React.Component {
   constructor(props) {
     super(props)

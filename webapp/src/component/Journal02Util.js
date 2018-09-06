@@ -1,6 +1,9 @@
 import React from 'react'
 import moment from 'moment'
 
+/**
+ * 统一操作按钮
+ */
 export class ProgressButton extends React.Component {
   constructor() {
     super()
@@ -113,6 +116,9 @@ export class ProgressButton extends React.Component {
   }
 }
 
+/**
+ * 详细信息链接
+ */
 export class DetailLink extends React.Component {
   constructor() {
     super()
@@ -134,6 +140,9 @@ export class DetailLink extends React.Component {
   }
 }
 
+/**
+ * 作业进度标记
+ */
 export class ProgressTag extends React.Component {
   constructor() {
     super()
@@ -224,6 +233,10 @@ export class ProgressTag extends React.Component {
   }
 }
 
+/**
+ * 下载查询结果的Excel
+ * 待移除
+ */
 export class ExportFilter2ExcelDownload extends React.Component {
   constructor() {
     super()
@@ -1090,6 +1103,9 @@ export class RemoveButton extends React.Component {
   }
 }
 
+/**
+ * 主要功能工具栏
+ */
 export default class Journal02Toolbar extends React.Component {
   render() {
     return (
