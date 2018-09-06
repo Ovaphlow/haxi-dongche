@@ -3,41 +3,21 @@ import { HashRouter, Route } from 'react-router-dom'
 
 import { Navbar } from './component/Common'
 import Home from './Home'
-import Login from './Login'
-import User from './User'
-import UserPassword from './UserPassword'
+import { Login, User, UserPassword } from './User'
 import { MessageList } from './Message'
-import AdminDeptList from './AdminDeptList'
-import AdminDeptSave from './AdminDeptSave'
-import AdminDept from './AdminDept'
-import AdminUserList from './AdminUserList'
-import AdminUserSave from './AdminUserSave'
-import AdminUser from './AdminUser'
-import AdminTrainList from './AdminTrainList'
-import AdminTrain from './AdminTrain'
-import Journal01 from './Journal01'
-import Journal01Save from './Journal01Save'
-import Journal01Borrow from './Journal01Borrow'
-import Journal01Return from './Journal01Return'
-import Journal01Stats from './Journal01Stats'
-import Journal02 from './Journal02'
-import Journal02Detail from './Journal02Detail'
-import Journal02Save from './Journal02Save'
-import Journal02Update from './Journal02Update'
-import Journal02Check from './Journal02Check'
-import Journal02PjsyContent from './Journal02PjsyContent'
-import Journal02Verify from './Journal02Verify'
-import Journal02VerifyLeader from './Journal02VerifyLeader'
-import Journal02Save01 from './Journal02Save01'
-import Journal02Save02 from './Journal02Save02'
-import Journal02Save03 from './Journal02Save03'
-import Journal02Save04 from './Journal02Save04'
-import Journal02VerifyPbz from './Journal02VerifyPbz'
-import Journal02VerifyQc from './Journal02VerifyQc'
-import Journal02VerifyPjsy from './Journal02VerifyPjsy'
-import Journal02VerifyPdd from './Journal02VerifyPdd'
-import Journal02Stats from './Journal02Stats'
-import Journal02RejectList from './Journal02RejectList'
+import { AdminDept, AdminDeptList, AdminDeptSave } from './AdminDept'
+import { AdminUserList, AdminUserSave, AdminUser } from './AdminUser'
+import { AdminTrain, AdminTrainList } from './AdminTrain'
+import { Journal01, Journal01Save, Journal01Borrow, Journal01Return, Journal01Stats } from './Journal01'
+import {
+    Journal02, Journal02Detail, Journal02Check, Journal02PjsyContent,
+    Journal02Verify, Journal02VerifyLeader, Journal02VerifyPbz, Journal02VerifyQc, Journal02VerifyPjsy,
+    Journal02VerifyPdd, Journal02Stats, Journal02RejectList
+} from './Journal02'
+import {
+    Journal02Save, Journal02Update,
+    Journal02Save01, Journal02Save02, Journal02Save03, Journal02Save04
+} from './Journal02Save'
 
 class App extends Component {
   render() {

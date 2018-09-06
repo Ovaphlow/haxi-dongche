@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RejectSubmit } from './Journal02Util'
+// import { RejectSubmit } from './Journal02Util'
 import { ProgressTag, DetailLink, ProgressButton } from './Journal02Util'
 
 export default class Journal02Item extends React.Component {
@@ -62,7 +62,7 @@ export default class Journal02Item extends React.Component {
                 修改
               </button>
             }
-            {this.props.operation === 'p_jsy' &&
+            {/* {this.props.operation === 'p_jsy' &&
               <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
             }
             {this.props.operation === 'p_jsy_bz' &&
@@ -76,7 +76,7 @@ export default class Journal02Item extends React.Component {
             }
             {this.props.operation === 'p_zbsz' &&
               <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            }
+            } */}
             <div className="btn-group pull-right">
               <DetailLink id={this.props.item.id} />
               {!!!this.props.item.reject &&
