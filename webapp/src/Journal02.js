@@ -6,16 +6,20 @@ import moment from 'moment'
 import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import Journal02Item from './component/Journal02Item'
-import { Message, BackButton, ReloadButton, DeptList, TrainList, MessageAlert, DeptListPbz } from './component/Common'
-import { ExportFilter2Excel } from './component/Journal02Util'
-import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
 import {
-  ApprovePjsyLink, ApprovePjsySubmit, ApprovePbzSubmit, ApproveQcSubmit,
-  ApprovePddSubmit, ApprovePzbszSubmit
+    Message, BackButton, ReloadButton, DeptList, TrainList, MessageAlert, DeptListPbz
+} from './component/Common'
+import { ExportFilter2Excel, ProgressButton } from './component/Journal02Util'
+import {
+    Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04
+} from './component/Journal02Detail'
+import {
+    ApprovePjsyLink, ApprovePjsySubmit, ApprovePbzSubmit, ApproveQcSubmit,
+    ApprovePddSubmit, ApprovePzbszSubmit
 } from './component/Journal02Util'
 import {
-  ReviewApplicantLink, ReviewApplicantSubmit, ReviewPbzLink,
-  ReviewPbzSubmit, ReviewQcLink, ReviewQcSubmit, ReviewPjsyLink, ReviewPjsySubmit, ReviewPddLink, ReviewPddSubmit
+    ReviewApplicantLink, ReviewApplicantSubmit, ReviewPbzLink,
+    ReviewPbzSubmit, ReviewQcLink, ReviewQcSubmit, ReviewPjsyLink, ReviewPjsySubmit, ReviewPddLink, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 
@@ -916,7 +920,8 @@ export class Journal02Detail extends React.Component {
               <RejectButton item={this.state.master} />
             }
             <div className="btn-group pull-right">
-              {
+              <ProgressButton item={this.state.master} auth={this.state.auth} />
+              {/* {
                 !!!this.state.master.reject &&
                 !!!this.state.master.sign_p_jsy &&
                 this.state.auth.auth_p_jsy &&
@@ -1013,7 +1018,7 @@ export class Journal02Detail extends React.Component {
                 !!!this.state.master.sign_verify &&
                 this.state.auth.auth_p_dd &&
                 <ReviewPddLink />
-              }
+              } */}
             </div>
           </div>
 
