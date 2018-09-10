@@ -18,6 +18,7 @@ import {
     Journal02Save, Journal02Update,
     Journal02Save01, Journal02Save02, Journal02Save03, Journal02Save04
 } from './Journal02Save'
+import { Journal02Dashboard } from './Journal02Beta'
 
 class App extends Component {
   render() {
@@ -63,6 +64,7 @@ class App extends Component {
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />
             <Route path="/journal.02-stats" component={Journal02Stats} />
             <Route path="/journal.02-reject.list" component={Journal02RejectList} />
+            <Route path="/journal.02-dashboard" component={Journal02Dashboard} />
           </div>
         </div>
       </HashRouter>

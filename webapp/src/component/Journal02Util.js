@@ -570,7 +570,7 @@ export class ReviewPjsySubmit extends React.Component {
   }
 
   submit() {
-    window.location.href = './#/journal.02-verify' 
+    window.location.href = './#/journal.02-verify'
   }
 
   render() {
@@ -1040,6 +1040,7 @@ export class ApprovePjsySubmit extends React.Component {
     })
     .then(res => res.json())
     .then(response => window.location.href = './#/journal.02-check')
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -1113,6 +1114,60 @@ export class RemoveButton extends React.Component {
  * 主要功能工具栏
  */
 export default class Journal02Toolbar extends React.Component {
+  constructor() {
+    super()
+    this.state = { todoApprove: 0, todoReview: 0 }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    // 待处理任务计数
+    if (auth.auth_p_jsy) {
+      fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
+        this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
+      })
+      .catch(err => window.console && console.error(err))
+    }
+
+    fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
+      this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
+    })
+    .catch(err => window.console && console.error(err))
+
+    fetch(`./api/journal02/todo/qc/${auth.name}?timestamp=${new Date().getTime()}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ todoApprove: this.state.todoApprove + response.content.qty})
+      this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
+    })
+    .catch(err => window.console && console.error(err))
+
+    if (auth.auth_p_dd) {
+      fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
+        this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
+      })
+      .catch(err => window.console && console.error(err))
+    }
+
+    if (auth.auth_p_zbsz) {
+      fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
+      })
+      .catch(err => window.console && console.error(err))
+    }
+  }
+
   render() {
     return (
       <div className="btn-group pull-right" role="group">
@@ -1126,11 +1181,17 @@ export default class Journal02Toolbar extends React.Component {
         </a>
         <a href="./#/journal.02-check" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-check-square-o"></i>
-          动车所审核
+          动车所审核&nbsp;
+          {this.state.todoApprove > 0 &&
+            <span className="badge badge-pill badge-danger">{this.state.todoApprove}</span>
+          }
         </a>
         <a href="./#/journal.02-verify" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-archive"></i>
-          作业完成销记
+          作业完成销记&nbsp;
+          {this.state.todoReview > 0 &&
+            <span className="badge badge-pill badge-danger">{this.state.todoReview}</span>
+          }
         </a>
         <a href="./#/journal.02-stats" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-pie-chart"></i>

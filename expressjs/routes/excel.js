@@ -12,20 +12,21 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+// 导出查询结果到Excel
 router.post('/journal02/export/filter', async (req, res) => {
   let sql = `
     select
-        *
+      *
     from
-        journal02
+      journal02
     where
-        position(:dept in dept) = 1
-        and position(:train in group_sn) = 1
-        and date_begin between :date_begin and :date_end
-        and time_begin between :time_begin and :time_end
-        and reject = ''
-        and sign_verify is not null
-        and sign_verify != ''
+      position(:dept in dept) = 1
+      and position(:train in group_sn) = 1
+      and date_begin between :date_begin and :date_end
+      and time_begin between :time_begin and :time_end
+      and reject = ''
+      and sign_verify is not null
+      and sign_verify != ''
     order by date_begin, time_begin, id
     limit 1000
   `

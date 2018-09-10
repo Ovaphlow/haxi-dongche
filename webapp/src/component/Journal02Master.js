@@ -20,7 +20,8 @@ export default class Journal02Master extends React.Component {
       document.getElementById('leader').value = auth.name
       document.getElementById('leaderPhone').value = auth.phone
       document.getElementById('dept').value = auth.dept
-      document.getElementById('component.user-selector').value = auth.name
+      // 修改申请人为用户输入形式
+      // document.getElementById('component.user-selector').value = auth.name
       document.getElementById('dateBegin').value = moment().format('YYYY-MM-DD')
       document.getElementById('timeBegin0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH')
       document.getElementById('timeBegin1').value = '00'
@@ -39,7 +40,8 @@ export default class Journal02Master extends React.Component {
         }
         this.setState({ master: response.data.content })
         document.getElementById('dept').value = response.data.content.dept
-        document.getElementById('component.user-selector').value = response.data.content.applicant
+        document.getElementById('applicant').value = response.data.content.applicant
+        // document.getElementById('component.user-selector').value = response.data.content.applicant
         document.getElementById('applicantPhone').value = response.data.content.applicant_phone
         document.getElementById('leader').value = response.data.content.leader
         document.getElementById('leaderPhone').value = response.data.content.leader_phone
@@ -81,7 +83,8 @@ export default class Journal02Master extends React.Component {
     this.setState({ message: '' })
     if (
         !!!document.getElementById('dept').value ||
-        !!!document.getElementById('component.user-selector').value ||
+        !!!document.getElementById('applicant').value ||
+        // !!!document.getElementById('component.user-selector').value ||
         !!!document.getElementById('leader').value ||
         !!!document.getElementById('component.train-list').value ||
         !!!document.getElementById('dateBegin').value ||
@@ -94,7 +97,8 @@ export default class Journal02Master extends React.Component {
       method: 'post',
       url: './api/journal02/',
       data: {
-        applicant: document.getElementById('component.user-selector').value,
+        applicant: document.getElementById('applicant').value,
+        // applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
         leaderId: this.state.auth.id,
@@ -132,7 +136,8 @@ export default class Journal02Master extends React.Component {
     this.setState({ message: '' })
     if (
           !!!document.getElementById('dept').value ||
-          !!!document.getElementById('component.user-selector').value ||
+          !!!document.getElementById('applicant').value ||
+          // !!!document.getElementById('component.user-selector').value ||
           !!!document.getElementById('leader').value ||
           !!!document.getElementById('component.train-list').value ||
           !!!document.getElementById('dateBegin').value ||
@@ -145,7 +150,8 @@ export default class Journal02Master extends React.Component {
       method: 'put',
       url: './api/journal02/' + sessionStorage.getItem('journal02'),
       data: {
-        applicant: document.getElementById('component.user-selector').value,
+        applicant: document.getElementById('applicant').value,
+        // applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
         leaderId: this.state.auth.id,
@@ -242,7 +248,8 @@ export default class Journal02Master extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
                 <td width="35%" className="text-center">
-                  <UserSelectorDept mode={this.props.mode} val={this.state.master.applicant} />
+                  <input type="text" readOnly={this.props.mode === 'read' ? true : false} className="form-control" id="applicant" />
+                  {/*<UserSelectorDept mode={this.props.mode} val={this.state.master.applicant} />*/}
                 </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
                 <td width="35%" className="text-center">
