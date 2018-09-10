@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
-import { BackButton, TrainList, UserSelectorDept } from './Common'
+import { BackButton, TrainList } from './Common'
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
