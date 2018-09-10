@@ -144,15 +144,6 @@ export class Journal02VerifyPdd extends React.Component {
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
-      document.getElementById('dtime_begin').value = moment(
-          `${response.content.date_begin} ${response.content.time_begin}`)
-          .format('YYYY-MM-DDThh:mm')
-      document.getElementById('dtime_end').value = moment(
-          `${response.content.date_end} ${response.content.time_end}`)
-          .format('YYYY-MM-DDThh:mm')
-      document.getElementById('dtime_end1').value = moment(
-          `${response.content.date_end} ${response.content.time_end}`)
-          .format('YYYY-MM-DDThh:mm')
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
       }
@@ -175,24 +166,6 @@ export class Journal02VerifyPdd extends React.Component {
               </div>
 
               <div className="card-body row">
-                <div className="col-4">
-                  <div className="form-group">
-                    <label>作业起止时间</label>
-                    <input type="datetime-local" className="form-control" id="dtime_begin" />
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div className="form-group">
-                    <label>&nbsp;</label>
-                    <input type="datetime-local" className="form-control" id="dtime_end" />
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div className="form-group">
-                    <label>作业销记时间</label>
-                    <input type="datetime-local" className="form-control" id="dtime_end1" />
-                  </div>
-                </div>
                 <div className="col-12">
                   <div className="form-group">
                     <label>备注</label>
@@ -506,20 +479,20 @@ export class Journal02VerifyLeader extends React.Component {
     }
     this.setState({ auth: auth })
 
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02'),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message})
-        return false
+    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    .then(res => res.json())
+    .then(response => {
+      sessionStorage.setItem('journal02-detail', response.content.id)
+      response.content.veirfy_report && (document.getElementById('verify_report').value = response.content.verify_report)
+      document.getElementById('dtime_begin').value = moment(
+          `${response.content.date_begin} ${response.content.time_begin}`)
+          .format('YYYY-MM-DDThh:mm')
+      document.getElementById('dtime_end').value = moment(
+          `${response.content.date_end} ${response.content.time_end}`)
+          .format('YYYY-MM-DDThh:mm')
+      if (response.content.remark) {
+        document.getElementById('remark').value = response.content.remark
       }
-      sessionStorage.setItem('journal02-detail', response.data.content.id)
-      response.data.content.veirfy_report && (document.getElementById('verify_report').value = response.data.content.verify_report)
-      response.data.content.date_end && (document.getElementById('verify_leader_date').value = response.data.content.date_end)
-      response.data.content.time_end && (document.getElementById('verify_leader_time').value = response.data.content.time_end)
-      response.data.content.remark && (document.getElementById('remark').value = response.data.content.remark)
     })
   }
 
@@ -581,14 +554,14 @@ export class Journal02VerifyLeader extends React.Component {
 
                 <div className="col-6">
                   <div className="form-group">
-                    <label>作业完成日期</label>
-                    <input type="date" className="form-control" id="verify_leader_date" />
+                    <label>作业起止时间</label>
+                    <input type="datetime-local" className="form-control" id="dtime_begin" />
                   </div>
                 </div>
                 <div className="col-6">
                   <div className="form-group">
-                    <label>作业完成时间</label>
-                    <input type="text" className="form-control" id="verify_leader_time" />
+                    <label>&nbsp;</label>
+                    <input type="datetime-local" className="form-control" id="dtime_end" />
                   </div>
                 </div>
 

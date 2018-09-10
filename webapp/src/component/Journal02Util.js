@@ -504,12 +504,6 @@ export class ReviewPddSubmit extends React.Component {
         'content-type': 'application/json; charset=utf-8'
       },
       body: JSON.stringify({
-        date_begin: moment(document.getElementById('dtime_begin').value).format('YYYY-MM-DD'),
-        time_begin: moment(document.getElementById('dtime_begin').value).format('hh:mm:00'),
-        date_end: moment(document.getElementById('dtime_end').value).format('YYYY-MM-DD'),
-        time_end: moment(document.getElementById('dtime_end').value).format('hh:mm:00'),
-        verify_leader_date: moment(document.getElementById('dtime_end1').value).format('YYYY-MM-DD'),
-        verify_leader_time: moment(document.getElementById('dtime_end1').value).format('hh:mm:00'),
         verify: this.state.auth.name,
         verify_id: this.state.auth.id,
         remark: document.getElementById('remark').value,
@@ -766,11 +760,15 @@ export class ReviewApplicantSubmit extends React.Component {
         'content-type': 'application/json; charset=utf-8'
       },
       body: JSON.stringify({
+        date_begin: moment(document.getElementById('dtime_begin').value).format('YYYY-MM-DD'),
+        time_begin: moment(document.getElementById('dtime_begin').value).format('HH:mm:00'),
+        date_end: moment(document.getElementById('dtime_end').value).format('YYYY-MM-DD'),
+        time_end: moment(document.getElementById('dtime_end').value).format('HH:mm:00'),
         verify_report: document.getElementById('verify_report').value,
         verify_leader: this.state.auth.name,
         verify_leader_id: this.state.auth.id,
-        verify_leader_date: document.getElementById('verify_leader_date').value,
-        verify_leader_time: document.getElementById('verify_leader_time').value,
+        // verify_leader_date: document.getElementById('verify_leader_date').value,
+        // verify_leader_time: document.getElementById('verify_leader_time').value,
         remark: document.getElementById('remark').value,
         sign: this.state.auth.sign
       })
