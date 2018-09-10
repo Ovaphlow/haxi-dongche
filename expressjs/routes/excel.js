@@ -45,12 +45,12 @@ router.post('/journal02/export/filter', async (req, res) => {
   result.forEach((item) => {
     let row = []
     row.push(item.dept, item.applicant, item.group_sn, `${item.date_begin} ${item.time_begin}`,
-        `${item.content} ${item.content_detail}`,
+        `${item.content_detail}`,
         item.verify_report, `${item.verify_leader_date} ${item.verify_leader_time}`)
     data.push(row)
   })
   let buffer = xlsx.build([{ name: '一体化作业申请单数据导出', data: data }])
-  fs.writeFileSync(`../webapp/public/download/${req.body.user_uuid}.xlsx`, buffer, 'binary')
+  fs.writeFileSync(`../webapp/download/${req.body.user_uuid}.xlsx`, buffer, 'binary')
   res.json({ message: '', content: `./download/${req.body.user_uuid}.xlsx` })
 })
 
