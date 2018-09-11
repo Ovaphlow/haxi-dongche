@@ -337,7 +337,7 @@ export class Sidebar extends React.Component {
 
       axios({
         method: 'get',
-        url: './api/journal02/todo/qc/' + auth.name + '?timestamp=' + new Date().getTime(),
+        url: './api/journal02/todo/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(response => {
         this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })

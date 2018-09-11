@@ -754,6 +754,10 @@ export class ReviewApplicantSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
+    if (!!!document.getElementById('verify_report').value) {
+      alert('请填写作业完成情况')
+      return
+    }
     fetch(`./api/journal02/verify/leader/${sessionStorage.getItem('journal02-detail')}`, {
       method: 'put',
       headers: {
@@ -1138,7 +1142,7 @@ export default class Journal02Toolbar extends React.Component {
     })
     .catch(err => window.console && console.error(err))
 
-    fetch(`./api/journal02/todo/qc/${auth.name}?timestamp=${new Date().getTime()}`)
+    fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ todoApprove: this.state.todoApprove + response.content.qty})

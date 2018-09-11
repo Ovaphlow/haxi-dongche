@@ -1,7 +1,9 @@
 import React from 'react'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
 
 // import { RejectSubmit } from './Journal02Util'
-import { ProgressTag, DetailLink, ProgressButton } from './Journal02Util'
+import { ProgressTag, DetailLink } from './Journal02Util'
 
 export default class Journal02Item extends React.Component {
   constructor(props) {
@@ -13,6 +15,7 @@ export default class Journal02Item extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     this.setState({ auth: auth })
+    this.timer = this.timer.bind(this)
   }
 
   update(event) {
@@ -20,10 +23,19 @@ export default class Journal02Item extends React.Component {
     window.location.href = './#/journal.02-update'
   }
 
+  timer() {
+    moment.locale('zh-cn')
+    let end_time = moment(`${this.props.item.date_end}T${this.props.item.time_end}`)
+    if (moment().diff(end_time) > 0) return (
+      <span className="badge badge-danger">已超期 {moment(end_time).fromNow(true)}</span>
+    )
+  }
+
   render() {
     return (
       <li className="list-group-item">
         <p className="lead">
+          {this.timer()}
           【
           <strong>{this.props.item.content}</strong>
           】
@@ -62,26 +74,11 @@ export default class Journal02Item extends React.Component {
                 修改
               </button>
             }
-            {/* {this.props.operation === 'p_jsy' &&
-              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            }
-            {this.props.operation === 'p_jsy_bz' &&
-              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            }
-            {this.props.operation === 'p_jsy_qc' &&
-              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            }
-            {this.props.operation === 'p_dd' &&
-              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            }
-            {this.props.operation === 'p_zbsz' &&
-              <RejectSubmit id={this.props.item.id} operation={this.props.operation} auth={this.state.auth} />
-            } */}
             <div className="btn-group pull-right">
               <DetailLink id={this.props.item.id} />
-              {!!!this.props.item.reject &&
+              {/* {!!!this.props.item.reject &&
                 <ProgressButton auth={this.state.auth} item={this.props.item} />
-              }
+              } */}
             </div>
           </div>
         </div>

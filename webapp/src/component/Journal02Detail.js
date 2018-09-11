@@ -94,6 +94,7 @@ export class Journal02Detail04 extends React.Component {
         alert(response.message)
         return
       }
+      window.location = response.content
     })
   }
 
@@ -297,6 +298,7 @@ export class Journal02Detail03 extends React.Component {
         alert(response.message)
         return
       }
+      window.location = response.content
     })
   }
 
@@ -512,6 +514,7 @@ export class Journal02Detail02 extends React.Component {
         alert(response.message)
         return
       }
+      window.location = response.content
     })
   }
 
@@ -709,6 +712,7 @@ export class Journal02Detail01 extends React.Component {
         alert(response.message)
         return
       }
+      window.location = response.content
     })
   }
 
