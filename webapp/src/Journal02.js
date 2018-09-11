@@ -238,9 +238,7 @@ export class Journal02VerifyPjsy extends React.Component {
 
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <Message message={this.state.message} />
             </div>
           }
 
@@ -248,22 +246,25 @@ export class Journal02VerifyPjsy extends React.Component {
             <Journal02Detail01 detail={this.state.detail01} p_jsy={true} auth={this.state.auth} />
           }
 
-          <div className="row"><hr/></div>
-
           {this.state.detail02.length > 0 &&
-            <Journal02Detail02 detail={this.state.detail02} p_jsy={true} auth={this.state.auth} />
+            <div className="row">
+              <hr/>
+              <Journal02Detail02 detail={this.state.detail02} p_jsy={true} auth={this.state.auth} />
+            </div>
           }
-
-          <div className="row"><hr/></div>
 
           {this.state.detail03.length > 0 &&
-            <Journal02Detail03 detail={this.state.detail03} p_jsy={true} auth={this.state.auth} />
+            <div className="row">
+              <hr/>
+              <Journal02Detail03 detail={this.state.detail03} p_jsy={true} auth={this.state.auth} />
+            </div>
           }
 
-          <div className="row"><hr/></div>
-
           {this.state.detail04.length > 0 &&
-            <Journal02Detail04 detail={this.state.detail04} p_jsy={true} auth={this.state.auth} />
+            <div className="row">
+              <hr/>
+              <Journal02Detail04 detail={this.state.detail04} p_jsy={true} auth={this.state.auth} />
+            </div>
           }
 
           <div className="col-12 mt-3">
@@ -955,29 +956,32 @@ export class Journal02Detail extends React.Component {
             </div>
           </div>
 
-          <div className="clearfix"></div>
-          <div className="col-12"><hr /></div>
-
           {this.state.detail01 > 0 &&
-            <Journal02Detail01 read={true} />
+            <div className="row">
+              <hr />
+              <Journal02Detail01 read={true} />
+            </div>
           }
-
-          <div className="row"><hr /></div>
 
           {this.state.detail02 > 0 &&
-            <Journal02Detail02 read={true} />
+            <div className="row">
+              <hr />
+              <Journal02Detail02 read={true} />
+            </div>
           }
-
-          <div className="row"><hr /></div>
 
           {this.state.detail03 > 0 &&
-            <Journal02Detail03 read={true} />
+            <div className="row">
+              <hr />
+              <Journal02Detail03 read={true} />
+            </div>
           }
 
-          <div className="row"><hr /></div>
-
           {this.state.detail04 > 0 &&
-            <Journal02Detail04 read={true} />
+            <div>
+              <hr />
+              <Journal02Detail04 read={true} />
+            </div>
           }
         </div>
       </div>

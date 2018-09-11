@@ -86,11 +86,30 @@ export class Journal02Detail04 extends React.Component {
     })
   }
 
+  excel() {
+    fetch(`./api/excel/journal02/${sessionStorage.getItem('journal02')}/04`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-12">
-          <h4 className="text-center">动车组加装改造（软件升级）记录单</h4>
+          <h4 className="text-center">
+            动车组加装改造（软件升级）记录单
+            <span className="pull-right">
+              <button type="button" className="btn btn-outline-success" onClick={this.excel.bind(this)}>
+                <i className="fa fa-fw fa-download"></i>
+                下载Excel
+              </button>
+            </span>
+          </h4>
         </div>
 
         {this.state.message &&
@@ -270,11 +289,30 @@ export class Journal02Detail03 extends React.Component {
     })
   }
 
+  excel() {
+    fetch(`./api/excel/journal02/${sessionStorage.getItem('journal02')}/03`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-12">
-          <h4 className="text-center">动车组关键配件更换记录表</h4>
+          <h4 className="text-center">
+            动车组关键配件更换记录表
+            <span className="pull-right">
+              <button type="button" className="btn btn-outline-success" onClick={this.excel.bind(this)}>
+                <i className="fa fa-fw fa-download"></i>
+                下载Excel
+              </button>
+            </span>
+          </h4>
         </div>
 
         {this.state.message &&
@@ -466,11 +504,30 @@ export class Journal02Detail02 extends React.Component {
     })
   }
 
+  excel() {
+    fetch(`./api/excel/journal02/${sessionStorage.getItem('journal02')}/02`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-12">
-          <h4 className="text-center">动车组一般配件更换记录表</h4>
+          <h4 className="text-center">
+            动车组一般配件更换记录表
+            <span className="pull-right">
+              <button type="button" className="btn btn-outline-success" onClick={this.excel.bind(this)}>
+                <i className="fa fa-fw fa-download"></i>
+                下载Excel
+              </button>
+            </span>
+          </h4>
         </div>
 
         {this.state.message &&
@@ -644,11 +701,30 @@ export class Journal02Detail01 extends React.Component {
     })
   }
 
+  excel() {
+    fetch(`./api/excel/journal02/${sessionStorage.getItem('journal02')}/01`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-12">
-          <h4 className="text-center">动车组一般部件普查记录单</h4>
+          <h4 className="text-center">
+            动车组一般部件普查记录单
+            <span className="pull-right">
+              <button type="button" className="btn btn-outline-success" onClick={this.excel.bind(this)}>
+                <i className="fa fa-fw fa-download"></i>
+                下载Excel
+              </button>
+            </span>
+          </h4>
         </div>
 
         {this.state.message &&
