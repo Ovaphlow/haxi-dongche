@@ -957,21 +957,21 @@ export class Journal02Detail extends React.Component {
           </div>
 
           {this.state.detail01 > 0 &&
-            <div className="row">
+            <div>
               <hr />
               <Journal02Detail01 read={true} />
             </div>
           }
 
           {this.state.detail02 > 0 &&
-            <div className="row">
+            <div>
               <hr />
               <Journal02Detail02 read={true} />
             </div>
           }
 
           {this.state.detail03 > 0 &&
-            <div className="row">
+            <div>
               <hr />
               <Journal02Detail03 read={true} />
             </div>
