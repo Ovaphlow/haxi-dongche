@@ -5,7 +5,7 @@ import moment from 'moment'
 import { PageTitle, PageTitle2, Sidebar } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
-import { BackButton, TrainList, CarriageList } from './component/Common'
+import { Message, BackButton, TrainList, CarriageList } from './component/Common'
 
 export class Journal02Save04 extends React.Component {
   constructor(props) {
@@ -153,12 +153,12 @@ export class Journal02Save04 extends React.Component {
                 <div className="clearfix"></div>
 
                 <div className="col-4 form-group">
-                  <label>开工时间 (格式：12:34:56 或 123456)</label>
-                  <input type="text" className="form-control form-control-sm" id="time_begin" />
+                  <label>开工时间</label>
+                  <input type="time" className="form-control form-control-sm" id="time_begin" />
                 </div>
                 <div className="col-4 form-group">
-                  <label>完工时间 (格式：12:34:56 或 123456)</label>
-                  <input type="text" className="form-control form-control-sm" id="time_end" />
+                  <label>完工时间</label>
+                  <input type="time" className="form-control form-control-sm" id="time_end" />
                 </div>
 
                 <div className="clearfix"></div>
@@ -270,9 +270,7 @@ export class Journal02Save03 extends React.Component {
 
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <Message message={this.state.message} />
             </div>
           }
 
@@ -307,8 +305,8 @@ export class Journal02Save03 extends React.Component {
                   <input type="date" className="form-control" id="date" />
                 </div>
                 <div className="form-group col-4">
-                  <label>更换时间 (格式：12:34:56 或 123456)</label>
-                  <input type="text" className="form-control" id="time" />
+                  <label>更换时间</label>
+                  <input type="time" className="form-control" id="time" />
                 </div>
                 <div className="form-group col-4">
                   <label>生产日期</label>
@@ -362,6 +360,7 @@ export class Journal02Save03 extends React.Component {
                 </div>
 
                 <div className="col-12">
+                  <BackButton />
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-secondary" onClick={this.submit}>
                       <i className="fa fa-fw fa-plus"></i>
@@ -450,9 +449,7 @@ export class Journal02Save02 extends React.Component {
 
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <Message message={this.state.message} />
             </div>
           }
 
@@ -487,8 +484,8 @@ export class Journal02Save02 extends React.Component {
                   <input type="date" className="form-control" id="date" />
                 </div>
                 <div className="form-group col-3">
-                  <label>时间 (格式：12:34:56 或 123456)</label>
-                  <input type="text" className="form-control" id="time" />
+                  <label>时间</label>
+                  <input type="time" className="form-control" id="time" />
                 </div>
                 <div className="form-group col-6">
                   <label>更换原因</label>
@@ -536,6 +533,7 @@ export class Journal02Save02 extends React.Component {
                 <div className="clearfix"></div>
 
                 <div className="col-12">
+                  <BackButton />
                   <div className="btn-group pull-right">
                     <button type="button" className="btn btn-secondary" onClick={this.submit}>
                       <i className="fa fa-fw fa-plus"></i>
@@ -653,9 +651,7 @@ export class Journal02Save01 extends React.Component {
 
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <Message message={this.state.message} />
             </div>
           }
 
@@ -712,12 +708,12 @@ export class Journal02Save01 extends React.Component {
                   <div className="clearfix"></div>
 
                   <div className="col-4 form-group">
-                    <label>开工时间 (格式：12:34:56 或 123456)</label>
-                    <input type="text" className="form-control form-control-sm" id="time_begin" />
+                    <label>开工时间</label>
+                    <input type="time" className="form-control form-control-sm" id="time_begin" />
                   </div>
                   <div className="col-4 form-group">
-                    <label>完工时间 (格式：12:34:56 或 123456)</label>
-                    <input type="text" className="form-control form-control-sm" id="time_end" />
+                    <label>完工时间</label>
+                    <input type="time" className="form-control form-control-sm" id="time_end" />
                   </div>
                   <div className="col-4 form-group">
                     <label>检查结果</label>

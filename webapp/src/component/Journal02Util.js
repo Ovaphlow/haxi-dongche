@@ -583,7 +583,14 @@ export class ReviewPjsySubmit extends React.Component {
   }
 
   submit() {
-    window.location.href = './#/journal.02-verify'
+    let selector = document.getElementsByTagName('select')
+    for (let i = 0; i < selector.length; i++) {
+      if (selector[i].value === '') {
+        alert('请选择监控结果')
+        return
+      }
+    }
+    window.location = './#/journal.02-verify'
   }
 
   render() {
@@ -640,6 +647,13 @@ export class ReviewQcSubmit extends React.Component {
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
+    }
+    let selector = document.getElementsByTagName('select')
+    for (let i = 0; i < selector.length; i++) {
+      if (selector[i].value === '') {
+        alert('请选择监控结果')
+        return
+      }
     }
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/qc`, {
       method: 'put',
@@ -706,6 +720,13 @@ export class ReviewPbzSubmit extends React.Component {
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
+    }
+    let selector = document.getElementsByTagName('select')
+    for (let i = 0; i < selector.length; i++) {
+      if (selector[i].value === '') {
+        alert('请选择监控结果')
+        return
+      }
     }
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/bz`, {
       method: 'put',

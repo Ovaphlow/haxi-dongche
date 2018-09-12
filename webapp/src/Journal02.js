@@ -247,21 +247,21 @@ export class Journal02VerifyPjsy extends React.Component {
           }
 
           {this.state.detail02.length > 0 &&
-            <div className="row">
+            <div>
               <hr/>
               <Journal02Detail02 detail={this.state.detail02} p_jsy={true} auth={this.state.auth} />
             </div>
           }
 
           {this.state.detail03.length > 0 &&
-            <div className="row">
+            <div>
               <hr/>
               <Journal02Detail03 detail={this.state.detail03} p_jsy={true} auth={this.state.auth} />
             </div>
           }
 
           {this.state.detail04.length > 0 &&
-            <div className="row">
+            <div>
               <hr/>
               <Journal02Detail04 detail={this.state.detail04} p_jsy={true} auth={this.state.auth} />
             </div>
@@ -352,9 +352,7 @@ export class Journal02VerifyQc extends React.Component {
 
           {this.state.message &&
             <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
+              <Message message={this.state.message} />
             </div>
           }
 
@@ -362,22 +360,25 @@ export class Journal02VerifyQc extends React.Component {
             <Journal02Detail01 detail={this.state.detail01} qc={true} auth={this.state.auth} />
           }
 
-          <div className="row"><hr/></div>
-
           {this.state.detail02.length > 0 &&
-            <Journal02Detail02 detail={this.state.detail02} qc={true} auth={this.state.auth} />
+            <div>
+              <hr/>
+              <Journal02Detail02 detail={this.state.detail02} qc={true} auth={this.state.auth} />
+            </div>
           }
-
-          <div className="row"><hr/></div>
 
           {this.state.detail03.length > 0 &&
-            <Journal02Detail03 detail={this.state.detail03} qc={true} auth={this.state.auth} />
+            <div>
+              <hr/>
+              <Journal02Detail03 detail={this.state.detail03} qc={true} auth={this.state.auth} />
+            </div>
           }
 
-          <div className="row"><hr/></div>
-
           {this.state.detail04.length > 0 &&
-            <Journal02Detail04 detail={this.state.detail04} qc={true} auth={this.state.auth} />
+            <div>
+              <hr/>
+              <Journal02Detail04 detail={this.state.detail04} qc={true} auth={this.state.auth} />
+            </div>
           }
 
           <div className="col-12 mt-3">
@@ -441,14 +442,14 @@ export class Journal02VerifyPbz extends React.Component {
           }
 
           {this.state.detail03.length > 0 &&
-            <div className="row">
+            <div>
               <hr />
               <Journal02Detail03 detail={this.state.detail03} p_bz={true} auth={this.state.auth} />
             </div>
           }
 
           {this.state.detail04.length > 0 &&
-            <div className="row">
+            <div>
               <hr />
               <Journal02Detail04 detail={this.state.detail04} p_bz={true} auth={this.state.auth} />
             </div>

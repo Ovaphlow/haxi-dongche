@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 
 import UserToolbar from './UserToolbar'
@@ -99,6 +98,7 @@ export class TrainList extends React.Component {
   }
 }
 
+// 制定部门用户列表
 export class UserSelectorDept extends React.Component {
   constructor(props) {
     super(props)
@@ -318,30 +318,27 @@ export class Sidebar extends React.Component {
     }
     if (this.props.category === '单据') {
       if (auth.auth_p_jsy) {
-        axios({
-          method: 'get',
-          url: './api/journal02/todo/p_jsy?timestamp=' + new Date().getTime(),
-          responseType: 'json'
-        }).then(response => {
-          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+        .then(res => res.json())
+        .then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.content.qty + response.content.qty1 })
         })
+        .catch(err => window.console && console.error(err))
       }
 
-      axios({
-        method: 'get',
-        url: './api/journal02/todo/p_bz/' + auth.dept + '?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+      fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.content.qty + response.content.qty1 })
+      })
+      .catch(err => window.console && console.error(err))
 
-      axios({
-        method: 'get',
-        url: './api/journal02/todo/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        this.setState({ todoQty: this.state.todoQty + response.data.content.qty1 })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+      fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoQty: this.state.todoQty + response.content.qty1 })
+      })
+      .catch(err => window.console && console.error(err))
 
       if (auth.auth_p_dd) {
         fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
@@ -354,13 +351,12 @@ export class Sidebar extends React.Component {
       }
 
       if (auth.auth_p_zbsz) {
-        axios({
-          method: 'get',
-          url: './api/journal02/todo/p_zbsz?timestamp=' + new Date().getTime(),
-          responseType: 'json'
-        }).then(response => {
-          this.setState({ todoQty: this.state.todoQty + response.data.content.qty })
-        }).catch(err => this.setState({ message: `服务器通信异常` }))
+        fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+        .then(res => res.json())
+        .then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.content.qty })
+        })
+        .catch(err => window.console && console.error(err))
       }
     }
   }

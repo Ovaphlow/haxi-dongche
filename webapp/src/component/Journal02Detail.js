@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React from 'react'
 
+import { Message } from './Common'
+
 export class Journal02Detail04 extends React.Component {
   constructor(props) {
     super(props)
@@ -169,9 +171,10 @@ export class Journal02Detail04 extends React.Component {
                   <td width="10%" className="text-center align-middle">
                     {item.watcher}
                     {this.props.p_bz &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
@@ -179,9 +182,10 @@ export class Journal02Detail04 extends React.Component {
                   <td width="10%" className="text-center align-middle">
                     {item.qc}
                     {this.props.qc &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
@@ -374,16 +378,17 @@ export class Journal02Detail03 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
                     {this.props.p_bz &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
                   <td width="4%" className="text-center align-middle">
                     {item.p_bjgnsy}
                     {this.props.qc &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
                         <option value="">部件功能试验正常：</option>
                         <option value="是">是</option>
                         <option value="否">否</option>
@@ -394,9 +399,10 @@ export class Journal02Detail03 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.duty_officer}
                     {this.props.p_jsy &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPjsy}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPjsy}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
@@ -535,9 +541,7 @@ export class Journal02Detail02 extends React.Component {
 
         {this.state.message &&
           <div className="col-12">
-            <div className="alert alert-danger">
-              {this.state.message}
-            </div>
+            <Message message={this.state.message} />
           </div>
         }
 
@@ -586,16 +590,17 @@ export class Journal02Detail02 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
                     {this.props.p_bz &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
                   <td width="4%" className="text-center align-middle">
                     {item.p_bjgnsy}
                     {this.props.qc &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailQc}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
                         <option value="">部件功能是否正常</option>
                         <option value="是">是</option>
                         <option value="否">否</option>
@@ -606,9 +611,10 @@ export class Journal02Detail02 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.duty_officer}
                     {this.props.p_jsy &&
-                      <select className="form-control" data-id={item.id} onChange={this.submitDetailPjsy}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPjsy}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
@@ -789,6 +795,7 @@ export class Journal02Detail01 extends React.Component {
                       <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
@@ -799,6 +806,7 @@ export class Journal02Detail01 extends React.Component {
                       <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailQc}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
+                        <option value="未确认">未确认</option>
                       </select>
                     }
                   </td>
