@@ -19,6 +19,7 @@ import {
     Journal02Save01, Journal02Save02, Journal02Save03, Journal02Save04
 } from './Journal02Save'
 import { Journal02Dashboard } from './Journal02Beta'
+import { Journal02Admin } from './Journal02Admin'
 
 class App extends Component {
   render() {
@@ -65,6 +66,7 @@ class App extends Component {
             <Route path="/journal.02-stats" component={Journal02Stats} />
             <Route path="/journal.02-reject.list" component={Journal02RejectList} />
             <Route path="/journal.02-dashboard" component={Journal02Dashboard} />
+            <Route path="/journal.02-admin" component={Journal02Admin} />
           </div>
         </div>
       </HashRouter>
