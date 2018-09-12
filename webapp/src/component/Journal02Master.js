@@ -507,11 +507,11 @@ export default class Journal02Master extends React.Component {
                         }
                       </div>
                       <div className="col-3">
-                        <span className="text-secondary">质检签字：<br />
+                        {/* <span className="text-secondary">质检签字：<br />
                         </span>
                         {this.state.master.sign_p_jsy_qc &&
                           <img alt="质检签字" src={this.state.master.sign_p_jsy_qc} />
-                        }
+                        } */}
                       </div>
                       <div className="col-3">
                         <span className="text-secondary">质检签字：<br />

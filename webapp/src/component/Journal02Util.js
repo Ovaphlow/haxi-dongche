@@ -25,24 +25,28 @@ export class ProgressButton extends React.Component {
     ) return (
       <ApprovePbzSubmit />
     )
-    else if (
-        this.props.item.sign_p_jsy_bz &&
-        this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
-        !!!this.props.item.sign_p_jsy_qc &&
-        this.props.auth.dept === this.props.item.p_jsy_qc
-    ) return (
-      <ApproveQcSubmit />
-    )
+    // else if (
+    //     this.props.item.sign_p_jsy_bz &&
+    //     this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
+    //     !!!this.props.item.sign_p_jsy_qc &&
+    //     this.props.auth.dept === this.props.item.p_jsy_qc
+    // ) return (
+    //   <ApproveQcSubmit />
+    // )
     else if (
         this.props.item.sign_p_jsy &&
         (
+          // (
+          //   this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 &&
+          //   this.props.item.sign_p_jsy_bz
+          // ) ||
+          // (
+          //   this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
+          //   this.props.item.sign_p_jsy_qc
+          // ) ||
           (
-            this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 &&
+            this.props.item.p_jsy_content !== '无要求' &&
             this.props.item.sign_p_jsy_bz
-          ) ||
-          (
-            this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
-            this.props.item.sign_p_jsy_qc
           ) ||
           this.props.item.p_jsy_content === '无要求'
         ) &&
@@ -200,18 +204,33 @@ export class ProgressTag extends React.Component {
         值班所长审批
       </span>
     )
-    else if (this.props.item.sign_p_jsy && ((this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 && this.props.item.sign_p_jsy_bz) ||
-        (this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && this.props.item.sign_p_jsy_qc) ||
-        this.props.item.p_jsy_content === '无要求')) return (
+    else if (
+        this.props.item.sign_p_jsy &&
+        (
+          // (
+          //   this.props.item.p_jsy_content.indexOf('班组跟踪') !== -1 &&
+          //   this.props.item.sign_p_jsy_bz
+          // ) ||
+          // (
+          //   this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 &&
+          //   this.props.item.sign_p_jsy_qc
+          // ) ||
+          (
+            this.props.item.p_jsy_content !== '无要求' &&
+            this.props.item.sign_p_jsy_bz
+          ) ||
+          this.props.item.p_jsy_content === '无要求'
+        )
+    ) return (
       <span className="badge badge-info pull-right">
         动车所调度审核
       </span>
     )
-    else if (this.props.item.sign_p_jsy_bz && this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!this.props.item.sign_p_jsy_qc) return (
-      <span className="badge badge-info pull-right">
-        质检签字
-      </span>
-    )
+    // else if (this.props.item.sign_p_jsy_bz && this.props.item.p_jsy_content.indexOf('质检跟踪') !== -1 && !!!this.props.item.sign_p_jsy_qc) return (
+    //   <span className="badge badge-info pull-right">
+    //     质检签字
+    //   </span>
+    // )
     else if (this.props.item.sign_p_jsy && this.props.item.p_jsy_content.indexOf('班组') !== -1 && !!!this.props.item.sign_p_jsy_bz) return (
       <span className="badge badge-info pull-right">
         班组签字
@@ -1145,7 +1164,7 @@ export default class Journal02Toolbar extends React.Component {
     fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
-      this.setState({ todoApprove: this.state.todoApprove + response.content.qty})
+      // this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
       this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
     })
     .catch(err => window.console && console.error(err))

@@ -787,19 +787,19 @@ export class Journal02Check extends React.Component {
       this.setState({ list_p_jsy_bz: response.data.content })
     }).catch(err => this.setState({ message: `服务器通信异常` }))
 
-    if (auth.dept === '质检') {
-      axios({
-        method: 'get',
-        url: './api/journal02/jsy/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
-        }
-        this.setState({ list_p_jsy_qc: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
-    }
+    // if (auth.dept === '质检') {
+    //   axios({
+    //     method: 'get',
+    //     url: './api/journal02/jsy/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
+    //     responseType: 'json'
+    //   }).then(response => {
+    //     if (response.data.message) {
+    //       this.setState({ message: response.data.message })
+    //       return false
+    //     }
+    //     this.setState({ list_p_jsy_qc: response.data.content })
+    //   }).catch(err => this.setState({ message: `服务器通信异常` }))
+    // }
 
     if (auth.auth_p_jsy) {
       axios({
@@ -815,6 +815,26 @@ export class Journal02Check extends React.Component {
       }).catch(err => this.setState({ message: `服务器通信异常` }))
     }
 
+    if (auth.auth_p_dd) {
+      fetch(`./api/journal02/dd/?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ list_p_dd: response.content })
+      })
+      .catch(err => window.console && console.error(err))
+      // axios({
+      //   method: 'get',
+      //   url: './api/journal02/dd/?timestamp=' + new Date().getTime(),
+      //   responseType: 'json'
+      // }).then(response => {
+      //   if (response.data.message) {
+      //     this.setState({ message: response.data.message })
+      //     return false
+      //   }
+      //   this.setState({ list_p_dd: response.data.content })
+      // }).catch(err => this.setState({ message: `服务器通信异常` }))
+    }
+
     if (auth.auth_p_zbsz) {
       axios({
         method: 'get',
@@ -826,20 +846,6 @@ export class Journal02Check extends React.Component {
           return false
         }
         this.setState({ list_p_zbsz: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
-    }
-
-    if (auth.auth_p_dd) {
-      axios({
-        method: 'get',
-        url: './api/journal02/dd/?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
-        }
-        this.setState({ list_p_dd: response.data.content })
       }).catch(err => this.setState({ message: `服务器通信异常` }))
     }
   }
@@ -875,12 +881,12 @@ export class Journal02Check extends React.Component {
                 <Journal02Item key={item.id} item={item} operation="p_jsy_qc" />
               )}
 
-              {this.state.list_p_zbsz.map(item =>
-                <Journal02Item key={item.id} item={item} operation="p_zbsz" />
+              {this.state.list_p_dd.length > 0 && this.state.list_p_dd.map(item =>
+                <Journal02Item key={item.id} item={item} operation="p_dd" />
               )}
 
-              {this.state.list_p_dd.map(item =>
-                <Journal02Item key={item.id} item={item} operation="p_dd" />
+              {this.state.list_p_zbsz.map(item =>
+                <Journal02Item key={item.id} item={item} operation="p_zbsz" />
               )}
             </ul>
           </div>

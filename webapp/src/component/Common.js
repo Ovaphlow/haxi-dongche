@@ -340,18 +340,19 @@ export class Sidebar extends React.Component {
         url: './api/journal02/todo/qc/' + auth.dept + '?timestamp=' + new Date().getTime(),
         responseType: 'json'
       }).then(response => {
-        this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
+        this.setState({ todoQty: this.state.todoQty + response.data.content.qty1 })
       }).catch(err => this.setState({ message: `服务器通信异常` }))
 
       if (auth.auth_p_dd) {
-        axios({
-          method: 'get',
-          url: './api/journal02/todo/p_dd?timestamp=' + new Date().getTime(),
-          responseType: 'json'
-        }).then(response => {
-          this.setState({ todoQty: this.state.todoQty + response.data.content.qty + response.data.content.qty1 })
-        }).catch(err => this.setState({ message: `服务器通信异常` }))
+        fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+        .then(res => res.json())
+        .then(response => {
+          let qty = this.state.todoQty + response.content.qty + response.content.qty1
+          this.setState({ todoQty: qty })
+        })
+        .catch(err => window.console && console.error(err))
       }
+
       if (auth.auth_p_zbsz) {
         axios({
           method: 'get',
