@@ -23,11 +23,13 @@ export default class Journal02Master extends React.Component {
       // 修改申请人为用户输入形式
       // document.getElementById('component.user-selector').value = auth.name
       document.getElementById('dateBegin').value = moment().format('YYYY-MM-DD')
-      document.getElementById('timeBegin0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH')
-      document.getElementById('timeBegin1').value = '00'
+      document.getElementById('timeBegin').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH:mm')
+      // document.getElementById('timeBegin0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH')
+      // document.getElementById('timeBegin1').value = '00'
       document.getElementById('dateEnd').value = moment().format('YYYY-MM-DD')
-      document.getElementById('timeEnd0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH')
-      document.getElementById('timeEnd1').value = '00'
+      document.getElementById('timeEnd').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH:mm')
+      // document.getElementById('timeEnd0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH')
+      // document.getElementById('timeEnd1').value = '00'
     } else if (this.props.mode === 'read' || this.props.mode === 'update') {
       axios({
         method: 'get',
@@ -47,11 +49,13 @@ export default class Journal02Master extends React.Component {
         document.getElementById('leaderPhone').value = response.data.content.leader_phone
         document.getElementById('component.train-list').value = response.data.content.group_sn
         document.getElementById('dateBegin').value = response.data.content.date_begin
-        document.getElementById('timeBegin0').value = response.data.content.time_begin.split(':')[0]
-        document.getElementById('timeBegin1').value = response.data.content.time_begin.split(':')[1]
+        document.getElementById('timeBegin').value = response.data.content.time_begin
+        // document.getElementById('timeBegin0').value = response.data.content.time_begin.split(':')[0]
+        // document.getElementById('timeBegin1').value = response.data.content.time_begin.split(':')[1]
         document.getElementById('dateEnd').value = response.data.content.date_end
-        document.getElementById('timeEnd0').value = response.data.content.time_end.split(':')[0]
-        document.getElementById('timeEnd1').value = response.data.content.time_end.split(':')[1]
+        document.getElementById('timeEnd').value = response.data.content.time_end
+        // document.getElementById('timeEnd0').value = response.data.content.time_end.split(':')[0]
+        // document.getElementById('timeEnd1').value = response.data.content.time_end.split(':')[1]
         document.getElementById('content').value = response.data.content.content
         document.getElementById('content_detail').value = response.data.content.content_detail
         if (response.data.content.p_yq_xdc === '供') {
@@ -84,7 +88,6 @@ export default class Journal02Master extends React.Component {
     if (
         !!!document.getElementById('dept').value ||
         !!!document.getElementById('applicant').value ||
-        // !!!document.getElementById('component.user-selector').value ||
         !!!document.getElementById('leader').value ||
         !!!document.getElementById('component.train-list').value ||
         !!!document.getElementById('dateBegin').value ||
@@ -106,9 +109,11 @@ export default class Journal02Master extends React.Component {
         dept: document.getElementById('dept').value,
         groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
-        timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
+        timeBegin: document.getElementById('timeBegin').value,
+        // timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
-        timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
+        timeEnd: document.getElementById('timeEnd').value,
+        // timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
         content: document.getElementById('content').value,
         content_detail: document.getElementById('content_detail').value,
         p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
@@ -159,9 +164,11 @@ export default class Journal02Master extends React.Component {
         dept: document.getElementById('dept').value,
         groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
-        timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
+        timeBegin: document.getElementById('timeBegin').value,
+        // timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
-        timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
+        timeEnd: document.getElementById('timeEnd').value,
+        // timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
         content: document.getElementById('content').value,
         content_detail: document.getElementById('content_detail').value,
         p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
@@ -275,7 +282,12 @@ export default class Journal02Master extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">申请作业时间</td>
                 <td colSpan="3" className="text-center">
-                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.mode === 'read' ? true : false} />
+                  <input type="date" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" />
+                  <input type="time" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm ml-3" style={{ width: '6rem' }} id="timeBegin" />
+                  &nbsp;---&nbsp;
+                  <input type="date" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm" style={{ width: '9rem' }} id="dateEnd" />
+                  <input type="time" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm ml-3" style={{ width: '6rem' }} id="timeEnd" />
+                  {/* <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.mode === 'read' ? true : false} />
                   日 &nbsp; &nbsp;
                   <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin0" readOnly={this.props.mode === 'read' ? true : false} />
                   时 &nbsp; &nbsp;
@@ -286,7 +298,7 @@ export default class Journal02Master extends React.Component {
                   <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd0" readOnly={this.props.mode === 'read' ? true : false} />
                   时 &nbsp; &nbsp;
                   <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd1" readOnly={this.props.mode === 'read' ? true : false} />
-                  分
+                  分 */}
                 </td>
               </tr>
               <tr>
