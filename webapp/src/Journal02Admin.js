@@ -1,8 +1,622 @@
 import React from 'react'
 
-import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2 } from './component/Common'
+import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2, CarriageList } from './component/Common'
 
-export class Journal02Admin extends React.Component {
+// 未完成
+class Detail03Update extends React.Component {
+  handler() {
+    fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf8'
+      },
+      body: JSON.stringify({
+        name: document.getElementById('name').value,
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) alert(response.message)
+      else window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-check-square-o"></i>
+        确定
+      </button>
+    )
+  }
+}
+
+class Detail02Update extends React.Component {
+  handler() {
+    fetch(`./api/journal02/detail/02/${sessionStorage.getItem('detail')}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf8'
+      },
+      body: JSON.stringify({
+        name: document.getElementById('name').value,
+        train: document.getElementById('train').value,
+        carriage: document.getElementById('carriage').value,
+        position: document.getElementById('position').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        reason: document.getElementById('reason').value,
+        p_ljbs: document.getElementById('p_ljbs').value,
+        p_gywj: document.getElementById('p_gywj').value,
+        component_sn_old: document.getElementById('component_sn_old').value,
+        component_sn_new: document.getElementById('component_sn_new').value,
+        p_bjaz: document.getElementById('p_bjaz').value,
+        operator: document.getElementById('operator').value,
+        leader: document.getElementById('leader').value,
+        p_bjgnsy: document.getElementById('p_bjgnsy').value,
+        qc: document.getElementById('qc').value,
+        duty_officer: document.getElementById('duty_officer').value,
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) alert(response.message)
+      else window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-check-square-o"></i>
+        确定
+      </button>
+    )
+  }
+}
+
+class Detail01Update extends React.Component {
+  handler() {
+    let id = sessionStorage.getItem('detail')
+    fetch(`./api/journal02/detail/01/${id}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf8'
+      },
+      body: JSON.stringify({
+        subject: document.getElementById('subject').value,
+        approval_sn: document.getElementById('approval_sn').value,
+        train_sn: document.getElementById('train_sn').value,
+        date: document.getElementById('date').value,
+        carriage: document.getElementById('component.carriage-list').value,
+        carriage_subject: document.getElementById('carriage_subject').value,
+        time_begin: document.getElementById('time_begin').value,
+        time_end: document.getElementById('time_end').value,
+        result: document.getElementById('result').value,
+        report: document.getElementById('report').value,
+        dept: document.getElementById('dept').value,
+        executor: document.getElementById('executor').value,
+        watcher: document.getElementById('watcher').value,
+        watcher_group: document.getElementById('watcher_group').value,
+        qc: document.getElementById('qc').value,
+        remark: document.getElementById('remark').value
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) alert(response.message)
+      else window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-check-square-o"></i>
+        确定
+      </button>
+    )
+  }
+}
+
+export class Journal02AdminDetail03 extends React.Component {
+  constructor() {
+    super()
+    this.state = { detail03: [] }
+  }
+
+  componentDidMount() {
+    fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`)
+    .then(res => res.json())
+    .then(response => {
+      console.info(response)
+      this.setState({ detail03: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-cog" title="编辑一体化作业申请单" toolbar="Journal02Toolbar" />
+
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                <h5 className="mt-3 text-center">动车组关键配件更换记录表</h5>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件名称</label>
+                  <input type="text" id="name" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.name}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>车组</label>
+                  <input type="text" id="train" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.train}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>车号</label>
+                  <input type="text" id="carriage" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.carriage}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>位置</label>
+                  <input type="text" id="position" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.position}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>日期</label>
+                  <input type="date" id="date" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.date}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>时间</label>
+                  <input type="time" id="time" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.time}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>生产日期</label>
+                  <input type="text" id="production_date" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.production_date}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>更换原因</label>
+                  <input type="text" id="reason" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.reason}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>作业人员已阅读工艺文件并掌握各步骤</label>
+                  <input type="text" id="p_gywj" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.p_gywj}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>力矩扳手已校验</label>
+                  <input type="text" id="p_ljbs" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.p_ljbs}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>换下部件序列号</label>
+                  <input type="text" id="component_sn_old" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.component_sn_old}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>换上部件序列号</label>
+                  <input type="text" id="component_sn_new" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.component_sn_new}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件安装良好，螺栓力矩已套固，防松标记已涂打</label>
+                  <input type="text" id="p_bjaz" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.p_bjaz}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>作业者</label>
+                  <input type="text" id="operator" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.operator}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>检修工长</label>
+                  <input type="text" id="leader" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.leader}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件功能试验正常</label>
+                  <input type="text" id="p_bjgnsy" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.p_bjgnsy}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>质检员</label>
+                  <input type="text" id="qc" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.qc}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>值班干部</label>
+                  <input type="text" id="duty_officer" className="form-control form-control-sm"
+                      defaultValue={this.state.detail03.duty_officer}
+                  />
+                </div>
+              </div>
+
+              <div className="col">
+                <BackButton />
+                <div className="btn-group pull-right">
+                  <Detail03Update />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export class Journal02AdminDetail02 extends React.Component {
+  constructor() {
+    super()
+    this.state = { detail02: [] }
+  }
+
+  componentDidMount() {
+    fetch(`./api/journal02/detail/02/${sessionStorage.getItem('detail')}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ detail02: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-cog" title="编辑一体化作业申请单" toolbar="Journal02Toolbar" />
+
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                <h5 className="mt-3 text-center">动车组一般配件更换记录表</h5>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件名称</label>
+                  <input type="text" id="name" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.name}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>车组</label>
+                  <input type="text" id="train" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.train}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>车号</label>
+                  <input type="text" id="carriage" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.carriage}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>位置</label>
+                  <input type="text" id="position" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.carriage}
+                  />
+                </div>
+              </div>
+              
+              <div className="row">
+                <div className="form-group col">
+                  <label>日期</label>
+                  <input type="date" id="date" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.date}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>时间</label>
+                  <input type="time" id="time" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.time}
+                  />
+                </div>
+                <div className="form-group col-6">
+                  <label>更换原因</label>
+                  <input type="text" id="reason" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.reason}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>作业人员已阅读工艺文件并掌握各步骤</label>
+                  <input type="text" id="p_gywj" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.p_gywj}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>力矩扳手已校验</label>
+                  <input type="text" id="p_ljbs" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.p_ljbs}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>换下部件序列号</label>
+                  <input type="text" id="component_sn_old" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.component_sn_old}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>换上部件序列号</label>
+                  <input type="text" id="component_sn_new" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.component_sn_new}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件安装良好，螺栓力矩已套固，防松标记已涂打</label>
+                  <input type="text" id="p_bjaz" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.p_bjaz}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>作业者</label>
+                  <input type="text" id="operator" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.operator}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>检修工长</label>
+                  <input type="text" id="leader" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.leader}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="form-group col">
+                  <label>部件功能试验正常</label>
+                  <input type="text" id="p_bjgnsy" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.p_bjgnsy}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>质检员</label>
+                  <input type="text" id="qc" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.qc}
+                  />
+                </div>
+                <div className="form-group col">
+                  <label>值班干部</label>
+                  <input type="text" id="duty_officer" className="form-control form-control-sm"
+                      defaultValue={this.state.detail02.duty_officer}
+                  />
+                </div>
+              </div>
+              <div className="col mt-3">
+                <BackButton />
+                <div className="btn-group pull-right">
+                  <Detail02Update />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export class Journal02AdminDetail01 extends React.Component {
+  constructor() {
+    super()
+    this.state = { detail01: [] }
+  }
+
+  componentDidMount() {
+    fetch(`./api/journal02/detail/01/${sessionStorage.getItem('detail')}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ detail01: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-cog" title="编辑一体化作业申请单" toolbar="Journal02Toolbar" />
+
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                <h5 className="mt-3 text-center">动车组一般部件普查记录单</h5>
+              </div>
+
+              <div className="row">
+                <div className="col">
+                  <label>普查项目</label>
+                  <input type="text" className="form-control form-control-sm" id="subject"
+                      defaultValue={this.state.detail01.subject}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>批准文件号</label>
+                  <input type="text" className="form-control form-control-sm" id="approval_sn"
+                      defaultValue={this.state.detail01.approval_sn}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>实施普查车组</label>
+                  <input type="text" className="form-control form-control-sm" id="train_sn"
+                    defaultValue={this.state.detail01.train_sn}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>实施普查日期</label>
+                  <input type="date" className="form-control form-control-sm" id="date"
+                      defaultValue={this.state.detail01.date}
+                  />
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="col">
+                  <label>实施普查的车厢号</label>
+                  <CarriageList />
+                </div>
+
+                <div className="col">
+                  <label>具体项点</label>
+                  <input type="text" className="form-control form-control-sm" id="carriage_subject"
+                      defaultValue={this.state.detail01.carriage_subject}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>开工时间</label>
+                  <input type="time" className="form-control form-control-sm" id="time_begin"
+                      defaultValue={this.state.detail01.time_begin}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>完工时间</label>
+                  <input type="time" className="form-control form-control-sm" id="time_end"
+                      defaultValue={this.state.detail01.time_end}
+                  />
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="col">
+                  <label>检查结果</label>
+                  <input type="text" className="form-control form-control-sm" id="result"
+                      defaultValue={this.state.detail01.result}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>故障及处理情况</label>
+                  <input type="text" className="form-control form-control-sm" id="report"
+                      defaultValue={this.state.detail01.report}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>实施单位</label>
+                  <input type="text" className="form-control form-control-sm" id="dept"
+                      defaultValue={this.state.detail01.dept}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>实施者</label>
+                  <input type="text" className="form-control form-control-sm" id="executor"
+                      defaultValue={this.state.detail01.executor}
+                  />
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="col">
+                  <label>动车组现场监控人</label>
+                  <input type="text" className="form-control form-control-sm" id="watcher"
+                      defaultValue={this.state.detail01.watcher}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>监控班组</label>
+                  <input type="text" className="form-control form-control-sm" id="watcher_group"
+                      defaultValue={this.state.detail01.watcher_group}
+                  />
+                </div>
+
+                <div className="col">
+                  <label>质检员</label>
+                  <input type="text" className="form-control form-control-sm" id="qc"
+                      defaultValue={this.state.detail01.qc}
+                  />
+                </div>
+              </div>
+
+              <div className="row mt-3">
+                <div className="col">
+                  <label>备注</label>
+                  <input type="text" className="form-control form-control-sm" id="remark"
+                      defaultValue={this.state.detail01.remark}
+                  />
+                </div>
+              </div>
+
+              <div className="col mt-3">
+                <BackButton />
+
+                <div className="btn-group pull-right">
+                  <Detail01Update />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export class Journal02AdminMaster extends React.Component {
   constructor() {
     super()
     this.state = { master: {}, detail01: [], detail02: [], detail03: [], detail04: [] }
@@ -39,11 +653,6 @@ export class Journal02Admin extends React.Component {
         }
       }
     })
-    .catch(err => window.console && console.error(err))
-
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/`)
-    .then(res => res.json())
-    .then(response => this.setState({ detail01: response.content }))
     .catch(err => window.console && console.error(err))
   }
 
@@ -259,74 +868,6 @@ export class Journal02Admin extends React.Component {
               </button>
             </div>
           </div>
-
-          <h5 className="mt-3 text-center">动车组一般部件普查记录单</h5>
-          <table className="table table-sm table-bordered" style={{ border: '2px solid black' }}>
-            <tbody>
-              <tr>
-                <td width="8%" className="text-center align-middle">普查项目</td>
-                <td width="42%" colSpan="5" className="text-center align-middle" id="detail01-subject"></td>
-                <td width="15%" colSpan="2" className="text-center align-middle">批准文件号</td>
-                <td width="35%" colSpan="4" className="text-center align-middle" id="detail01-approval_sn"></td>
-              </tr>
-              <tr>
-                <td width="10%" className="text-center align-middle">实施普查车组</td>
-                <td width="40%" colSpan="5" className="text-center align-middle" id="detail01-train_sn"></td>
-                <td width="10%" colSpan="2" className="text-center align-middle">实施普查日期</td>
-                <td width="40%" colSpan="4" className="text-center align-middle" id="detail01-date"></td>
-              </tr>
-              <tr>
-                <td width="8%" className="text-center align-middle">实施普查<br />的车厢号</td>
-                <td width="10%" className="text-center align-middle">具体项点</td>
-                <td width="6%" className="text-center align-middle">开工<br />时间</td>
-                <td width="6%" className="text-center align-middle">完工<br />时间</td>
-                <td width="6%" className="text-center align-middle">检查<br />结果</td>
-                <td width="14%" className="text-center align-middle">故障及处理情况</td>
-                <td width="8%" className="text-center align-middle">实施单位</td>
-                <td width="7%" className="text-center align-middle">实施者</td>
-                <td width="8%" className="text-center align-middle">动车组<br />现场监控人</td>
-                <td width="8%" className="text-center align-middle">监控班组</td>
-                <td width="8%" className="text-center align-middle">质检员</td>
-                <td className="text-center align-middle">备注</td>
-              </tr>
-              {this.state.detail01.map(item =>
-                <tr key={item.id}>
-                  <td width="8%" className="text-center align-middle">
-                    {item.carriage}
-                  </td>
-                  <td width="10%" className="text-center align-middle">{item.carriage_subject}</td>
-                  <td width="6%" className="text-center align-middle">{item.time_begin}</td>
-                  <td width="6%" className="text-center align-middle">{item.time_end}</td>
-                  <td width="6%" className="text-center align-middle">{item.result}</td>
-                  <td width="14%" className="text-center align-middle">{item.report}</td>
-                  <td width="8%" className="text-center align-middle">{item.dept}</td>
-                  <td width="7%" className="text-center align-middle">{item.executor}</td>
-                  <td width="8%" className="text-center align-middle">
-                    {item.watcher}
-                      <select className="form-control form-control-sm"
-                          data-id={item.id} onChange={this.submitDetailPbz}
-                      >
-                        <option value="">监控结果</option>
-                        <option value="确认">确认</option>
-                        <option value="未确认">未确认</option>
-                      </select>
-                  </td>
-                  <td width="8%" className="text-center align-middle">{item.watcher_group}</td>
-                  <td width="8%" className="text-center align-middle">
-                    {item.qc}
-                      <select className="form-control form-control-sm"
-                          data-id={item.id} onChange={this.submitDetailQc}
-                      >
-                        <option value="">监控结果</option>
-                        <option value="确认">确认</option>
-                        <option value="未确认">未确认</option>
-                      </select>
-                  </td>
-                  <td className="text-center align-middle">{item.remark}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
         </div>
       </div>
     )
