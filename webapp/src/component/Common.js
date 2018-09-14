@@ -86,14 +86,23 @@ export class TrainList extends React.Component {
     .then(response => this.setState({ list: response.content }))
   }
 
-  render() {
-    return (
+  renderComponent() {
+    if (this.props.mode === 'read') return (
+      <input type="text" readOnly className="form-control" id="component.train-list" />
+    )
+    else return (
       <select className="form-control" disabled={this.props.mode === 'read' ? true : false} id="component.train-list">
         <option value="">选择车组</option>
         {this.state.list.map(item =>
           <option value={item.name} key={item.id}>{item.name}</option>
         )}
       </select>
+    )
+  }
+
+  render() {
+    return (
+      <span>{this.renderComponent()}</span>
     )
   }
 }

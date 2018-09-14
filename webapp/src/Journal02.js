@@ -50,7 +50,7 @@ export class Journal02RejectList extends React.Component {
 
           <div className="col-12">
             <ul className="list-group">
-              {this.state.list.map(item => 
+              {this.state.list.map(item =>
                 <Journal02Item key={item.id} item={item} />
               )}
             </ul>
@@ -224,7 +224,7 @@ export class Journal02VerifyPjsy extends React.Component {
   }
 
   nextStep() {
-    window.location.href = './#/journal.02-verify' 
+    window.location.href = './#/journal.02-verify'
   }
 
   render() {
@@ -751,7 +751,7 @@ export class Journal02PjsyContent extends React.Component {
                   <div className="col-12">
                     <BackButton />
                     <div className="btn-group pull-right">
-                      <ApprovePjsySubmit /> 
+                      <ApprovePjsySubmit />
                     </div>
                   </div>
                 </div>
@@ -1044,7 +1044,10 @@ export class Journal02 extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      this.setState({ list: response.content })
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submit1() {

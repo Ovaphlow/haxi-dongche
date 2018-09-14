@@ -35,6 +35,7 @@ export default class Journal02Item extends React.Component {
     return (
       <li className="list-group-item">
         <p className="lead">
+          [{this.props.item.id}]
           {this.timer()}
           【
           <strong>{this.props.item.content}</strong>

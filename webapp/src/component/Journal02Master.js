@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
-import { BackButton, TrainList } from './Common'
+import { BackButton, TrainList, Message } from './Common'
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
@@ -221,9 +221,7 @@ export default class Journal02Master extends React.Component {
 
         {this.state.message &&
           <div className="col-12">
-            <div className="alert alert-danger">
-              {this.state.message}
-            </div>
+            <Message message={this.state.message} />
           </div>
         }
 

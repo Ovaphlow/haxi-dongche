@@ -113,8 +113,8 @@
       }
 
       if (el.PPL398_InitialDevice(2, 0, 0, 160, 100) !== 0) {
-        alert('设备初始化异常，请刷新页面重试。')
-        // location.reload(true)
+        // alert('设备初始化异常，请刷新页面重试。')
+        window.location.reload(true)
         return false
       }
 
@@ -124,7 +124,7 @@
 
       // if (el.PPL398_SetPenColor(2, 0, 0, 0) !== 0) { console.log('设定画笔颜色失败：') }
 
-      if (el.PPL398_SetPenStyle(2, 0) !== 0) {
+      if (el.PPL398_SetPenStyle(2, 1) !== 0) {
         alert('设定画笔种类失败')
         return false
       }
@@ -134,7 +134,7 @@
         return false
       }
 
-      if (el.PPL398_SetSaveCenterImageClip(2, 1, 16, 16) !== 0) {
+      if (el.PPL398_SetSaveCenterImageClip(2, 1, 0, 0) !== 0) {
         alert('设定笔迹边界失败')
         return false
       }
