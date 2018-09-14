@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2, CarriageList } from './component/Common'
 
-// 未完成
+// 未测试
 class Detail03Update extends React.Component {
   handler() {
     fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`, {
@@ -12,6 +12,23 @@ class Detail03Update extends React.Component {
       },
       body: JSON.stringify({
         name: document.getElementById('name').value,
+        train: document.getElementById('train').value,
+        carriage: document.getElementById('carriage').value,
+        position: document.getElementById('position').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        production_date: document.getElementById('production_date').value,
+        reason: document.getElementById('reason').value,
+        p_gywj: document.getElementById('p_gywj').value,
+        p_ljbs: document.getElementById('p_ljbs').value,
+        component_sn_old: document.getElementById('component_sn_old').value,
+        component_sn_new: document.getElementById('component_sn_new').value,
+        p_bjaz: document.getElementById('p_bjaz').value,
+        operator: document.getElementById('operator').value,
+        leader: document.getElementById('leader').value,
+        p_bjgnsy: document.getElementById('p_bjgnsy').value,
+        qc: document.getElementById('qc').value,
+        duty_officer: document.getElementById('duty_officer')
       })
     })
     .then(res => res.json())
