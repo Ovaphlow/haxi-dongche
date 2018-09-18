@@ -5,6 +5,47 @@ import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUt
 import Journal01Toolbar from './Journal01Toolbar'
 import Journal02Toolbar from './Journal02Util'
 
+export class CarriageSelecter extends React.Component {
+  render() {
+    return (
+      <div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="01" className="form-check-input" id="component.carriage-01" />
+          <label htmlFor="component.carriage-01" className="form-check-label">01</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="02" className="form-check-input" id="component.carriage-02" />
+          <label htmlFor="component.carriage-02" className="form-check-label">02</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="03" className="form-check-input" id="component.carriage-03" />
+          <label htmlFor="component.carriage-03" className="form-check-label">03</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="04" className="form-check-input" id="component.carriage-04" />
+          <label htmlFor="component.carriage-04" className="form-check-label">04</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="05" className="form-check-input" id="component.carriage-05" />
+          <label htmlFor="component.carriage-05" className="form-check-label">05</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="06" className="form-check-input" id="component.carriage-06" />
+          <label htmlFor="component.carriage-06" className="form-check-label">06</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="07" className="form-check-input" id="component.carriage-07" />
+          <label htmlFor="component.carriage-07" className="form-check-label">07</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="checkbox" value="08" className="form-check-input" id="component.carriage-08" />
+          <label htmlFor="component.carriage-08" className="form-check-label">08</label>
+        </div>
+      </div>
+    )
+  }
+}
+
 export class MessageReadButton extends React.Component {
   constructor(props) {
     super(props)
