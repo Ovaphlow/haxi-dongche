@@ -489,12 +489,8 @@ export class Journal02VerifyLeader extends React.Component {
     .then(response => {
       sessionStorage.setItem('journal02-detail', response.content.id)
       response.content.veirfy_report && (document.getElementById('verify_report').value = response.content.verify_report)
-      document.getElementById('dtime_begin').value = moment(
-          `${response.content.date_begin} ${response.content.time_begin}`)
-          .format('YYYY-MM-DDThh:mm')
-      document.getElementById('dtime_end').value = moment(
-          `${response.content.date_end} ${response.content.time_end}`)
-          .format('YYYY-MM-DDThh:mm')
+      document.getElementById('dtime_begin').value = `${response.content.date_begin}T${response.content.time_begin}`
+      document.getElementById('dtime_end').value = `${response.content.date_end}T${response.content.time_end}`
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
       }
@@ -531,19 +527,19 @@ export class Journal02VerifyLeader extends React.Component {
 
               <div className="card-body row">
                 <div className="col-12 btn-group">
-                  <button type="button" className="btn btn-outline-secondary" data-id="1" onClick={this.detail}>
+                  <button type="button" className="btn btn-secondary" data-id="1" onClick={this.detail}>
                     一般部件普查记录单
                   </button>
 
-                  <button type="button" className="btn btn-outline-secondary" data-id="2" onClick={this.detail}>
+                  <button type="button" className="btn btn-secondary ml-3" data-id="2" onClick={this.detail}>
                     一般配件更换记录表
                   </button>
 
-                  <button type="button" className="btn btn-outline-secondary" data-id="3" onClick={this.detail}>
+                  <button type="button" className="btn btn-secondary ml-3" data-id="3" onClick={this.detail}>
                     关键配件更换记录表
                   </button>
 
-                  <button type="button" className="btn btn-outline-secondary" data-id="4" onClick={this.detail}>
+                  <button type="button" className="btn btn-secondary ml-3" data-id="4" onClick={this.detail}>
                     加装改造（软件升级）记录单
                   </button>
                 </div>
@@ -984,7 +980,7 @@ export class Journal02 extends React.Component {
     this.submit = this.submit.bind(this)
     this.submit1 = this.submit1.bind(this)
     this.listByUser = this.listByUser.bind(this)
-    this.detail = this.detail.bind(this)
+    // this.detail = this.detail.bind(this)
   }
 
   componentDidMount() {
@@ -996,8 +992,8 @@ export class Journal02 extends React.Component {
     }
     this.setState({ auth: auth })
 
-    document.getElementById('date_begin').value = moment().format('YYYY-MM-DDT00:00:00')
-    document.getElementById('date_end').value = moment().format('YYYY-MM-DDT23:59:59')
+    document.getElementById('date_begin').value = moment().subtract(1, 'days').format('YYYY-MM-DDT20:00:00')
+    document.getElementById('date_end').value = moment().format('YYYY-MM-DDT08:00:00')
     fetch(`./api/journal02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
@@ -1041,16 +1037,42 @@ export class Journal02 extends React.Component {
     .then(response => this.setState({ list: response.content }))
   }
 
+  handlerListFin() {
+    fetch(`./api/journal02/filter/fin`, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        dept: document.getElementById('component.dept-list').value || '',
+        train: document.getElementById('component.train-list').value || '',
+        date_begin: moment(document.getElementById('date_begin').value).format('YYYY-MM-DD'),
+        time_begin: moment(document.getElementById('date_begin').value).format('HH:mm:ss') || '00:00:00',
+        date_end: moment(document.getElementById('date_end').value).format('YYYY-MM-DD'),
+        time_end: moment(document.getElementById('date_end').value).format('HH:mm:ss') || '23:59:59'
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      this.setState({ list: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
   listByUser() {
     fetch(`./api/journal02/filter/user/${this.state.auth.id}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
   }
 
-  detail(event) {
-    sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-    window.location.href = './#/journal.02-detail'
-  }
+  // detail(event) {
+  //   sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
+  //   window.location.href = './#/journal.02-detail'
+  // }
 
   render() {
     return (
@@ -1112,10 +1134,15 @@ export class Journal02 extends React.Component {
                 <ExportFilter2Excel />
                 {/* <ExportFilter2ExcelDownload /> */}
 
-                <button type="button" className="btn btn-outline-dark" onClick={this.submit1}>
+                <button type="button" className="btn btn-outline-dark" onClick={this.handlerListFin.bind(this)}>
+                  <i className="fa fa-fw fa-power-off"></i>
+                  已完成申请单
+                </button>
+
+                {/* <button type="button" className="btn btn-outline-dark" onClick={this.submit1}>
                   <i className="fa fa-fw fa-search"></i>
                   未完成申请单
-                </button>
+                </button> */}
 
                 <button type="button" className="btn btn-outline-info" onClick={this.listByUser}>
                   <i className="fa fa-fw fa-user"></i>

@@ -41,45 +41,43 @@ export default class Journal02Master extends React.Component {
           return false
         }
         this.setState({ master: response.data.content })
-        document.getElementById('dept').value = response.data.content.dept
-        document.getElementById('applicant').value = response.data.content.applicant
-        // document.getElementById('component.user-selector').value = response.data.content.applicant
-        document.getElementById('applicantPhone').value = response.data.content.applicant_phone
-        document.getElementById('leader').value = response.data.content.leader
-        document.getElementById('leaderPhone').value = response.data.content.leader_phone
-        document.getElementById('component.train-list').value = response.data.content.group_sn
+        // document.getElementById('dept').value = response.data.content.dept
+        // document.getElementById('applicant').value = response.data.content.applicant
+        // document.getElementById('applicantPhone').value = response.data.content.applicant_phone
+        // document.getElementById('leader').value = response.data.content.leader
+        // document.getElementById('leaderPhone').value = response.data.content.leader_phone
+        // document.getElementById('component.train-list').value = response.data.content.group_sn
         document.getElementById('dateBegin').value = response.data.content.date_begin
         document.getElementById('timeBegin').value = response.data.content.time_begin
-        // document.getElementById('timeBegin0').value = response.data.content.time_begin.split(':')[0]
-        // document.getElementById('timeBegin1').value = response.data.content.time_begin.split(':')[1]
         document.getElementById('dateEnd').value = response.data.content.date_end
         document.getElementById('timeEnd').value = response.data.content.time_end
-        // document.getElementById('timeEnd0').value = response.data.content.time_end.split(':')[0]
-        // document.getElementById('timeEnd1').value = response.data.content.time_end.split(':')[1]
-        document.getElementById('content').value = response.data.content.content
-        document.getElementById('content_detail').value = response.data.content.content_detail
-        if (response.data.content.p_yq_xdc === '供') {
-          document.getElementById('p_yq_xdc-0').checked = true
-        } else if (response.data.content.p_yq_xdc === '断') {
-          document.getElementById('p_yq_xdc-1').checked = true
-        } else if (response.data.content.p_yq_xdc === '无要求') {
-          document.getElementById('p_yq_xdc-2').checked = true
-        }
-        if (response.data.content.p_yq_jcw === '供') {
-          document.getElementById('p_yq_jcw-0').checked = true
-        } else if (response.data.content.p_yq_jcw === '断') {
-          document.getElementById('p_yq_jcw-1').checked = true
-        } else if (response.data.content.p_yq_jcw === '无要求') {
-          document.getElementById('p_yq_jcw-2').checked = true
-        }
-        if (response.data.content.p_yq_zydd === '检查库') {
-          document.getElementById('p_yq_zydd-0').checked = true
-        } else if (response.data.content.p_yq_zydd === '临修库') {
-          document.getElementById('p_yq_zydd-1').checked = true
-        } else if (response.data.content.p_yq_zydd === '无要求') {
-          document.getElementById('p_yq_zydd-2').checked = true
-        }
-      }).catch(err => this.setState({ message: '服务器通信异常' }))
+        // document.getElementById('content').value = response.data.content.content
+        // document.getElementById('content_detail').value = response.data.content.content_detail
+        // if (response.data.content.p_yq_xdc === '供') {
+        //   document.getElementById('p_yq_xdc-0').checked = true
+        // } else if (response.data.content.p_yq_xdc === '断') {
+        //   document.getElementById('p_yq_xdc-1').checked = true
+        // } else if (response.data.content.p_yq_xdc === '无要求') {
+        //   document.getElementById('p_yq_xdc-2').checked = true
+        // }
+        // if (response.data.content.p_yq_jcw === '供') {
+        //   document.getElementById('p_yq_jcw-0').checked = true
+        // } else if (response.data.content.p_yq_jcw === '断') {
+        //   document.getElementById('p_yq_jcw-1').checked = true
+        // } else if (response.data.content.p_yq_jcw === '无要求') {
+        //   document.getElementById('p_yq_jcw-2').checked = true
+        // }
+        // if (response.data.content.p_yq_zydd === '检查库') {
+        //   document.getElementById('p_yq_zydd-0').checked = true
+        // } else if (response.data.content.p_yq_zydd === '临修库') {
+        //   document.getElementById('p_yq_zydd-1').checked = true
+        // } else if (response.data.content.p_yq_zydd === '无要求') {
+        //   document.getElementById('p_yq_zydd-2').checked = true
+        // }
+      }).catch(err => {
+        window.console && console.error(err)
+        this.setState({ message: '服务器通信异常' })
+      })
     }
   }
 
@@ -88,10 +86,13 @@ export default class Journal02Master extends React.Component {
     if (
         !!!document.getElementById('dept').value ||
         !!!document.getElementById('applicant').value ||
+        !!!document.getElementById('applicantPhone').value ||
         !!!document.getElementById('leader').value ||
         !!!document.getElementById('component.train-list').value ||
         !!!document.getElementById('dateBegin').value ||
-        !!!document.getElementById('dateEnd').value
+        !!!document.getElementById('dateEnd').value ||
+        !!!document.getElementById('content_detail').value ||
+        !!!document.getElementById('p_yq_qt').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
       return false
@@ -245,36 +246,62 @@ export default class Journal02Master extends React.Component {
             <tbody>
               <tr>
                 <td width="15%" className="text-center align-middle">申请单位</td>
-                {/* <td colSpan="3"><input type="text" className="form-control form-control-sm" id="dept" readOnly={this.props.mode === 'read' ? true : false} /></td> */}
-                <td colSpan="3">
-                  <input type="text" readOnly={true} className="form-control" id="dept" />
+                <td colSpan="3" className="text-center align-middle">
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.dept}</span>
+                    :
+                    <input type="text" readOnly={true} className="form-control" id="dept" />
+                  }
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">申请人</td>
-                <td width="35%" className="text-center">
-                  <input type="text" readOnly={this.props.mode === 'read' ? true : false} className="form-control" id="applicant" />
-                  {/*<UserSelectorDept mode={this.props.mode} val={this.state.master.applicant} />*/}
+                <td width="35%" className="text-center align-middle">
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.applicant}</span>
+                    :
+                    <input type="text" className="form-control" id="applicant"
+                        readOnly={this.props.mode === 'read' ? true : false}
+                    />
+                  }
                 </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
-                <td width="35%" className="text-center">
-                  <input type="text" className="form-control" id="applicantPhone" readOnly={this.props.mode === 'read' ? true : false} />
+                <td width="35%" className="text-center align-middle">
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.applicant_phone}</span>
+                    :
+                    <input type="text" className="form-control" id="applicantPhone"
+                        readOnly={this.props.mode === 'read' ? true : false}
+                    />
+                  }
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业负责人</td>
                 <td width="35%" className="text-center">
-                  <input type="text" readOnly={true} className="form-control" id="leader" />
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.leader}</span>
+                    :
+                    <input type="text" readOnly={true} className="form-control" id="leader" />
+                  }
                 </td>
                 <td width="15%" className="text-center align-middle">联系电话</td>
                 <td width="35%" className="text-center">
-                  <input type="text" readOnly className="form-control" id="leaderPhone" />
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.leader_phone}</span>
+                    :
+                    <input type="text" readOnly className="form-control" id="leaderPhone" />
+                  }
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>
-                <td colSpan="3">
-                  <TrainList mode={this.props.mode} />
+                <td colSpan="3" className="text-center align-middle">
+                  {this.props.mode === 'read' ?
+                    <strong>{this.state.master.group_sn}</strong>
+                    :
+                    <TrainList mode={this.props.mode} />
+                  }
                 </td>
               </tr>
               <tr>
@@ -285,32 +312,30 @@ export default class Journal02Master extends React.Component {
                   &nbsp;---&nbsp;
                   <input type="date" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm" style={{ width: '9rem' }} id="dateEnd" />
                   <input type="time" readOnly={this.props.mode === 'read' ? true : false} className="form-control-sm ml-3" style={{ width: '6rem' }} id="timeEnd" />
-                  {/* <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin" readOnly={this.props.mode === 'read' ? true : false} />
-                  日 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin0" readOnly={this.props.mode === 'read' ? true : false} />
-                  时 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeBegin1" readOnly={this.props.mode === 'read' ? true : false} />
-                  分 &nbsp; &nbsp; --- &nbsp; &nbsp;
-                  <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateEnd" readOnly={this.props.mode === 'read' ? true : false} />
-                  日 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd0" readOnly={this.props.mode === 'read' ? true : false} />
-                  时 &nbsp; &nbsp;
-                  <input type="text" className="form-control-sm" style={{ width: '3rem' }} id="timeEnd1" readOnly={this.props.mode === 'read' ? true : false} />
-                  分 */}
                 </td>
               </tr>
               <tr>
                 <td width="15%" className="text-center align-middle">作业内容</td>
-                <td colSpan="3">
-                  <select className="form-control form-control-sm" id="content" disabled={this.props.mode === 'read' ? true : false}>
-                    <option value="普查">普查</option>
-                    <option value="检查">检查</option>
-                    <option value="故障处理">故障处理</option>
-                    <option value="加装改造">加装改造</option>
-                    <option value="其它">其它</option>
-                  </select>
+                <td colSpan="3" className="text-center align-middle">
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.content}</span>
+                    :
+                    <select className="form-control form-control-sm" id="content" disabled={this.props.mode === 'read' ? true : false}>
+                      <option value="普查">普查</option>
+                      <option value="检查">检查</option>
+                      <option value="故障处理">故障处理</option>
+                      <option value="加装改造">加装改造</option>
+                      <option value="其它">其它</option>
+                    </select>
+                  }
                   <br />
-                  <input type="text" className="form-control form-control-sm" id="content_detail" readOnly={this.props.mode === 'read' ? true : false} />
+                  {this.props.mode === 'read' ?
+                    <span>{this.state.master.content_detail}</span>
+                    :
+                    <input type="text" className="form-control form-control-sm" id="content_detail"
+                        readOnly={this.props.mode === 'read' ? true : false}
+                    />
+                  }
                 </td>
               </tr>
               <tr>
@@ -319,51 +344,181 @@ export default class Journal02Master extends React.Component {
                   <table className="table table-sm">
                     <tbody>
                       <tr>
-                        <td width="15%" className="text-center">蓄电池({this.state.master.p_yq_xdc})</td>
+                        <td width="15%" className="text-center">蓄电池</td>
                         <td className="text-center">
-                          <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_xdc-0">供</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_xdc === '供' ?
+                                <span className="text-danger">
+                                  <strong>✓供</strong>
+                                </span>
+                                :
+                                <span>▢供</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_xdc-0">供</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_xdc-1">断</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_xdc === '断' ?
+                                <span className="text-danger">
+                                  <strong>✓断</strong>
+                                </span>
+                                :
+                                <span>▢断</span>
+                              }
+                            </span>
+                            :
+                              <span>
+                                <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.mode === 'read' ? true : false} />
+                                <label htmlFor="p_yq_xdc-1">断</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_xdc-2">无要求</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_xdc === '无要求' ?
+                                <span className="text-danger">
+                                  <strong>✓无要求</strong>
+                                </span>
+                                :
+                                <span>▢无要求</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_xdc-2">无要求</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
                       </tr>
                       <tr>
                         <td width="15%" className="text-center">接触网</td>
                         <td className="text-center">
-                          <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_jcw-0">供</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_jcw === '供' ?
+                                <span className="text-danger">
+                                  <strong>✓供</strong>
+                                </span>
+                                :
+                                <span>▢供</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_jcw-0">供</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_jcw-1">断</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_jcw === '断' ?
+                                <span className="text-danger">
+                                  <strong>✓断</strong>
+                                </span>
+                                :
+                                <span>▢断</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_jcw-1">断</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_jcw-2">无要求</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_jcw === '无要求' ?
+                                <span className="text-danger">
+                                  <strong>✓无要求</strong>
+                                </span>
+                                :
+                                <span>▢无要求</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_jcw-2">无要求</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
                       </tr>
                       <tr>
                         <td width="15%" className="text-center">作业地点</td>
                         <td className="text-center">
-                          <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_zydd-0">检查库</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_zydd === '检查库' ?
+                                <span className="text-danger">
+                                  <strong>✓检查库</strong>
+                                </span>
+                                :
+                                <span>▢检查库</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_zydd-0">检查库</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_zydd-1">临修库</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_zydd === '临修库' ?
+                                <span className="text-danger">
+                                  <strong>✓临修库</strong>
+                                </span>
+                                :
+                                <span>▢临修库</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_zydd-1">临修库</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                          <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.mode === 'read' ? true : false} />
-                          <label htmlFor="p_yq_zydd-2">无要求</label>
+                          {this.props.mode === 'read' ?
+                            <span>
+                              {this.state.master.p_yq_zydd === '无要求' ?
+                                <span className="text-danger">
+                                  <strong>✓无要求</strong>
+                                </span>
+                                :
+                                <span>▢无要求</span>
+                              }
+                            </span>
+                            :
+                            <span>
+                              <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.mode === 'read' ? true : false} />
+                              <label htmlFor="p_yq_zydd-2">无要求</label>
+                            </span>
+                          }
                           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         </td>
                       </tr>
                       <tr>
                         <td width="15%" className="text-center">其它</td>
-                        <td className="text-center">
-                          <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.mode === 'read' ? true : false} />
+                        <td className="text-center align-middle">
+                          {this.props.mode === 'read' ?
+                            <span>{this.state.master.p_yq_qt}</span>
+                            :
+                            <input type="text" className="form-control form-control-sm" id="p_yq_qt" readOnly={this.props.mode === 'read' ? true : false} />
+                          }
                         </td>
                       </tr>
                     </tbody>

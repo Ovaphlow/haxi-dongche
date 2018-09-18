@@ -68,6 +68,20 @@ export default class Journal02Item extends React.Component {
         </ul>
 
         <div className="row">
+          <div className="col">
+            {this.props.item.p_yq_xdc !== '无要求' &&
+              <span className="badge badge-warning ml-1">蓄电池：{this.props.item.p_yq_xdc}</span>
+            }
+            {this.props.item.p_yq_jcw !== '无要求' &&
+              <span className="badge badge-warning ml-1">接触网：{this.props.item.p_yq_jcw}</span>
+            }
+            {this.props.item.p_yq_zydd !== '无要求' &&
+              <span className="badge badge-warning ml-1">作业地点：{this.props.item.p_yq_zydd}</span>
+            }
+          </div>
+        </div>
+
+        <div className="row">
           <div className="col-12 mt-3">
             {this.props.item.leader_id === this.state.auth.id && (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
               <button type="button" className="btn btn-sm btn-outline-secondary" data-id={this.props.item.id} onClick={this.update}>

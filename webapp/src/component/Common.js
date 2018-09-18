@@ -37,6 +37,7 @@ export class MessageAlert extends React.Component {
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) return
     fetch(`./api/common/message/${auth.id}/unread/qty`)
     .then(res => res.json())
     .then(response => {

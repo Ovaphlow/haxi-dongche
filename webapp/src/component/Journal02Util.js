@@ -116,7 +116,8 @@ export class DetailLink extends React.Component {
 
   handler() {
     sessionStorage.setItem('journal02', this.props.id)
-    window.location.href = './#/journal.02-detail'
+    // window.location = './#/journal.02-detail'
+    window.open('./#/journal.02-detail')
   }
 
   render() {
@@ -440,6 +441,10 @@ export class RejectSubmit extends React.Component {
   }
 
   submitReject() {
+    if (!!!document.getElementById('input-reject').value) {
+      alert('请填写驳回原因')
+      return
+    }
     fetch(`./api/journal02/${this.props.id}/reject/${this.props.operation}`, {
       method: 'put',
       headers: {
@@ -495,6 +500,10 @@ export class ReviewPddSubmit extends React.Component {
     if (!!!this.state.auth.sign) {
       alert('请先设置签名')
       return false
+    }
+    if (!!!document.getElementById('remark').value) {
+      alert('请填写备注，没有备注内容时需要填写“无”')
+      return
     }
     fetch(`./api/journal02/verify/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
@@ -777,6 +786,15 @@ export class ReviewApplicantSubmit extends React.Component {
       alert('请填写作业完成情况')
       return
     }
+    if (!!!document.getElementById('remark').value) {
+      alert('请填写备注，没有备注内容时需要填写“无”')
+      return
+    }
+    if (!!!window.confirm(`注意：
+    普查作业需要填写【一般部件普查记录单】
+    故障处理作业需要填写【一般配件更换记录表】或【关键配件更换记录表】
+    加装改造作业需要填写【加装改造（软件升级）记录单】
+    不填写记录单直接销记请点击【确定】，返回填写记录单点击【取消】`)) return
     fetch(`./api/journal02/verify/leader/${sessionStorage.getItem('journal02-detail')}`, {
       method: 'put',
       headers: {
@@ -1142,6 +1160,7 @@ export default class Journal02Toolbar extends React.Component {
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) return
     // 待处理任务计数
     if (auth.auth_p_jsy) {
       fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)

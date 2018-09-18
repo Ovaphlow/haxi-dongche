@@ -566,7 +566,7 @@ export class Journal02Save02 extends React.Component {
 export class Journal02Save01 extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '' }
+    this.state = { message: '', master: {} }
     this.submit = this.submit.bind(this)
     this.save = this.save.bind(this)
   }
@@ -586,15 +586,40 @@ export class Journal02Save01 extends React.Component {
       document.getElementById('component.train-list').value = detail.train_sn
       document.getElementById('date').value = detail.date
     }
+
+    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    .then(res => res.json())
+    .then(response => {
+      document.getElementById('component.train-list').value = response.content.group_sn
+      document.getElementById('date').value = response.content.date_begin
+      document.getElementById('time_begin').value = response.content.time_begin
+      document.getElementById('time_end').value = response.content.time_end
+    })
   }
 
   submit() {
+    if (
+        !!!document.getElementById('subject').value ||
+        !!!document.getElementById('approval').value ||
+        !!!document.getElementById('component.train-list').value ||
+        !!!document.getElementById('date').value ||
+        !!!document.getElementById('carriage_subject').value ||
+        !!!document.getElementById('time_begin').value ||
+        !!!document.getElementById('time_end').value ||
+        !!!document.getElementById('result').value ||
+        !!!document.getElementById('report').value ||
+        !!!document.getElementById('executor').value ||
+        !!!document.getElementById('remark').value
+    ) {
+      alert('请完善记录单信息')
+      return
+    }
     let body = {
       subject: document.getElementById('subject').value,
       approval_sn: document.getElementById('approval').value,
       train_sn: document.getElementById('component.train-list').value,
       date: document.getElementById('date').value,
-      carriage: document.getElementById('component.carriage-list').value,
+      carriage: '',
       carriage_subject: document.getElementById('carriage_subject').value,
       time_begin: document.getElementById('time_begin').value,
       time_end: document.getElementById('time_end').value,
@@ -602,7 +627,15 @@ export class Journal02Save01 extends React.Component {
       report: document.getElementById('report').value,
       dept: document.getElementById('dept').value,
       executor: document.getElementById('executor').value,
-      remark: document.getElementById('remark').value
+      remark: document.getElementById('remark').value,
+      carriage_01: document.getElementById('carriage-01').checked,
+      carriage_02: document.getElementById('carriage-02').checked,
+      carriage_03: document.getElementById('carriage-03').checked,
+      carriage_04: document.getElementById('carriage-04').checked,
+      carriage_05: document.getElementById('carriage-05').checked,
+      carriage_06: document.getElementById('carriage-06').checked,
+      carriage_07: document.getElementById('carriage-07').checked,
+      carriage_08: document.getElementById('carriage-08').checked
     }
     axios({
       method: 'post',
@@ -663,28 +696,26 @@ export class Journal02Save01 extends React.Component {
                     <p className="lead">动车组一般部件普查记录单</p>
                   </div>
 
-                  <div className="col-6">
+                  <div className="col-3">
                     <div className="form-group">
                       <label>普查项目</label>
                       <input type="text" className="form-control" id="subject" />
                     </div>
                   </div>
-                  <div className="col-6">
+                  <div className="col-3">
                     <div className="form-group">
                       <label>批准文件号</label>
                       <input type="text" className="form-control" id="approval" />
                     </div>
                   </div>
 
-                  <div className="clearfix"></div>
-
-                  <div className="col-6">
+                  <div className="col-3">
                     <div className="form-group">
                       <label>实施普查车组</label>
                       <TrainList />
                     </div>
                   </div>
-                  <div className="col-6">
+                  <div className="col-3">
                     <div className="form-group">
                       <label>实施普查日期</label>
                       <input type="date" className="form-control" id="date" />
@@ -693,14 +724,45 @@ export class Journal02Save01 extends React.Component {
 
                   <div className="clearfix"></div>
 
-                  <div className="col-12"></div>
-
-                  <div className="col-4 form-group">
+                  <div className="col-6 form-group">
                     <label>实施普查的车厢号</label>
-                    <CarriageList />
+                    {/* <CarriageList /> */}
+                    <br />
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="01" className="form-check-input" id="carriage-01" />
+                      <label htmlFor="carriage-01" className="form-check-label">01</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="02" className="form-check-input" id="carriage-02" />
+                      <label htmlFor="carriage-02" className="form-check-label">02</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="03" className="form-check-input" id="carriage-03" />
+                      <label htmlFor="carriage-03" className="form-check-label">03</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="04" className="form-check-input" id="carriage-04" />
+                      <label htmlFor="carriage-04" className="form-check-label">04</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="05" className="form-check-input" id="carriage-05" />
+                      <label htmlFor="carriage-05" className="form-check-label">05</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="06" className="form-check-input" id="carriage-06" />
+                      <label htmlFor="carriage-06" className="form-check-label">06</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="07" className="form-check-input" id="carriage-07" />
+                      <label htmlFor="carriage-07" className="form-check-label">07</label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <input type="checkbox" value="08" className="form-check-input" id="carriage-08" />
+                      <label htmlFor="carriage-08" className="form-check-label">08</label>
+                    </div>
                   </div>
 
-                  <div className="col-8 form-group">
+                  <div className="col-6 form-group">
                     <label>具体项点</label>
                     <input type="text" className="form-control form-control-sm" id="carriage_subject" />
                   </div>
