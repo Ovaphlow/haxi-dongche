@@ -3,7 +3,7 @@ import echarts from 'echarts'
 import React from 'react'
 import moment from 'moment'
 
-import { PageTitle, PageTitle2, Sidebar } from './component/Common'
+import { PageTitle, PageTitle2, Sidebar, ContentSelecter } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import Journal02Item from './component/Journal02Item'
 import {
@@ -980,7 +980,6 @@ export class Journal02 extends React.Component {
     this.submit = this.submit.bind(this)
     this.submit1 = this.submit1.bind(this)
     this.listByUser = this.listByUser.bind(this)
-    // this.detail = this.detail.bind(this)
   }
 
   componentDidMount() {
@@ -1011,7 +1010,11 @@ export class Journal02 extends React.Component {
         date_begin: moment(document.getElementById('date_begin').value).format('YYYY-MM-DD'),
         time_begin: moment(document.getElementById('date_begin').value).format('HH:mm:ss') || '00:00:00',
         date_end: moment(document.getElementById('date_end').value).format('YYYY-MM-DD'),
-        time_end: moment(document.getElementById('date_end').value).format('HH:mm:ss') || '23:59:59'
+        time_end: moment(document.getElementById('date_end').value).format('HH:mm:ss') || '23:59:59',
+        content: document.getElementById('component.content-selecter').value,
+        content_detail: document.getElementById('content_detail').value,
+        p_xdc: document.getElementById('p_xdc').value,
+        p_jcw: document.getElementById('p_jcw').value
       })
     })
     .then(res => res.json())
@@ -1069,11 +1072,6 @@ export class Journal02 extends React.Component {
     .then(response => this.setState({ list: response.content }))
   }
 
-  // detail(event) {
-  //   sessionStorage.setItem('journal02', event.target.getAttribute('data-id'))
-  //   window.location.href = './#/journal.02-detail'
-  // }
-
   render() {
     return (
       <div className="row">
@@ -1118,6 +1116,36 @@ export class Journal02 extends React.Component {
                 <label>申请作业时间</label>
                 <input type="datetime-local" className="form-control" id="date_end" />
               </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
+              <ContentSelecter />
+            </div>
+            <div className="col">
+              <div className="form-group">
+                <label>详细作业内容</label>
+                <input type="text" className="form-control" id="content_detail"></input>
+              </div>
+            </div>
+            <div className="col">
+              <label>蓄电池</label>
+              <select className="form-control" id="p_xdc">
+                <option value="">未选择</option>
+                <option value="供">供</option>
+                <option value="断">断</option>
+                <option value="无要求">无要求</option>
+              </select>
+            </div>
+            <div className="col">
+              <label>接触网</label>
+              <select className="form-control" id="p_jcw">
+                <option value="">未选择</option>
+                <option value="供">供</option>
+                <option value="断">断</option>
+                <option value="无要求">无要求</option>
+              </select>
             </div>
           </div>
 

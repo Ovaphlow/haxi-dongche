@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
-import { BackButton, TrainList, Message } from './Common'
+import { CloseButton, TrainList, Message } from './Common'
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
@@ -208,7 +208,8 @@ export default class Journal02Master extends React.Component {
       <div className="row">
         {this.props.mode === 'read' &&
           <div className="col-12">
-            <BackButton />
+            {/* <BackButton /> */}
+            <CloseButton />
             <div className="btn-group pull-right">
               <button type="button" className="btn btn-outline-success" onClick={this.preview}>
                 <i className="fa fa-fw fa-download"></i>

@@ -5,6 +5,24 @@ import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUt
 import Journal01Toolbar from './Journal01Toolbar'
 import Journal02Toolbar from './Journal02Util'
 
+export class ContentSelecter extends React.Component {
+  render() {
+    return (
+      <div className="form-group">
+        <label>作业内容</label>
+        <select className="form-control" id="component.content-selecter">
+          <option value="">未选择</option>
+          <option value="普查">普查</option>
+          <option value="检查">检查</option>
+          <option value="故障处理">故障处理</option>
+          <option value="加装改造">加装改造</option>
+          <option value="其它">其它</option>
+        </select>
+      </div>
+    )
+  }
+}
+
 export class CarriageSelecter extends React.Component {
   render() {
     return (
@@ -134,7 +152,7 @@ export class TrainList extends React.Component {
     )
     else return (
       <select className="form-control" disabled={this.props.mode === 'read' ? true : false} id="component.train-list">
-        <option value="">选择车组</option>
+        <option value="">未选择</option>
         {this.state.list.map(item =>
           <option value={item.name} key={item.id}>{item.name}</option>
         )}
@@ -206,7 +224,7 @@ export class DeptList extends React.Component {
   render () {
     return (
       <select className="form-control" id="component.dept-list">
-        <option value="">选择单位</option>
+        <option value="">未选择</option>
         {this.state.list.map(item =>
           <option value={item.name} key={item.id}>{item.name}</option>
         )}
@@ -230,7 +248,7 @@ export class DeptListPbz extends React.Component {
   render() {
     return (
       <select className="form-control" id="component.p_bz-list">
-        <option value="">选择班组</option>
+        <option value="">未选择</option>
         {this.state.list.map(item =>
           <option value={item.name} key={item.id}>{item.name}</option>
         )}
@@ -254,7 +272,7 @@ export class QCList extends React.Component {
   render() {
     return (
       <select className="form-control" id="component.qc-list">
-        <option value="">选择质检</option>
+        <option value="">未选择</option>
         {this.state.list.map(item =>
           <option value={item.name} key={item.id}>{item.name}</option>
         )}
@@ -278,6 +296,21 @@ export class ReloadButton extends React.Component {
       <button type="button" className="btn btn-outline-secondary" onClick={this.submit}>
         <i className="fa fa-fw fa-refresh"></i>
         重置/刷新
+      </button>
+    )
+  }
+}
+
+export class CloseButton extends React.Component {
+  handler() {
+    window.close()
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-secondary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-window-close-o"></i>
+        &nbsp;关闭
       </button>
     )
   }
