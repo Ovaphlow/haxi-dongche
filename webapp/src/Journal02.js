@@ -976,7 +976,7 @@ export class Journal02Detail extends React.Component {
 export class Journal02 extends React.Component {
   constructor() {
     super()
-    this.state = { message: '', list: [], auth: {}, warningList: [] }
+    this.state = { message: '', list: [], auth: {}, warningList: [], flowList: [] }
   }
 
   componentDidMount() {
@@ -1073,9 +1073,27 @@ export class Journal02 extends React.Component {
   }
 
   listByUser() {
+    this.setState({ warningList: [] })
+
+    fetch(`./api/common/user/${this.state.auth.id}/dept`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.remark === '班组') {
+        // 班组
+      }
+    })
+    .catch(err => window.console && console.error(err))
+
     fetch(`./api/journal02/filter/user/${this.state.auth.id}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
+
+    fetch(`./api/journal02/filter/user/${this.state.auth.id}/flow`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ flowList: response.content})
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -1182,7 +1200,7 @@ export class Journal02 extends React.Component {
           </div>
 
           <div className="row">
-            <div className="col">
+            <div className="col-12">
               <ul className="list-group">
                 {this.state.warningList.map(item =>
                   <Journal02Item key={item.id} item={item} />
@@ -1193,6 +1211,14 @@ export class Journal02 extends React.Component {
             <div className="col-12 mt-3">
               <ul className="list-group">
                 {this.state.list.map(item =>
+                  <Journal02Item key={item.id} item={item} />
+                )}
+              </ul>
+            </div>
+
+            <div className="col-12 mt-3">
+              <ul className="list-group">
+                {this.state.flowList.map(item =>
                   <Journal02Item key={item.id} item={item} />
                 )}
               </ul>

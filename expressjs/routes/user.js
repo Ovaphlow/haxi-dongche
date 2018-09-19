@@ -12,6 +12,34 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
+// 指定用户所属部门信息
+router.get('/:id/dept', async (req, res) => {
+  let sql = `
+    select
+      *
+    from
+      common_data
+    where
+      id = (select dept_id from user where id = :id limit 1)
+    limit 1
+  `
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.SELECT,
+    replacements: req.params
+  })
+  .catch(err => {
+    logger.error(err)
+    res.json({ content: '', message: '服务器错误' })
+  })
+  logger.info(result)
+  if (result.length !== 1) {
+    res.json({ content: '', message: '无有效数据' })
+    return
+  }
+  res.json({ content: result[0], message: '' })
+})
+
+// 指定部门用户列表
 router.get('/dept/name/:name', async (req, res) => {
   let sql = `
     select
