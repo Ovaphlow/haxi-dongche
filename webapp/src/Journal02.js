@@ -1160,7 +1160,7 @@ export class Journal02 extends React.Component {
               <ReloadButton />
 
               <div className="btn-group pull-right">
-                <button type="button" className="btn btn-outline-primary" onClick={this.submit}>
+                <button type="button" className="btn btn-outline-primary" onClick={this.submit.bind(this)}>
                   <i className="fa fa-fw fa-search"></i>
                   查询
                 </button>
@@ -1173,7 +1173,7 @@ export class Journal02 extends React.Component {
                   已完成申请单
                 </button>
 
-                <button type="button" className="btn btn-outline-info" onClick={this.listByUser}>
+                <button type="button" className="btn btn-outline-info" onClick={this.listByUser.bind(this)}>
                   <i className="fa fa-fw fa-user"></i>
                   我的申请单
                 </button>
