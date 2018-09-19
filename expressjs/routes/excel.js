@@ -22,8 +22,9 @@ router.post('/journal02/export/filter', async (req, res) => {
     where
       position(:dept in dept) = 1
       and position(:train in group_sn) = 1
-      and date_begin between :date_begin and :date_end
-      and time_begin between :time_begin and :time_end
+      and concat(date_begin, ' ', time_begin) between
+          concat(:date_begin, ' ', :time_begin)
+          and concat(:date_end, ' ', :time_end)
       and reject = ''
       and sign_verify is not null
       and sign_verify != ''

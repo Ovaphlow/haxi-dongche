@@ -97,6 +97,14 @@ export default class Journal02Master extends React.Component {
       this.setState({ message: '请完整填写申请信息' })
       return false
     }
+    if (moment(
+        `${document.getElementById('dateEnd').value}T${document.getElementById('timeEnd').value}`
+    ).isBefore(
+        `${document.getElementById('dateBegin').value}T${document.getElementById('timeBegin').value}`
+    )) {
+      alert('作业时间填写错误')
+      return
+    }
     axios({
       method: 'post',
       url: './api/journal02/',
