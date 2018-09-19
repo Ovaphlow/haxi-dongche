@@ -974,12 +974,9 @@ export class Journal02Detail extends React.Component {
  * 首页、查询页
  */
 export class Journal02 extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { message: '', list: [], trainList: [], deptList: [], auth: {} }
-    this.submit = this.submit.bind(this)
-    this.submit1 = this.submit1.bind(this)
-    this.listByUser = this.listByUser.bind(this)
+  constructor() {
+    super()
+    this.state = { message: '', list: [], auth: {}, warningList: [] }
   }
 
   componentDidMount() {
@@ -993,9 +990,18 @@ export class Journal02 extends React.Component {
 
     document.getElementById('date_begin').value = moment().subtract(1, 'days').format('YYYY-MM-DDT20:00:00')
     document.getElementById('date_end').value = moment().format('YYYY-MM-DDT08:00:00')
+
     fetch(`./api/journal02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
+    .catch(err => window.console && console.error(err))
+
+    fetch(`./api/journal02/warning`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ warningList: response.content })
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submit() {
@@ -1167,11 +1173,6 @@ export class Journal02 extends React.Component {
                   已完成申请单
                 </button>
 
-                {/* <button type="button" className="btn btn-outline-dark" onClick={this.submit1}>
-                  <i className="fa fa-fw fa-search"></i>
-                  未完成申请单
-                </button> */}
-
                 <button type="button" className="btn btn-outline-info" onClick={this.listByUser}>
                   <i className="fa fa-fw fa-user"></i>
                   我的申请单
@@ -1181,7 +1182,15 @@ export class Journal02 extends React.Component {
           </div>
 
           <div className="row">
-            <div className="col-12">
+            <div className="col">
+              <ul className="list-group">
+                {this.state.warningList.map(item =>
+                  <Journal02Item key={item.id} item={item} />
+                )}
+              </ul>
+            </div>
+
+            <div className="col-12 mt-3">
               <ul className="list-group">
                 {this.state.list.map(item =>
                   <Journal02Item key={item.id} item={item} />
