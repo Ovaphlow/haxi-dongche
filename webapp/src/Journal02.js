@@ -1005,6 +1005,8 @@ export class Journal02 extends React.Component {
   }
 
   submit() {
+    this.setState({ list: [] })
+    this.setState({ warningList: [] })
     fetch(`./api/journal02/filter/`, {
       method: 'post',
       headers: {
@@ -1030,6 +1032,8 @@ export class Journal02 extends React.Component {
     .catch(err => window.console && console.error(err))
   }
 
+  // 未完成申请单
+  // 弃用
   submit1() {
     fetch(`./api/journal02/filter/notcomplete`, {
       method: 'post',
@@ -1047,6 +1051,8 @@ export class Journal02 extends React.Component {
   }
 
   handlerListFin() {
+    this.setState({ warningList: [] })
+    this.setState({ list: [] })
     fetch(`./api/journal02/filter/fin`, {
       method: 'post',
       headers: {
@@ -1074,6 +1080,7 @@ export class Journal02 extends React.Component {
 
   listByUser() {
     this.setState({ warningList: [] })
+    this.setState({ list: [] })
 
     fetch(`./api/common/user/${this.state.auth.id}/dept`)
     .then(res => res.json())
