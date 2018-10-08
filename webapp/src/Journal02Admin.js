@@ -4,7 +4,6 @@ import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2 } from './compone
 
 class Detail04Update extends React.Component {
   handler() {
-    console.info(1)
     fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`, {
       method: 'put',
       headers: {
