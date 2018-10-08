@@ -118,6 +118,13 @@ export class MessageAlert extends React.Component {
 }
 
 export class CarriageList extends React.Component {
+  componentDidMount() {
+    console.info(this.props)
+    if (this.props.carriage) {
+      document.getElementById('component.carriage-list').value = this.props.carriage
+    }
+  }
+
   render() {
     return (
       <select className="form-control form-control-sm" id="component.carriage-list">
@@ -143,7 +150,12 @@ export class TrainList extends React.Component {
   componentDidMount() {
     fetch('./api/common/train')
     .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      this.setState({ list: response.content })
+      if (this.props.train) {
+        document.getElementById('component.train-list').value = this.props.train
+      }
+    })
   }
 
   renderComponent() {
@@ -167,7 +179,7 @@ export class TrainList extends React.Component {
   }
 }
 
-// 制定部门用户列表
+// 指定部门用户列表
 export class UserSelectorDept extends React.Component {
   constructor(props) {
     super(props)

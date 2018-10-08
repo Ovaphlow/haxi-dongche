@@ -2,6 +2,7 @@ import axios from 'axios'
 import React from 'react'
 
 import { Message } from './Common'
+import { LinkAdminDetail01, LinkAdminDetail02, LinkAdminDetail03, LinkAdminDetail04 } from '../Journal02Admin'
 
 export class Journal02Detail04 extends React.Component {
   constructor(props) {
@@ -163,6 +164,7 @@ export class Journal02Detail04 extends React.Component {
                         <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
                       </span>
                     }
+                    {this.state.auth.auth_admin && <LinkAdminDetail04 detail={item.id} />}
                   </td>
                   <td width="10%" className="text-center align-middle">{item.time_begin}</td>
                   <td width="10%" className="text-center align-middle">{item.time_end}</td>
@@ -361,6 +363,7 @@ export class Journal02Detail03 extends React.Component {
                         <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
                       </span>
                     }
+                    {this.state.auth.auth_admin && <LinkAdminDetail03 detail={item.id} />}
                   </td>
                   <td width="6%" className="text-center align-middle">{item.train}</td>
                   <td width="3%" className="text-center align-middle">{item.carriage}</td>
@@ -574,6 +577,7 @@ export class Journal02Detail02 extends React.Component {
                     {!!!this.props.read &&
                       <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
                     }
+                    {this.state.auth.auth_admin && <LinkAdminDetail02 detail={item.id} />}
                   </td>
                   <td width="6%" className="text-center align-middle">{item.train}</td>
                   <td width="3%" className="text-center align-middle">{item.carriage}</td>
@@ -781,6 +785,7 @@ export class Journal02Detail01 extends React.Component {
                     {!!!this.props.read &&
                       <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
                     }
+                    {this.state.auth.auth_admin && <LinkAdminDetail01 detail={item.id} />}
                   </td>
                   <td width="10%" className="text-center align-middle">{item.carriage_subject}</td>
                   <td width="6%" className="text-center align-middle">{item.time_begin}</td>

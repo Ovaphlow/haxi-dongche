@@ -1,8 +1,54 @@
 import React from 'react'
 
-import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2, CarriageList } from './component/Common'
+import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2 } from './component/Common'
 
-// 未测试
+class Detail04Update extends React.Component {
+  handler() {
+    console.info(1)
+    fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        subject: document.getElementById('subject').value,
+        software_version_new: document.getElementById('software_version_new').value,
+        software_version_old: document.getElementById('software_version_old').value,
+        approval_sn: document.getElementById('approval_sn').value,
+        train: document.getElementById('train').value,
+        date: document.getElementById('date').value,
+        carriage: document.getElementById('carriage').value,
+        time_begin: document.getElementById('time_begin').value,
+        time_end: document.getElementById('time_end').value,
+        dept: document.getElementById('dept').value,
+        operator: document.getElementById('operator').value,
+        watcher: document.getElementById('watcher').value,
+        watcher_group: document.getElementById('watcher_group').value,
+        qc: document.getElementById('qc').value,
+        remark: document.getElementById('remark').value
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+        确定
+      </button>
+    )
+  }
+}
+
 class Detail03Update extends React.Component {
   handler() {
     fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`, {
@@ -28,7 +74,7 @@ class Detail03Update extends React.Component {
         leader: document.getElementById('leader').value,
         p_bjgnsy: document.getElementById('p_bjgnsy').value,
         qc: document.getElementById('qc').value,
-        duty_officer: document.getElementById('duty_officer')
+        duty_officer: document.getElementById('duty_officer').value
       })
     })
     .then(res => res.json())
@@ -135,6 +181,167 @@ class Detail01Update extends React.Component {
         <i className="fa fa-fw fa-check-square-o"></i>
         确定
       </button>
+    )
+  }
+}
+
+// 加装改造记录单
+export class Journal02AdminDetail04 extends React.Component {
+  constructor() {
+    super()
+    this.state = { detail04: {} }
+  }
+  
+  componentDidMount() {
+    fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ detail04: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-cog" title="编辑一体化作业申请单" toolbar="Journal02Toolbar" />
+
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                <h5 className="mt-3 text-center">动车组关键配件更换记录表</h5>
+              </div>
+
+              <div className="row">
+                <div className="col form-group">
+                  <label>实施改造项目（升级系统）</label>
+                  <input type="text" className="form-control form-control-sm" id="subject"
+                      defaultValue={this.state.detail04.subject}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>软件版本号（新）</label>
+                  <input type="text" className="form-control form-control-sm" id="software_version_new"
+                      defaultValue={this.state.detail04.software_version_new}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>软件版本号（旧）</label>
+                  <input type="text" className="form-control form-control-sm" id="software_version_old"
+                      defaultValue={this.state.detail04.software_version_old}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>批准文件号</label>
+                  <input type="text" className="form-control form-control-sm" id="approval_sn"
+                      defaultValue={this.state.detail04.approval_sn}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>实施改造车组</label>
+                  <input type="text" className="form-control form-control-sm" id="train"
+                      defaultValue={this.state.detail04.train}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col form-group">
+                  <label>实施改造日期</label>
+                  <input type="text" className="form-control form-control-sm" id="date"
+                      defaultValue={this.state.detail04.date}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>实施改造的车厢号</label>
+                  <input type="text" className="form-control form-control-sm" id="carriage"
+                      defaultValue={this.state.detail04.carriage}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>开工时间</label>
+                  <input type="text" className="form-control form-control-sm" id="time_begin"
+                      defaultValue={this.state.detail04.time_begin}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>完工时间</label>
+                  <input type="text" className="form-control form-control-sm" id="time_end"
+                      defaultValue={this.state.detail04.time_end}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col form-group">
+                  <label>实施单位</label>
+                  <input type="text" className="form-control form-control-sm" id="dept"
+                      defaultValue={this.state.detail04.dept}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>实施者</label>
+                  <input type="text" className="form-control form-control-sm" id="operator"
+                      defaultValue={this.state.detail04.operator}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>动车所现场监控人</label>
+                  <input type="text" className="form-control form-control-sm" id="watcher"
+                      defaultValue={this.state.detail04.watcher}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>监控班组</label>
+                  <input type="text" className="form-control form-control-sm" id="watcher_group"
+                      defaultValue={this.state.detail04.watcher_group}
+                  />
+                </div>
+                <div className="col form-group">
+                  <label>质检员</label>
+                  <input type="text" className="form-control form-control-sm" id="qc"
+                      defaultValue={this.state.detail04.qc}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col form-group">
+                  <label>备注</label>
+                  <textarea rows="3" className="form-control" id="remark" defaultValue={this.state.detail04.remark}></textarea>
+                </div>
+              </div>
+
+              <div className="col">
+                <BackButton />
+                <div className="btn-group pull-right">
+                  <Detail04Update />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+// 链接：加装改造记录单
+export class LinkAdminDetail04 extends React.Component {
+  handler() {
+    sessionStorage.setItem('detail', this.props.detail)
+    window.location = './#/journal.02-admin.detail04'
+  }
+
+  render() {
+    return (
+      <a className="text-danger" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+      </a>
     )
   }
 }
@@ -307,6 +514,23 @@ export class Journal02AdminDetail03 extends React.Component {
   }
 }
 
+// 链接：特殊配件更换记录表
+export class LinkAdminDetail03 extends React.Component {
+  handler() {
+    sessionStorage.setItem('detail', this.props.detail)
+    window.location = './#/journal.02-admin.detail03'
+  }
+
+  render() {
+    return (
+      <a className="text-danger" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+      </a>
+    )
+  }
+}
+
+// 一般配件更换记录表
 export class Journal02AdminDetail02 extends React.Component {
   constructor() {
     super()
@@ -468,10 +692,27 @@ export class Journal02AdminDetail02 extends React.Component {
   }
 }
 
+// 链接：一般配件更换记录表
+export class LinkAdminDetail02 extends React.Component {
+  handler() {
+    sessionStorage.setItem('detail', this.props.detail)
+    window.location = './#/journal.02-admin.detail02'
+  }
+
+  render() {
+    return (
+      <a className="text-danger" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+      </a>
+    )
+  }
+}
+
+// 修改一般部件普查记录单
 export class Journal02AdminDetail01 extends React.Component {
   constructor() {
     super()
-    this.state = { detail01: [] }
+    this.state = { detail01: {} }
   }
 
   componentDidMount() {
@@ -479,6 +720,7 @@ export class Journal02AdminDetail01 extends React.Component {
     .then(res => res.json())
     .then(response => {
       this.setState({ detail01: response.content })
+      console.info(response.content)
     })
     .catch(err => window.console && console.error(err))
   }
@@ -531,7 +773,9 @@ export class Journal02AdminDetail01 extends React.Component {
               <div className="row mt-3">
                 <div className="col">
                   <label>实施普查的车厢号</label>
-                  <CarriageList />
+                  <input type="text" className="form-control form-control-sm" id="component.carriage-list"
+                      defaultValue={this.state.detail01.carriage}
+                  />
                 </div>
 
                 <div className="col">
@@ -633,6 +877,23 @@ export class Journal02AdminDetail01 extends React.Component {
   }
 }
 
+// 链接：修改一般部件普查记录单
+export class LinkAdminDetail01 extends React.Component {
+  handler() {
+    sessionStorage.setItem('detail', this.props.detail)
+    window.location = './#/journal.02-admin.detail01'
+  }
+
+  render() {
+    return (
+      <a className="text-danger" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+      </a>
+    )
+  }
+}
+
+// 修改申请单信息
 export class Journal02AdminMaster extends React.Component {
   constructor() {
     super()
@@ -647,7 +908,7 @@ export class Journal02AdminMaster extends React.Component {
     .then(res => res.json())
     .then(response => {
       this.setState({ master: response.content })
-      document.getElementById('component.train-list').value = response.content.group_sn
+      // document.getElementById('component.train-list').value = response.content.group_sn
       let p_xdc = document.getElementsByName('p_yq_xdc')
       for (let i = 0; i < p_xdc.length; i++) {
         if (response.content.p_yq_xdc === p_xdc[i].value) {
@@ -775,7 +1036,10 @@ export class Journal02AdminMaster extends React.Component {
               <tr>
                 <td width="15%" className="text-center align-middle">作业车组号</td>
                 <td colSpan="3">
-                  <TrainList mode={this.props.mode} />
+                  {
+                    this.state.master.group_sn &&
+                    <TrainList mode={this.props.mode} train={this.state.master.group_sn} />
+                  }
                 </td>
               </tr>
               <tr>
@@ -887,6 +1151,22 @@ export class Journal02AdminMaster extends React.Component {
           </div>
         </div>
       </div>
+    )
+  }
+}
+
+// 链接：修改申请单
+export class LinkAdminMaster extends React.Component {
+  handler() {
+    window.location = './#/journal.02-admin.master'
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-secondary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+        修改
+      </button>
     )
   }
 }

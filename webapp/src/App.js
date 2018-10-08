@@ -21,7 +21,7 @@ import {
 import { Journal02Dashboard } from './Journal02Beta'
 import {
     Journal02AdminMaster, Journal02AdminDetail01, Journal02AdminDetail02,
-    Journal02AdminDetail03
+    Journal02AdminDetail03, Journal02AdminDetail04
 } from './Journal02Admin'
 
 class App extends Component {
@@ -73,6 +73,7 @@ class App extends Component {
             <Route path="/journal.02-admin.detail01" component={Journal02AdminDetail01} />
             <Route path="/journal.02-admin.detail02" component={Journal02AdminDetail02} />
             <Route path="/journal.02-admin.detail03" component={Journal02AdminDetail03} />
+            <Route path="/journal.02-admin.detail04" component={Journal02AdminDetail04} />
           </div>
         </div>
       </HashRouter>

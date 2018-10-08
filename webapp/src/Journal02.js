@@ -19,6 +19,7 @@ import {
     ReviewPbzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
+import { LinkAdminMaster } from './Journal02Admin'
 
 /**
  * 已驳回申请列表
@@ -931,6 +932,10 @@ export class Journal02Detail extends React.Component {
               !!!this.state.master.sign_verify &&
               !!!this.state.master.reject &&
               <RejectButton item={this.state.master} />
+            }
+            {
+              this.state.auth.auth_admin === 1 &&
+              <LinkAdminMaster />
             }
             <div className="btn-group pull-right">
               <ProgressButton item={this.state.master} auth={this.state.auth} />
