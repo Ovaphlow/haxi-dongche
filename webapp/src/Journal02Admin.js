@@ -355,7 +355,6 @@ export class Journal02AdminDetail03 extends React.Component {
     fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`)
     .then(res => res.json())
     .then(response => {
-      console.info(response)
       this.setState({ detail03: response.content })
     })
     .catch(err => window.console && console.error(err))
