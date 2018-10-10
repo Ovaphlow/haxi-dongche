@@ -875,7 +875,7 @@ export class Journal02Check extends React.Component {
 export class Journal02Detail extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { auth: {}, master: {}, detail01: 0, detail02: 0, detail03: 0, detail04: 0 }
+    this.state = { auth: {}, master: {}, detail01: 0, detail02: 0, detail03: 0, detail04: 0, message: '' }
   }
 
   componentDidMount() {
@@ -905,6 +905,26 @@ export class Journal02Detail extends React.Component {
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content.qty }))
+
+    // 检查供电状态是否和已有申请冲突
+    fetch(`./api/document/02/check/power/${sessionStorage.getItem('journal02')}`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+      if (response.content.length > 0) {
+        let row = response.content[0]
+        let message = `
+          ${row.dept}的${row.applicant}(${row.applicant_phone})提交的申请中的供电状态与当前申请冲突。
+          蓄电池：${row.p_yq_xdc}，接触网：${row.p_yq_jcw}。
+        `
+        this.setState({ message: message})
+        window.alert(message)
+      }
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -915,6 +935,8 @@ export class Journal02Detail extends React.Component {
         <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-list" title="详细信息" toolbar="Journal02Toolbar" />
+
+          {this.state.message && <Message message={this.state.message} />}
 
           <Journal02Master mode="read" check={true} verify={true} />
 

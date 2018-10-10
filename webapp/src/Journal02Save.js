@@ -155,33 +155,33 @@ export class Journal02Save04 extends React.Component {
 
                 <div className="col-3 form-group">
                   <label>实施改造项目（升级系统）</label>
-                  <input type="text" className="form-control" id="subject" />
+                  <input type="text" className="form-control form-control-sm" id="subject" />
                 </div>
 
                 <div className="col-3 form-group">
                   <label>软件版本号（新）</label>
-                  <input type="text" className="form-control" id="software_version_new" />
+                  <input type="text" className="form-control form-control-sm" id="software_version_new" />
                 </div>
 
                 <div className="col-3 form-group">
                   <label>软件版本号（旧）</label>
-                  <input type="text" className="form-control" id="software_version_old" />
+                  <input type="text" className="form-control form-control-sm" id="software_version_old" />
                 </div>
 
                 <div className="col-3 form-group">
                   <label>批准文件号</label>
-                  <input type="text" className="form-control" id="approval_sn" />
+                  <input type="text" className="form-control form-control-sm" id="approval_sn" />
                 </div>
 
                 <div className="clearfix"></div>
 
                 <div className="col-3 form-group">
                   <label>实施改造车组</label>
-                  <input type="text" className="form-control" id="train" />
+                  <input type="text" className="form-control form-control-sm" id="train" />
                 </div>
                 <div className="col-3 form-group">
                   <label>实施改造日期</label>
-                  <input type="date" className="form-control" id="date" />
+                  <input type="date" className="form-control form-control-sm" id="date" />
                 </div>
                 <div className="col-6 form-group">
                   <label>实施改造的车厢号</label>
@@ -724,14 +724,14 @@ export class Journal02Save01 extends React.Component {
     if (detail.subject) {
       document.getElementById('subject').value = detail.subject
       document.getElementById('approval').value = detail.approval_sn
-      document.getElementById('component.train-list').value = detail.train_sn
+      document.getElementById('train').value = detail.train_sn
       document.getElementById('date').value = detail.date
     }
 
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
-      document.getElementById('component.train-list').value = response.content.group_sn
+      document.getElementById('train').value = response.content.group_sn
       document.getElementById('date').value = response.content.date_begin
       document.getElementById('time_begin').value = response.content.time_begin
       document.getElementById('time_end').value = response.content.time_end
@@ -742,7 +742,7 @@ export class Journal02Save01 extends React.Component {
     if (
         !!!document.getElementById('subject').value ||
         !!!document.getElementById('approval').value ||
-        !!!document.getElementById('component.train-list').value ||
+        !!!document.getElementById('train').value ||
         !!!document.getElementById('date').value ||
         !!!document.getElementById('carriage_subject').value ||
         !!!document.getElementById('time_begin').value ||
@@ -758,7 +758,7 @@ export class Journal02Save01 extends React.Component {
     let body = {
       subject: document.getElementById('subject').value,
       approval_sn: document.getElementById('approval').value,
-      train_sn: document.getElementById('component.train-list').value,
+      train_sn: document.getElementById('train').value,
       date: document.getElementById('date').value,
       carriage: '',
       carriage_subject: document.getElementById('carriage_subject').value,
@@ -800,7 +800,7 @@ export class Journal02Save01 extends React.Component {
       data: {
         subject: document.getElementById('subject').value,
         approval_sn: document.getElementById('approval').value,
-        train_sn: document.getElementById('component.train-list').value,
+        train_sn: document.getElementById('train').value,
         date: document.getElementById('date').value,
       },
       responseType: 'json'
@@ -840,26 +840,26 @@ export class Journal02Save01 extends React.Component {
                   <div className="col-3">
                     <div className="form-group">
                       <label>普查项目</label>
-                      <input type="text" className="form-control" id="subject" />
+                      <input type="text" className="form-control form-control-sm" id="subject" />
                     </div>
                   </div>
                   <div className="col-3">
                     <div className="form-group">
                       <label>批准文件号</label>
-                      <input type="text" className="form-control" id="approval" />
+                      <input type="text" className="form-control form-control-sm" id="approval" />
                     </div>
                   </div>
 
                   <div className="col-3">
                     <div className="form-group">
                       <label>实施普查车组</label>
-                      <TrainList />
+                      <input type="text" className="form-control form-control-sm" id="train" />
                     </div>
                   </div>
                   <div className="col-3">
                     <div className="form-group">
                       <label>实施普查日期</label>
-                      <input type="date" className="form-control" id="date" />
+                      <input type="date" className="form-control form-control-sm" id="date" />
                     </div>
                   </div>
 
