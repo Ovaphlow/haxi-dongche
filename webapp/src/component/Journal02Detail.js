@@ -23,7 +23,7 @@ export class Journal02Detail04 extends React.Component {
     }).then(response => {
       if (response.data.message) {
         this.setState({ message: response.data.message })
-        return false
+        return
       }
       this.setState({ detail: response.data.content })
       if (response.data.content.length > 0) {

@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import {
     PageTitle, PageTitle2, Sidebar, CarriageSelecter,
-    Message, BackButton, TrainList
+    Message, BackButton
 } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
