@@ -109,21 +109,21 @@ router.put('/:id/password', async (req, res) => {
 })
 
 // 编辑用户信息
-router.put('/:id', async (req, res) => {
-  let sql = `
-    update user set username = :account, name = :name, phone = :phone where id = :id
-  `
-  req.body.id = req.params.id
-  let result = await sequelize.query(sql, {
-    type: sequelize.QueryTypes.UPDATE,
-    replacements: req.body
-  }).catch(err => {
-    logger.error(err)
-    res.json({ content: '', message: '服务器错误' })
-  })
-  logger.info(result)
-  res.json({ content: '', message: '' })
-})
+// router.put('/:id', async (req, res) => {
+//   let sql = `
+//     update user set username = :account, name = :name, phone = :phone where id = :id
+//   `
+//   req.body.id = req.params.id
+//   let result = await sequelize.query(sql, {
+//     type: sequelize.QueryTypes.UPDATE,
+//     replacements: req.body
+//   }).catch(err => {
+//     logger.error(err)
+//     res.json({ content: '', message: '服务器错误' })
+//   })
+//   logger.info(result)
+//   res.json({ content: '', message: '' })
+// })
 
 /**
  * 删除用户
@@ -180,15 +180,17 @@ router.route('/').post((req, res) => {
   })
 })
 
-router.route('/:id').put((req, res) => {
+// 修改用户信息
+router.put('/:id', async (req, res) => {
   let sql = `
     update
       user
     set
       dept_id = :dept_id,
-      username = :username,
+      username = :account,
       name = :name,
       phone = :phone,
+      dept_leader = :dept_leader,
       auth_admin = :auth_admin,
       auth_01 = :auth_01,
       auth_p_jsy = :auth_p_jsy,
@@ -197,44 +199,41 @@ router.route('/:id').put((req, res) => {
     where
       id = :id
   `
-  sequelize.query(sql, {
-    replacements: {
-      dept_id: req.body.dept_id,
-      username: req.body.username,
-      name: req.body.name,
-      phone: req.body.phone,
-      auth_admin: req.body.auth_admin,
-      auth_01: req.body.auth_01,
-      auth_p_jsy: req.body.auth_p_jsy,
-      auth_p_zbsz: req.body.auth_p_zbsz,
-      auth_p_dd: req.body.auth_p_dd,
-      id: req.params.id
-    },
-    type: sequelize.QueryTypes.UPDATE
-  }).then(result => {
-    res.json({ content: '', message: '' })
-  }).catch(err => {
+  req.body.id = req.params.id
+  await sequelize.query(sql, {
+    type: sequelize.QueryTypes.UPDATE,
+    replacements: req.body
+  })
+  .catch(err => {
     logger.error(err)
     res.json({ content: '', message: '服务器错误' })
   })
+  res.json({ content: '', message: '' })
 })
 
-router.route('/:id').get((req, res) => {
+router.get('/:id', async (req, res) => {
   let sql = `
-    select u.* from user as u where id = :id
+    select
+      u.*,
+      (select value from common_data where id = u.dept_id) as dept
+    from
+      user as u
+    where
+      id = :id
   `
-  sequelize.query(sql, {
-    replacements: { id: req.params.id },
-    type: sequelize.QueryTypes.SELECT
-  }).then(result => {
-    if (result) {
-      res.json({ content: result[0], message: '', status: 200 })
-    } else {
-      res.json({ content: '', message: '未检索到指定用户。', status: 204 })
-    }
-  }).catch(err => {
-    res.json({ content: '', message: '检索数据失败。', status: 500 })
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.SELECT,
+    replacements: req.params
   })
+  .catch(err => {
+    console.error(err)
+    res.json({ content: '', message: '检索数据失败。' })
+  })
+  if (result) {
+    res.json({ content: result[0], message: '' })
+  } else {
+    res.json({ content: '', message: '未检索到指定用户。' })
+  }
 })
 
 router.route('/').get((req, res) => {

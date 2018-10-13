@@ -16,7 +16,7 @@ export default class Journal01Item extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/journal01/' + event.target.getAttribute('data-id') + '/borrow',
+      url: './api/ledger/01/' + event.target.getAttribute('data-id') + '/borrow',
       data: {
         borrow: auth.name,
         borrowId: auth.id
@@ -39,7 +39,7 @@ export default class Journal01Item extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/journal01/return/' + event.target.getAttribute('data-id'),
+      url: './api/ledger/01/return/' + event.target.getAttribute('data-id'),
       data: {
         return_name: document.getElementById('modal.return_by').value,
         return_by: auth.name,

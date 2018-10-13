@@ -14,7 +14,7 @@ export class Journal01Stats extends React.Component {
   componentDidMount() {
     axios({
       method: 'get',
-      url: './api/journal01/stats',
+      url: './api/ledger/01/stats',
       responseType: 'json'
     }).then(response => {
       if (response.data.message) {
@@ -90,7 +90,7 @@ export class Journal01Return extends React.Component {
     if (auth.auth_01) {
       axios({
         method: 'get',
-        url: './api/journal01/return',
+        url: './api/ledger/01/return',
         responseType: 'json'
       }).then(response => {
         if (response.data.message) {
@@ -104,7 +104,7 @@ export class Journal01Return extends React.Component {
     } else if (auth.id) {
       axios({
         method: 'get',
-        url: './api/journal01/return/user' + auth.id,
+        url: './api/ledger/01/return/user' + auth.id,
         responseType: 'json'
       }).then(response => {
         if (response.data.message) {
@@ -126,7 +126,7 @@ export class Journal01Return extends React.Component {
     }
     axios({
       method: 'put',
-      url: './api/journal01/return/' + event.target.getAttribute('data-id'),
+      url: './api/ledger/01/return/' + event.target.getAttribute('data-id'),
       data: {
         return_name: document.getElementById('modal.return_by').value,
         return_by: auth.name,
@@ -218,7 +218,7 @@ export class Journal01Borrow extends React.Component {
     if (auth.auth_01) {
       axios({
         method: 'get',
-        url: './api/journal01/admin',
+        url: './api/ledger/01/admin',
         responseType: 'json'
       }).then(response => {
         if (response.data.message) {
@@ -230,7 +230,7 @@ export class Journal01Borrow extends React.Component {
     } else if (auth.id){
       axios({
         method: 'get',
-        url: './api/journal01/applicant/' + auth.id + '/',
+        url: './api/ledger/01/applicant/' + auth.id + '/',
         responseType: 'json'
       }).then(response => {
         if (response.data.message) {
@@ -299,7 +299,7 @@ export class Journal01Save extends React.Component {
   submit() {
     axios({
       method: 'post',
-      url: './api/journal01/',
+      url: './api/ledger/01/',
       data: {
         applicantId: this.state.auth.id,
         applicant: this.state.auth.name,
@@ -392,7 +392,7 @@ export class Journal01 extends React.Component {
       window.location.href = './#/login'
       return false
     }
-    fetch(`./api/journal01/?timestamp=${new Date().getTime()}`)
+    fetch(`./api/ledger/01/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
   }

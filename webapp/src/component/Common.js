@@ -222,8 +222,8 @@ export class UserSelectorDept extends React.Component {
 }
 
 export class DeptList extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = { list: [] }
   }
 

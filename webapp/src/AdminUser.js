@@ -3,36 +3,31 @@ import React from 'react'
 import md5 from 'blueimp-md5'
 
 import { PageTitle, PageTitle2, Sidebar } from './component/Common'
-import { BackButton, DeptList } from './component/Common'
+import { BackButton } from './component/Common'
 
 export class AdminUser extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { message: '', deptList: [] }
+    this.state = { message: '', deptList: [], item: {} }
     this.submit = this.submit.bind(this)
     this.remove = this.remove.bind(this)
   }
 
   componentDidMount() {
-    axios({
-      method: 'get',
-      url: './api/common/user/' + sessionStorage.getItem('admin'),
-      response: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch('./api/common/dept')
+    .then(res => res.json())
+    .then(response => this.setState({ deptList: response.content }))
+
+    fetch(`./api/common/user/${sessionStorage.getItem('admin')}`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        this.setState({ message: response.message })
+        return
       }
-      document.getElementById('name').value = response.data.content.name
-      document.getElementById('account').value = response.data.content.username
-      document.getElementById('phone').value = response.data.content.phone
-      document.getElementById('component.dept-list').value = response.data.content.dept_id
-      document.getElementById('auth_admin').value = response.data.content.auth_admin
-      document.getElementById('auth_01').value = response.data.content.auth_01
-      document.getElementById('auth_p_jsy').value = response.data.content.auth_p_jsy
-      document.getElementById('auth_p_dd').value = response.data.content.auth_p_dd
-      document.getElementById('auth_p_zbsz').value = response.data.content.auth_p_zbsz
-    }).catch(err => this.setState({ message: `服务器通信异常 ` }))
+      this.setState({ item: response.content })
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submit() {
@@ -40,28 +35,33 @@ export class AdminUser extends React.Component {
       this.setState({ message: '请完整填写用户信息' })
       return false
     }
-    axios({
+    fetch(`./api/common/user/${sessionStorage.getItem('admin')}`, {
       method: 'put',
-      url: './api/common/user/' + sessionStorage.getItem('admin'),
-      data: {
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
         name: document.getElementById('name').value,
         account: document.getElementById('account').value,
         phone: document.getElementById('phone').value,
-        dept_id: document.getElementById('component.dept-list').value,
+        dept_id: document.getElementById('dept-select').value,
+        dept_leader: document.getElementById('dept-leader').value,
         auth_admin: document.getElementById('auth_admin').value,
         auth_01: document.getElementById('auth_01').value,
         auth_p_jsy: document.getElementById('auth_p_jsy').value,
         auth_p_dd: document.getElementById('auth_p_dd').value,
         auth_p_zbsz: document.getElementById('auth_p_zbsz').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
       }
-      window.location.href = './#/admin.user-list'
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   back() {
@@ -105,79 +105,115 @@ export class AdminUser extends React.Component {
             <div className="col-12">
               <div className="form-group">
                 <label>用户名称</label>
-                <input type="text" className="form-control" id="name" />
+                <input type="text" className="form-control" id="name"
+                    defaultValue={this.state.item.name}
+                />
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
                 <label>账号</label>
-                <input type="text" className="form-control" id="account" />
+                <input type="text" className="form-control" id="account"
+                    defaultValue={this.state.item.username}
+                />
               </div>
             </div>
             <div className="col-4"></div>
             <div className="col-4">
               <div className="form-group">
                 <label>电话</label>
-                <input type="text" className="form-control" id="phone" />
+                <input type="text" className="form-control" id="phone"
+                    defaultValue={this.state.item.phone}
+                />
+              </div>
+            </div>
+            <div className="clearfix"></div>
+
+            <div className="col-9">
+              <div className="form-group">
+                <label>部门</label>
+                {this.state.item.id &&
+                  <select className="form-control" id="dept-select" defaultValue={this.state.item.dept_id}>
+                    <option value="">选择部门</option>
+                    {this.state.deptList.map(item =>
+                      <option value={item.id} key={item.id}>{item.name}</option>
+                    )}
+                  </select>
+                }
+              </div>
+            </div>
+            <div className="col-3">
+              <div className="form-group">
+                <label>工长</label>
+                {this.state.item.id &&
+                  <select className="form-control" id="dept-leader" defaultValue={this.state.item.dept_leader}>
+                    <option value="">未选择</option>
+                    <option value="是">是</option>
+                    <option value="否">否</option>
+                  </select>
+                }
               </div>
             </div>
             <div className="clearfix"></div>
 
             <div className="col-12">
               <div className="form-group">
-                <label>部门</label>
-                <DeptList />
-              </div>
-            </div>
-
-            <div className="col-12">
-              <div className="form-group">
                 <label>权限：管理员</label>
-                <select className="form-control" id="auth_admin">
-                  <option value="0">否</option>
-                  <option value="1">是</option>
-                </select>
+                {this.state.item.id &&
+                  <select className="form-control" id="auth_admin" defaultValue={this.state.item.auth_admin}>
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                  </select>
+                }
               </div>
             </div>
 
             <div className="col-12">
               <div className="form-group">
                 <label>权限：禁动牌发放</label>
-                <select className="form-control" id="auth_01">
+                {this.state.item.id &&
+                <select className="form-control" id="auth_01" defaultValue={this.state.item.auth_admin}>
                   <option value="0">否</option>
                   <option value="1">是</option>
                 </select>
+                }
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
                 <label>权限：技术员</label>
-                <select className="form-control" id="auth_p_jsy">
+                {this.state.item.id &&
+                <select className="form-control" id="auth_p_jsy" defaultValue={this.state.item.auth_p_jsy}>
                   <option value="0">否</option>
                   <option value="1">是</option>
                 </select>
+                }
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
                 <label>权限：调度</label>
-                <select className="form-control" id="auth_p_dd">
+                {this.state.item.id &&
+                <select className="form-control" id="auth_p_dd" defaultValue={this.state.item.auth_p_dd}>
                   <option value="0">否</option>
                   <option value="1">是</option>
                 </select>
+                }
               </div>
             </div>
 
             <div className="col-4">
               <div className="form-group">
                 <label>权限：值班所长</label>
-                <select className="form-control" id="auth_p_zbsz">
+                {this.state.item.id &&
+                <select className="form-control" id="auth_p_zbsz" defaultValue={this.state.item.auth_p_zbsz}>
                   <option value="0">否</option>
                   <option value="1">是</option>
                 </select>
+                }
               </div>
             </div>
 
