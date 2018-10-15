@@ -394,6 +394,18 @@ export class Journal02VerifyQc extends React.Component {
 }
 
 /**
+ * 工长销记
+ * 一般配件和关键配件更换记录单时触发
+ */
+export class Journal02VerifyPgz extends React.Component {
+  render() {
+    return (
+      <div></div>
+    )
+  }
+}
+
+/**
  * 班组销记
  */
 export class Journal02VerifyPbz extends React.Component {

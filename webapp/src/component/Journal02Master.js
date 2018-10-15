@@ -20,64 +20,25 @@ export default class Journal02Master extends React.Component {
       document.getElementById('leader').value = auth.name
       document.getElementById('leaderPhone').value = auth.phone
       document.getElementById('dept').value = auth.dept
-      // 修改申请人为用户输入形式
-      // document.getElementById('component.user-selector').value = auth.name
       document.getElementById('dateBegin').value = moment().format('YYYY-MM-DD')
       document.getElementById('timeBegin').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH:mm')
-      // document.getElementById('timeBegin0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 1 }).format('HH')
-      // document.getElementById('timeBegin1').value = '00'
       document.getElementById('dateEnd').value = moment().format('YYYY-MM-DD')
       document.getElementById('timeEnd').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH:mm')
-      // document.getElementById('timeEnd0').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH')
-      // document.getElementById('timeEnd1').value = '00'
     } else if (this.props.mode === 'read' || this.props.mode === 'update') {
-      axios({
-        method: 'get',
-        url: './api/journal02/' + sessionStorage.getItem('journal02') + '?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
+      fetch(`./api/document/02/${sessionStorage.getItem('journal02')}?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        if (response.message) {
+          this.setState({ message: response.message })
+          return
         }
-        this.setState({ master: response.data.content })
-        // document.getElementById('dept').value = response.data.content.dept
-        // document.getElementById('applicant').value = response.data.content.applicant
-        // document.getElementById('applicantPhone').value = response.data.content.applicant_phone
-        // document.getElementById('leader').value = response.data.content.leader
-        // document.getElementById('leaderPhone').value = response.data.content.leader_phone
-        // document.getElementById('component.train-list').value = response.data.content.group_sn
+        this.setState({ master: response.content })
         document.getElementById('dateBegin').value = response.data.content.date_begin
         document.getElementById('timeBegin').value = response.data.content.time_begin
         document.getElementById('dateEnd').value = response.data.content.date_end
         document.getElementById('timeEnd').value = response.data.content.time_end
-        // document.getElementById('content').value = response.data.content.content
-        // document.getElementById('content_detail').value = response.data.content.content_detail
-        // if (response.data.content.p_yq_xdc === '供') {
-        //   document.getElementById('p_yq_xdc-0').checked = true
-        // } else if (response.data.content.p_yq_xdc === '断') {
-        //   document.getElementById('p_yq_xdc-1').checked = true
-        // } else if (response.data.content.p_yq_xdc === '无要求') {
-        //   document.getElementById('p_yq_xdc-2').checked = true
-        // }
-        // if (response.data.content.p_yq_jcw === '供') {
-        //   document.getElementById('p_yq_jcw-0').checked = true
-        // } else if (response.data.content.p_yq_jcw === '断') {
-        //   document.getElementById('p_yq_jcw-1').checked = true
-        // } else if (response.data.content.p_yq_jcw === '无要求') {
-        //   document.getElementById('p_yq_jcw-2').checked = true
-        // }
-        // if (response.data.content.p_yq_zydd === '检查库') {
-        //   document.getElementById('p_yq_zydd-0').checked = true
-        // } else if (response.data.content.p_yq_zydd === '临修库') {
-        //   document.getElementById('p_yq_zydd-1').checked = true
-        // } else if (response.data.content.p_yq_zydd === '无要求') {
-        //   document.getElementById('p_yq_zydd-2').checked = true
-        // }
-      }).catch(err => {
-        window.console && console.error(err)
-        this.setState({ message: '服务器通信异常' })
       })
+      .catch(err => window.console && console.error(err))
     }
   }
 
@@ -105,12 +66,13 @@ export default class Journal02Master extends React.Component {
       alert('作业时间填写错误')
       return
     }
-    axios({
+    fetch(`./api/document/02/`, {
       method: 'post',
-      url: './api/journal02/',
-      data: {
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
         applicant: document.getElementById('applicant').value,
-        // applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
         leaderId: this.state.auth.id,
@@ -119,10 +81,8 @@ export default class Journal02Master extends React.Component {
         groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
         timeBegin: document.getElementById('timeBegin').value,
-        // timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
         timeEnd: document.getElementById('timeEnd').value,
-        // timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
         content: document.getElementById('content').value,
         content_detail: document.getElementById('content_detail').value,
         p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
@@ -135,27 +95,29 @@ export default class Journal02Master extends React.Component {
           (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
           (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
         p_yq_qt: document.getElementById('p_yq_qt').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        this.setState({ message: response.message })
+        return
       }
       window.location.href = './#/journal.02'
     })
+    .catch(err => window.console && console.error(err))
   }
 
   update() {
     this.setState({ message: '' })
     if (
-          !!!document.getElementById('dept').value ||
-          !!!document.getElementById('applicant').value ||
-          // !!!document.getElementById('component.user-selector').value ||
-          !!!document.getElementById('leader').value ||
-          !!!document.getElementById('component.train-list').value ||
-          !!!document.getElementById('dateBegin').value ||
-          !!!document.getElementById('dateEnd').value
+        !!!document.getElementById('dept').value ||
+        !!!document.getElementById('applicant').value ||
+        // !!!document.getElementById('component.user-selector').value ||
+        !!!document.getElementById('leader').value ||
+        !!!document.getElementById('component.train-list').value ||
+        !!!document.getElementById('dateBegin').value ||
+        !!!document.getElementById('dateEnd').value
     ) {
       this.setState({ message: '请完整填写申请信息' })
       return false
