@@ -175,9 +175,10 @@ export class ProgressTag extends React.Component {
         质检签字
       </span>
     )
+    // 检修工长确认
     else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content.indexOf('班组') !== -1)) return (
       <span className="badge badge-success pull-right">
-        班组签字
+        班组作业人员销记
       </span>
     )
     else if (
@@ -689,6 +690,11 @@ export class ReviewQcLink extends React.Component {
 }
 
 /**
+ * 一般配件和关键配件更换记录销记时触发
+ * 班组工长流程
+ */
+
+/**
  * 班组销记
  */
 export class ReviewPbzSubmit extends React.Component {
@@ -755,7 +761,7 @@ export class ReviewPbzLink extends React.Component {
     return (
       <button type="button" className="btn btn-primary" onClick={this.submit}>
         <i className="fa fa-fw fa-edit"></i>
-        班组销记
+        班组作业人员销记
       </button>
     )
   }

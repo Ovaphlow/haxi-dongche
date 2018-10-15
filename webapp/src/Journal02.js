@@ -616,6 +616,13 @@ export class Journal02Verify extends React.Component {
     .then(res => res.json())
     .then(response => this.setState({ list_p_bz: response.content }))
 
+    fetch(`./api/document/02/verify/p_gz/`)
+    .then(res => res.json())
+    .then(response => {
+      console.info(response)
+    })
+    .catch(err => window.console && console.error(err))
+
     if (auth.dept === '质检') {
       fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
       .then(res => res.json())
@@ -888,7 +895,31 @@ export class Journal02Detail extends React.Component {
 
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
-    .then(response => this.setState({ master: response.content }))
+    .then(response => {
+      this.setState({ master: response.content })
+
+      // 检查供电状态是否和已有申请冲突
+      if (!!!response.content.sign_verify_leader) {
+        fetch(`./api/document/02/check/power/${sessionStorage.getItem('journal02')}`)
+        .then(res => res.json())
+        .then(response => {
+          if (response.message) {
+            window.alert(response.message)
+            return
+          }
+          if (response.content.length > 0) {
+            let row = response.content[0]
+            let message = `
+              ${row.dept}的${row.applicant}(${row.applicant_phone})提交的申请中的供电状态与当前申请冲突。
+              蓄电池：${row.p_yq_xdc}，接触网：${row.p_yq_jcw}。
+            `
+            this.setState({ message: message})
+            window.alert(message)
+          }
+        })
+        .catch(err => window.console && console.error(err))
+      }
+    })
 
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
@@ -905,26 +936,6 @@ export class Journal02Detail extends React.Component {
     fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content.qty }))
-
-    // 检查供电状态是否和已有申请冲突
-    fetch(`./api/document/02/check/power/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        window.alert(response.message)
-        return
-      }
-      if (response.content.length > 0) {
-        let row = response.content[0]
-        let message = `
-          ${row.dept}的${row.applicant}(${row.applicant_phone})提交的申请中的供电状态与当前申请冲突。
-          蓄电池：${row.p_yq_xdc}，接触网：${row.p_yq_jcw}。
-        `
-        this.setState({ message: message})
-        window.alert(message)
-      }
-    })
-    .catch(err => window.console && console.error(err))
   }
 
   render() {

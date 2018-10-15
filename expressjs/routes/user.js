@@ -276,10 +276,11 @@ router.route('/dept/:id').get((req, res) => {
   })
 })
 
+// 登录
 router.route('/login').post((req, res) => {
   let sql = `
     select
-      u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone,
+      u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone, u.dept_leader,
       auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd, sign
     from
       user as u
