@@ -33,10 +33,10 @@ export default class Journal02Master extends React.Component {
           return
         }
         this.setState({ master: response.content })
-        document.getElementById('dateBegin').value = response.data.content.date_begin
-        document.getElementById('timeBegin').value = response.data.content.time_begin
-        document.getElementById('dateEnd').value = response.data.content.date_end
-        document.getElementById('timeEnd').value = response.data.content.time_end
+        document.getElementById('dateBegin').value = response.content.date_begin
+        document.getElementById('timeBegin').value = response.content.time_begin
+        document.getElementById('dateEnd').value = response.content.date_end
+        document.getElementById('timeEnd').value = response.content.time_end
       })
       .catch(err => window.console && console.error(err))
     }

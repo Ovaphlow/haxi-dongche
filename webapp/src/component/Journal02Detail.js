@@ -363,7 +363,7 @@ export class Journal02Detail03 extends React.Component {
                         <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
                       </span>
                     }
-                    {this.state.auth.auth_admin && <LinkAdminDetail03 detail={item.id} />}
+                    {this.state.auth.auth_admin === 1 && <LinkAdminDetail03 detail={item.id} />}
                   </td>
                   <td width="6%" className="text-center align-middle">{item.train}</td>
                   <td width="3%" className="text-center align-middle">{item.carriage}</td>
@@ -577,7 +577,7 @@ export class Journal02Detail02 extends React.Component {
                     {!!!this.props.read &&
                       <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
                     }
-                    {this.state.auth.auth_admin && <LinkAdminDetail02 detail={item.id} />}
+                    {this.state.auth.auth_admin === 1 && <LinkAdminDetail02 detail={item.id} />}
                   </td>
                   <td width="6%" className="text-center align-middle">{item.train}</td>
                   <td width="3%" className="text-center align-middle">{item.carriage}</td>
