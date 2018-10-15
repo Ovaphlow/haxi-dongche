@@ -72,12 +72,8 @@ export class Journal02Stats extends React.Component {
   }
 
   componentDidMount() {
-    fetch('./api/journal02/stats', {
-      method: 'get',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      }
-    })
+    // fetch('./api/journal02/stats', {
+    fetch('./api/document/02/stats/')
     .then(res => res.json())
     .then(response => {
       var chart = echarts.init(document.getElementById('chart'))
@@ -620,11 +616,13 @@ export class Journal02Verify extends React.Component {
       return false
     }
 
-    fetch('./api/journal02/verify/leader/' + auth.id + '?timestamp=' + new Date().getTime())
+    // fetch('./api/journal02/verify/leader/' + auth.id + '?timestamp=' + new Date().getTime())
+    fetch(`./api/document/02/review/applicant/${auth.id}/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list_leader: response.content }))
 
-    fetch('./api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime())
+    // fetch('./api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime())
+    fetch(`./api/document/02/review/p_bz/${auth.dept}/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list_p_bz: response.content }))
 
@@ -636,19 +634,22 @@ export class Journal02Verify extends React.Component {
     .catch(err => window.console && console.error(err))
 
     if (auth.dept === '质检') {
-      fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
+      // fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
+      fetch(`./api/document/02/review/qc/${auth.dept}/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_qc: response.content }))
     }
 
     if (auth.auth_p_jsy) {
-      fetch('./api/journal02/verify/p_jsy?timestamp=' + new Date().getTime())
+      // fetch('./api/journal02/verify/p_jsy?timestamp=' + new Date().getTime())
+      fetch(`./api/document/02/review/p_jsy/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_p_jsy: response.content }))
     }
 
     if (auth.auth_p_dd) {
-      fetch('./api/journal02/verify/?timestamp=' + new Date().getTime())
+      // fetch('./api/journal02/verify/?timestamp=' + new Date().getTime())
+      fetch(`./api/document/02/review/p_dd/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_p_dd: response.content }))
     }
@@ -792,17 +793,16 @@ export class Journal02Check extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem("auth"))
 
-    axios({
-      method: 'get',
-      url: './api/journal02/jsy/bz/' + auth.dept + '?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch(`./api/document/02/approve/p_bz/${auth.dept}/?timestamp=${new Date().getTime()}`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ list_p_jsy_bz: response.data.content })
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+      this.setState({ list_p_jsy_bz: response.content })
+    })
+    .catch(err => window.console && console.error(err))
 
     if (auth.auth_p_jsy) {
       fetch(`./api/document/02/approve/p_jsy/`)
@@ -818,7 +818,8 @@ export class Journal02Check extends React.Component {
     }
 
     if (auth.auth_p_dd) {
-      fetch(`./api/journal02/dd/?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/dd/?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/approve/p_dd/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ list_p_dd: response.content })
@@ -827,17 +828,15 @@ export class Journal02Check extends React.Component {
     }
 
     if (auth.auth_p_zbsz) {
-      axios({
-        method: 'get',
-        url: './api/journal02/zbsz/?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
+      fetch(`./api/document/02/approve/p_zbsz/?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
         }
-        this.setState({ list_p_zbsz: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+        this.setState({ list_p_zbsz: response.content })
+      })
     }
   }
 
@@ -904,7 +903,8 @@ export class Journal02Detail extends React.Component {
     }
     this.setState({ auth: auth })
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ master: response.content })
@@ -1056,7 +1056,8 @@ export class Journal02 extends React.Component {
   submit() {
     this.setState({ list: [] })
     this.setState({ warningList: [] })
-    fetch(`./api/journal02/filter/`, {
+    // fetch(`./api/journal02/filter/`, {
+    fetch(`./api/document/02/filter/`, {
       method: 'post',
       headers: {
         'content-type': 'application/json; charset=utf-8'

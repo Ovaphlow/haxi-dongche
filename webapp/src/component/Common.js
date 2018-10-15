@@ -414,7 +414,8 @@ export class Sidebar extends React.Component {
     }
     if (this.props.category === '单据') {
       if (auth.auth_p_jsy) {
-        fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+        // fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+        fetch(`./api/document/02/todo/p_jsy?timestamp=${new Date().getTime()}`)
         .then(res => res.json())
         .then(response => {
           this.setState({ todoQty: this.state.todoQty + response.content.qty + response.content.qty1 })
@@ -422,14 +423,16 @@ export class Sidebar extends React.Component {
         .catch(err => window.console && console.error(err))
       }
 
-      fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ todoQty: this.state.todoQty + response.content.qty + response.content.qty1 })
       })
       .catch(err => window.console && console.error(err))
 
-      fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ todoQty: this.state.todoQty + response.content.qty1 })
@@ -437,7 +440,8 @@ export class Sidebar extends React.Component {
       .catch(err => window.console && console.error(err))
 
       if (auth.auth_p_dd) {
-        fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+        // fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+        fetch(`./api/document/02/todo/p_dd?timestamp=${new Date().getTime()}`)
         .then(res => res.json())
         .then(response => {
           let qty = this.state.todoQty + response.content.qty + response.content.qty1
@@ -447,7 +451,8 @@ export class Sidebar extends React.Component {
       }
 
       if (auth.auth_p_zbsz) {
-        fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+        // fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+        fetch(`./api/document/02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
         .then(res => res.json())
         .then(response => {
           this.setState({ todoQty: this.state.todoQty + response.content.qty })

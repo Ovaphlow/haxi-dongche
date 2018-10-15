@@ -1170,7 +1170,8 @@ export default class Journal02Toolbar extends React.Component {
     if (!!!auth) return
     // 待处理任务计数
     if (auth.auth_p_jsy) {
-      fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/todo/p_jsy?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
@@ -1179,7 +1180,8 @@ export default class Journal02Toolbar extends React.Component {
       .catch(err => window.console && console.error(err))
     }
 
-    fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+    // fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
@@ -1187,7 +1189,8 @@ export default class Journal02Toolbar extends React.Component {
     })
     .catch(err => window.console && console.error(err))
 
-    fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
+    // fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
       // this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
@@ -1196,7 +1199,8 @@ export default class Journal02Toolbar extends React.Component {
     .catch(err => window.console && console.error(err))
 
     if (auth.auth_p_dd) {
-      fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/todo/p_dd?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
@@ -1206,7 +1210,8 @@ export default class Journal02Toolbar extends React.Component {
     }
 
     if (auth.auth_p_zbsz) {
-      fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+      // fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
+      fetch(`./api/document/02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
         this.setState({ todoApprove: this.state.todoApprove + response.content.qty })
