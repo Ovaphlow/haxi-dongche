@@ -1069,7 +1069,8 @@ export class ApprovePjsySubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/approve/p_jsy`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'

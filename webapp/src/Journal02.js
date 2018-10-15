@@ -805,17 +805,16 @@ export class Journal02Check extends React.Component {
     }).catch(err => this.setState({ message: `服务器通信异常` }))
 
     if (auth.auth_p_jsy) {
-      axios({
-        method: 'get',
-        url: './api/journal02/jsy/?timestamp=' + new Date().getTime(),
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          this.setState({ message: response.data.message })
-          return false
+      fetch(`./api/document/02/approve/p_jsy/`)
+      .then(res => res.json())
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
         }
-        this.setState({ list_p_jsy: response.data.content })
-      }).catch(err => this.setState({ message: `服务器通信异常` }))
+        this.setState({ list_p_jsy: response.content })
+      })
+      .catch(err => window.console && console.error(err))
     }
 
     if (auth.auth_p_dd) {
@@ -1082,28 +1081,11 @@ export class Journal02 extends React.Component {
     .catch(err => window.console && console.error(err))
   }
 
-  // 未完成申请单
-  // 弃用
-  submit1() {
-    fetch(`./api/journal02/filter/notcomplete`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        dept: document.getElementById('component.dept-list').value,
-        group: document.getElementById('component.train-list').value,
-        date: document.getElementById('date_begin').value
-      })
-    })
-    .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
-  }
-
   handlerListFin() {
     this.setState({ warningList: [] })
     this.setState({ list: [] })
-    fetch(`./api/journal02/filter/fin`, {
+    // fetch(`./api/journal02/filter/fin`, {
+    fetch(`./api/document/02/filter/fin/`, {
       method: 'post',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -1141,15 +1123,14 @@ export class Journal02 extends React.Component {
     })
     .catch(err => window.console && console.error(err))
 
-    fetch(`./api/journal02/filter/user/${this.state.auth.id}?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/filter/user/${this.state.auth.id}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
+    .catch(err => window.console && console.error(err))
 
-    fetch(`./api/journal02/filter/user/${this.state.auth.id}/flow`)
+    fetch(`./api/document/02/filter/user/${this.state.auth.id}/flow`)
     .then(res => res.json())
-    .then(response => {
-      this.setState({ flowList: response.content})
-    })
+    .then(response => { this.setState({ flowList: response.content}) })
     .catch(err => window.console && console.error(err))
   }
 
