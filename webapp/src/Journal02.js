@@ -1041,12 +1041,12 @@ export class Journal02 extends React.Component {
     document.getElementById('date_begin').value = moment().subtract(1, 'days').format('YYYY-MM-DDT20:00:00')
     document.getElementById('date_end').value = moment().format('YYYY-MM-DDT08:00:00')
 
-    fetch(`./api/journal02/?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
     .catch(err => window.console && console.error(err))
 
-    fetch(`./api/journal02/warning`)
+    fetch(`./api/document/02/warning/`)
     .then(res => res.json())
     .then(response => {
       this.setState({ warningList: response.content })
