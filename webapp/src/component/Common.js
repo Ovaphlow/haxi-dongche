@@ -431,6 +431,15 @@ export class Sidebar extends React.Component {
       })
       .catch(err => window.console && console.error(err))
 
+      if (auth.dept_leader === '是') {
+        fetch(`./api/document/02/todo/p_gz/${auth.dept}?timestamp=${new Date().getTime()}`)
+        .then(res => res.json())
+        .then(response => {
+          this.setState({ todoQty: this.state.todoQty + response.content.qty })
+        })
+        .catch(err => window.console && console.error(err))
+      }
+
       // fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
       fetch(`./api/document/02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
       .then(res => res.json())

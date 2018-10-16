@@ -17,7 +17,6 @@ export class ProgressButton extends React.Component {
     ) return (
       <ApprovePjsyLink />
     )
-
     else if (
         this.props.item.sign_p_jsy &&
         !!!this.props.item.sign_p_dd &&
@@ -62,7 +61,16 @@ export class ProgressButton extends React.Component {
         !!!this.props.item.sign_verify_leader_bz &&
         this.props.auth.dept === this.props.item.p_jsy_bz
     ) return (
-      <ReviewPbzLink />
+      <ReviewPbzSubmit />
+    )
+    else if (
+        this.props.item.sign_verify_leader_bz &&
+        (
+          this.props.item.qty_review_p_gz_02 > 0 ||
+          this.props.item.qty_review_p_gz_03 > 0
+        )
+    ) return (
+      <ReviewPgzLink />
     )
     else if (
         this.props.item.sign_verify_leader_bz &&
@@ -170,12 +178,23 @@ export class ProgressTag extends React.Component {
         技术员签字
       </span>
     )
-    else if ((this.props.item.p_jsy_content.indexOf('质检') !== 1) && this.props.item.sign_verify_leader_bz) return (
+    else if (
+        (this.props.item.p_jsy_content.indexOf('质检') !== 1) &&
+        // this.props.item.sign_verify_leader_bz
+        this.props.item.qty_review_p_gz_02 === 0 &&
+        this.props.item.qty_review_p_gz_03 === 0
+    ) return (
       <span className="badge badge-success pull-right">
         质检签字
       </span>
     )
-    // 检修工长确认
+    else if (
+        this.props.item.qty_review_p_gz_02 > 0 || this.props.item.qty_review_p_gz_03 > 0
+    ) return (
+      <span className="badge badge-success pull-right">
+        检修工长确认
+      </span>
+    )
     else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content.indexOf('班组') !== -1)) return (
       <span className="badge badge-success pull-right">
         班组作业人员销记
@@ -693,9 +712,52 @@ export class ReviewQcLink extends React.Component {
  * 一般配件和关键配件更换记录销记时触发
  * 班组工长流程
  */
+export class ReviewPgzSubmit extends React.Component {
+  handler() {
+    console.info(1)
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) return
+    let selector = document.getElementsByTagName('select')
+    for (let i = 0; i < selector.length; i++) {
+      if (selector[i].value === '') {
+        alert('请选择监控结果')
+        return
+      }
+    }
+    window.location.reload(true)
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+        检修工长确认
+      </button>
+    )
+  }
+}
+
+/**
+ * 链接：班组工长流程
+ */
+export class ReviewPgzLink extends React.Component {
+  handler() {
+    window.location.href = './#/journal.02-review.p_gz'
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+        检修工长确认
+      </button>
+    )
+  }
+}
 
 /**
  * 班组销记
+ * 2018.10改动：班组签申请单，工长签子单
  */
 export class ReviewPbzSubmit extends React.Component {
   constructor() {
@@ -715,14 +777,8 @@ export class ReviewPbzSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    let selector = document.getElementsByTagName('select')
-    for (let i = 0; i < selector.length; i++) {
-      if (selector[i].value === '') {
-        alert('请选择监控结果')
-        return
-      }
-    }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/bz`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/bz`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/review/p_bz`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -731,30 +787,8 @@ export class ReviewPbzSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.href = './#/journal.02-verify')
-  }
-
-  render() {
-    return (
-      <button type="button" className="btn btn-primary" onClick={this.submit}>
-        <i className="fa fa-fw fa-edit"></i>
-        确认
-      </button>
-    )
-  }
-}
-
-/**
- * 跳转班组销记
- */
-export class ReviewPbzLink extends React.Component {
-  constructor() {
-    super()
-    this.submit = this.submit.bind(this)
-  }
-
-  submit() {
-    window.location.href = './#/journal.02-verify.p_bz'
+    .then(() => window.location.reload(true))
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -1188,6 +1222,15 @@ export default class Journal02Toolbar extends React.Component {
       this.setState({ todoReview: this.state.todoReview + response.content.qty1 })
     })
     .catch(err => window.console && console.error(err))
+
+    if (auth.dept_leader === '是') {
+      fetch(`./api/document/02/todo/p_gz/${auth.dept}?timestamp=${new Date().getTime()}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ todoReview: this.state.todoReview + response.content.qty })
+      })
+      .catch(err => window.console && console.error(err))
+    }
 
     // fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     fetch(`./api/document/02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)

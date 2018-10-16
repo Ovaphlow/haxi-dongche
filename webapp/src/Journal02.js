@@ -16,7 +16,7 @@ import {
 import {
     ApprovePjsySubmit,
     ReviewApplicantSubmit,
-    ReviewPbzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
+    ReviewPgzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 import { LinkAdminMaster } from './Journal02Admin'
@@ -393,18 +393,7 @@ export class Journal02VerifyQc extends React.Component {
  * 工长销记
  * 一般配件和关键配件更换记录单时触发
  */
-export class Journal02VerifyPgz extends React.Component {
-  render() {
-    return (
-      <div></div>
-    )
-  }
-}
-
-/**
- * 班组销记
- */
-export class Journal02VerifyPbz extends React.Component {
+export class Journal02ReviewPgz extends React.Component {
   constructor(props) {
     super(props)
     this.state = { detail01: [], detail02: [], detail03: [], detail04: [] }
@@ -466,7 +455,7 @@ export class Journal02VerifyPbz extends React.Component {
 
           <div className="col-12 mt-3">
             <div className="btn-group pull-right">
-              <ReviewPbzSubmit />
+              <ReviewPgzSubmit />
             </div>
           </div>
         </div>
@@ -624,14 +613,21 @@ export class Journal02Verify extends React.Component {
     // fetch('./api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime())
     fetch(`./api/document/02/review/p_bz/${auth.dept}/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
-    .then(response => this.setState({ list_p_bz: response.content }))
-
-    fetch(`./api/document/02/verify/p_gz/`)
-    .then(res => res.json())
     .then(response => {
-      console.info(response)
+      this.setState({ list_p_bz: response.content })
+
+      // 工长签字
+      if (auth.dept_leader === '是') {
+        fetch(`./api/document/02/verify/p_gz/${auth.dept}`)
+        .then(res => res.json())
+        .then(response1 => {
+          if (response1.content.length > 0) {
+            this.setState({ list_p_bz: response1.content.concat(response.content) })
+          }
+        })
+        .catch(err => window.console && console.error(err))
+      }
     })
-    .catch(err => window.console && console.error(err))
 
     if (auth.dept === '质检') {
       // fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
@@ -1042,7 +1038,10 @@ export class Journal02 extends React.Component {
 
     fetch(`./api/document/02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      console.info(response)
+      this.setState({ list: response.content })
+    })
     .catch(err => window.console && console.error(err))
 
     fetch(`./api/document/02/warning/`)

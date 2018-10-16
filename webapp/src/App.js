@@ -11,7 +11,7 @@ import { AdminTrain, AdminTrainList } from './AdminTrain'
 import { Journal01, Journal01Save, Journal01Borrow, Journal01Return, Journal01Stats } from './Journal01'
 import {
     Journal02, Journal02Detail, Journal02Check, Journal02PjsyContent,
-    Journal02Verify, Journal02VerifyLeader, Journal02VerifyPbz, Journal02VerifyPgz, Journal02VerifyQc, Journal02VerifyPjsy,
+    Journal02Verify, Journal02VerifyLeader, Journal02ReviewPgz, Journal02VerifyQc, Journal02VerifyPjsy,
     Journal02VerifyPdd, Journal02Stats, Journal02RejectList
 } from './Journal02'
 import {
@@ -62,8 +62,7 @@ class App extends Component {
             <Route path="/journal.02-save.02" component={Journal02Save02} />
             <Route path="/journal.02-save.03" component={Journal02Save03} />
             <Route path="/journal.02-save.04" component={Journal02Save04} />
-            <Route path="/journal.02-verify.p_bz" component={Journal02VerifyPbz} />
-            <Route path="/journal.02-verify.p_gz" component={Journal02VerifyPgz} />
+            <Route path="/journal.02-review.p_gz" component={Journal02ReviewPgz} />
             <Route path="/journal.02-verify.qc" component={Journal02VerifyQc} />
             <Route path="/journal.02-verify.p_jsy" component={Journal02VerifyPjsy} />
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />

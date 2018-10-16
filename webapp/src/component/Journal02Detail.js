@@ -207,7 +207,6 @@ export class Journal02Detail03 extends React.Component {
     super(props)
 
     this.state = { message: '', detail: [] }
-    this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
     this.submitDetailPjsy = this.submitDetailPjsy.bind(this)
     this.remove = this.remove.bind(this)
@@ -229,20 +228,26 @@ export class Journal02Detail03 extends React.Component {
     }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
-  submitDetailPbz(event) {
+  submitDetailPgz(event) {
     this.setState({ message: '' })
-
-    axios({
+    if (event.target.value === '') return
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/03/${event.target.getAttribute('data-id')}/p_gz`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/p_bz',
-      data: { leader: event.target.value === '' ? '' : this.state.auth.name },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
+        leader: event.target.value === '未确认' ? '未确认' : this.state.auth.name
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submitDetailQc(event) {
@@ -381,7 +386,7 @@ export class Journal02Detail03 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
                     {this.props.p_bz &&
-                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPgz.bind(this)}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
                         <option value="未确认">未确认</option>
@@ -423,7 +428,6 @@ export class Journal02Detail02 extends React.Component {
   constructor(props) {
     super(props)
     this.state = { message: '', detail: [], auth: {} }
-    this.submitDetailPbz = this.submitDetailPbz.bind(this)
     this.submitDetailQc = this.submitDetailQc.bind(this)
     this.submitDetailPjsy = this.submitDetailPjsy.bind(this)
     this.remove = this.remove.bind(this)
@@ -449,21 +453,25 @@ export class Journal02Detail02 extends React.Component {
     }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
-  submitDetailPbz(event) {
+  submitDetailPgz(event) {
     this.setState({ message: '' })
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/02/${event.target.getAttribute('data-id')}/p_gz`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/p_bz',
-      data: {
-        leader: event.target.value === '' ? '' : this.state.auth.name
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
       },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      body: JSON.stringify({
+        leader: event.target.value === '未确认' ? '未确认' : this.state.auth.name
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submitDetailQc(event) {
@@ -594,7 +602,7 @@ export class Journal02Detail02 extends React.Component {
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
                     {this.props.p_bz &&
-                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPbz}>
+                      <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPgz.bind(this)}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
                         <option value="未确认">未确认</option>
