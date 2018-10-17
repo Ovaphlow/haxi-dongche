@@ -526,7 +526,8 @@ export class ReviewPddSubmit extends React.Component {
       alert('请填写备注，没有备注内容时需要填写“无”')
       return
     }
-    fetch(`./api/journal02/verify/${sessionStorage.getItem('journal02')}`, {
+    // fetch(`./api/journal02/verify/${sessionStorage.getItem('journal02')}`, {
+    fetch(`./api/document/02/review/p_dd/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -538,7 +539,15 @@ export class ReviewPddSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.href = './#/journal.02-verify')
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -665,7 +674,8 @@ export class ReviewQcSubmit extends React.Component {
         return
       }
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/qc`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/qc`, {
+    fetch(`./api/document/02/review/qc/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -674,7 +684,12 @@ export class ReviewQcSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => {
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
       alert('操作已提交至服务器，确认后可以关闭页面。')
       window.location.reload(true)
     })
@@ -842,7 +857,8 @@ export class ReviewApplicantSubmit extends React.Component {
     故障处理作业需要填写【一般配件更换记录表】或【关键配件更换记录表】
     加装改造作业需要填写【加装改造（软件升级）记录单】
     不填写记录单直接销记请点击【确定】，返回填写记录单点击【取消】`)) return
-    fetch(`./api/journal02/verify/leader/${sessionStorage.getItem('journal02-detail')}`, {
+    // fetch(`./api/journal02/verify/leader/${sessionStorage.getItem('journal02-detail')}`, {
+    fetch(`./api/document/02/review/applicant/${sessionStorage.getItem('journal02-detail')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -855,13 +871,19 @@ export class ReviewApplicantSubmit extends React.Component {
         verify_report: document.getElementById('verify_report').value,
         verify_leader: this.state.auth.name,
         verify_leader_id: this.state.auth.id,
-        // verify_leader_date: document.getElementById('verify_leader_date').value,
-        // verify_leader_time: document.getElementById('verify_leader_time').value,
         remark: document.getElementById('remark').value,
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.href = './#/journal.02-verify')
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -918,7 +940,8 @@ export class ApprovePzbszSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/zbsz`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/zbsz`, {
+    fetch(`./api/document/02/approve/p_zbsz/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -929,7 +952,15 @@ export class ApprovePzbszSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.reload(true))
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -963,7 +994,8 @@ export class ApprovePddSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/dd`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/dd`, {
+    fetch(`./api/document/02/approve/p_dd/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -974,7 +1006,15 @@ export class ApprovePddSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.reload(true))
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -982,49 +1022,6 @@ export class ApprovePddSubmit extends React.Component {
       <button type="button" className="btn btn-primary" onClick={this.submit}>
         <i className="fa fa-fw fa-edit"></i>
         调度审核
-      </button>
-    )
-  }
-}
-
-/**
- * 质检签字
- */
-export class ApproveQcSubmit extends React.Component {
-  constructor() {
-    super()
-    this.state = { auth: {} }
-    this.submit = this.submit.bind(this)
-  }
-
-  componentDidMount() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) return false
-    this.setState({ auth: auth })
-  }
-
-  submit() {
-    if (!!!this.state.auth.sign) {
-      alert('请先设置签名')
-      return false
-    }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy/qc`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        sign: this.state.auth.sign
-      })
-    })
-    .then(() => window.location.reload(true))
-  }
-
-  render() {
-    return (
-      <button type="button" className="btn btn-primary" onClick={this.submit}>
-        <i className="fa fa-fw fa-edit"></i>
-        质检签字
       </button>
     )
   }
@@ -1051,7 +1048,8 @@ export class ApprovePbzSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy/bz`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy/bz`, {
+    fetch(`./api/document/02/approve/p_bz/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -1060,7 +1058,15 @@ export class ApprovePbzSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.reload(true))
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -1184,7 +1190,7 @@ export class RemoveButton extends React.Component {
     .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(message)
+        alert(response.message)
         return
       }
       window.location.href = './#/journal.02'

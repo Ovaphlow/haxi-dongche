@@ -606,12 +606,10 @@ export class Journal02Verify extends React.Component {
       return false
     }
 
-    // fetch('./api/journal02/verify/leader/' + auth.id + '?timestamp=' + new Date().getTime())
     fetch(`./api/document/02/review/applicant/${auth.id}/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ list_leader: response.content }))
 
-    // fetch('./api/journal02/verify/leader/bz/' + auth.dept + '?timestamp=' + new Date().getTime())
     fetch(`./api/document/02/review/p_bz/${auth.dept}/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
@@ -631,21 +629,18 @@ export class Journal02Verify extends React.Component {
     })
 
     if (auth.dept === '质检') {
-      // fetch('./api/journal02/verify/leader/qc/' + auth.dept + '?timestamp=' + new Date().getTime())
       fetch(`./api/document/02/review/qc/${auth.dept}/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_qc: response.content }))
     }
 
     if (auth.auth_p_jsy) {
-      // fetch('./api/journal02/verify/p_jsy?timestamp=' + new Date().getTime())
       fetch(`./api/document/02/review/p_jsy/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_p_jsy: response.content }))
     }
 
     if (auth.auth_p_dd) {
-      // fetch('./api/journal02/verify/?timestamp=' + new Date().getTime())
       fetch(`./api/document/02/review/p_dd/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => this.setState({ list_p_dd: response.content }))
@@ -815,7 +810,6 @@ export class Journal02Check extends React.Component {
     }
 
     if (auth.auth_p_dd) {
-      // fetch(`./api/journal02/dd/?timestamp=${new Date().getTime()}`)
       fetch(`./api/document/02/approve/p_dd/?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
@@ -900,7 +894,6 @@ export class Journal02Detail extends React.Component {
     }
     this.setState({ auth: auth })
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
@@ -1056,7 +1049,6 @@ export class Journal02 extends React.Component {
   submit() {
     this.setState({ list: [] })
     this.setState({ warningList: [] })
-    // fetch(`./api/journal02/filter/`, {
     fetch(`./api/document/02/filter/`, {
       method: 'post',
       headers: {
@@ -1085,7 +1077,6 @@ export class Journal02 extends React.Component {
   handlerListFin() {
     this.setState({ warningList: [] })
     this.setState({ list: [] })
-    // fetch(`./api/journal02/filter/fin`, {
     fetch(`./api/document/02/filter/fin/`, {
       method: 'post',
       headers: {
