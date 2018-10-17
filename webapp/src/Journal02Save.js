@@ -28,7 +28,7 @@ export class Journal02Save04 extends React.Component {
       document.getElementById('date').value = detail.date
     }
 
-    fetch(`/api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
@@ -253,7 +253,7 @@ export class Journal02Save03 extends React.Component {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('operator').value = auth.name
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
@@ -487,7 +487,7 @@ export class Journal02Save02 extends React.Component {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('operator').value = auth.name
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
@@ -728,7 +728,7 @@ export class Journal02Save01 extends React.Component {
       document.getElementById('date').value = detail.date
     }
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
@@ -990,14 +990,10 @@ export class Journal02Update extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02'), {
-      method: 'get',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      }
-    })
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => this.setState({ journal: response.content }))
+    .catch(err => window.console && console.info(err))
   }
 
   render() {

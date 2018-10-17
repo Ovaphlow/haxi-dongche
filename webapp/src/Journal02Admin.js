@@ -902,7 +902,7 @@ export class Journal02AdminMaster extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth.auth_admin) window.location = './#/login'
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ master: response.content })
@@ -933,7 +933,7 @@ export class Journal02AdminMaster extends React.Component {
   }
 
   submitMaster() {
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json;charset=utf8'
@@ -965,8 +965,11 @@ export class Journal02AdminMaster extends React.Component {
     })
     .then(res => res.json())
     .then(response => {
-      if (response.message) alert(response.message)
-      else window.location.reload(true)
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
   }

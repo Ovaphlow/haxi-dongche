@@ -122,12 +122,13 @@ export default class Journal02Master extends React.Component {
       this.setState({ message: '请完整填写申请信息' })
       return false
     }
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02'),
-      data: {
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify({
         applicant: document.getElementById('applicant').value,
-        // applicant: document.getElementById('component.user-selector').value,
         applicantPhone: document.getElementById('applicantPhone').value,
         leader: document.getElementById('leader').value,
         leaderId: this.state.auth.id,
@@ -136,10 +137,8 @@ export default class Journal02Master extends React.Component {
         groupSN: document.getElementById('component.train-list').value,
         dateBegin: document.getElementById('dateBegin').value,
         timeBegin: document.getElementById('timeBegin').value,
-        // timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
         dateEnd: document.getElementById('dateEnd').value,
         timeEnd: document.getElementById('timeEnd').value,
-        // timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
         content: document.getElementById('content').value,
         content_detail: document.getElementById('content_detail').value,
         p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
@@ -152,15 +151,58 @@ export default class Journal02Master extends React.Component {
           (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
           (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
         p_yq_qt: document.getElementById('p_yq_qt').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      window.location.href = './#/journal.02'
+
+      })
     })
+    .then(res => res.json())
+    .then(response => {
+      console.info(response)
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02'),
+    //   data: {
+    //     applicant: document.getElementById('applicant').value,
+    //     // applicant: document.getElementById('component.user-selector').value,
+    //     applicantPhone: document.getElementById('applicantPhone').value,
+    //     leader: document.getElementById('leader').value,
+    //     leaderId: this.state.auth.id,
+    //     leaderPhone: document.getElementById('leaderPhone').value,
+    //     dept: document.getElementById('dept').value,
+    //     groupSN: document.getElementById('component.train-list').value,
+    //     dateBegin: document.getElementById('dateBegin').value,
+    //     timeBegin: document.getElementById('timeBegin').value,
+    //     // timeBegin: document.getElementById('timeBegin0').value + (document.getElementById('timeBegin1').value || '00') + '00',
+    //     dateEnd: document.getElementById('dateEnd').value,
+    //     timeEnd: document.getElementById('timeEnd').value,
+    //     // timeEnd: document.getElementById('timeEnd0').value + (document.getElementById('timeEnd1').value || '00') + '00',
+    //     content: document.getElementById('content').value,
+    //     content_detail: document.getElementById('content_detail').value,
+    //     p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
+    //       (document.getElementById('p_yq_xdc-1').checked && document.getElementById('p_yq_xdc-1').value) ||
+    //       (document.getElementById('p_yq_xdc-2').checked && document.getElementById('p_yq_xdc-2').value) || '无要求',
+    //     p_yq_jcw: (document.getElementById('p_yq_jcw-0').checked && document.getElementById('p_yq_jcw-0').value) ||
+    //       (document.getElementById('p_yq_jcw-1').checked && document.getElementById('p_yq_jcw-1').value) ||
+    //       (document.getElementById('p_yq_jcw-2').checked && document.getElementById('p_yq_jcw-2').value) || '无要求',
+    //     p_yq_zydd: (document.getElementById('p_yq_zydd-0').checked && document.getElementById('p_yq_zydd-0').value) ||
+    //       (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
+    //       (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
+    //     p_yq_qt: document.getElementById('p_yq_qt').value
+    //   },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   window.location.href = './#/journal.02'
+    // })
   }
 
   preview() {

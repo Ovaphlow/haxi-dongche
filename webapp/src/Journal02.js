@@ -138,9 +138,10 @@ export class Journal02VerifyPdd extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
+      console.info(response)
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
       }
@@ -482,7 +483,7 @@ export class Journal02VerifyLeader extends React.Component {
     }
     this.setState({ auth: auth })
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
       sessionStorage.setItem('journal02-detail', response.content.id)

@@ -73,7 +73,8 @@ export class ProgressButton extends React.Component {
       <ReviewPgzLink />
     )
     else if (
-        this.props.item.sign_verify_leader_bz &&
+        this.props.item.qty_review_p_gz_02 === 0 &&
+        this.props.item.qty_review_p_gz_03 === 0 &&
         !!!this.props.item.sign_verify_leader_qc &&
         this.props.item.p_jsy_content.indexOf('质检') &&
         this.props.auth.dept === this.props.item.p_jsy_qc
@@ -104,6 +105,7 @@ export class ProgressButton extends React.Component {
     ) return (
       <ReviewPddLink />
     )
+    else window.console && console.error('流程识别错误')
   }
 
   render() {
@@ -180,7 +182,6 @@ export class ProgressTag extends React.Component {
     )
     else if (
         (this.props.item.p_jsy_content.indexOf('质检') !== 1) &&
-        // this.props.item.sign_verify_leader_bz
         this.props.item.qty_review_p_gz_02 === 0 &&
         this.props.item.qty_review_p_gz_03 === 0
     ) return (
@@ -598,7 +599,8 @@ export class ReviewPjsySubmit extends React.Component {
         return
       }
     }
-    window.location = './#/journal.02-verify'
+    alert('操作已提交至服务器，确认后可以关闭页面。')
+    window.location.reload(true)
   }
 
   render() {
@@ -672,7 +674,11 @@ export class ReviewQcSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.href = './#/journal.02-verify')
+    .then(() => {
+      alert('操作已提交至服务器，确认后可以关闭页面。')
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -714,16 +720,17 @@ export class ReviewQcLink extends React.Component {
  */
 export class ReviewPgzSubmit extends React.Component {
   handler() {
-    console.info(1)
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) return
     let selector = document.getElementsByTagName('select')
+    console.info(selector)
     for (let i = 0; i < selector.length; i++) {
       if (selector[i].value === '') {
         alert('请选择监控结果')
         return
       }
     }
+    alert('操作已提交至服务器，确认后可以关闭页面。')
     window.location.reload(true)
   }
 
@@ -1171,13 +1178,18 @@ export class RemoveButton extends React.Component {
       alert('操作失败')
       return false
     }
-    fetch(`./api/journal02/${id}`, {
+    fetch(`./api/document/02/${id}`, {
       method: 'delete'
     })
-    .then(res => {
-      res.json()
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(message)
+        return
+      }
       window.location.href = './#/journal.02'
     })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
