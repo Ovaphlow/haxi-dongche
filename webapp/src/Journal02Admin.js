@@ -96,7 +96,7 @@ class Detail03Update extends React.Component {
 
 class Detail02Update extends React.Component {
   handler() {
-    fetch(`./api/journal02/detail/02/${sessionStorage.getItem('detail')}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${sessionStorage.getItem('detail')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json;charset=utf8'
@@ -142,7 +142,7 @@ class Detail02Update extends React.Component {
 class Detail01Update extends React.Component {
   handler() {
     let id = sessionStorage.getItem('detail')
-    fetch(`./api/journal02/detail/01/${id}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${id}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json;charset=utf8'
@@ -536,7 +536,7 @@ export class Journal02AdminDetail02 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`./api/journal02/detail/02/${sessionStorage.getItem('detail')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${sessionStorage.getItem('detail')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ detail02: response.content })
@@ -714,11 +714,10 @@ export class Journal02AdminDetail01 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`./api/journal02/detail/01/${sessionStorage.getItem('detail')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${sessionStorage.getItem('detail')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ detail01: response.content })
-      console.info(response.content)
     })
     .catch(err => window.console && console.error(err))
   }

@@ -204,11 +204,13 @@ export class Journal02VerifyPjsy extends React.Component {
     }
     this.setState({ auth: auth })
 
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/01/')
+    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/01/')
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
     .then(res => res.json())
     .then(response => this.setState({ detail01: response.content }))
 
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/02/')
+    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/02/')
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/02/`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
@@ -290,29 +292,27 @@ export class Journal02VerifyQc extends React.Component {
     if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
 
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ detail01: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+      this.setState({ detail01: response.content })
+    })
+    .catch(err => window.console && console.error(err))
 
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ detail02: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+      this.setState({ detail02: response.content })
+    })
+    .catch(err => window.console && console.error(err))
 
     axios({
       method: 'get',
@@ -403,11 +403,13 @@ export class Journal02ReviewPgz extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
     .then(res => res.json())
     .then(response => this.setState({ detail01: response.content }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
@@ -922,11 +924,11 @@ export class Journal02Detail extends React.Component {
       }
     })
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/qty?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
-    .then(response => this.setState({ detail01: response.content.qty }))
+    .then(response => this.setState({ detail01: response.qty }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/qty?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content.qty }))
 

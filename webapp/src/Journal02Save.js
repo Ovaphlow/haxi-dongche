@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import moment from 'moment'
 
@@ -512,7 +511,8 @@ export class Journal02Save02 extends React.Component {
       alert('请完整填写记录表信息')
       return
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02`, {
       method: 'post',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -550,36 +550,9 @@ export class Journal02Save02 extends React.Component {
     })
     .then(res => res.json())
     .then(response => {
-      console.info(response)
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'post',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/',
-    //   data: {
-    //     name: document.getElementById('name').value,
-    //     train: document.getElementById('component.train-list').value,
-    //     carriage: document.getElementById('component.carriage-list').value,
-    //     position: document.getElementById('position').value,
-    //     date: document.getElementById('date').value,
-    //     time: document.getElementById('time').value,
-    //     reason: document.getElementById('reason').value,
-    //     p_gywj: document.getElementById('p_gywj').value,
-    //     p_ljbs: document.getElementById('p_ljbs').value,
-    //     component_sn_old: document.getElementById('component_sn_old').value,
-    //     component_sn_new: document.getElementById('component_sn_new').value,
-    //     p_bjaz: document.getElementById('p_bjaz').value,
-    //     operator: document.getElementById('operator').value
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   save() {
@@ -709,7 +682,6 @@ export class Journal02Save01 extends React.Component {
     super(props)
     this.state = { message: '', master: {} }
     this.submit = this.submit.bind(this)
-    this.save = this.save.bind(this)
   }
 
   componentDidMount() {
@@ -719,14 +691,6 @@ export class Journal02Save01 extends React.Component {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('dept').value = auth.dept
     document.getElementById('executor').value = auth.name
-
-    let detail = JSON.parse(sessionStorage.getItem('journal02-detail'))
-    if (detail.subject) {
-      document.getElementById('subject').value = detail.subject
-      document.getElementById('approval').value = detail.approval_sn
-      document.getElementById('train').value = detail.train_sn
-      document.getElementById('date').value = detail.date
-    }
 
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
@@ -778,40 +742,34 @@ export class Journal02Save01 extends React.Component {
       carriage_07: document.getElementById('carriage-07').checked,
       carriage_08: document.getElementById('carriage-08').checked
     }
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01`, {
       method: 'post',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
-      data: body,
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      sessionStorage.setItem('journal02-detail', JSON.stringify(body))
-      window.location.reload(true)
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
-  }
-
-  save() {
-    axios({
-      method: 'PUT',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
-      data: {
-        subject: document.getElementById('subject').value,
-        approval_sn: document.getElementById('approval').value,
-        train_sn: document.getElementById('train').value,
-        date: document.getElementById('date').value,
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
       },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      sessionStorage.removeItem('journal02-detail')
-      window.location.href = './#/journal.02-verify.leader'
+      body: JSON.stringify(body)
     })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'post',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
+    //   data: body,
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   window.location.reload(true)
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {
@@ -965,15 +923,6 @@ export class Journal02Save01 extends React.Component {
           <div className="row"><br /></div>
 
           <Journal02Detail01 />
-
-          <div className="col-12">
-            <div className="btn-group pull-right">
-              <button type="button" className="btn btn-primary" onClick={this.save}>
-                <i className="fa fa-fw fa-check-square-o"></i>
-                保存
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     )

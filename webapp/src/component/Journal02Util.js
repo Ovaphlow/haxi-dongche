@@ -76,7 +76,7 @@ export class ProgressButton extends React.Component {
         this.props.item.qty_review_p_gz_02 === 0 &&
         this.props.item.qty_review_p_gz_03 === 0 &&
         !!!this.props.item.sign_verify_leader_qc &&
-        this.props.item.p_jsy_content.indexOf('质检') &&
+        this.props.item.p_jsy_content.indexOf('质检') >= 0 &&
         this.props.auth.dept === this.props.item.p_jsy_qc
     ) return (
       <ReviewQcLink />
@@ -105,7 +105,7 @@ export class ProgressButton extends React.Component {
     ) return (
       <ReviewPddLink />
     )
-    else window.console && console.error('流程识别错误')
+    else window.console && console.error('无操作或流程识别错误')
   }
 
   render() {
