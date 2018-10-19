@@ -1,4 +1,3 @@
-import axios from 'axios'
 import echarts from 'echarts'
 import React from 'react'
 import moment from 'moment'
@@ -31,7 +30,8 @@ export class Journal02RejectList extends React.Component {
   }
 
   componentDidMount() {
-    fetch('./api/journal02/reject/')
+    // fetch('./api/journal02/reject/')
+    fetch('./api/document/02/reject/')
     .then(res => res.json())
     .then(response => this.setState({ list: response.content }))
   }
@@ -210,15 +210,17 @@ export class Journal02VerifyPjsy extends React.Component {
     .then(response => this.setState({ detail01: response.content }))
 
     // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/02/')
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/02/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/03/')
+    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/03/')
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content }))
 
-    fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/04/')
+    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/04/')
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content }))
   }
@@ -314,29 +316,49 @@ export class Journal02VerifyQc extends React.Component {
     })
     .catch(err => window.console && console.error(err))
 
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ detail03: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+      this.setState({ detail03: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'get',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   this.setState({ detail03: response.data.content })
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
 
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ detail04: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+      this.setState({ detail04: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'get',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   this.setState({ detail04: response.data.content })
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {
@@ -413,11 +435,13 @@ export class Journal02ReviewPgz extends React.Component {
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content }))
   }
@@ -932,11 +956,13 @@ export class Journal02Detail extends React.Component {
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content.qty }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/qty?timestamp=${new Date().getTime()}`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/qty?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content.qty }))
 
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/qty?timestamp=${new Date().getTime()}`)
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/qty?timestamp=${new Date().getTime()}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content.qty }))
   }

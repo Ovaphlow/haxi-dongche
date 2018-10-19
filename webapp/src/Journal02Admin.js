@@ -4,7 +4,8 @@ import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2 } from './compone
 
 class Detail04Update extends React.Component {
   handler() {
-    fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`, {
+    // fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/${sessionStorage.getItem('detail')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -50,7 +51,8 @@ class Detail04Update extends React.Component {
 
 class Detail03Update extends React.Component {
   handler() {
-    fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`, {
+    // fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/${sessionStorage.getItem('detail')}`, {
       method: 'put',
       headers: {
         'content-type': 'application/json;charset=utf8'
@@ -192,7 +194,8 @@ export class Journal02AdminDetail04 extends React.Component {
   }
   
   componentDidMount() {
-    fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`)
+    // fetch(`./api/journal02/detail/04/${sessionStorage.getItem('detail')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/${sessionStorage.getItem('detail')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ detail04: response.content })
@@ -352,7 +355,8 @@ export class Journal02AdminDetail03 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`)
+    // fetch(`./api/journal02/detail/03/${sessionStorage.getItem('detail')}`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/${sessionStorage.getItem('detail')}`)
     .then(res => res.json())
     .then(response => {
       this.setState({ detail03: response.content })

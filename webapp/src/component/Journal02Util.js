@@ -335,7 +335,8 @@ export class RejectButton extends React.Component {
 
   submitReject() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/reject`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/reject`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/reject`, {
       method: 'put',
       headers: {
         'content-type': 'application/json; charset=utf-8'

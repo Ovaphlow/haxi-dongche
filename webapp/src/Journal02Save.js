@@ -82,7 +82,8 @@ export class Journal02Save04 extends React.Component {
       carriage_07: document.getElementById('component.carriage-07').checked,
       carriage_08: document.getElementById('component.carriage-08').checked
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04`, {
       method: 'post',
       headers: {
         'content-type': 'application/json; charset=utf-8'
@@ -277,7 +278,8 @@ export class Journal02Save03 extends React.Component {
       alert('请完整填写记录表')
       return
     }
-    fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`, {
+    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03`, {
       method: 'post',
       headers: {
         'content-type': 'application/json; charset=utf-8'

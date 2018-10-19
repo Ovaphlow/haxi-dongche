@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 
 import { Message } from './Common'
@@ -16,77 +15,141 @@ export class Journal02Detail04 extends React.Component {
 
   componentDidMount() {
     this.setState({ auth: JSON.parse(sessionStorage.getItem('auth')) })
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/04/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
         return
       }
-      this.setState({ detail: response.data.content })
-      if (response.data.content.length > 0) {
-        document.getElementById('detail04-subject').innerText = response.data.content[0].subject
-        document.getElementById('detail04-software_version_new').innerText = response.data.content[0].software_version_new
-        document.getElementById('detail04-software_version_old').innerText = response.data.content[0].software_version_old
-        document.getElementById('detail04-approval_sn').innerText = response.data.content[0].approval_sn
-        document.getElementById('detail04-train').innerText = response.data.content[0].train
-        document.getElementById('detail04-date').innerText = response.data.content[0].date
+      this.setState({ detail: response.content })
+      if (response.content.length > 0) {
+        document.getElementById('detail04-subject').innerText = response.content[0].subject
+        document.getElementById('detail04-software_version_new').innerText = response.content[0].software_version_new
+        document.getElementById('detail04-software_version_old').innerText = response.content[0].software_version_old
+        document.getElementById('detail04-approval_sn').innerText = response.content[0].approval_sn
+        document.getElementById('detail04-train').innerText = response.content[0].train
+        document.getElementById('detail04-date').innerText = response.content[0].date
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'get',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/?timestamp=' + new Date().getTime(),
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return
+    //   }
+    //   this.setState({ detail: response.data.content })
+    //   if (response.data.content.length > 0) {
+    //     document.getElementById('detail04-subject').innerText = response.data.content[0].subject
+    //     document.getElementById('detail04-software_version_new').innerText = response.data.content[0].software_version_new
+    //     document.getElementById('detail04-software_version_old').innerText = response.data.content[0].software_version_old
+    //     document.getElementById('detail04-approval_sn').innerText = response.data.content[0].approval_sn
+    //     document.getElementById('detail04-train').innerText = response.data.content[0].train
+    //     document.getElementById('detail04-date').innerText = response.data.content[0].date
+    //   }
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPbz(event) {
     this.setState({ message: '' })
 
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/${event.target.getAttribute('data-id')}/p_bz`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/p_bz',
-      data: {
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
         watcher: event.target.value ? this.state.auth.name : '',
         watcher_group: event.target.value ? this.state.auth.dept : ''
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/p_bz',
+    //   data: {
+    //     watcher: event.target.value ? this.state.auth.name : '',
+    //     watcher_group: event.target.value ? this.state.auth.dept : ''
+    //   },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailQc(event) {
     this.setState({ message: '' })
 
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/${event.target.getAttribute('data-id')}/qc`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/qc',
-      data: {
-        qc: event.target.value ? this.state.auth.name : ''
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
       },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      body: JSON.stringify({
+        qc: event.target.value ? this.state.auth.name : ''
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/qc',
+    //   data: {
+    //     qc: event.target.value ? this.state.auth.name : ''
+    //   },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
     if (!!!window.confirm('确认删除选定的记录？')) return false
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/${event.target.getAttribute('data-id')}`, {
       method: 'delete',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id'),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      window.location.reload(true)
     })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'delete',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id'),
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   window.location.reload(true)
+    // })
   }
 
   excel() {
@@ -215,17 +278,28 @@ export class Journal02Detail03 extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     this.setState({ auth: auth })
-    axios({
-      method: 'get',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/?timestamp=' + new Date().getTime(),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-      this.setState({ detail: response.data.content })
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+      this.setState({ detail: response.content })
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'get',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/?timestamp=' + new Date().getTime(),
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   this.setState({ detail: response.data.content })
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPgz(event) {
@@ -253,52 +327,100 @@ export class Journal02Detail03 extends React.Component {
   submitDetailQc(event) {
     this.setState({ message: '' })
 
-    axios({
+    fetch(`./api/document/02/${sessionStorage.getItem('')}/detail/03/${event.target.getAttribute('data-id')}/qc`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/qc',
-      data: {
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
         p_bjgnsy: event.target.value,
         qc: this.state.auth.name
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-    }).catch(err => {
-      this.setState({ message: '服务器通信异常' })
+      })
     })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/qc',
+    //   data: {
+    //     p_bjgnsy: event.target.value,
+    //     qc: this.state.auth.name
+    //   },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    // }).catch(err => {
+    //   this.setState({ message: '服务器通信异常' })
+    // })
   }
 
   submitDetailPjsy(event) {
     this.setState({ message: '' })
-    axios({
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/${event.target.getAttribute('data-id')}/p_jsy`, {
       method: 'put',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/p_jsy',
-      data: { duty_officer: event.target.value === '' ? '' : this.state.auth.name },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({
+        duty_officer: event.target.value === '' ? '' : this.state.auth.name
+      })
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
       }
-    }).catch(err => this.setState({ message: '服务器通信异常' }))
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'put',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/p_jsy',
+    //   data: { duty_officer: event.target.value === '' ? '' : this.state.auth.name },
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
     if (!!!window.confirm('确认删除选定的记录？')) return false
-    axios({
-      method: 'delete',
-      url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id'),
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      window.location.reload(true)
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/03/${event.target.getAttribute('data-id')}`, {
+      method: 'delete'
     })
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+    })
+    .catch(err => window.console && console.error(err))
+    // axios({
+    //   method: 'delete',
+    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id'),
+    //   responseType: 'json'
+    // }).then(response => {
+    //   if (response.data.message) {
+    //     this.setState({ message: response.data.message })
+    //     return false
+    //   }
+    //   window.location.reload(true)
+    // })
   }
 
   excel() {
