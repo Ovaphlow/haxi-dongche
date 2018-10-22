@@ -11,6 +11,9 @@ const router = express.Router()
 
 module.exports = router
 
+/**
+ * 停用------------------------
+ */
 router.get('/train/:train/model', (req, res) => {
   let sql = `
     select model from schedule_source where train = :train order by id desc limit 1

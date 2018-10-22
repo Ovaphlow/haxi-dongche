@@ -16,7 +16,7 @@ router.put('/:id/read', async (req, res) => {
   let sql = `
     update message set recieve_time = now(), status = '已读' where id = :id
   `
-  sequelize.query(sql, {
+  await sequelize.query(sql, {
     type: sequelize.QueryTypes.UPDATE,
     replacements: req.params
   })

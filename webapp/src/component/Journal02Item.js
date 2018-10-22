@@ -83,7 +83,10 @@ export default class Journal02Item extends React.Component {
 
         <div className="row">
           <div className="col-12 mt-3">
-            {this.props.item.leader_id === this.state.auth.id && (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
+            {
+              this.props.item.leader_id === this.state.auth.id &&
+              (!!!this.props.item.sign_p_jsy || this.props.item.sign_p_jsy === '') &&
+              this.props.item.reject === '' &&
               <button type="button" className="btn btn-sm btn-outline-secondary" data-id={this.props.item.id} onClick={this.update}>
                 <i className="fa fa-fw fa-edit"></i>
                 修改
