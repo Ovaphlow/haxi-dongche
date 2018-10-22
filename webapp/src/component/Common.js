@@ -119,7 +119,6 @@ export class MessageAlert extends React.Component {
 
 export class CarriageList extends React.Component {
   componentDidMount() {
-    console.info(this.props)
     if (this.props.carriage) {
       document.getElementById('component.carriage-list').value = this.props.carriage
     }

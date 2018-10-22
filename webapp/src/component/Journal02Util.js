@@ -55,9 +55,7 @@ export class ProgressButton extends React.Component {
     )
     else if (
         this.props.item.sign_verify_leader &&
-        (
-          this.props.item.p_jsy_content.indexOf('班组') !== -1
-        ) &&
+        this.props.item.p_jsy_content !== '无要求' &&
         !!!this.props.item.sign_verify_leader_bz &&
         this.props.auth.dept === this.props.item.p_jsy_bz
     ) return (
@@ -73,6 +71,7 @@ export class ProgressButton extends React.Component {
       <ReviewPgzLink />
     )
     else if (
+        this.props.item.sign_verify_leader_bz &&
         this.props.item.qty_review_p_gz_02 === 0 &&
         this.props.item.qty_review_p_gz_03 === 0 &&
         !!!this.props.item.sign_verify_leader_qc &&
@@ -183,20 +182,25 @@ export class ProgressTag extends React.Component {
     else if (
         (this.props.item.p_jsy_content.indexOf('质检') !== 1) &&
         this.props.item.qty_review_p_gz_02 === 0 &&
-        this.props.item.qty_review_p_gz_03 === 0
+        this.props.item.qty_review_p_gz_03 === 0 &&
+        this.props.item.sign_verify_leader_bz
     ) return (
       <span className="badge badge-success pull-right">
         质检签字
       </span>
     )
     else if (
-        this.props.item.qty_review_p_gz_02 > 0 || this.props.item.qty_review_p_gz_03 > 0
+        this.props.item.sign_verify_leader_bz &&
+        (
+          this.props.item.qty_review_p_gz_02 > 0 ||
+          this.props.item.qty_review_p_gz_03 > 0
+        )
     ) return (
       <span className="badge badge-success pull-right">
         检修工长确认
       </span>
     )
-    else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content.indexOf('班组') !== -1)) return (
+    else if (this.props.item.sign_verify_leader && (this.props.item.p_jsy_content !== '无要求')) return (
       <span className="badge badge-success pull-right">
         班组作业人员销记
       </span>
@@ -546,7 +550,8 @@ export class ReviewPddSubmit extends React.Component {
         alert(response.message)
         return
       }
-      window.location.reload(true)
+      alert('操作已提交至服务器，请稍后查看结果。')
+      window.close()
     })
     .catch(err => window.console && console.error(err))
   }
@@ -691,8 +696,8 @@ export class ReviewQcSubmit extends React.Component {
         alert(response.message)
         return
       }
-      alert('操作已提交至服务器，确认后可以关闭页面。')
-      window.location.reload(true)
+      alert('操作已提交至服务器，请稍后检查结果。')
+      window.close()
     })
     .catch(err => window.console && console.error(err))
   }
@@ -739,7 +744,6 @@ export class ReviewPgzSubmit extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) return
     let selector = document.getElementsByTagName('select')
-    console.info(selector)
     for (let i = 0; i < selector.length; i++) {
       if (selector[i].value === '') {
         alert('请选择监控结果')
@@ -825,6 +829,25 @@ export class ReviewPbzSubmit extends React.Component {
 }
 
 /**
+ * 班组销记链接
+ * ？？？
+ */
+export class ReviewPbzLink extends React.Component {
+  handler() {
+    window.location = './#/journal.02-verify.p_bz'
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-edit"></i>
+        班组作业人员销记
+      </button>
+    )
+  }
+}
+
+/**
  * 作业负责人销记
  */
 export class ReviewApplicantSubmit extends React.Component {
@@ -882,7 +905,8 @@ export class ReviewApplicantSubmit extends React.Component {
         alert(response.message)
         return
       }
-      window.location.reload(true)
+      alert('操作已提交至服务器，请稍后查看结果。')
+      window.close()
     })
     .catch(err => window.console && console.error(err))
   }
@@ -1133,7 +1157,13 @@ export class ApprovePjsySubmit extends React.Component {
       })
     })
     .then(res => res.json())
-    .then(response => window.location.href = './#/journal.02-check')
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
     .catch(err => window.console && console.error(err))
   }
 

@@ -156,7 +156,6 @@ export default class Journal02Master extends React.Component {
     })
     .then(res => res.json())
     .then(response => {
-      console.info(response)
       if (response.message) {
         alert(response.message)
         return

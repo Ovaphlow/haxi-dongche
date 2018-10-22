@@ -944,7 +944,7 @@ export class Journal02Update extends React.Component {
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => this.setState({ journal: response.content }))
-    .catch(err => window.console && console.info(err))
+    .catch(err => window.console && console.error(err))
   }
 
   render() {

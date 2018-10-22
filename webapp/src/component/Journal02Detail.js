@@ -15,7 +15,7 @@ export class Journal02Detail04 extends React.Component {
 
   componentDidMount() {
     this.setState({ auth: JSON.parse(sessionStorage.getItem('auth')) })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/04/`)
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
     .then(response => {
       if (response.message) {

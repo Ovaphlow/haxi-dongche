@@ -141,7 +141,6 @@ export class Journal02VerifyPdd extends React.Component {
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
     .then(res => res.json())
     .then(response => {
-      console.info(response)
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
       }
@@ -950,7 +949,7 @@ export class Journal02Detail extends React.Component {
 
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
-    .then(response => this.setState({ detail01: response.qty }))
+    .then(response => this.setState({ detail01: response.content.qty }))
 
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
@@ -1061,7 +1060,6 @@ export class Journal02 extends React.Component {
     fetch(`./api/document/02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
-      console.info(response)
       this.setState({ list: response.content })
     })
     .catch(err => window.console && console.error(err))
