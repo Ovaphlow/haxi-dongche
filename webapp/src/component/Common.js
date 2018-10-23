@@ -1,9 +1,43 @@
+import moment from 'moment'
 import React from 'react'
 
 import UserToolbar from './UserToolbar'
 import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUtil'
 import Journal01Toolbar from './Journal01Toolbar'
 import Journal02Toolbar from './Journal02Util'
+
+export class TimerReloadButton extends React.Component {
+  constructor() {
+    super()
+    this.state = { timer: '' }
+  }
+
+  componentDidMount() {
+    let time = moment()
+    let time1 = moment(time).add(this.props.value, 'm')
+    this.setState({ timer: moment(time).to(time1) })
+    setInterval(() => {
+      time = moment(time).add(1, 'm')
+      if (moment(time1).diff(time) <= 0) {
+        this.handler()
+      }
+      this.setState({ timer: moment(time).to(time1) })
+    }, 1000 * 60)
+  }
+
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-secondary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-refresh"></i>
+        重置/刷新（{this.state.timer}）
+      </button>
+    )
+  }
+
+  handler() {
+    window.location.reload(true)
+  }
+}
 
 export class ContentSelecter extends React.Component {
   render() {

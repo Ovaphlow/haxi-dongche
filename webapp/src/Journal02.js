@@ -6,7 +6,8 @@ import { PageTitle, PageTitle2, Sidebar, ContentSelecter } from './component/Com
 import Journal02Master from './component/Journal02Master'
 import Journal02Item from './component/Journal02Item'
 import {
-    Message, BackButton, ReloadButton, DeptList, TrainList, MessageAlert, DeptListPbz
+    Message, BackButton, DeptList, TrainList, MessageAlert, DeptListPbz,
+    TimerReloadButton
 } from './component/Common'
 import { ExportFilter2Excel, ProgressButton } from './component/Journal02Util'
 import {
@@ -1272,7 +1273,8 @@ export class Journal02 extends React.Component {
 
           <div className="row">
             <div className="col-12">
-              <ReloadButton />
+              {/* <ReloadButton /> */}
+              <TimerReloadButton value={15} />
 
               <div className="btn-group pull-right">
                 <button type="button" className="btn btn-outline-primary" onClick={this.submit.bind(this)}>
