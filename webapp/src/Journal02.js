@@ -14,7 +14,7 @@ import {
 } from './component/Journal02Detail'
 import {
     ApprovePjsySubmit,
-    ReviewApplicantSubmit,
+    ReviewApplicantSubmit, ReviewPbzSubmit,
     ReviewPgzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
@@ -72,7 +72,6 @@ export class Journal02Stats extends React.Component {
   }
 
   componentDidMount() {
-    // fetch('./api/journal02/stats', {
     fetch('./api/document/02/stats/')
     .then(res => res.json())
     .then(response => {
@@ -203,22 +202,18 @@ export class Journal02VerifyPjsy extends React.Component {
     }
     this.setState({ auth: auth })
 
-    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/01/')
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
     .then(res => res.json())
     .then(response => this.setState({ detail01: response.content }))
 
-    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/02/')
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
-    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/03/')
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content }))
 
-    // fetch('./api/journal02/' + sessionStorage.getItem('journal02') + '/04/')
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content }))
@@ -325,17 +320,6 @@ export class Journal02VerifyQc extends React.Component {
       this.setState({ detail03: response.content })
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'get',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   this.setState({ detail03: response.data.content })
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
 
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
@@ -347,17 +331,6 @@ export class Journal02VerifyQc extends React.Component {
       this.setState({ detail04: response.content })
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'get',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   this.setState({ detail04: response.data.content })
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {
@@ -424,22 +397,18 @@ export class Journal02ReviewPgz extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/01/`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
     .then(res => res.json())
     .then(response => this.setState({ detail01: response.content }))
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content }))
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content }))
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content }))
@@ -452,36 +421,110 @@ export class Journal02ReviewPgz extends React.Component {
 
         <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="02.一体化作业申请单" />
-          <PageTitle2 fa="fa-archive" title="作业完成销记 - 班组" toolbar="Journal02Toolbar" />
+          <PageTitle2 fa="fa-archive" title="作业完成销记 - 工长" toolbar="Journal02Toolbar" />
 
           {this.state.detail01.length > 0 &&
-            <Journal02Detail01 detail={this.state.detail01} p_bz={true} auth={this.state.auth} />
+            <Journal02Detail01 detail={this.state.detail01} p_gz={true} />
           }
 
           {this.state.detail02.length > 0 &&
             <div>
               <hr />
-              <Journal02Detail02 detail={this.state.detail02} p_bz={true} auth={this.state.auth} />
+              <Journal02Detail02 detail={this.state.detail02} p_gz={true} />
             </div>
           }
 
           {this.state.detail03.length > 0 &&
             <div>
               <hr />
-              <Journal02Detail03 detail={this.state.detail03} p_bz={true} auth={this.state.auth} />
+              <Journal02Detail03 detail={this.state.detail03} p_gz={true} />
             </div>
           }
 
           {this.state.detail04.length > 0 &&
             <div>
               <hr />
-              <Journal02Detail04 detail={this.state.detail04} p_bz={true} auth={this.state.auth} />
+              <Journal02Detail04 detail={this.state.detail04} p_gz={true} />
             </div>
           }
 
           <div className="col-12 mt-3">
             <div className="btn-group pull-right">
               <ReviewPgzSubmit />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+// 班组销记
+export class Document02ReviewPbz extends React.Component {
+  constructor() {
+    super()
+    this.state = { detail01: [], detail02: [], detail03: [], detail04: [] }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) window.location.href = './#/login'
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
+    .then(res => res.json())
+    .then(response => this.setState({ detail01: response.content }))
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
+    .then(res => res.json())
+    .then(response => this.setState({ detail02: response.content }))
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
+    .then(res => res.json())
+    .then(response => this.setState({ detail03: response.content }))
+
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
+    .then(res => res.json())
+    .then(response => this.setState({ detail04: response.content }))
+
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-archive" title="作业完成销记 - 班组" toolbar="Journal02Toolbar" />
+
+          {this.state.detail01.length > 0 &&
+            <Journal02Detail01 detail={this.state.detail01} p_bz={true} />
+          }
+
+          {this.state.detail02.length > 0 &&
+            <div>
+              <hr />
+              <Journal02Detail02 detail={this.state.detail02} p_bz={true} />
+            </div>
+          }
+
+          {this.state.detail03.length > 0 &&
+            <div>
+              <hr />
+              <Journal02Detail03 detail={this.state.detail03} p_bz={true} />
+            </div>
+          }
+
+          {this.state.detail04.length > 0 &&
+            <div>
+              <hr />
+              <Journal02Detail04 detail={this.state.detail04} p_bz={true} />
+            </div>
+          }
+
+          <div className="col-12 mt-3">
+            <div className="btn-group pull-right">
+              <ReviewPbzSubmit />
             </div>
           </div>
         </div>
@@ -955,12 +998,10 @@ export class Journal02Detail extends React.Component {
     .then(res => res.json())
     .then(response => this.setState({ detail02: response.content.qty }))
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/qty?timestamp=${new Date().getTime()}`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail03: response.content.qty }))
 
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/qty?timestamp=${new Date().getTime()}`)
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/qty?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => this.setState({ detail04: response.content.qty }))

@@ -590,7 +590,6 @@ export class ReviewPddLink extends React.Component {
 }
 
 /**
- * 未测试
  * 技术员销记
  */
 export class ReviewPjsySubmit extends React.Component {
@@ -614,8 +613,8 @@ export class ReviewPjsySubmit extends React.Component {
         return
       }
     }
-    alert('操作已提交至服务器，确认后可以关闭页面。')
-    window.location.reload(true)
+    alert('操作已提交至服务器，请稍后检查结果。')
+    window.close()
   }
 
   render() {
@@ -814,7 +813,15 @@ export class ReviewPbzSubmit extends React.Component {
         sign: this.state.auth.sign
       })
     })
-    .then(() => window.location.reload(true))
+    .then(res => res.json())
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      alert('操作已提交至服务器，确认后可以关闭页面。')
+      window.close()
+    })
     .catch(err => window.console && console.error(err))
   }
 

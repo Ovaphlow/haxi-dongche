@@ -33,25 +33,6 @@ export class Journal02Detail04 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'get',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/?timestamp=' + new Date().getTime(),
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return
-    //   }
-    //   this.setState({ detail: response.data.content })
-    //   if (response.data.content.length > 0) {
-    //     document.getElementById('detail04-subject').innerText = response.data.content[0].subject
-    //     document.getElementById('detail04-software_version_new').innerText = response.data.content[0].software_version_new
-    //     document.getElementById('detail04-software_version_old').innerText = response.data.content[0].software_version_old
-    //     document.getElementById('detail04-approval_sn').innerText = response.data.content[0].approval_sn
-    //     document.getElementById('detail04-train').innerText = response.data.content[0].train
-    //     document.getElementById('detail04-date').innerText = response.data.content[0].date
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPbz(event) {
@@ -63,8 +44,8 @@ export class Journal02Detail04 extends React.Component {
         'content-type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        watcher: event.target.value ? this.state.auth.name : '',
-        watcher_group: event.target.value ? this.state.auth.dept : ''
+        watcher: event.target.value === '确认' ? this.state.auth.name : '未确认',
+        watcher_group: event.target.value === '确认' ? this.state.auth.dept : '未确认'
       })
     })
     .then(res => res.json())
@@ -75,20 +56,6 @@ export class Journal02Detail04 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/p_bz',
-    //   data: {
-    //     watcher: event.target.value ? this.state.auth.name : '',
-    //     watcher_group: event.target.value ? this.state.auth.dept : ''
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailQc(event) {
@@ -100,7 +67,7 @@ export class Journal02Detail04 extends React.Component {
         'content-type': 'application/json; charset=utf-8'
       },
       body: JSON.stringify({
-        qc: event.target.value ? this.state.auth.name : ''
+        qc: event.target.value === '确认' ? this.state.auth.name : '未确认'
       })
     })
     .then(res => res.json())
@@ -111,19 +78,6 @@ export class Journal02Detail04 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id') + '/qc',
-    //   data: {
-    //     qc: event.target.value ? this.state.auth.name : ''
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
@@ -137,19 +91,9 @@ export class Journal02Detail04 extends React.Component {
         alert(response.message)
         return
       }
+      window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'delete',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/' + event.target.getAttribute('data-id'),
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // })
   }
 
   excel() {
@@ -289,17 +233,6 @@ export class Journal02Detail03 extends React.Component {
       this.setState({ detail: response.content })
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'get',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/?timestamp=' + new Date().getTime(),
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   this.setState({ detail: response.data.content })
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPgz(event) {
@@ -327,7 +260,7 @@ export class Journal02Detail03 extends React.Component {
   submitDetailQc(event) {
     this.setState({ message: '' })
 
-    fetch(`./api/document/02/${sessionStorage.getItem('')}/detail/03/${event.target.getAttribute('data-id')}/qc`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/${event.target.getAttribute('data-id')}/qc`, {
       method: 'put',
       headers: {
         'content-type': 'application/json;charset=utf-8'
@@ -345,22 +278,6 @@ export class Journal02Detail03 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/qc',
-    //   data: {
-    //     p_bjgnsy: event.target.value,
-    //     qc: this.state.auth.name
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => {
-    //   this.setState({ message: '服务器通信异常' })
-    // })
   }
 
   submitDetailPjsy(event) {
@@ -372,7 +289,7 @@ export class Journal02Detail03 extends React.Component {
         'content-type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        duty_officer: event.target.value === '' ? '' : this.state.auth.name
+        duty_officer: event.target.value === '未确认' ? '未确认' : this.state.auth.name
       })
     })
     .then(res => res.json())
@@ -383,23 +300,12 @@ export class Journal02Detail03 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id') + '/p_jsy',
-    //   data: { duty_officer: event.target.value === '' ? '' : this.state.auth.name },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
     if (!!!window.confirm('确认删除选定的记录？')) return false
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/03/${event.target.getAttribute('data-id')}`, {
+    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/${event.target.getAttribute('data-id')}`, {
       method: 'delete'
     })
     .then(res => res.json())
@@ -408,19 +314,9 @@ export class Journal02Detail03 extends React.Component {
         alert(response.message)
         return
       }
+      window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'delete',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/' + event.target.getAttribute('data-id'),
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // })
   }
 
   excel() {
@@ -507,7 +403,7 @@ export class Journal02Detail03 extends React.Component {
                   <td width="6%" className="text-center align-middle">{item.operator}</td>
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
-                    {this.props.p_bz &&
+                    {this.props.p_gz &&
                       <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPgz.bind(this)}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
@@ -572,17 +468,6 @@ export class Journal02Detail02 extends React.Component {
       this.setState({ detail: response.content })
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'get',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/?timestamp=' + new Date().getTime(),
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   this.setState({ detail: response.data.content })
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailPgz(event) {
@@ -627,20 +512,6 @@ export class Journal02Detail02 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/qc',
-    //   data: {
-    //     p_bjgnsy: event.target.value,
-    //     qc: this.state.auth.name
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   submitDetailPjsy(event) {
@@ -651,7 +522,7 @@ export class Journal02Detail02 extends React.Component {
         'content-type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        duty_officer: event.target.value === '' ? '' : this.state.auth.name
+        duty_officer: event.target.value === '未确认' ? '未确认' : this.state.auth.name
       })
     })
     .then(res => res.json())
@@ -662,17 +533,6 @@ export class Journal02Detail02 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id') + '/p_jsy',
-    //   data: { duty_officer: event.target.value === '' ? '' : this.state.auth.name },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
@@ -689,17 +549,6 @@ export class Journal02Detail02 extends React.Component {
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'delete',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/02/' + event.target.getAttribute('data-id'),
-    //   responseType: 'json'
-    // }).then(function (response) {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // })
   }
 
   excel() {
@@ -780,7 +629,7 @@ export class Journal02Detail02 extends React.Component {
                   <td width="6%" className="text-center align-middle">{item.operator}</td>
                   <td width="6%" className="text-center align-middle">
                     {item.leader}
-                    {this.props.p_bz &&
+                    {this.props.p_gz &&
                       <select className="form-control form-control-sm" data-id={item.id} onChange={this.submitDetailPgz.bind(this)}>
                         <option value="">监控结果</option>
                         <option value="确认">确认</option>
@@ -858,8 +707,8 @@ export class Journal02Detail01 extends React.Component {
         'content-type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        watcher: event.target.value === '确认' ? this.state.auth.name : '',
-        watcher_group: event.target.value === '确认' ? this.state.auth.dept : ''
+        watcher: event.target.value === '确认' ? this.state.auth.name : '未确认',
+        watcher_group: event.target.value === '确认' ? this.state.auth.dept : '未确认'
       })
     })
     .then(res => res.json())
@@ -870,20 +719,6 @@ export class Journal02Detail01 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id') + '/p_bz',
-    //   data: {
-    //     watcher: event.target.value === '确认' ? this.state.auth.name : '',
-    //     watcher_group: event.target.value === '确认' ? this.state.auth.dept : ''
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   submitDetailQc(event) {
@@ -894,7 +729,7 @@ export class Journal02Detail01 extends React.Component {
         'content-type': 'application/json;charset=utf-8'
       },
       body: JSON.stringify({
-        qc: event.target.value === '确认' ? this.state.auth.name : ''
+        qc: event.target.value === '确认' ? this.state.auth.name : '未确认'
       })
     })
     .then(res => res.json())
@@ -905,19 +740,6 @@ export class Journal02Detail01 extends React.Component {
       }
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'put',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/' + event.target.getAttribute('data-id') + '/qc',
-    //   data: {
-    //     qc: event.target.value === '确认' ? this.state.auth.name : ''
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   remove(event) {
