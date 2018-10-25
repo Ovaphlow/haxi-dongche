@@ -26,8 +26,20 @@ export default class Journal02Item extends React.Component {
   timer() {
     moment.locale('zh-cn')
     let end_time = moment(`${this.props.item.date_end}T${this.props.item.time_end}`)
-    if (moment().diff(end_time) > 0 && !!!this.props.item.sign_verify && !!!this.props.item.sign_verify_leader) return (
+    let current = moment()
+    if (
+        moment().diff(end_time) > 0 &&
+        !!!this.props.item.sign_verify &&
+        !!!this.props.item.sign_verify_leader
+    ) return (
       <span className="badge badge-danger">已超期 {moment(end_time).fromNow(true)}</span>
+    )
+    else if (
+        moment().diff(end_time) > -900000 &&
+        !!!this.props.item.sign_verify &&
+        !!!this.props.item.sign_verify_leader
+    )return (
+      <span className="badge badge-warning">预警 {moment(end_time).fromNow(true)}</span>
     )
   }
 

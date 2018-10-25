@@ -1195,7 +1195,8 @@ export class ApprovePjsySubmit extends React.Component {
         alert(response.message)
         return
       }
-      window.location.reload(true)
+      alert('操作已提交至服务器，请稍后查看结果。')
+      window.close()
     })
     .catch(err => window.console && console.error(err))
   }
