@@ -28,14 +28,14 @@ export default class Journal02Item extends React.Component {
     let end_time = moment(`${this.props.item.date_end}T${this.props.item.time_end}`)
     let current = moment()
     if (
-        moment().diff(end_time) > 0 &&
+        moment(current).diff(end_time) > 0 &&
         !!!this.props.item.sign_verify &&
         !!!this.props.item.sign_verify_leader
     ) return (
       <span className="badge badge-danger">已超期 {moment(end_time).fromNow(true)}</span>
     )
     else if (
-        moment().diff(end_time) > -900000 &&
+        moment(current).diff(end_time) > -900000 &&
         !!!this.props.item.sign_verify &&
         !!!this.props.item.sign_verify_leader
     )return (
