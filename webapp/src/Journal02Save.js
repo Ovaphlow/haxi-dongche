@@ -7,6 +7,7 @@ import {
 } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
+import { SaveDetail01, SaveDetail02 } from './actions/Document02';
 
 export class Journal02Save04 extends React.Component {
   componentDidMount() {
@@ -513,48 +514,85 @@ export class Journal02Save02 extends React.Component {
       alert('请完整填写记录表信息')
       return
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/02/`, {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        uuid: '',
-        master_id: sessionStorage.getItem('journal02'),
-        name: document.getElementById('name').value,
-        train: document.getElementById('train').value,
-        // carriage: document.getElementById('component.carriage-list').value,
-        carriage: '',
-        position: document.getElementById('position').value,
-        date: document.getElementById('date').value,
-        time: document.getElementById('time').value,
-        reason: document.getElementById('reason').value,
-        p_gywj: document.getElementById('p_gywj').value,
-        p_ljbs: document.getElementById('p_ljbs').value,
-        component_sn_old: document.getElementById('component_sn_old').value,
-        component_sn_new: document.getElementById('component_sn_new').value,
-        p_bjaz: document.getElementById('p_bjaz').value,
-        operator: document.getElementById('operator').value,
-        leader: '',
-        p_bjgnsy: '',
-        qc: '',
-        duty_officer: '',
-        carriage_01: document.getElementById('component.carriage-01').checked,
-        carriage_02: document.getElementById('component.carriage-02').checked,
-        carriage_03: document.getElementById('component.carriage-03').checked,
-        carriage_04: document.getElementById('component.carriage-04').checked,
-        carriage_05: document.getElementById('component.carriage-05').checked,
-        carriage_06: document.getElementById('component.carriage-06').checked,
-        carriage_07: document.getElementById('component.carriage-07').checked,
-        carriage_08: document.getElementById('component.carriage-08').checked
-      })
+    SaveDetail02(sessionStorage.getItem('journal02'), {
+      uuid: '',
+      master_id: sessionStorage.getItem('journal02'),
+      name: document.getElementById('name').value,
+      train: document.getElementById('train').value,
+      // carriage: document.getElementById('component.carriage-list').value,
+      carriage: '',
+      position: document.getElementById('position').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      reason: document.getElementById('reason').value,
+      p_gywj: document.getElementById('p_gywj').value,
+      p_ljbs: document.getElementById('p_ljbs').value,
+      component_sn_old: document.getElementById('component_sn_old').value,
+      component_sn_new: document.getElementById('component_sn_new').value,
+      p_bjaz: document.getElementById('p_bjaz').value,
+      operator: document.getElementById('operator').value,
+      leader: '',
+      p_bjgnsy: '',
+      qc: '',
+      duty_officer: '',
+      carriage_01: document.getElementById('component.carriage-01').checked,
+      carriage_02: document.getElementById('component.carriage-02').checked,
+      carriage_03: document.getElementById('component.carriage-03').checked,
+      carriage_04: document.getElementById('component.carriage-04').checked,
+      carriage_05: document.getElementById('component.carriage-05').checked,
+      carriage_06: document.getElementById('component.carriage-06').checked,
+      carriage_07: document.getElementById('component.carriage-07').checked,
+      carriage_08: document.getElementById('component.carriage-08').checked
     })
-    .then(res => res.json())
     .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
+    // fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`, {
+    //   method: 'post',
+    //   headers: {
+    //     'content-type': 'application/json; charset=utf-8'
+    //   },
+    //   body: JSON.stringify({
+    //     uuid: '',
+    //     master_id: sessionStorage.getItem('journal02'),
+    //     name: document.getElementById('name').value,
+    //     train: document.getElementById('train').value,
+    //     // carriage: document.getElementById('component.carriage-list').value,
+    //     carriage: '',
+    //     position: document.getElementById('position').value,
+    //     date: document.getElementById('date').value,
+    //     time: document.getElementById('time').value,
+    //     reason: document.getElementById('reason').value,
+    //     p_gywj: document.getElementById('p_gywj').value,
+    //     p_ljbs: document.getElementById('p_ljbs').value,
+    //     component_sn_old: document.getElementById('component_sn_old').value,
+    //     component_sn_new: document.getElementById('component_sn_new').value,
+    //     p_bjaz: document.getElementById('p_bjaz').value,
+    //     operator: document.getElementById('operator').value,
+    //     leader: '',
+    //     p_bjgnsy: '',
+    //     qc: '',
+    //     duty_officer: '',
+    //     carriage_01: document.getElementById('component.carriage-01').checked,
+    //     carriage_02: document.getElementById('component.carriage-02').checked,
+    //     carriage_03: document.getElementById('component.carriage-03').checked,
+    //     carriage_04: document.getElementById('component.carriage-04').checked,
+    //     carriage_05: document.getElementById('component.carriage-05').checked,
+    //     carriage_06: document.getElementById('component.carriage-06').checked,
+    //     carriage_07: document.getElementById('component.carriage-07').checked,
+    //     carriage_08: document.getElementById('component.carriage-08').checked
+    //   })
+    // })
+    // .then(res => res.json())
+    // .then(response => {
+    //   window.location.reload(true)
+    // })
+    // .catch(err => window.console && console.error(err))
   }
 
   save() {
@@ -721,7 +759,7 @@ export class Journal02Save01 extends React.Component {
       alert('请完善记录单信息')
       return
     }
-    let body = {
+    SaveDetail01(sessionStorage.getItem('journal02'), {
       subject: document.getElementById('subject').value,
       approval_sn: document.getElementById('approval').value,
       train_sn: document.getElementById('train').value,
@@ -743,35 +781,15 @@ export class Journal02Save01 extends React.Component {
       carriage_06: document.getElementById('carriage-06').checked,
       carriage_07: document.getElementById('carriage-07').checked,
       carriage_08: document.getElementById('carriage-08').checked
-    }
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(body)
     })
-    .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(response)
+        window.alert(response.message)
         return
       }
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'post',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/01/',
-    //   data: body,
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   render() {

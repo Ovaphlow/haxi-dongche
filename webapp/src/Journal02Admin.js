@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { BackButton, TrainList, Sidebar, PageTitle, PageTitle2 } from './component/Common'
+import { GetDetail01, UpdateDetail01, GetDetail02, UpdateDetail02 } from './actions/Document02'
 
 class Detail04Update extends React.Component {
   handler() {
@@ -98,35 +99,31 @@ class Detail03Update extends React.Component {
 
 class Detail02Update extends React.Component {
   handler() {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${sessionStorage.getItem('detail')}`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf8'
-      },
-      body: JSON.stringify({
-        name: document.getElementById('name').value,
-        train: document.getElementById('train').value,
-        carriage: document.getElementById('carriage').value,
-        position: document.getElementById('position').value,
-        date: document.getElementById('date').value,
-        time: document.getElementById('time').value,
-        reason: document.getElementById('reason').value,
-        p_ljbs: document.getElementById('p_ljbs').value,
-        p_gywj: document.getElementById('p_gywj').value,
-        component_sn_old: document.getElementById('component_sn_old').value,
-        component_sn_new: document.getElementById('component_sn_new').value,
-        p_bjaz: document.getElementById('p_bjaz').value,
-        operator: document.getElementById('operator').value,
-        leader: document.getElementById('leader').value,
-        p_bjgnsy: document.getElementById('p_bjgnsy').value,
-        qc: document.getElementById('qc').value,
-        duty_officer: document.getElementById('duty_officer').value,
-      })
+    UpdateDetail02(sessionStorage.getItem('journal02'), sessionStorage.getItem('detail'), {
+      name: document.getElementById('name').value,
+      train: document.getElementById('train').value,
+      carriage: document.getElementById('carriage').value,
+      position: document.getElementById('position').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      reason: document.getElementById('reason').value,
+      p_ljbs: document.getElementById('p_ljbs').value,
+      p_gywj: document.getElementById('p_gywj').value,
+      component_sn_old: document.getElementById('component_sn_old').value,
+      component_sn_new: document.getElementById('component_sn_new').value,
+      p_bjaz: document.getElementById('p_bjaz').value,
+      operator: document.getElementById('operator').value,
+      leader: document.getElementById('leader').value,
+      p_bjgnsy: document.getElementById('p_bjgnsy').value,
+      qc: document.getElementById('qc').value,
+      duty_officer: document.getElementById('duty_officer').value,
     })
-    .then(res => res.json())
     .then(response => {
-      if (response.message) alert(response.message)
-      else window.location.reload(true)
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+      window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
   }
@@ -143,35 +140,30 @@ class Detail02Update extends React.Component {
 
 class Detail01Update extends React.Component {
   handler() {
-    let id = sessionStorage.getItem('detail')
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${id}`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf8'
-      },
-      body: JSON.stringify({
-        subject: document.getElementById('subject').value,
-        approval_sn: document.getElementById('approval_sn').value,
-        train_sn: document.getElementById('train_sn').value,
-        date: document.getElementById('date').value,
-        carriage: document.getElementById('component.carriage-list').value,
-        carriage_subject: document.getElementById('carriage_subject').value,
-        time_begin: document.getElementById('time_begin').value,
-        time_end: document.getElementById('time_end').value,
-        result: document.getElementById('result').value,
-        report: document.getElementById('report').value,
-        dept: document.getElementById('dept').value,
-        executor: document.getElementById('executor').value,
-        watcher: document.getElementById('watcher').value,
-        watcher_group: document.getElementById('watcher_group').value,
-        qc: document.getElementById('qc').value,
-        remark: document.getElementById('remark').value
-      })
+    UpdateDetail01(sessionStorage.getItem('journal02'), sessionStorage.getItem('detail'), {
+      subject: document.getElementById('subject').value,
+      approval_sn: document.getElementById('approval_sn').value,
+      train_sn: document.getElementById('train_sn').value,
+      date: document.getElementById('date').value,
+      carriage: document.getElementById('component.carriage-list').value,
+      carriage_subject: document.getElementById('carriage_subject').value,
+      time_begin: document.getElementById('time_begin').value,
+      time_end: document.getElementById('time_end').value,
+      result: document.getElementById('result').value,
+      report: document.getElementById('report').value,
+      dept: document.getElementById('dept').value,
+      executor: document.getElementById('executor').value,
+      watcher: document.getElementById('watcher').value,
+      watcher_group: document.getElementById('watcher_group').value,
+      qc: document.getElementById('qc').value,
+      remark: document.getElementById('remark').value
     })
-    .then(res => res.json())
     .then(response => {
-      if (response.message) alert(response.message)
-      else window.location.reload(true)
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+      window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
   }
@@ -540,12 +532,8 @@ export class Journal02AdminDetail02 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${sessionStorage.getItem('detail')}`)
-    .then(res => res.json())
-    .then(response => {
-      this.setState({ detail02: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    GetDetail02(sessionStorage.getItem('journal02'), sessionStorage.getItem('detail'))
+    .then(response => this.setState({ detail02: response.content }))
   }
 
   render() {
@@ -718,12 +706,8 @@ export class Journal02AdminDetail01 extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${sessionStorage.getItem('detail')}`)
-    .then(res => res.json())
-    .then(response => {
-      this.setState({ detail01: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    GetDetail01(sessionStorage.getItem('journal02'), sessionStorage.getItem('detail'))
+    .then(response => this.setState({ detail01: response.content }))
   }
 
   render() {

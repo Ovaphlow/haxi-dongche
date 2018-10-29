@@ -2,6 +2,10 @@ import React from 'react'
 
 import { Message } from './Common'
 import { LinkAdminDetail01, LinkAdminDetail02, LinkAdminDetail03, LinkAdminDetail04 } from '../Journal02Admin'
+import {
+  ListDetail01, RemoveDetail01, UpdateDetail01ReviewPbz, UpdateDetail01ReviewQc,
+  ListDetail02, RemoveDetail02, ReviewDetail02Qc, ReviewDetail02Pjsy
+} from '../actions/Document02'
 
 export class Journal02Detail04 extends React.Component {
   constructor(props) {
@@ -381,7 +385,11 @@ export class Journal02Detail03 extends React.Component {
                 <tr key={item.id}>
                   <td width="6%" className="text-center align-middle">
                     {item.name}
-                    {!!!this.props.read &&
+                    {
+                      (
+                        !!!this.props.read ||
+                        this.state.auth.auth_admin === 1
+                      ) &&
                       <span className="text-danger">
                         <i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i>
                       </span>
@@ -458,18 +466,12 @@ export class Journal02Detail02 extends React.Component {
       return false
     }
     this.setState({ auth: auth })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/`)
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        alert(response.message)
-        return
-      }
-      this.setState({ detail: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    
+    ListDetail02(sessionStorage.getItem('journal02'))
+    .then(response => this.setState({ detail: response.content }))
   }
 
+  // 没用？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
   submitDetailPgz(event) {
     this.setState({ message: '' })
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/02/${event.target.getAttribute('data-id')}/p_gz`, {
@@ -494,20 +496,13 @@ export class Journal02Detail02 extends React.Component {
   submitDetailQc(event) {
     this.setState({ message: '' })
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${event.target.getAttribute('data-id')}/qc`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        p_bjgnsy: event.target.value,
-        qc: this.state.auth.name
-      })
+    ReviewDetail02Qc(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'), {
+      p_bjgnsy: event.target.value,
+      qc: this.state.auth.name
     })
-    .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(response.message)
+        window.alert(response.message)
         return
       }
     })
@@ -516,19 +511,12 @@ export class Journal02Detail02 extends React.Component {
 
   submitDetailPjsy(event) {
     this.setState({ message: '' })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${event.target.getAttribute('data-id')}/p_jsy`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        duty_officer: event.target.value === '未确认' ? '未确认' : this.state.auth.name
-      })
+    ReviewDetail02Pjsy(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'), {
+      duty_officer: event.target.value === '未确认' ? '未确认' : this.state.auth.name
     })
-    .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(response.message)
+        window.alert(response.message)
         return
       }
     })
@@ -537,13 +525,10 @@ export class Journal02Detail02 extends React.Component {
 
   remove(event) {
     if (!!!window.confirm('确认删除选定的记录？')) return false
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/02/${event.target.getAttribute('data-id')}`, {
-      method: 'delete'
-    })
-    .then(res => res.json())
+    RemoveDetail02(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'))
     .then(response => {
       if (response.message) {
-        alert(response.message)
+        window.alert(response.message)
         return
       }
       window.location.reload(true)
@@ -610,7 +595,11 @@ export class Journal02Detail02 extends React.Component {
                 <tr key={item.id}>
                   <td width="6%" className="text-center align-middle">
                     {item.name}
-                    {!!!this.props.read &&
+                    {
+                      (
+                        !!!this.props.read ||
+                        this.state.auth.auth_admin === 1
+                      )&&
                       <span className="text-danger"><i className="fa fa-fw fa-trash" data-id={item.id} onClick={this.remove}></i></span>
                     }
                     {this.state.auth.auth_admin === 1 && <LinkAdminDetail02 detail={item.id} />}
@@ -681,13 +670,10 @@ export class Journal02Detail01 extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) return
     this.setState({ auth: auth })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/`)
-    .then(res => res.json())
+
+
+    ListDetail01(sessionStorage.getItem('journal02'))
     .then(response => {
-      if (response.message) {
-        alert(response.message)
-        return
-      }
       this.setState({ detail: response.content })
       if (response.content.length > 0) {
         document.getElementById('detail01-subject').innerText = response.content[0].subject
@@ -696,26 +682,16 @@ export class Journal02Detail01 extends React.Component {
         document.getElementById('detail01-date').innerText = response.content[0].date
       }
     })
-    .catch(err => window.console && console.error(err))
   }
 
   submitDetailPbz(event) {
-    this.setState({ message: '' })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${event.target.getAttribute('data-id')}/p_bz`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        watcher: event.target.value === '确认' ? this.state.auth.name : '未确认',
-        watcher_group: event.target.value === '确认' ? this.state.auth.dept : '未确认'
-      })
+    UpdateDetail01ReviewPbz(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'), {
+      watcher: event.target.value === '确认' ? this.state.auth.name : '未确认',
+      watcher_group: event.target.value === '确认' ? this.state.auth.dept : '未确认'
     })
-    .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(response.message)
-        return
+        window.alert(response.message)
       }
     })
     .catch(err => window.console && console.error(err))
@@ -723,19 +699,12 @@ export class Journal02Detail01 extends React.Component {
 
   submitDetailQc(event) {
     this.setState({ message: '' })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${event.target.getAttribute('data-id')}/qc`, {
-      method: 'put',
-      headers: {
-        'content-type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({
-        qc: event.target.value === '确认' ? this.state.auth.name : '未确认'
-      })
+    UpdateDetail01ReviewQc(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'), {
+      qc: event.target.value === '确认' ? this.state.auth.name : '未确认'
     })
-    .then(res => res.json())
     .then(response => {
       if (response.message) {
-        alert(response.message)
+        window.alert(response.message)
         return
       }
     })
@@ -744,13 +713,10 @@ export class Journal02Detail01 extends React.Component {
 
   remove(event) {
     if (!!!window.confirm('确认删除该记录？')) return false
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/01/${event.target.getAttribute('data-id')}`, {
-      method: 'delete'
-    })
-    .then(res => res.json())
+    RemoveDetail01(sessionStorage.getItem('journal02'), event.target.getAttribute('data-id'))
     .then(response => {
       if (response.message) {
-        alert(response.message)
+        window.alert(response.message)
         return
       }
       window.location.reload(true)
