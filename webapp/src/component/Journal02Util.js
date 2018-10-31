@@ -749,8 +749,8 @@ export class ReviewPgzSubmit extends React.Component {
         return
       }
     }
-    alert('操作已提交至服务器，确认后可以关闭页面。')
-    window.location.reload(true)
+    alert('操作已提交至服务器，请稍后检查结果。')
+    window.close()
   }
 
   render() {
