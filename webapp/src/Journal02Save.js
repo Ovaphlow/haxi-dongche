@@ -7,7 +7,7 @@ import {
 } from './component/Common'
 import Journal02Master from './component/Journal02Master'
 import { Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04 } from './component/Journal02Detail'
-import { SaveDetail01, SaveDetail02 } from './actions/Document02';
+import { SaveDetail01, SaveDetail02, SaveDetail03, SaveDetail04, GetDetail } from './actions/Document02';
 
 export class Journal02Save04 extends React.Component {
   componentDidMount() {
@@ -28,8 +28,7 @@ export class Journal02Save04 extends React.Component {
       document.getElementById('date').value = detail.date
     }
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal'))
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
       document.getElementById('date').value = response.content.date_begin
@@ -64,7 +63,6 @@ export class Journal02Save04 extends React.Component {
       approval_sn: document.getElementById('approval_sn').value,
       train: document.getElementById('train').value,
       date: document.getElementById('date').value,
-      // carriage: document.getElementById('component.carriage-list').value,
       carriage: '',
       time_begin: document.getElementById('time_begin').value,
       time_end: document.getElementById('time_end').value,
@@ -83,14 +81,7 @@ export class Journal02Save04 extends React.Component {
       carriage_07: document.getElementById('component.carriage-07').checked,
       carriage_08: document.getElementById('component.carriage-08').checked
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/04/`, {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify(body)
-    })
+    SaveDetail04(sessionStorage.getItem('journal02'), body)
     .then(res => res.json())
     .then(response => {
       if (response.message) {
@@ -99,44 +90,8 @@ export class Journal02Save04 extends React.Component {
       }
       window.location.reload(true)
     })
-    // .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'post',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
-    //   data: body,
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   sessionStorage.setItem('journal02-detail', JSON.stringify(body))
-    //   window.location.reload(true)
-    // })
+    .catch(err => window.console && console.error(err))
   }
-
-  // save() {
-  //   axios({
-  //     method: 'put',
-  //     url: './api/journal02/' + sessionStorage.getItem('journal02') + '/04/',
-  //     data: {
-  //       subject: document.getElementById('subject').value,
-  //       software_version_new: document.getElementById('software_version_new').value,
-  //       software_version_old: document.getElementById('software_version_old').value,
-  //       approval_sn: document.getElementById('approval_sn').value,
-  //       train: document.getElementById('component.train-list').value,
-  //       date: document.getElementById('date').value
-  //     },
-  //     responseType: 'json'
-  //   }).then(response => {
-  //     if (response.data.message) {
-  //       this.setState({ message: response.data.message })
-  //       return false
-  //     }
-  //     sessionStorage.removeItem('journal02-detail')
-  //     window.location.href = './#/journal.02-verify.leader'
-  //   }).catch(err => this.setState({ message: '服务器通信异常' }))
-  // }
 
   render() {
     return (
@@ -254,8 +209,7 @@ export class Journal02Save03 extends React.Component {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('operator').value = auth.name
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
       document.getElementById('date').value = response.content.date_begin
@@ -279,80 +233,35 @@ export class Journal02Save03 extends React.Component {
       alert('请完整填写记录表')
       return
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/03/`, {
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03`, {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json; charset=utf-8'
-      },
-      body: JSON.stringify({
-        uuid: '',
-        name: document.getElementById('name').value,
-        train: document.getElementById('train').value,
-        // carriage: document.getElementById("component.carriage-list").value,
-        carriage: '',
-        position: document.getElementById('position').value,
-        date: document.getElementById('date').value,
-        time: document.getElementById('time').value,
-        production_date: document.getElementById('production_date').value,
-        reason: document.getElementById('reason').value,
-        p_gywj: document.getElementById('p_gywj').value,
-        p_ljbs: document.getElementById('p_ljbs').value,
-        component_sn_old: document.getElementById('component_sn_old').value,
-        component_sn_new: document.getElementById('component_sn_new').value,
-        p_bjaz: document.getElementById('p_bjaz').value,
-        operator: document.getElementById('operator').value,
-        leader: '',
-        p_bjgnsy: '',
-        qc: '',
-        duty_officer: '',
-        carriage_01: document.getElementById('component.carriage-01').checked,
-        carriage_02: document.getElementById('component.carriage-02').checked,
-        carriage_03: document.getElementById('component.carriage-03').checked,
-        carriage_04: document.getElementById('component.carriage-04').checked,
-        carriage_05: document.getElementById('component.carriage-05').checked,
-        carriage_06: document.getElementById('component.carriage-06').checked,
-        carriage_07: document.getElementById('component.carriage-07').checked,
-        carriage_08: document.getElementById('component.carriage-08').checked
-      })
+    SaveDetail03(sessionStorage.getItem('journal02'), {
+      uuid: '',
+      name: document.getElementById('name').value,
+      train: document.getElementById('train').value,
+      carriage: '',
+      position: document.getElementById('position').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      production_date: document.getElementById('production_date').value,
+      reason: document.getElementById('reason').value,
+      p_gywj: document.getElementById('p_gywj').value,
+      p_ljbs: document.getElementById('p_ljbs').value,
+      component_sn_old: document.getElementById('component_sn_old').value,
+      component_sn_new: document.getElementById('component_sn_new').value,
+      p_bjaz: document.getElementById('p_bjaz').value,
+      operator: document.getElementById('operator').value,
+      leader: '',
+      p_bjgnsy: '',
+      qc: '',
+      duty_officer: '',
+      carriage_01: document.getElementById('component.carriage-01').checked,
+      carriage_02: document.getElementById('component.carriage-02').checked,
+      carriage_03: document.getElementById('component.carriage-03').checked,
+      carriage_04: document.getElementById('component.carriage-04').checked,
+      carriage_05: document.getElementById('component.carriage-05').checked,
+      carriage_06: document.getElementById('component.carriage-06').checked,
+      carriage_07: document.getElementById('component.carriage-07').checked,
+      carriage_08: document.getElementById('component.carriage-08').checked
     })
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        alert(response.message || '服务器错误')
-        return
-      }
-      window.location.reload(true)
-    })
-    .catch(err => window.console && console.error(err))
-    // axios({
-    //   method: 'post',
-    //   url: './api/journal02/' + sessionStorage.getItem('journal02') + '/03/',
-    //   data: {
-    //     name: document.getElementById('name').value,
-    //     train: document.getElementById('train').value,
-    //     // carriage: document.getElementById("component.carriage-list").value,
-    //     carriage: '',
-    //     position: document.getElementById('position').value,
-    //     date: document.getElementById('date').value,
-    //     time: document.getElementById('time').value,
-    //     production_date: document.getElementById('production_date').value,
-    //     reason: document.getElementById('reason').value,
-    //     p_gywj: document.getElementById('p_gywj').value,
-    //     p_ljbs: document.getElementById('p_ljbs').value,
-    //     component_sn_old: document.getElementById('component_sn_old').value,
-    //     component_sn_new: document.getElementById('component_sn_new').value,
-    //     p_bjaz: document.getElementById('p_bjaz').value,
-    //     operator: document.getElementById('operator').value
-    //   },
-    //   responseType: 'json'
-    // }).then(response => {
-    //   if (response.data.message) {
-    //     this.setState({ message: response.data.message })
-    //     return false
-    //   }
-    //   window.location.reload(true)
-    // }).catch(err => this.setState({ message: '服务器通信异常' }))
   }
 
   save() {
@@ -489,14 +398,12 @@ export class Journal02Save02 extends React.Component {
     document.getElementById('date').value = moment().format('YYYY-MM-DD')
     document.getElementById('operator').value = auth.name
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
       document.getElementById('date').value = response.content.date_begin
       document.getElementById('time').value = response.content.time_begin
     })
-    .catch(err => window.console && console.error(err))
   }
 
   submit() {
@@ -552,47 +459,6 @@ export class Journal02Save02 extends React.Component {
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-    // fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`, {
-    //   method: 'post',
-    //   headers: {
-    //     'content-type': 'application/json; charset=utf-8'
-    //   },
-    //   body: JSON.stringify({
-    //     uuid: '',
-    //     master_id: sessionStorage.getItem('journal02'),
-    //     name: document.getElementById('name').value,
-    //     train: document.getElementById('train').value,
-    //     // carriage: document.getElementById('component.carriage-list').value,
-    //     carriage: '',
-    //     position: document.getElementById('position').value,
-    //     date: document.getElementById('date').value,
-    //     time: document.getElementById('time').value,
-    //     reason: document.getElementById('reason').value,
-    //     p_gywj: document.getElementById('p_gywj').value,
-    //     p_ljbs: document.getElementById('p_ljbs').value,
-    //     component_sn_old: document.getElementById('component_sn_old').value,
-    //     component_sn_new: document.getElementById('component_sn_new').value,
-    //     p_bjaz: document.getElementById('p_bjaz').value,
-    //     operator: document.getElementById('operator').value,
-    //     leader: '',
-    //     p_bjgnsy: '',
-    //     qc: '',
-    //     duty_officer: '',
-    //     carriage_01: document.getElementById('component.carriage-01').checked,
-    //     carriage_02: document.getElementById('component.carriage-02').checked,
-    //     carriage_03: document.getElementById('component.carriage-03').checked,
-    //     carriage_04: document.getElementById('component.carriage-04').checked,
-    //     carriage_05: document.getElementById('component.carriage-05').checked,
-    //     carriage_06: document.getElementById('component.carriage-06').checked,
-    //     carriage_07: document.getElementById('component.carriage-07').checked,
-    //     carriage_08: document.getElementById('component.carriage-08').checked
-    //   })
-    // })
-    // .then(res => res.json())
-    // .then(response => {
-    //   window.location.reload(true)
-    // })
-    // .catch(err => window.console && console.error(err))
   }
 
   save() {
@@ -732,8 +598,7 @@ export class Journal02Save01 extends React.Component {
     document.getElementById('dept').value = auth.dept
     document.getElementById('executor').value = auth.name
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => {
       document.getElementById('train').value = response.content.group_sn
       document.getElementById('date').value = response.content.date_begin
@@ -959,10 +824,8 @@ export class Journal02Update extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
     this.setState({ auth: auth })
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ journal: response.content }))
-    .catch(err => window.console && console.error(err))
   }
 
   render() {

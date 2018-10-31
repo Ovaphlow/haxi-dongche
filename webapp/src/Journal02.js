@@ -6,22 +6,25 @@ import { PageTitle, PageTitle2, Sidebar, ContentSelecter } from './component/Com
 import Journal02Master from './component/Journal02Master'
 import Journal02Item from './component/Journal02Item'
 import {
-    Message, BackButton, DeptList, TrainList, MessageAlert, DeptListPbz,
-    TimerReloadButton
+  Message, BackButton, DeptList, TrainList, MessageAlert, DeptListPbz,
+  TimerReloadButton
 } from './component/Common'
 import { ExportFilter2Excel, ProgressButton } from './component/Journal02Util'
 import {
-    Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04
+  Journal02Detail01, Journal02Detail02, Journal02Detail03, Journal02Detail04
 } from './component/Journal02Detail'
 import {
-    ApprovePjsySubmit,
-    ReviewApplicantSubmit, ReviewPbzSubmit,
-    ReviewPgzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
+  ApprovePjsySubmit,
+  ReviewApplicantSubmit, ReviewPbzSubmit,
+  ReviewPgzSubmit, ReviewQcSubmit, ReviewPjsySubmit, ReviewPddSubmit
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 import { LinkAdminMaster } from './Journal02Admin'
 
-import { GetDetail, ListDetail01, GetDetail01Qty, ListDetail02, GetDetail02Qty } from './actions/Document02'
+import {
+  GetDetail, ListDetail01, GetDetail01Qty, ListDetail02, GetDetail02Qty,
+  ListDetail03, GetDetail03Qty, ListDetail04, GetDetail04Qty
+} from './actions/Document02'
 
 /**
  * 已驳回申请列表
@@ -140,8 +143,7 @@ export class Journal02VerifyPdd extends React.Component {
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) window.location.href = './#/login'
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => {
       if (response.content.remark) {
         document.getElementById('remark').value = response.content.remark
@@ -211,12 +213,10 @@ export class Journal02VerifyPjsy extends React.Component {
     ListDetail02(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
-    .then(res => res.json())
+    ListDetail03(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail03: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
-    .then(res => res.json())
+    ListDetail04(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail04: response.content }))
   }
 
@@ -295,27 +295,11 @@ export class Journal02VerifyQc extends React.Component {
     ListDetail02(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        alert(response.message)
-        return
-      }
-      this.setState({ detail03: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    ListDetail03(sessionStorage.getItem('journal02'))
+    .then(response => this.setState({ detail03: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
-    .then(res => res.json())
-    .then(response => {
-      if (response.message) {
-        alert(response.message)
-        return
-      }
-      this.setState({ detail04: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    ListDetail04(sessionStorage.getItem('journal02'))
+    .then(response => this.setState({ detail04: response.content }))
   }
 
   render() {
@@ -389,12 +373,10 @@ export class Journal02ReviewPgz extends React.Component {
     ListDetail02(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
-    .then(res => res.json())
+    ListDetail03(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail03: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
-    .then(res => res.json())
+    ListDetail04(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail04: response.content }))
   }
 
@@ -460,14 +442,11 @@ export class Document02ReviewPbz extends React.Component {
     ListDetail02(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail02: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/`)
-    .then(res => res.json())
+    ListDetail03(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail03: response.content }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/`)
-    .then(res => res.json())
+    ListDetail04(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail04: response.content }))
-
   }
 
   render() {
@@ -533,8 +512,7 @@ export class Journal02VerifyLeader extends React.Component {
     }
     this.setState({ auth: auth })
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}`)
-    .then(res => res.json())
+    GetDetail(sessionStorage.getItem('journal02'))
     .then(response => {
       sessionStorage.setItem('journal02-detail', response.content.id)
       response.content.veirfy_report && (document.getElementById('verify_report').value = response.content.verify_report)
@@ -977,12 +955,10 @@ export class Journal02Detail extends React.Component {
     GetDetail02Qty(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail02: response.content.qty }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/03/qty?timestamp=${new Date().getTime()}`)
-    .then(res => res.json())
+    GetDetail03Qty(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail03: response.content.qty }))
 
-    fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/detail/04/qty?timestamp=${new Date().getTime()}`)
-    .then(res => res.json())
+    GetDetail04Qty(sessionStorage.getItem('journal02'))
     .then(response => this.setState({ detail04: response.content.qty }))
   }
 

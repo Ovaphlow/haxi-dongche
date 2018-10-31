@@ -1,3 +1,199 @@
+export const ReviewDetail04Qc = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/${id}/qc`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const ReviewDetail04Pbz = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/${id}/p_bz`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const RemoveDetail04 = (master_id, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/${id}`, {
+      method: 'delete',
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const UpdateDetail04 = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/${id}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const GetDetail04 = (master_id, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/${id}`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const SaveDetail04 = (master_id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04`, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const GetDetail04Qty = master_id => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/qty`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const ListDetail04 = master_id => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/04/`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const ReviewDetail03Pjsy = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/${id}/p_jsy`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const ReviewDetail03Qc = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/${id}/qc`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const RemoveDetail03 = (master_id, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/${id}`, {
+      method: 'delete'
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const UpdateDetail03 = (master_id, id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/${id}`, {
+      method: 'put',
+      headers: {
+        'content-type': 'application/json;charset=utf8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const GetDetail03 = (master_id, id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/${id}`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const SaveDetail03 = (master_id, body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03`, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json; charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const GetDetail03Qty = (master_id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/qty`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const ListDetail03 = (master_id) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/${master_id}/detail/03/`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
 export const ReviewDetail02Pjsy = (master_id, id, body) => {
   return new Promise((resolve, reject) => {
     fetch(`./api/document/02/${master_id}/detail/02/${id}/p_jsy`, {

@@ -531,7 +531,6 @@ export class ReviewPddSubmit extends React.Component {
       alert('请填写备注，没有备注内容时需要填写“无”')
       return
     }
-    // fetch(`./api/journal02/verify/${sessionStorage.getItem('journal02')}`, {
     fetch(`./api/document/02/review/p_dd/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
@@ -679,7 +678,6 @@ export class ReviewQcSubmit extends React.Component {
         return
       }
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/qc`, {
     fetch(`./api/document/02/review/qc/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
@@ -803,7 +801,6 @@ export class ReviewPbzSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/verify/leader/bz`, {
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/review/p_bz`, {
       method: 'put',
       headers: {
@@ -998,7 +995,6 @@ export class ApprovePzbszSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/zbsz`, {
     fetch(`./api/document/02/approve/p_zbsz/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
@@ -1052,7 +1048,6 @@ export class ApprovePddSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/dd`, {
     fetch(`./api/document/02/approve/p_dd/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
@@ -1106,7 +1101,6 @@ export class ApprovePbzSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy/bz`, {
     fetch(`./api/document/02/approve/p_bz/${sessionStorage.getItem('journal02')}`, {
       method: 'put',
       headers: {
@@ -1174,7 +1168,6 @@ export class ApprovePjsySubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
-    // fetch(`./api/journal02/${sessionStorage.getItem('journal02')}/jsy`, {
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/approve/p_jsy`, {
       method: 'put',
       headers: {
@@ -1287,7 +1280,6 @@ export default class Journal02Toolbar extends React.Component {
     if (!!!auth) return
     // 待处理任务计数
     if (auth.auth_p_jsy) {
-      // fetch(`./api/journal02/todo/p_jsy?timestamp=${new Date().getTime()}`)
       fetch(`./api/document/02/todo/p_jsy?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
@@ -1297,7 +1289,6 @@ export default class Journal02Toolbar extends React.Component {
       .catch(err => window.console && console.error(err))
     }
 
-    // fetch(`./api/journal02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
     fetch(`./api/document/02/todo/p_bz/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
@@ -1315,7 +1306,6 @@ export default class Journal02Toolbar extends React.Component {
       .catch(err => window.console && console.error(err))
     }
 
-    // fetch(`./api/journal02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     fetch(`./api/document/02/todo/qc/${auth.dept}?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
     .then(response => {
@@ -1325,7 +1315,6 @@ export default class Journal02Toolbar extends React.Component {
     .catch(err => window.console && console.error(err))
 
     if (auth.auth_p_dd) {
-      // fetch(`./api/journal02/todo/p_dd?timestamp=${new Date().getTime()}`)
       fetch(`./api/document/02/todo/p_dd?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {
@@ -1336,7 +1325,6 @@ export default class Journal02Toolbar extends React.Component {
     }
 
     if (auth.auth_p_zbsz) {
-      // fetch(`./api/journal02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
       fetch(`./api/document/02/todo/p_zbsz?timestamp=${new Date().getTime()}`)
       .then(res => res.json())
       .then(response => {

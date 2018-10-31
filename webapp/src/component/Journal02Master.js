@@ -3,6 +3,7 @@ import React from 'react'
 import moment from 'moment'
 
 import { CloseButton, TrainList, Message } from './Common'
+import { GetDetail } from '../actions/Document02';
 
 export default class Journal02Master extends React.Component {
   constructor(props) {
@@ -25,8 +26,7 @@ export default class Journal02Master extends React.Component {
       document.getElementById('dateEnd').value = moment().format('YYYY-MM-DD')
       document.getElementById('timeEnd').value = moment({ hours: parseInt(moment().format('HH'), 0) + 2 }).format('HH:mm')
     } else if (this.props.mode === 'read' || this.props.mode === 'update') {
-      fetch(`./api/document/02/${sessionStorage.getItem('journal02')}?timestamp=${new Date().getTime()}`)
-      .then(res => res.json())
+      GetDetail(sessionStorage.getItem('journal02'))
       .then(response => {
         if (response.message) {
           this.setState({ message: response.message })
@@ -38,7 +38,6 @@ export default class Journal02Master extends React.Component {
         document.getElementById('dateEnd').value = response.content.date_end
         document.getElementById('timeEnd').value = response.content.time_end
       })
-      .catch(err => window.console && console.error(err))
     }
   }
 
