@@ -801,6 +801,13 @@ export class ReviewPbzSubmit extends React.Component {
       alert('请先设置签名')
       return false
     }
+    let selector = document.getElementsByTagName('select')
+    for (let i = 0; i < selector.length; i++) {
+      if (selector[i].value === '') {
+        alert('请选择监控结果')
+        return
+      }
+    }
     fetch(`./api/document/02/${sessionStorage.getItem('journal02')}/review/p_bz`, {
       method: 'put',
       headers: {
