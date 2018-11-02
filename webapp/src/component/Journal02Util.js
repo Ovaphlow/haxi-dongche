@@ -59,7 +59,7 @@ export class ProgressButton extends React.Component {
         !!!this.props.item.sign_verify_leader_bz &&
         this.props.auth.dept === this.props.item.p_jsy_bz
     ) return (
-      <ReviewPbzSubmit />
+      <ReviewPbzLink />
     )
     else if (
         this.props.item.sign_verify_leader_bz &&
@@ -841,11 +841,10 @@ export class ReviewPbzSubmit extends React.Component {
 
 /**
  * 班组销记链接
- * ？？？
  */
 export class ReviewPbzLink extends React.Component {
   handler() {
-    window.location = './#/journal.02-verify.p_bz'
+    window.location = './#/journal.02-review.p_bz'
   }
 
   render() {
