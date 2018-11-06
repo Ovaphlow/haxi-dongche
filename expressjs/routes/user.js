@@ -274,28 +274,28 @@ router.route('/dept/:id').get((req, res) => {
 })
 
 // 登录
-router.route('/login').post((req, res) => {
-  let sql = `
-    select
-      u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone, u.dept_leader,
-      auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd, sign
-    from
-      user as u
-      left join common_data as d
-        on d.id = u.dept_id
-    where
-      username = :account
-      and password = :password
-  `
-  sequelize.query(sql, {
-    replacements: { account: req.body.account, password: req.body.password },
-    type: sequelize.QueryTypes.SELECT
-  }).then(result => {
-    res.json({ content: result, message: '', status: 200 })
-  }).catch(error => {
-    logger.error(error)
-    res.json({ content: '', message: '检索数据失败。', status: 500 })
-  })
-})
+// router.route('/login').post((req, res) => {
+//   let sql = `
+//     select
+//       u.id, u.uuid, username, u.name, d.value as dept, d.id as dept_id, u.phone, u.dept_leader,
+//       auth_admin, auth_01, auth_p_jsy, auth_p_zbsz, auth_p_dd, sign
+//     from
+//       user as u
+//       left join common_data as d
+//         on d.id = u.dept_id
+//     where
+//       username = :account
+//       and password = :password
+//   `
+//   sequelize.query(sql, {
+//     replacements: { account: req.body.account, password: req.body.password },
+//     type: sequelize.QueryTypes.SELECT
+//   }).then(result => {
+//     res.json({ content: result, message: '', status: 200 })
+//   }).catch(error => {
+//     logger.error(error)
+//     res.json({ content: '', message: '检索数据失败。', status: 500 })
+//   })
+// })
 
 module.exports = router

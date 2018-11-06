@@ -3,6 +3,7 @@ import React from 'react'
 import md5 from 'blueimp-md5'
 
 import { Sidebar, PageTitle, PageTitle2 } from './component/Common'
+import { LoginAction } from './actions/Common'
 
 export class UserPassword extends React.Component {
   constructor(props) {
@@ -291,14 +292,10 @@ export class Login extends React.Component {
       return false
     }
 
-    fetch('./api/common/user/login', {
-      method: 'post',
-      headers: { "content-type": "application/json; charset=utf-8" },
-      body: JSON.stringify({
-        account: document.getElementById('account').value,
-        password: md5(document.getElementById('password').value)
-      })
-    }).then(res => res.json())
+    LoginAction({
+      account: document.getElementById('account').value,
+      password: md5(document.getElementById('password').value)
+    })
     .then(response => {
       if (response.content.length === 0) {
         this.setState({ message: '账号或密码错误' })
@@ -308,7 +305,8 @@ export class Login extends React.Component {
         sessionStorage.setItem('auth', JSON.stringify(response.content[0]))
         window.location.href = this.state.link2 || './#/'
       }
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    })
+    .catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   render() {

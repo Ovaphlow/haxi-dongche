@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const log4js = require('log4js')
 
 const config = require('./config')
+const userRouter = require('./routes/userRouter')
 
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
@@ -40,6 +41,8 @@ app.use('/api/common/message', message)
 
 // const schedule = require('./routes/schedule')
 // app.use('/api/common/schedule', schedule)
+
+app.post('/api/common/user/login', (req, res) => userRouter.login(req, res))
 
 app.listen(config.app.port, () => {
   logger.info(`服务器启动于端口 ${config.app.port}。`)
