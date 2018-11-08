@@ -104,7 +104,7 @@ export class ProgressButton extends React.Component {
     ) return (
       <ReviewPddLink />
     )
-    else window.console && console.error('无操作或流程识别错误')
+    else window.console && console.info('无操作或流程识别错误')
   }
 
   render() {
