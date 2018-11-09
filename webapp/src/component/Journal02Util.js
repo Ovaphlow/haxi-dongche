@@ -1,20 +1,6 @@
 import React from 'react'
 import moment from 'moment'
 
-export class UploadSchedule extends React.Component {
-  render() {
-    return (
-      <button type="button" className="btn btn-outline-dark" onClick={event => this.handler(event)}>
-        <i className="fa fa-fw fa-upload"></i>
-      </button>
-    )
-  }
-
-  handler() {
-    window.location = './#/journal.02-upload.schedule'
-  }
-}
-
 /**
  * 统一操作按钮
  */
@@ -1363,7 +1349,11 @@ export default class Journal02Toolbar extends React.Component {
         </a>
         <a href="./#/journal.02-save" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-plus"></i>
-          新增申请
+          计划外作业
+        </a>
+        <a href="./#/journal.02-save.schedule" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-plus"></i>
+          计划内作业
         </a>
         <a href="./#/journal.02-check" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-check-square-o"></i>
@@ -1381,13 +1371,16 @@ export default class Journal02Toolbar extends React.Component {
         </a>
         <a href="./#/journal.02-stats" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-pie-chart"></i>
-          数据统计
+          统计
         </a>
         <a href="./#/journal.02-reject.list" className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-reply"></i>
-          已驳回申请
+          驳回
         </a>
-        <UploadSchedule />
+        <a href="./#/journal.02-upload.schedule" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-upload"></i>
+          上传
+        </a>
       </div>
     )
   }

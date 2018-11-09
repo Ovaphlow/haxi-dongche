@@ -860,7 +860,7 @@ export class Journal02Save extends React.Component {
 
         <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="02.一体化作业申请单" />
-          <PageTitle2 fa="fa-plus" title="新增申请" toolbar="Journal02Toolbar" />
+          <PageTitle2 fa="fa-plus" title="新增计划外作业申请" toolbar="Journal02Toolbar" />
 
           <Journal02Master mode="save" />
         </div>

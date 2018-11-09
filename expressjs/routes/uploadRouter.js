@@ -61,6 +61,7 @@ module.exports = {
 // const upload = multer({ storage: storage })
 
 /**
+ * 上传列车走行里程表
  * 停用-----------------------
  */
 // router.post('/schedule', upload.single('file'), (req, res) => {
