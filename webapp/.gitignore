@@ -1,4 +1,5 @@
 download/
+upload/
 
 # 生成的文件
 public/download/*

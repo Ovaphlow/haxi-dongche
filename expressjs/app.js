@@ -2,10 +2,12 @@ const path = require('path')
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const multer = require('multer')
 const log4js = require('log4js')
 
 const config = require('./config')
 const userRouter = require('./routes/userRouter')
+const uploadRouter = require('./routes/uploadRouter')
 
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
@@ -30,8 +32,8 @@ app.use('/api/common/dept', dept)
 const common = require('./routes/common')
 app.use('/api/common', common)
 
-const commonUpload = require('./routes/upload')
-app.use('/api/common/upload', commonUpload)
+// const commonUpload = require('./routes/upload')
+// app.use('/api/common/upload', commonUpload)
 
 const commonExcel = require('./routes/excel')
 app.use('/api/common', commonExcel)
@@ -43,6 +45,19 @@ app.use('/api/common/message', message)
 // app.use('/api/common/schedule', schedule)
 
 app.post('/api/common/user/login', (req, res) => userRouter.login(req, res))
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, '../webapp/public/upload')
+  },
+  filename: (req, file, callback) => {
+    callback(null, `schedule.${Date.now()}.${file.originalname}`)
+  }
+})
+const upload = multer({ storage: storage })
+app.post('/api/common/upload/document/02/schedule', upload.single('file'), (req, res) => {
+  uploadRouter.Document02UploadSchedule(req, res)
+})
 
 app.listen(config.app.port, () => {
   logger.info(`服务器启动于端口 ${config.app.port}。`)

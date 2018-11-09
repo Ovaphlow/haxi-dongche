@@ -1,6 +1,20 @@
 import React from 'react'
 import moment from 'moment'
 
+export class UploadSchedule extends React.Component {
+  render() {
+    return (
+      <button type="button" className="btn btn-outline-dark" onClick={event => this.handler(event)}>
+        <i className="fa fa-fw fa-upload"></i>
+      </button>
+    )
+  }
+
+  handler() {
+    window.location = './#/journal.02-upload.schedule'
+  }
+}
+
 /**
  * 统一操作按钮
  */
@@ -1373,6 +1387,7 @@ export default class Journal02Toolbar extends React.Component {
           <i className="fa fa-fw fa-reply"></i>
           已驳回申请
         </a>
+        <UploadSchedule />
       </div>
     )
   }

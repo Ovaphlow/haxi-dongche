@@ -20,7 +20,6 @@ import {
 } from './component/Journal02Util'
 import { RejectButton, RemoveButton } from './component/Journal02Util'
 import { LinkAdminMaster } from './Journal02Admin'
-
 import {
   GetDetail, ListDetail01, GetDetail01Qty, ListDetail02, GetDetail02Qty,
   ListDetail03, GetDetail03Qty, ListDetail04, GetDetail04Qty
