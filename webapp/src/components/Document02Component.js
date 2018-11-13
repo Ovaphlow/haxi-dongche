@@ -1,5 +1,42 @@
 import React from 'react'
 
+import { SaveDocument02 } from '../actions/Document02'
+
+export class Document02SaveButton extends React.Component {
+  render() {
+    return (
+      <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+        <i className="fa fa-fw fa-check-square-o"></i>
+        确认
+      </button>
+    )
+  }
+
+  handler() {
+    let body = {
+      dept: document.getElementById('dept').value,
+      applicant: document.getElementById('applicant').value,
+      applicantPhone: document.getElementById('applicantPhone').value
+    }
+    if (
+        body.dept === '' ||
+        body.applicant === '' ||
+        body.applicantPhone === ''
+    ) {
+      window.alert('请完整填写申请单信息')
+      return
+    }
+    SaveDocument02(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+    })
+    .catch(err => window.console && console.error(err))
+  }
+}
+
 export class Document02TableMaster extends React.Component {
   render() {
     return (

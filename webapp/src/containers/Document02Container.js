@@ -2,7 +2,7 @@ import React from 'react'
 
 import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
 import { GetLatestScheduleList, GetSchedule } from '../actions/Document02'
-import { ScheduleItem, Document02TableMaster } from '../components/Document02Component'
+import { ScheduleItem, Document02SaveButton, Document02TableMaster } from '../components/Document02Component'
 
 export class Document02SaveSchedule extends React.Component {
   constructor() {
@@ -44,11 +44,15 @@ export class Document02SaveSchedule extends React.Component {
                 选择
               </button>
             </div>
+          </div>
 
-            {
-              this.state.item &&
-              <Document02TableMaster item={this.state.item}/>
-            }
+          {
+            this.state.item &&
+            <Document02TableMaster item={this.state.item}/>
+          }
+
+          <div className="pull-right">
+            <Document02SaveButton />
           </div>
         </div>
       </div>
@@ -58,7 +62,6 @@ export class Document02SaveSchedule extends React.Component {
   submit() {
     GetSchedule(document.getElementById('schedule-list').value)
     .then(response => {
-      console.info(response)
       this.setState({ item: response.content })
     })
   }
