@@ -1,8 +1,22 @@
 import React from 'react'
 
 import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
+import { GetLatestScheduleList, GetSchedule } from '../actions/Document02'
+import { ScheduleItem, Document02TableMaster } from '../components/Document02Component'
 
 export class Document02SaveSchedule extends React.Component {
+  constructor() {
+    super()
+    this.state = { list: [], item: {} }
+  }
+
+  componentDidMount() {
+    GetLatestScheduleList()
+    .then(response => {
+      this.setState({ list: response.content })
+    })
+  }
+
   render() {
     return (
       <div className="row">
@@ -12,15 +26,50 @@ export class Document02SaveSchedule extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-plus" title="新增计划内作业申请" toolbar="Journal02Toolbar" />
 
-          <div className="col-12">
+          <div className="col">
+            <select className="form-control" id="schedule-list">
+              {
+                this.state.list &&
+                this.state.list.map(item =>
+                  <option value={item.id} key={item.id}>
+                    {item.train} {item.content} {item.content_detail}
+                  </option>
+                )
+              }
+            </select>
+
+            <div className="mt-3 mb-3 text-center">
+              <button type="button" className="btn btn-primary" onClick={this.submit.bind(this)}>
+                <i className="fa fa-fw fa-check-square-o"></i>
+                选择
+              </button>
+            </div>
+
+            {
+              this.state.item &&
+              <Document02TableMaster item={this.state.item}/>
+            }
           </div>
         </div>
-      </div>  
+      </div>
     )
+  }
+
+  submit() {
+    GetSchedule(document.getElementById('schedule-list').value)
+    .then(response => {
+      console.info(response)
+      this.setState({ item: response.content })
+    })
   }
 }
 
 export class Document02UploadScheduleContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = { list: [] }
+  }
+
   render() {
     return (
       <div className="row">
@@ -35,8 +84,42 @@ export class Document02UploadScheduleContainer extends React.Component {
               {/* <input type="file" name="file" /> */}
             </form>
           </div>
+
+          <div className="col mt-3">
+            <button type="button" className="btn btn-outline-dark" onClick={this.get_list.bind(this)}>
+              显示上传内容
+            </button>
+          </div>
+
+          <table className="table mt-3">
+            <thead className="thead-dark">
+              <tr>
+                <th>序号</th>
+                <th>车组号</th>
+                <th>作业类型</th>
+                <th>作业内容</th>
+                <th>起止时间</th>
+                <th>部门</th>
+                <th>作业负责人</th>
+                <th>联系电话</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.list &&
+                this.state.list.map(item => <ScheduleItem key={item.id} item={item} />)
+              }
+            </tbody>
+          </table>
         </div>
       </div>  
     )
+  }
+
+  get_list() {
+    GetLatestScheduleList()
+    .then(response => {
+      this.setState({ list: response.content })
+    })
   }
 }

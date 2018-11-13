@@ -7,17 +7,17 @@ const sequelize = require('../util/sequelize')
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
 
-const SaveDocument02Schedule = async (i, sheets) => {
+const SaveDocument02Schedule = async (i, sheets, counter) => {
     if (i === sheets[0].data.length - 1 || i < 5) return
     let sql = `
       insert into
         journal02_schedule (
           uuid, train, content, content_detail, date_begin, time_begin, date_end, time_end,
-          p_yq_xdc, p_yq_jcw, p_yq_qt, dept, leader, leader_phone
+          p_yq_xdc, p_yq_jcw, p_yq_qt, dept, leader, leader_phone, counter
         )
         values (
           uuid(), :train, :content, :content_detail, now(), :time_begin, now(), :time_end,
-          :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :leader, :leader_phone
+          :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :leader, :leader_phone, :counter
         )
     `
     let data = {
@@ -31,7 +31,8 @@ const SaveDocument02Schedule = async (i, sheets) => {
       p_yq_qt: sheets[0].data[i][6],
       dept: sheets[0].data[i][7],
       leader: sheets[0].data[i][8].split('（')[0],
-      leader_phone: sheets[0].data[i][8].split('（')[1].split('）')[0]
+      leader_phone: sheets[0].data[i][8].split('（')[1].split('）')[0],
+      counter: counter
     }
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.INSERT,
@@ -39,13 +40,19 @@ const SaveDocument02Schedule = async (i, sheets) => {
     })
     .catch(err => console.error(err))
     if (result[1] !== 1) console.error(`error on import data: ${sheets[0].data[i]}`)
-    SaveDocument02Schedule(i + 1, sheets)
+    SaveDocument02Schedule(i + 1, sheets, counter)
 }
 
 module.exports = {
-  Document02UploadSchedule: (req, res) => {
+  Document02UploadSchedule: async (req, res) => {
     let sheets = xlsx.parse(req.file.path)
-    SaveDocument02Schedule(5, sheets)
+    let sql = `
+      select (max(counter) + 1) as counter from journal02_schedule
+    `
+    let result = await sequelize.query(sql, {
+      type: sequelize.QueryTypes.SELECT
+    })
+    SaveDocument02Schedule(5, sheets, result[0].counter || 1)
     res.status(200).json({ message: '' })
   }
 }

@@ -7,7 +7,7 @@ const log4js = require('log4js')
 
 const config = require('./config')
 const userRouter = require('./routes/userRouter')
-const uploadRouter = require('./routes/uploadRouter')
+const uploadRoute = require('./routes/uploadRoute')
 
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
@@ -55,8 +55,9 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage })
+
 app.post('/api/common/upload/document/02/schedule', upload.single('file'), (req, res) => {
-  uploadRouter.Document02UploadSchedule(req, res)
+  uploadRoute.Document02UploadSchedule(req, res)
 })
 
 app.listen(config.app.port, () => {

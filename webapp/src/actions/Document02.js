@@ -1,3 +1,21 @@
+export const GetSchedule = id => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/schedule/${id}`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+export const GetLatestScheduleList = () => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/schedule/`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
 export const ReviewDetail04Qc = (master_id, id, body) => {
   return new Promise((resolve, reject) => {
     fetch(`./api/document/02/${master_id}/detail/04/${id}/qc`, {
