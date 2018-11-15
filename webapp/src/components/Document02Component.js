@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { SaveDocument02 } from '../actions/Document02'
+import { SaveDocument02Schedule } from '../actions/Document02'
 
 export class Document02SaveButton extends React.Component {
   render() {
@@ -16,17 +16,50 @@ export class Document02SaveButton extends React.Component {
     let body = {
       dept: document.getElementById('dept').value,
       applicant: document.getElementById('applicant').value,
-      applicantPhone: document.getElementById('applicantPhone').value
+      applicant_phone: document.getElementById('applicant_phone').value,
+      leader: document.getElementById('leader').value,
+      leader_id: document.getElementById('leader').getAttribute('data-leader_id'),
+      leader_phone: document.getElementById('leader_phone').value,
+      train: document.getElementById('train').value,
+      date_begin: document.getElementById('date_begin').value,
+      time_begin: document.getElementById('time_begin').value,
+      date_end: document.getElementById('date_end').value,
+      time_end: document.getElementById('time_end').value,
+      content: document.getElementById('content').value,
+      content_detail: document.getElementById('content_detail').value,
+      p_yq_xdc: (document.getElementById('p_yq_xdc-0').checked && document.getElementById('p_yq_xdc-0').value) ||
+        (document.getElementById('p_yq_xdc-1').checked && document.getElementById('p_yq_xdc-1').value) ||
+        (document.getElementById('p_yq_xdc-2').checked && document.getElementById('p_yq_xdc-2').value) || '无要求',
+      p_yq_jcw: (document.getElementById('p_yq_jcw-0').checked && document.getElementById('p_yq_jcw-0').value) ||
+        (document.getElementById('p_yq_jcw-1').checked && document.getElementById('p_yq_jcw-1').value) ||
+        (document.getElementById('p_yq_jcw-2').checked && document.getElementById('p_yq_jcw-2').value) || '无要求',
+      p_yq_zydd: (document.getElementById('p_yq_zydd-0').checked && document.getElementById('p_yq_zydd-0').value) ||
+        (document.getElementById('p_yq_zydd-1').checked && document.getElementById('p_yq_zydd-1').value) ||
+        (document.getElementById('p_yq_zydd-2').checked && document.getElementById('p_yq_zydd-2').value) || '无要求',
+      p_yq_qt: document.getElementById('p_yq_qt').value
     }
     if (
         body.dept === '' ||
         body.applicant === '' ||
-        body.applicantPhone === ''
+        body.applicant_phone === '' ||
+        body.leader === '' ||
+        body.leader_phone === '' ||
+        body.train === '' ||
+        body.date_begin === '' ||
+        body.time_begin === '' ||
+        body.date_end === '' ||
+        body.time_end === '' ||
+        body.content === '' ||
+        body.content_detail === '' ||
+        body.p_yq_xdc === '' ||
+        body.p_yq_jcw === '' ||
+        body.p_yq_zydd === '' ||
+        body.p_yq_qt === ''
     ) {
       window.alert('请完整填写申请单信息')
       return
     }
-    SaveDocument02(body)
+    SaveDocument02Schedule(body)
     .then(response => {
       if (response.message) {
         window.alert(response.message)
@@ -72,7 +105,7 @@ export class Document02TableMaster extends React.Component {
               </td>
               <td width="15%" className="text-center align-middle">联系电话</td>
               <td width="35%" className="text-center align-middle">
-                <input type="text" className="form-control" id="applicantPhone"
+                <input type="text" className="form-control" id="applicant_phone"
                     defaultValue={this.props.item.applicant_phone}
                 />
               </td>
@@ -81,12 +114,12 @@ export class Document02TableMaster extends React.Component {
               <td width="15%" className="text-center align-middle">作业负责人</td>
               <td width="35%" className="text-center">
                 <input type="text" className="form-control" id="leader"
-                    defaultValue={this.props.item.leader}
+                    defaultValue={this.props.item.leader} data-leader_id={this.props.item.leader_id}
                 />
               </td>
               <td width="15%" className="text-center align-middle">联系电话</td>
               <td width="35%" className="text-center">
-                <input type="text" className="form-control" id="leaderPhone"
+                <input type="text" className="form-control" id="leader_phone"
                     defaultValue={this.props.item.leader_phone}
                 />
               </td>
@@ -102,17 +135,17 @@ export class Document02TableMaster extends React.Component {
             <tr>
               <td width="15%" className="text-center align-middle">申请作业时间</td>
               <td colSpan="3" className="text-center">
-                <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateBegin"
+                <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="date_begin"
                     defaultValue={this.props.item.date_begin}
                 />
-                <input type="time" className="form-control-sm ml-3" style={{ width: '9rem' }} id="timeBegin"
+                <input type="time" className="form-control-sm ml-3" style={{ width: '9rem' }} id="time_begin"
                     defaultValue={this.props.item.time_begin}
                 />
                 &nbsp;---&nbsp;
-                <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="dateEnd"
+                <input type="date" className="form-control-sm" style={{ width: '9rem' }} id="date_end"
                     defaultValue={this.props.item.date_end}
                 />
-                <input type="time" className="form-control-sm ml-3" style={{ width: '9rem' }} id="timeEnd"
+                <input type="time" className="form-control-sm ml-3" style={{ width: '9rem' }} id="time_end"
                     defaultValue={this.props.item.time_end}
                 />
               </td>
@@ -160,8 +193,8 @@ export class Document02TableMaster extends React.Component {
                           </span>
                           :
                           <span>
-                            <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_xdc-0">供</label>
+                            <input name="p_yq_xdc" type="radio" value="供" id="p_yq_xdc-0" />
+                            <label htmlFor="p_yq_xdc-0">&nbsp;供</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -177,8 +210,8 @@ export class Document02TableMaster extends React.Component {
                           </span>
                           :
                             <span>
-                              <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" disabled={this.props.mode === 'read' ? true : false} />
-                              <label htmlFor="p_yq_xdc-1">断</label>
+                              <input name="p_yq_xdc" type="radio" value="断" id="p_yq_xdc-1" />
+                              <label htmlFor="p_yq_xdc-1">&nbsp;断</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -194,8 +227,8 @@ export class Document02TableMaster extends React.Component {
                           </span>
                           :
                           <span>
-                            <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_xdc-2">无要求</label>
+                            <input name="p_yq_xdc" type="radio" value="无要求" id="p_yq_xdc-2" />
+                            <label htmlFor="p_yq_xdc-2">&nbsp;无要求</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;

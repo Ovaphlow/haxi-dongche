@@ -419,10 +419,10 @@ export const GetDetail = id => {
   })
 }
 
-export const SaveDocument02 = body => {
+export const SaveDocument02Schedule = body => {
   return new Promise((resolve, reject) => {
-    fetch(`./document/02/`, {
-      method: 'POST',
+    fetch(`./api/document/02/schedule/`, {
+      method: 'post',
       headers: {
         'content-type': 'application/json;charset=utf-8'
       },
