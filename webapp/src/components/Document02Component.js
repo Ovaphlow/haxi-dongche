@@ -51,9 +51,6 @@ export class Document02SaveButton extends React.Component {
         body.time_end === '' ||
         body.content === '' ||
         body.content_detail === '' ||
-        body.p_yq_xdc === '' ||
-        body.p_yq_jcw === '' ||
-        body.p_yq_zydd === '' ||
         body.p_yq_qt === ''
     ) {
       window.alert('请完整填写申请单信息')
