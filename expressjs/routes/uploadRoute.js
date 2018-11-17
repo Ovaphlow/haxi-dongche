@@ -51,6 +51,7 @@ module.exports = {
     let suffix = req.file.path.split('.').pop()
     let image = fs.readFileSync(req.file.path)
     console.info(`data:image/${suffix};base64, ${image.toString('base64')}`)
+    // ---------------------------------------------------------------------------------------
     let sql = `
       select * from sys_user
     `
@@ -58,7 +59,7 @@ module.exports = {
       type: sequelize.QueryTypes.SELECT
     })
     .catch(err => { console.error(err) })
-    console.info(result)
+    // console.info(result)
     res.status(200).json({ message: '', content: `data:image/${suffix};base64, ${image.toString('base64')}` })
   },
 
