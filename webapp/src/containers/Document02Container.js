@@ -87,9 +87,7 @@ export class Document02UploadScheduleContainer extends React.Component {
           <PageTitle2 fa="fa-upload" title="上传每日作业计划单" toolbar="Journal02Toolbar" />
 
           <div className="col-12">
-            {/* <form action="./api/common/upload/document/02/schedule" className="dropzone" encType="multipart/form-data"> */}
-            <form action="./api/common/upload/carousel" className="dropzone" encType="multipart/form-data">
-              {/* <input type="file" name="file" /> */}
+            <form action="./api/common/upload/document/02/schedule" className="dropzone" encType="multipart/form-data">
             </form>
           </div>
 
