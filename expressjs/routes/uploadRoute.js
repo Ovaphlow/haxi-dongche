@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 const log4js = require('log4js')
 const xlsx = require('node-xlsx')
 
@@ -44,6 +46,13 @@ const SaveDocument02Schedule = async (i, sheets, counter) => {
 }
 
 module.exports = {
+  UploadCarouselImage: async (req, res) => {
+    let suffix = req.file.path.split('.').pop()
+    let image = fs.readFileSync(req.file.path)
+    console.info(`data:image/${suffix};base64, ${image.toString('base64')}`)
+    res.status(200).json({ message: '', content: `data:image/${suffix};base64, ${image.toString('base64')}` })
+  },
+
   Document02UploadSchedule: async (req, res) => {
     let sheets = xlsx.parse(req.file.path)
     let sql = `

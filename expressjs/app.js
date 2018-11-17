@@ -51,10 +51,14 @@ const storage = multer.diskStorage({
     callback(null, '../webapp/public/upload')
   },
   filename: (req, file, callback) => {
-    callback(null, `schedule.${Date.now()}.${file.originalname}`)
+    callback(null, `${Date.now()}.${file.originalname}`)
   }
 })
 const upload = multer({ storage: storage })
+
+app.post('/api/common/upload/carousel', upload.single('file'), (req, res) => {
+  uploadRoute.UploadCarouselImage(req, res)
+})
 
 app.post('/api/common/upload/document/02/schedule', upload.single('file'), (req, res) => {
   uploadRoute.Document02UploadSchedule(req, res)
