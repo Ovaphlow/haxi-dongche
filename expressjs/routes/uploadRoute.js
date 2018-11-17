@@ -5,6 +5,7 @@ const xlsx = require('node-xlsx')
 
 const config = require('../config')
 const sequelize = require('../util/sequelize')
+const sequelize_oa = require('../util/sequelize.oa')
 
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
@@ -50,6 +51,14 @@ module.exports = {
     let suffix = req.file.path.split('.').pop()
     let image = fs.readFileSync(req.file.path)
     console.info(`data:image/${suffix};base64, ${image.toString('base64')}`)
+    let sql = `
+      select * from sys_user
+    `
+    let result = await sequelize_oa.query(sql, {
+      type: sequelize.QueryTypes.SELECT
+    })
+    .catch(err => { console.error(err) })
+    console.info(result)
     res.status(200).json({ message: '', content: `data:image/${suffix};base64, ${image.toString('base64')}` })
   },
 

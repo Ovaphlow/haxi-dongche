@@ -48,6 +48,13 @@ const develConfig = {
     database: 'haxi',
     logging: false
   },
+  mysql_oa: {
+    user: 'root1',
+    password: 'root',
+    host: '192.168.1.145',
+    database: 'train',
+    logging: false
+  }
 }
 
 module.exports = develConfig
