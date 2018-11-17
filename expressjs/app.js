@@ -32,9 +32,6 @@ app.use('/api/common/dept', dept)
 const common = require('./routes/common')
 app.use('/api/common', common)
 
-// const commonUpload = require('./routes/upload')
-// app.use('/api/common/upload', commonUpload)
-
 const commonExcel = require('./routes/excel')
 app.use('/api/common', commonExcel)
 
