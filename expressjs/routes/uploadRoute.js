@@ -50,17 +50,16 @@ module.exports = {
   UploadCarouselImage: async (req, res) => {
     let suffix = req.file.path.split('.').pop()
     let image = fs.readFileSync(req.file.path)
-    console.info(`data:image/${suffix};base64, ${image.toString('base64')}`)
-    // ---------------------------------------------------------------------------------------
+    // console.info(`data:image/${suffix};base64, ${image.toString('base64')}`)
     let sql = `
-      select * from sys_user
+      insert into yitiji set img = :img
     `
-    let result = await sequelize_oa.query(sql, {
-      type: sequelize.QueryTypes.SELECT
+    await sequelize_oa.query(sql, {
+      type: sequelize.QueryTypes.SELECT,
+      replacements: { img: `data:image/${suffix};base64, ${image.toString('base64')}` }
     })
     .catch(err => { console.error(err) })
-    // console.info(result)
-    res.status(200).json({ message: '', content: `data:image/${suffix};base64, ${image.toString('base64')}` })
+    res.status(200).json({ message: '' })
   },
 
   Document02UploadSchedule: async (req, res) => {
