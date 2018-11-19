@@ -4,7 +4,7 @@ const multer = require('multer')
 const log4js = require('log4js')
 
 const config = require('./config')
-const userRouter = require('./routes/userRouter')
+const userRoute = require('./routes/userRoute')
 const uploadRoute = require('./routes/uploadRoute')
 
 const logger = log4js.getLogger()
@@ -39,7 +39,7 @@ app.use('/api/common/message', message)
 // const schedule = require('./routes/schedule')
 // app.use('/api/common/schedule', schedule)
 
-app.post('/api/common/user/login', (req, res) => userRouter.login(req, res))
+app.post('/api/common/user/login', (req, res) => userRoute.login(req, res))
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
