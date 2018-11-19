@@ -55,7 +55,7 @@ module.exports = {
       insert into yitiji set img = :img
     `
     await sequelize_oa.query(sql, {
-      type: sequelize.QueryTypes.SELECT,
+      type: sequelize.QueryTypes.INSERT,
       replacements: { img: `data:image/${suffix};base64, ${image.toString('base64')}` }
     })
     .catch(err => { console.error(err) })
