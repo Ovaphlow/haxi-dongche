@@ -42,8 +42,8 @@ const develConfig = {
     expire: 604800
   },
   storage: {
-    user: 'root',
-    password: '',
+    user: 'ovaphlow',
+    password: 'dsdfjk',
     host: '127.0.0.1',
     database: 'haxi',
     logging: false

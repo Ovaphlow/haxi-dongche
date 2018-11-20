@@ -18,7 +18,7 @@ module.exports = {
       type: sequelize.QueryTypes.SELECT,
       replacements: { account: req.body.account, password: req.body.password }
     }).catch(err => {
-      logger.error(err)
+      console.error(err)
       res.status(500).json({ content: '', message: '检索数据失败' })
     })
     res.status(200).json({ content: result, message: '' })
