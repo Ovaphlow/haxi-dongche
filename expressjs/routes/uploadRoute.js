@@ -58,7 +58,7 @@ module.exports = {
       type: sequelize.QueryTypes.INSERT,
       replacements: { img: `data:image/${suffix};base64, ${image.toString('base64')}` }
     })
-    .catch(err => { console.error(err) })
+    .catch(err => console.error(err))
     res.status(200).json({ message: '' })
   },
 
