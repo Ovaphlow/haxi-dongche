@@ -27,14 +27,21 @@ const SaveDocument02Schedule = async (i, sheets, counter) => {
       train: sheets[0].data[i][1],
       content: sheets[0].data[i][2],
       content_detail: sheets[0].data[i][3],
-      time_begin: sheets[0].data[i][4].split('-')[0],
-      time_end: sheets[0].data[i][4].split('-')[1],
-      p_yq_xdc: sheets[0].data[i][5],
-      p_yq_jcw: sheets[0].data[i][5],
-      p_yq_qt: sheets[0].data[i][6],
-      dept: sheets[0].data[i][7],
-      leader: sheets[0].data[i][8].split('（')[0],
-      leader_phone: sheets[0].data[i][8].split('（')[1].split('）')[0],
+      // 4 日期
+      date_begin: sheets[0].data[i][4],
+      // 5 时间
+      time_begin: sheets[0].data[i][5],
+      // time_begin: sheets[0].data[i][4].split('-')[0],
+      // 6 日期
+      date_end: sheets[0].data[i][6],
+      // 7 时间
+      time_end: sheets[0].data[i][7],
+      // p_yq_xdc: sheets[0].data[i][8],
+      // p_yq_jcw: sheets[0].data[i][8],
+      // p_yq_qt: sheets[0].data[i][9],
+      dept: sheets[0].data[i][10],
+      leader: sheets[0].data[i][11],
+      leader_phone: sheets[0].data[i][12],
       counter: counter
     }
     let result = await sequelize.query(sql, {
