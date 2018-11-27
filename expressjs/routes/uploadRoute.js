@@ -19,7 +19,7 @@ const SaveDocument02Schedule = async (i, sheets, counter) => {
           p_yq_xdc, p_yq_jcw, p_yq_qt, dept, leader, leader_phone, counter
         )
         values (
-          uuid(), :train, :content, :content_detail, now(), :time_begin, now(), :time_end,
+          uuid(), :train, :content, :content_detail, :date_begin, :time_begin, :date_end, :time_end,
           :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :leader, :leader_phone, :counter
         )
     `
@@ -36,9 +36,9 @@ const SaveDocument02Schedule = async (i, sheets, counter) => {
       date_end: sheets[0].data[i][6],
       // 7 时间
       time_end: sheets[0].data[i][7],
-      // p_yq_xdc: sheets[0].data[i][8],
-      // p_yq_jcw: sheets[0].data[i][8],
-      // p_yq_qt: sheets[0].data[i][9],
+      p_yq_xdc: sheets[0].data[i][8],
+      p_yq_jcw: sheets[0].data[i][8],
+      p_yq_qt: sheets[0].data[i][9],
       dept: sheets[0].data[i][10],
       leader: sheets[0].data[i][11],
       leader_phone: sheets[0].data[i][12],

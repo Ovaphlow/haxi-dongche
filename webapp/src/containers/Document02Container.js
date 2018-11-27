@@ -86,10 +86,11 @@ export class Document02UploadScheduleContainer extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-upload" title="上传每日作业计划单" toolbar="Journal02Toolbar" />
 
-          <div className="col-12">
-            <form action="./api/common/upload/document/02/schedule" className="dropzone" encType="multipart/form-data">
-            </form>
+          <div className="text-center">
+            点击并选择或拖放文件至下方框内
           </div>
+
+          <form action="./api/common/upload/document/02/schedule" className="dropzone mt-3" encType="multipart/form-data"></form>
 
           <div className="col mt-3">
             <button type="button" className="btn btn-outline-dark" onClick={this.get_list.bind(this)}>
@@ -118,7 +119,7 @@ export class Document02UploadScheduleContainer extends React.Component {
             </tbody>
           </table>
         </div>
-      </div>  
+      </div>
     )
   }
 
