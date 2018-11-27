@@ -3,6 +3,7 @@ import React from 'react'
 import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
 import { GetLatestScheduleList, GetSchedule } from '../actions/Document02'
 import { ScheduleItem, Document02SaveButton, Document02TableMaster } from '../components/Document02Component'
+import { ReloadButton } from '../component/Common'
 
 export class Document02SaveSchedule extends React.Component {
   constructor() {
@@ -86,11 +87,14 @@ export class Document02UploadScheduleContainer extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-upload" title="上传每日作业计划单" toolbar="Journal02Toolbar" />
 
-          <div className="text-center">
-            点击并选择或拖放文件至下方框内
+          <div>
+            <ReloadButton />
+            <span className="pull-right">
+              点击并选择或拖放文件至下方框内，如有异常请刷新页面后重试。
+            </span>
           </div>
 
-          <form action="./api/common/upload/document/02/schedule" className="dropzone mt-3" encType="multipart/form-data"></form>
+          <form action="./api/common/upload/document/02/schedule" method="POST" className="dropzone mt-3" encType="multipart/form-data"></form>
 
           <div className="col mt-3">
             <button type="button" className="btn btn-outline-dark" onClick={this.get_list.bind(this)}>
@@ -113,7 +117,7 @@ export class Document02UploadScheduleContainer extends React.Component {
             </thead>
             <tbody>
               {
-                this.state.list &&
+                this.state.list.length > 0 &&
                 this.state.list.map(item => <ScheduleItem key={item.id} item={item} />)
               }
             </tbody>

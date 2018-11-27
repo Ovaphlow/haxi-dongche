@@ -16,6 +16,12 @@ export const GetLatestScheduleList = () => {
   })
 }
 
+export const GetLatestScheduleListByDept = () => {
+  return new Promise((resolve, reject) => {
+
+  })
+}
+
 export const ReviewDetail04Qc = (master_id, id, body) => {
   return new Promise((resolve, reject) => {
     fetch(`./api/document/02/${master_id}/detail/04/${id}/qc`, {

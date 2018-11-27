@@ -247,7 +247,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_jcw" type="radio" value="供" id="p_yq_jcw-0" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_jcw-0">供</label>
+                            <label htmlFor="p_yq_jcw-0">&nbsp;供</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -264,7 +264,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_jcw" type="radio" value="断" id="p_yq_jcw-1" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_jcw-1">断</label>
+                            <label htmlFor="p_yq_jcw-1">&nbsp;断</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -281,7 +281,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_jcw" type="radio" value="无要求" id="p_yq_jcw-2" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_jcw-2">无要求</label>
+                            <label htmlFor="p_yq_jcw-2">&nbsp;无要求</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -303,7 +303,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_zydd" type="radio" value="检查库" id="p_yq_zydd-0" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_zydd-0">检查库</label>
+                            <label htmlFor="p_yq_zydd-0">&nbsp;检查库</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -320,7 +320,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_zydd" type="radio" value="临修库" id="p_yq_zydd-1" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_zydd-1">临修库</label>
+                            <label htmlFor="p_yq_zydd-1">&nbsp;临修库</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -337,7 +337,7 @@ export class Document02TableMaster extends React.Component {
                           :
                           <span>
                             <input name="p_yq_zydd" type="radio" value="无要求" id="p_yq_zydd-2" disabled={this.props.mode === 'read' ? true : false} />
-                            <label htmlFor="p_yq_zydd-2">无要求</label>
+                            <label htmlFor="p_yq_zydd-2">&nbsp;无要求</label>
                           </span>
                         }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
