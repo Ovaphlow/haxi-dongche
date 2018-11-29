@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
-import { GetLatestScheduleList, GetSchedule } from '../actions/Document02'
+import { GetLatestScheduleList, GetLatestScheduleListByDept, GetSchedule } from '../actions/Document02'
 import { ScheduleItem, Document02SaveButton, Document02TableMaster } from '../components/Document02Component'
 import { ReloadButton } from '../component/Common'
 
@@ -12,7 +12,9 @@ export class Document02SaveSchedule extends React.Component {
   }
 
   componentDidMount() {
-    GetLatestScheduleList()
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) return
+    GetLatestScheduleListByDept(auth.dept)
     .then(response => {
       this.setState({ list: response.content })
     })
@@ -89,7 +91,7 @@ export class Document02UploadScheduleContainer extends React.Component {
 
           <div>
             <ReloadButton />
-            <span className="pull-right">
+            <span className="pull-right text-danger">
               点击并选择或拖放文件至下方框内，如有异常请刷新页面后重试。
             </span>
           </div>

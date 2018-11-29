@@ -16,9 +16,12 @@ export const GetLatestScheduleList = () => {
   })
 }
 
-export const GetLatestScheduleListByDept = () => {
+export const GetLatestScheduleListByDept = dept => {
   return new Promise((resolve, reject) => {
-
+    fetch(`./api/document/02/schedule/dept/${dept}/`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
   })
 }
 
