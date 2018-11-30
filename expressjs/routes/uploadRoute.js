@@ -11,7 +11,7 @@ const logger = log4js.getLogger()
 logger.level = config.app.logLevel
 
 const SaveDocument02Schedule = async (i, sheets, counter) => {
-    if (i === sheets[0].data.length - 1 || i < 5) return
+    if (i === sheets[0].data.length - 1 || i < 4) return
     let sql = `
       insert into
         journal02_schedule (
@@ -77,7 +77,7 @@ module.exports = {
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT
     })
-    SaveDocument02Schedule(5, sheets, result[0].counter || 1)
+    SaveDocument02Schedule(4, sheets, result[0].counter || 1)
     res.status(200).json({ message: '' })
   }
 }
