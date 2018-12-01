@@ -49,7 +49,9 @@ export default class Journal02Item extends React.Component {
         <p className="lead">
           [{this.props.item.id}]
           {this.timer()}
-          【
+          （
+          {this.props.item.category || '计划外'}
+          ）【
           <strong>{this.props.item.content}</strong>
           】
           {this.props.item.content_detail}
