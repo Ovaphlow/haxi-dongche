@@ -62,6 +62,7 @@ export class Document02SaveButton extends React.Component {
         window.alert(response.message)
         return
       }
+      window.location = './#/journal.02'
     })
     .catch(err => window.console && console.error(err))
   }
