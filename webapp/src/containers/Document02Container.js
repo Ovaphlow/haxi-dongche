@@ -5,6 +5,32 @@ import { GetLatestScheduleList, GetLatestScheduleListByDept, GetSchedule } from 
 import { ScheduleItem, Document02SaveButton, Document02TableMaster } from '../components/Document02Component'
 import { ReloadButton } from '../component/Common'
 
+export class Document02StatsIndex extends React.Component {
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='单据' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="02.一体化作业申请单" />
+          <PageTitle2 fa="fa-pie-chart" title="统计" toolbar="Journal02Toolbar" />
+
+          <select className="form-control" id="item" onChange={this.change.bind(this)}>
+            <option value="">选择统计项目</option>
+            <option value="train">作业车组数据统计</option>
+            <option value="">计划内/外作业统计</option>
+          </select>
+        </div>
+      </div>
+    )
+  }
+
+  change() {
+    if (!!!document.getElementById('item').value) return
+    window.location = `./#/journal.02-stats.${document.getElementById('item').value}`
+  }
+}
+
 export class Document02SaveSchedule extends React.Component {
   constructor() {
     super()
@@ -78,6 +104,16 @@ export class Document02UploadScheduleContainer extends React.Component {
   constructor() {
     super()
     this.state = { list: [] }
+  }
+
+  componentDidMount() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    if (!!!auth) return
+    if (auth.dept !== '技术诊断组') {
+      alert('当前登录用户没有对应权限')
+      window.location = './#/journal.02'
+      return
+    }
   }
 
   render() {

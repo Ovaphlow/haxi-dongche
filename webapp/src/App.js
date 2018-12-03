@@ -24,7 +24,9 @@ import {
     Journal02AdminDetail03, Journal02AdminDetail04
 } from './Journal02Admin'
 
-import { Document02UploadScheduleContainer, Document02SaveSchedule } from './containers/Document02Container'
+import {
+  Document02UploadScheduleContainer, Document02SaveSchedule, Document02StatsIndex
+} from './containers/Document02Container'
 
 class App extends Component {
   render() {
@@ -69,7 +71,8 @@ class App extends Component {
             <Route path="/journal.02-verify.qc" component={Journal02VerifyQc} />
             <Route path="/journal.02-verify.p_jsy" component={Journal02VerifyPjsy} />
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />
-            <Route path="/journal.02-stats" component={Journal02Stats} />
+            <Route path="/journal.02-stats" component={Document02StatsIndex} />
+            <Route path="/journal.02-stats.train" component={Journal02Stats} />
             <Route path="/journal.02-reject.list" component={Journal02RejectList} />
             <Route path="/journal.02-dashboard" component={Journal02Dashboard} />
             <Route path="/journal.02-upload.schedule" component={Document02UploadScheduleContainer} />

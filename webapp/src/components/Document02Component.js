@@ -2,6 +2,18 @@ import React from 'react'
 
 import { SaveDocument02Schedule } from '../actions/Document02'
 
+// 按车组统计
+export class StatsTrain extends React.Component {
+  render() {
+    return (
+      <div className="col text-center">
+        <div id="chart" style={{ width: '100%', height: '40em' }}></div>
+      </div>
+    )
+  }
+}
+
+// 计划内申请
 export class Document02SaveButton extends React.Component {
   render() {
     return (
