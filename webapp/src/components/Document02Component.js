@@ -19,7 +19,7 @@ export class StatsSchedule extends React.Component {
   render() {
     return (
       <div className="text-center mt-3">
-        <h1>按计划内/外统计</h1>
+        <h3>按计划内/外统计</h3>
         <div className="row">
           <div className="col-3">
             <input type="date" className="form-control" id="date-begin" />
@@ -46,7 +46,6 @@ export class StatsSchedule extends React.Component {
       date_end: document.getElementById('date-end').value
     })
     .then(response => {
-      console.info(response)
       var chart = echarts.init(document.getElementById('chart'))
       var option = {
         title: {
