@@ -12,7 +12,7 @@ import { Journal01, Journal01Save, Journal01Borrow, Journal01Return, Journal01St
 import {
     Journal02, Journal02Detail, Journal02Check, Journal02PjsyContent,
     Journal02Verify, Journal02VerifyLeader, Document02ReviewPbz, Journal02ReviewPgz, Journal02VerifyQc, Journal02VerifyPjsy,
-    Journal02VerifyPdd, Journal02Stats, Journal02RejectList
+    Journal02VerifyPdd, Journal02RejectList
 } from './Journal02'
 import {
     Journal02Save, Journal02Update,
@@ -72,7 +72,6 @@ class App extends Component {
             <Route path="/journal.02-verify.p_jsy" component={Journal02VerifyPjsy} />
             <Route path="/journal.02-verify.p_dd" component={Journal02VerifyPdd} />
             <Route path="/journal.02-stats" component={Document02StatsIndex} />
-            <Route path="/journal.02-stats.train" component={Journal02Stats} />
             <Route path="/journal.02-reject.list" component={Journal02RejectList} />
             <Route path="/journal.02-dashboard" component={Journal02Dashboard} />
             <Route path="/journal.02-upload.schedule" component={Document02UploadScheduleContainer} />

@@ -1,3 +1,28 @@
+export const GetStatsSchedule = (body) => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/document/02/stats/schedule/`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
+// 暂未用到
+export const GetStatsTrain = () => {
+  return new Promise((resolve, reject) => {
+    fetch('./api/document/02/stats/')
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
 export const GetSchedule = id => {
   return new Promise((resolve, reject) => {
     fetch(`./api/document/02/schedule/${id}`)

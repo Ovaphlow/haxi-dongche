@@ -1,12 +1,121 @@
+import echarts from 'echarts'
+import moment from 'moment'
 import React from 'react'
 
-import { SaveDocument02Schedule } from '../actions/Document02'
+import { GetStatsTrain, GetStatsSchedule, SaveDocument02Schedule } from '../actions/Document02'
+
+export class StatsSchedule extends React.Component {
+  componentDidMount() {
+    let date_begin = moment()
+    date_begin.date('01')
+    document.getElementById('date-begin').value = date_begin.format('YYYY-MM-DD')
+    let date_end = moment()
+    date_end.month(date_end.month() + 1)
+    date_end.date('01')
+    date_end.subtract(1, 'days')
+    document.getElementById('date-end').value = date_end.format('YYYY-MM-DD')
+  }
+
+  render() {
+    return (
+      <div className="text-center mt-3">
+        <h1>按计划内/外统计</h1>
+        <div className="row">
+          <div className="col-3">
+            <input type="date" className="form-control" id="date-begin" />
+          </div>
+          <div className="col-3">
+            <input type="date" className="form-control" id="date-end" />
+          </div>
+          <div className="col-6 text-left">
+            <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+              <i className="fa fa-fw fa-check-square-o"></i>
+              确定
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-3" id="chart" style={{ width: '100%', height: '40em' }}></div>
+      </div>
+    )
+  }
+
+  handler() {
+    GetStatsSchedule({
+      date_begin: document.getElementById('date-begin').value,
+      date_end: document.getElementById('date-end').value
+    })
+    .then(response => {
+      console.info(response)
+      var chart = echarts.init(document.getElementById('chart'))
+      var option = {
+        title: {
+          text: '按时段统计计划内/计划外作业数量',
+          x: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br>{b} : {c} ({d}%)'
+        },
+        series: [
+          {
+            name: '作业次数',
+            type: 'pie',
+            radius: '75%',
+            center: ['50%', '50%'],
+            data: response.content,
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        ]
+      }
+      chart.setOption(option)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+}
 
 // 按车组统计
 export class StatsTrain extends React.Component {
+  componentDidMount() {
+    GetStatsTrain()
+    .then(response => {
+      var chart = echarts.init(document.getElementById('chart'))
+      var option = {
+        title: {
+          text: '作业车组数据统计',
+          x: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br>{b} : {c} ({d}%)'
+        },
+        series: [
+          {
+            name: '作业次数',
+            type: 'pie',
+            radius: '75%',
+            center: ['50%', '50%'],
+            data: response.content,
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        ]
+      }
+      chart.setOption(option)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+
   render() {
     return (
-      <div className="col text-center">
+      <div className="col text-center mt-3">
         <div id="chart" style={{ width: '100%', height: '40em' }}></div>
       </div>
     )

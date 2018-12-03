@@ -2,10 +2,17 @@ import React from 'react'
 
 import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
 import { GetLatestScheduleList, GetLatestScheduleListByDept, GetSchedule } from '../actions/Document02'
-import { ScheduleItem, Document02SaveButton, Document02TableMaster } from '../components/Document02Component'
+import {
+  ScheduleItem, Document02SaveButton, Document02TableMaster,
+  StatsTrain, StatsSchedule
+} from '../components/Document02Component'
 import { ReloadButton } from '../component/Common'
 
 export class Document02StatsIndex extends React.Component {
+  constructor() {
+    super()
+    this.state = { item: '' }
+  }
   render() {
     return (
       <div className="row">
@@ -15,19 +22,27 @@ export class Document02StatsIndex extends React.Component {
           <PageTitle title="02.一体化作业申请单" />
           <PageTitle2 fa="fa-pie-chart" title="统计" toolbar="Journal02Toolbar" />
 
-          <select className="form-control" id="item" onChange={this.change.bind(this)}>
+          <select value={this.state.item} className="form-control" id="item" onChange={this.change.bind(this)}>
             <option value="">选择统计项目</option>
             <option value="train">作业车组数据统计</option>
-            <option value="">计划内/外作业统计</option>
+            <option value="schedule">计划内/外作业统计</option>
           </select>
+
+          {this.state.item && this.subPage()}
         </div>
       </div>
     )
   }
 
+  subPage() {
+    if (!!!document.getElementById('item').value) return
+    if (this.state.item === 'train') return <StatsTrain />
+    else if (this.state.item === 'schedule') return <StatsSchedule />
+  }
+
   change() {
     if (!!!document.getElementById('item').value) return
-    window.location = `./#/journal.02-stats.${document.getElementById('item').value}`
+    this.setState({ item: document.getElementById('item').value })
   }
 }
 
