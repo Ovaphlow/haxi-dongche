@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 
-export default class Journal01Item extends React.Component {
+export class Ledger01ListItem extends React.Component {
   constructor(props) {
     super(props)
     this.borrow = this.borrow.bind(this)

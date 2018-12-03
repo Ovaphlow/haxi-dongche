@@ -8,7 +8,7 @@ import { MessageList } from './Message'
 import { AdminDept, AdminDeptList, AdminDeptSave } from './AdminDept'
 import { AdminUserList, AdminUserSave, AdminUser } from './AdminUser'
 import { AdminTrain, AdminTrainList } from './AdminTrain'
-import { Journal01, Journal01Save, Journal01Borrow, Journal01Return, Journal01Stats } from './Journal01'
+import { Journal01Save, Journal01Borrow, Journal01Return, Journal01Stats } from './Journal01'
 import {
     Journal02, Journal02Detail, Journal02Check, Journal02PjsyContent,
     Journal02Verify, Journal02VerifyLeader, Document02ReviewPbz, Journal02ReviewPgz, Journal02VerifyQc, Journal02VerifyPjsy,
@@ -23,6 +23,10 @@ import {
     Journal02AdminMaster, Journal02AdminDetail01, Journal02AdminDetail02,
     Journal02AdminDetail03, Journal02AdminDetail04
 } from './Journal02Admin'
+
+import {
+  Ledger01Home
+} from './containers/Ledger01Container'
 
 import {
   Document02UploadScheduleContainer, Document02SaveSchedule, Document02StatsIndex
@@ -41,6 +45,7 @@ class App extends Component {
             <Route path="/user" component={User} />
             <Route path="/user.password" component={UserPassword} />
             <Route path="/message" component={MessageList} />
+
             <Route path="/admin.dept-list" component={AdminDeptList} />
             <Route path="/admin.dept-save" component={AdminDeptSave} />
             <Route path="/admin.dept" component={AdminDept} />
@@ -49,11 +54,14 @@ class App extends Component {
             <Route path="/admin.user" component={AdminUser} />
             <Route path="/admin.train-list" component={AdminTrainList} />
             <Route path="/admin.train" component={AdminTrain} />
-            <Route path="/journal.01" component={Journal01} />
+
+            {/* <Route path="/journal.01" component={Journal01} /> */}
+            <Route path="/journal.01" component={Ledger01Home} />
             <Route path="/journal.01-save" component={Journal01Save} />
             <Route path="/journal.01-borrow" component={Journal01Borrow} />
             <Route path="/journal.01-return" component={Journal01Return} />
             <Route path="/journal.01-stats" component={Journal01Stats} />
+
             <Route path="/journal.02" component={Journal02} />
             <Route path="/journal.02-detail" component={Journal02Detail} />
             <Route path="/journal.02-save" component={Journal02Save} />

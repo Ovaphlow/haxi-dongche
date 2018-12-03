@@ -3,7 +3,7 @@ import echarts from 'echarts'
 import React from 'react'
 
 import { PageTitle, PageTitle2, Sidebar } from './component/Common'
-import Journal01Item from './component/Journal01Item'
+import { Ledger01ListItem } from './components/Ledger01Component'
 
 export class Journal01Stats extends React.Component {
   constructor(props) {
@@ -163,10 +163,10 @@ export class Journal01Return extends React.Component {
           <div className="col-12">
             <ul className="list-group">
               {this.state.list.map(item =>
-                <Journal01Item key={item.id} item={item} return={true} />
+                <Ledger01ListItem key={item.id} item={item} return={true} />
               )}
               {this.state.listByUser.map(item =>
-                <Journal01Item key={item.id} item={item} />
+                <Ledger01ListItem key={item.id} item={item} />
               )}
             </ul>
           </div>
@@ -263,10 +263,10 @@ export class Journal01Borrow extends React.Component {
             <div className="col-12">
               <ul className="list-group">
                 {this.state.list.map(item =>
-                  <Journal01Item key={item.id} item={item} borrow={true} />
+                  <Ledger01ListItem key={item.id} item={item} borrow={true} />
                 )}
                 {this.state.listByUser.map(item =>
-                  <Journal01Item key={item.id} item={item} />
+                  <Ledger01ListItem key={item.id} item={item} />
                 )}
               </ul>
             </div>
@@ -322,7 +322,7 @@ export class Journal01Save extends React.Component {
   render() {
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="01.检修车间禁动牌管理台账" />
@@ -400,7 +400,7 @@ export class Journal01 extends React.Component {
   render() {
     return (
       <div className="row">
-        <Sidebar />
+        <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -418,7 +418,7 @@ export class Journal01 extends React.Component {
           <div className="col-12">
             <ul className="list-group">
               {this.state.list.map(item =>
-                <Journal01Item key={item.id} item={item} />
+                <Ledger01ListItem key={item.id} item={item} />
               )}
             </ul>
           </div>
