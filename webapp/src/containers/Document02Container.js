@@ -93,8 +93,8 @@ export class Document02SaveSchedule extends React.Component {
     if (!!!auth) return
     GetSchedule(document.getElementById('schedule-list').value)
     .then(response => {
-      response.content.applicant = auth.name
-      response.content.applicant_phone = auth.phone
+      // response.content.applicant = auth.name
+      // response.content.applicant_phone = auth.phone
       this.setState({ item: response.content })
     })
   }
