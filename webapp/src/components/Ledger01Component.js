@@ -2,16 +2,38 @@ import React from 'react'
 import { ReturnItem } from '../actions/Ledger01Action';
 
 export class Ledger01ListItem extends React.Component {
-  constructor(props) {
-    super(props)
-    this.submitReturn = this.submitReturn.bind(this)
+  render() {
+    return (
+      <tr className={this.props.item.return_by_id === 0 ? 'table-danger' : ''}>
+        <td>{this.props.item.id}</td>
+        <td>{this.props.item.quantity}</td>
+        <td>{this.props.item.dept}</td>
+        <td>{this.props.item.applicant}</td>
+        <td>{this.props.item.date} {this.props.item.time}</td>
+        <td>{this.props.item.borrow}</td>
+        <td>
+          {this.props.item.return_date === '0001-01-01' ? '' : this.props.item.return_date}
+          {this.props.item.return_time === '00:00:00' ? '' : this.props.item.return_time}
+        </td>
+        <td>{this.props.item.return_by}</td>
+        <td>
+          {
+            this.props.op_return &&
+            <button className="btn btn-outline-primary" data-id={this.props.item.id} onClick={this.handlerReturn.bind(this)}>
+              <i className="fa fa-fw fa-download"></i>
+              返还
+            </button>
+          }
+        </td>
+      </tr>
+    )
   }
 
-  submitReturn(event) {
+  handlerReturn(event) {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth.auth_01) {
-      this.setState({ message: `当前用户没有对应权限` })
-      return false
+      window.alert('当前用户没有对应的权限')
+      return
     }
     let body = {
       id: event.target.getAttribute('data-id'),
@@ -27,45 +49,6 @@ export class Ledger01ListItem extends React.Component {
       window.location.reload(true)
     })
     .catch(err => window.console && console.error(err))
-  }
-
-  render() {
-    return (
-      <li className="list-group-item" key={this.props.item.id}>
-        <h5 className="mb-1">
-          数量：<span className="text-primary">{this.props.item.quantity}</span>
-        </h5>
-        <ul className="list-inline">
-          <li className="list-inline-item">
-            由 <span className="text-info">{this.props.item.dept}</span> 的
-            <span className="text-primary"><i className="fa fa-fw fa-user"></i>{this.props.item.applicant}</span>
-            于 <span className="text-secondary">{this.props.item.date} {this.props.item.time}</span> 申请
-          </li>
-          {this.props.item.borrow &&
-            <li className="list-inline-item">
-              <span className="text-danger">{this.props.item.borrow}</span>
-              于 <span className="text-secondary">{this.props.item.borrow_date} {this.props.item.borrow_time}</span> 发放
-            </li>
-          }
-          {this.props.item.return_by_id &&
-            <li className="list-inline-item">
-              <span className="text-warning">{this.props.item.return_name}</span>
-              于 <span className="text-muted">{this.props.item.return_date} {this.props.item.return_time}</span> 归还，
-              <span className="text-success">{this.props.item.return_by}</span> 确认
-            </li>
-          }
-        </ul>
-
-        <div className="btn-group pull-right" role="group">
-          {this.props.return &&
-            <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.submitReturn}>
-              <i className="fa fa-fw fa-download"></i>
-              返还
-            </button>
-          }
-        </div>
-      </li>
-    )
   }
 }
 

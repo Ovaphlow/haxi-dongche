@@ -5,6 +5,7 @@ import {
   Sidebar, PageTitle, PageTitle2
 } from '../component/Common'
 import { Ledger01ListItem } from '../components/Ledger01Component'
+import { FilterDeptByRemark } from '../actions/Common'
 import { GetList, Save, ReturnList, Stats } from '../actions/Ledger01Action'
 
 export class Ledger01Stats extends React.Component {
@@ -95,13 +96,27 @@ export class Ledger01Return extends React.Component {
           <PageTitle title="01.检修车间禁动牌管理台账" />
           <PageTitle2 fa="fa-download" title="返还" toolbar="Journal01Toolbar" />
 
-          <div className="col-12">
-            <ul className="list-group">
-              {this.state.list.map(item =>
-                <Ledger01ListItem key={item.id} item={item} return={true} />
-              )}
-            </ul>
-          </div>
+          <table className="table table-striped table-bordered">
+            <thead className="thead-dark">
+              <tr className="text-success">
+                <td>序号</td>
+                <td>数量</td>
+                <td>部门</td>
+                <td>借出人</td>
+                <td>时间</td>
+                <td>操作人</td>
+                <td>归还时间</td>
+                <td>操作人</td>
+                <td>操作</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.list.length > 0 &&
+                this.state.list.map(item => <Ledger01ListItem key={item.id} item={item} op_return={true} />)
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     )
@@ -109,33 +124,22 @@ export class Ledger01Return extends React.Component {
 }
 
 export class Ledger01Save extends React.Component {
+  constructor() {
+    super()
+    this.state = { listDept: [] }
+  }
+
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
       window.location = './#/login'
       return
     }
-    document.getElementById('applicant').value = auth.name
-    document.getElementById('dept').value = auth.dept
     document.getElementById('qty').value = 1
-  }
-
-  submit() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    let body = {
-      applicantId: auth.id,
-      applicant: auth.name,
-      dept: auth.dept,
-      quantity: document.getElementById('qty').value,
-      remark: document.getElementById('remark').value
-    }
-    Save(body)
+    document.getElementById('borrow').value = auth.name
+    FilterDeptByRemark('班组')
     .then(response => {
-      if (response.message) {
-        window.alert(response.data.message)
-        return
-      }
-      window.location = './#/journal.01'
+      this.setState({ listDept: response.content })
     })
     .catch(err => window.console && console.error(err))
   }
@@ -150,52 +154,83 @@ export class Ledger01Save extends React.Component {
           <PageTitle2 fa="fa-plus" title="新增申请" toolbar="Journal01Toolbar" />
 
           <div className="row">
-            <div className="col-6">
-              <div className="form-group">
-                <label>申请人</label>
-                <input type="text" className="form-control" readOnly id="applicant" />
-              </div>
-            </div>
-            <div className="col-6">
+            <div className="col">
               <div className="form-group">
                 <label>作业部门</label>
-                <input type="text" className="form-control" readOnly id="dept" />
+                <select className="form-control" id="dept">
+                  {
+                    this.state.listDept.map(item =>
+                      <option value={item.name} key={item.id}>{item.name}</option>
+                    )
+                  }
+                </select>
               </div>
             </div>
 
-            <div className="col-12">
+            <div className="col">
+              <div className="form-group">
+                <label>申请人</label>
+                <input type="text" className="form-control" id="applicant" />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col">
               <div className="form-group">
                 <label>申请数量</label>
                 <input type="number" className="form-control" id="qty" />
               </div>
             </div>
-            <div className="clearfix"></div>
 
-            <div className="col-12">
+            <div className="col">
               <div className="form-group">
-                <label>备注</label>
-                <textarea rows="3" className="form-control" id="remark"></textarea>
+                <label>操作人</label>
+                <input type="text" readOnly className="form-control" id="borrow" />
               </div>
             </div>
+          </div>
 
-            <div className="col-12">
-              <div className="btn btn-group pull-right">
-                <button type="button" className="btn btn-primary" onClick={this.submit}>
-                  <i className="fa fa-fw fa-check-square-o"></i> 确定
-              </button>
-              </div>
-            </div>
+          <div className="form-group">
+            <label>备注</label>
+            <textarea rows="3" className="form-control" id="remark"></textarea>
+          </div>
+
+          <div className="btn btn-group pull-right">
+            <button type="button" className="btn btn-primary" onClick={this.submit.bind(this)}>
+              <i className="fa fa-fw fa-check-square-o"></i> 确定
+            </button>
           </div>
         </div>
       </div>
     )
+  }
+
+  submit() {
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    let body = {
+      applicant: document.getElementById('applicant').value,
+      dept: document.getElementById('dept').value,
+      quantity: document.getElementById('qty').value,
+      borrow: auth.name,
+      remark: document.getElementById('remark').value
+    }
+    Save(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.data.message)
+        return
+      }
+      window.location = './#/journal.01'
+    })
+    .catch(err => window.console && console.error(err))
   }
 }
 
 export class Ledger01Home extends React.Component {
   constructor() {
     super()
-    this.state = { message: '', list: [] }
+    this.state = { list: [] }
   }
 
   componentDidMount() {
@@ -206,7 +241,9 @@ export class Ledger01Home extends React.Component {
       return false
     }
     GetList()
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      this.setState({ list: response.content })
+    })
     .catch(err => window.console && console.error(err))
   }
 
@@ -220,21 +257,27 @@ export class Ledger01Home extends React.Component {
           <PageTitle title="01.检修车间禁动牌管理台账" />
           <PageTitle2 fa="fa-search" title="检索数据" toolbar="Journal01Toolbar" />
 
-          {this.state.message &&
-            <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
-            </div>
-          }
-
-          <div className="col-12">
-            <ul className="list-group">
-              {this.state.list.map(item =>
-                <Ledger01ListItem key={item.id} item={item} />
-              )}
-            </ul>
-          </div>
+          <table className="table table-striped table-bordered">
+            <thead className="thead-dark">
+              <tr className="text-success">
+                <td>序号</td>
+                <td>数量</td>
+                <td>部门</td>
+                <td>借出人</td>
+                <td>时间</td>
+                <td>操作人</td>
+                <td>归还时间</td>
+                <td>操作人</td>
+                <td>操作</td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.state.list.length > 0 &&
+                this.state.list.map(item => <Ledger01ListItem key={item.id} item={item} />)
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     )

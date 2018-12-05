@@ -1,3 +1,12 @@
+export const FilterDeptByRemark = remark => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/common/dept/filter/remark/${remark}`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
 export const LoginAction = body => {
   return new Promise((resolve, reject) => {
     fetch('./api/common/user/login', {
