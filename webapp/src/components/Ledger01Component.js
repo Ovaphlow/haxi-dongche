@@ -13,6 +13,7 @@ export class Ledger01ListItem extends React.Component {
         <td>{this.props.item.borrow}</td>
         <td>
           {this.props.item.return_date === '0001-01-01' ? '' : this.props.item.return_date}
+          &nbsp;
           {this.props.item.return_time === '00:00:00' ? '' : this.props.item.return_time}
         </td>
         <td>{this.props.item.return_by}</td>
