@@ -9,8 +9,8 @@ export const Stats = () => {
 
 export const ReturnItem = body => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/01/return/`, {
-      method: 'POST',
+    fetch(`./api/ledger/01/return/${body.id}`, {
+      method: 'PUT',
       headers: {
         'content-type': 'application/json;charset=utf-8'
       },

@@ -5,7 +5,7 @@ import {
   Sidebar, PageTitle, PageTitle2
 } from '../component/Common'
 import { Ledger01ListItem } from '../components/Ledger01Component'
-import { GetList, Save, ReturnList, ReturnItem, Stats } from '../actions/Ledger01Action'
+import { GetList, Save, ReturnList, Stats } from '../actions/Ledger01Action'
 
 export class Ledger01Stats extends React.Component {
   componentDidMount() {
@@ -66,7 +66,6 @@ export class Ledger01Return extends React.Component {
   constructor() {
     super()
     this.state = { list: [] }
-    this.submitReturn = this.submitReturn.bind(this)
   }
 
   componentDidMount() {
@@ -87,28 +86,6 @@ export class Ledger01Return extends React.Component {
     .catch(err => window.console && console.error(err))
   }
 
-  submitReturn(event) {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth.auth_01) {
-      window.alert('当前用户没有对应权限')
-      return
-    }
-    let body = {
-      return_name: document.getElementById('modal.return_by').value,
-      return_by: auth.name,
-      return_by_id: auth.id,
-      remark: document.getElementById('modal.remark').value
-    }
-    ReturnItem(body)
-    .then(response => {
-      if (response.message) {
-        window.alert(response.message)
-        return
-      }
-      window.location.reload(true)
-    }).catch(err => window.console && console.error(err))
-  }
-
   render() {
     return (
       <div className="row">
@@ -124,37 +101,6 @@ export class Ledger01Return extends React.Component {
                 <Ledger01ListItem key={item.id} item={item} return={true} />
               )}
             </ul>
-          </div>
-        </div>
-
-        <div id="modal" tabIndex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true" className="modal fade">
-          <div className="modal-dialog modal-dialog-centered" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="modalTitle">
-                  返还
-                </h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label>返还人</label>
-                  <input type="text" readOnly className="form-control" id="modal.return_by" />
-                </div>
-                <div className="form-group">
-                  <label>备注</label>
-                  <textarea rows="3" className="form-control" id="modal.remark"></textarea>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">关闭</button>
-                <button type="button" data-id="0" className="btn btn-primary" id="modal.id" onClick={this.submitReturn}>
-                  <i className="fa fa-fw fa-download"></i> 返还
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>

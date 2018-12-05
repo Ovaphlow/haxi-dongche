@@ -1,34 +1,10 @@
-import axios from 'axios'
 import React from 'react'
+import { ReturnItem } from '../actions/Ledger01Action';
 
 export class Ledger01ListItem extends React.Component {
   constructor(props) {
     super(props)
-    this.borrow = this.borrow.bind(this)
     this.submitReturn = this.submitReturn.bind(this)
-  }
-
-  borrow(event) {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth.auth_01) {
-      this.setState({ message: `当前用户没有对应权限` })
-      return false
-    }
-    axios({
-      method: 'put',
-      url: './api/ledger/01/' + event.target.getAttribute('data-id') + '/borrow',
-      data: {
-        borrow: auth.name,
-        borrowId: auth.id
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
-      }
-      window.location.reload(true)
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
   }
 
   submitReturn(event) {
@@ -37,23 +13,20 @@ export class Ledger01ListItem extends React.Component {
       this.setState({ message: `当前用户没有对应权限` })
       return false
     }
-    axios({
-      method: 'put',
-      url: './api/ledger/01/return/' + event.target.getAttribute('data-id'),
-      data: {
-        return_name: document.getElementById('modal.return_by').value,
-        return_by: auth.name,
-        return_by_id: auth.id,
-        remark: document.getElementById('modal.remark').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    let body = {
+      id: event.target.getAttribute('data-id'),
+      return_by: auth.name,
+      return_by_id: auth.id
+    }
+    ReturnItem(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
       }
       window.location.reload(true)
-    }).catch(err => this.setState({ message: `服务器通信异常` }))
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -84,12 +57,6 @@ export class Ledger01ListItem extends React.Component {
         </ul>
 
         <div className="btn-group pull-right" role="group">
-          {this.props.borrow &&
-            <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.borrow}>
-              <i className="fa fa-fw fa-upload"></i>
-              发放
-            </button>
-          }
           {this.props.return &&
             <button type="button" className="btn btn-secondary btn-sm" data-id={this.props.item.id} onClick={this.submitReturn}>
               <i className="fa fa-fw fa-download"></i>
