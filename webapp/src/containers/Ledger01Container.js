@@ -78,7 +78,6 @@ export class Ledger01Return extends React.Component {
 
     ReturnList()
     .then(response => {
-      console.info(response)
       if (response.message) {
         window.alert(response.data.message)
         return
