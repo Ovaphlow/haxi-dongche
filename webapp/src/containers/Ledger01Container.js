@@ -238,7 +238,7 @@ export class Ledger01Home extends React.Component {
     if (!!!auth) {
       sessionStorage.setItem('link2', './#/journal.01')
       window.location.href = './#/login'
-      return false
+      return
     }
     GetList()
     .then(response => {
