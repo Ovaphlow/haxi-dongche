@@ -1,4 +1,3 @@
-import axios from 'axios'
 import echarts from 'echarts'
 import React from 'react'
 
@@ -6,7 +5,7 @@ import {
   Sidebar, PageTitle, PageTitle2
 } from '../component/Common'
 import { Ledger01ListItem } from '../components/Ledger01Component'
-import { GetList, Stats } from '../actions/Ledger01Action'
+import { GetList, Save, ReturnList, ReturnItem, Stats } from '../actions/Ledger01Action'
 
 export class Ledger01Stats extends React.Component {
   componentDidMount() {
@@ -66,37 +65,27 @@ export class Ledger01Stats extends React.Component {
 export class Ledger01Return extends React.Component {
   constructor() {
     super()
-    this.state = { list: [], listByUser: [] }
+    this.state = { list: [] }
     this.submitReturn = this.submitReturn.bind(this)
   }
 
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (auth.auth_01) {
-      axios({
-        method: 'get',
-        url: './api/ledger/01/return',
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          window.alert(response.data.message)
-          return
-        }
-        this.setState({ list: response.data.content })
-      }).catch(err => window.console && console.error(err))
-    } else if (auth.id) {
-      axios({
-        method: 'get',
-        url: './api/ledger/01/return/user' + auth.id,
-        responseType: 'json'
-      }).then(response => {
-        if (response.data.message) {
-          window.alert(response.data.message)
-          return
-        }
-        this.setState({ listByUser: response.data.content })
-      }).catch(err => window.console && console.error(err))
+    if (!!!auth.auth_01) {
+      window.alert('当前用户没有对应的权限')
+      return
     }
+
+    ReturnList()
+    .then(response => {
+      console.info(response)
+      if (response.message) {
+        window.alert(response.data.message)
+        return
+      }
+      this.setState({ list: response.content })
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   submitReturn(event) {
@@ -105,19 +94,16 @@ export class Ledger01Return extends React.Component {
       window.alert('当前用户没有对应权限')
       return
     }
-    axios({
-      method: 'put',
-      url: './api/ledger/01/return/' + event.target.getAttribute('data-id'),
-      data: {
-        return_name: document.getElementById('modal.return_by').value,
-        return_by: auth.name,
-        return_by_id: auth.id,
-        remark: document.getElementById('modal.remark').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        window.alert(response.data.message)
+    let body = {
+      return_name: document.getElementById('modal.return_by').value,
+      return_by: auth.name,
+      return_by_id: auth.id,
+      remark: document.getElementById('modal.remark').value
+    }
+    ReturnItem(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
         return
       }
       window.location.reload(true)
@@ -138,9 +124,6 @@ export class Ledger01Return extends React.Component {
               {this.state.list.map(item =>
                 <Ledger01ListItem key={item.id} item={item} return={true} />
               )}
-              {this.state.listByUser.map(item =>
-                <Ledger01ListItem key={item.id} item={item} />
-              )}
             </ul>
           </div>
         </div>
@@ -151,7 +134,7 @@ export class Ledger01Return extends React.Component {
               <div className="modal-header">
                 <h5 className="modal-title" id="modalTitle">
                   返还
-            </h5>
+                </h5>
                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -181,45 +164,35 @@ export class Ledger01Return extends React.Component {
 }
 
 export class Ledger01Save extends React.Component {
-  constructor() {
-    super()
-    this.state = { message: '', auth: {} }
-    this.submit = this.submit.bind(this)
-  }
-
   componentDidMount() {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
-      window.location.href = './#/login'
-      return false
+      window.location = './#/login'
+      return
     }
-    this.setState({ auth: auth })
     document.getElementById('applicant').value = auth.name
     document.getElementById('dept').value = auth.dept
     document.getElementById('qty').value = 1
   }
 
   submit() {
-    axios({
-      method: 'post',
-      url: './api/ledger/01/',
-      data: {
-        applicantId: this.state.auth.id,
-        applicant: this.state.auth.name,
-        dept: this.state.auth.dept,
-        quantity: document.getElementById('qty').value,
-        remark: document.getElementById('remark').value
-      },
-      responseType: 'json'
-    }).then(response => {
-      if (response.data.message) {
-        this.setState({ message: response.data.message })
-        return false
+    let auth = JSON.parse(sessionStorage.getItem('auth'))
+    let body = {
+      applicantId: auth.id,
+      applicant: auth.name,
+      dept: auth.dept,
+      quantity: document.getElementById('qty').value,
+      remark: document.getElementById('remark').value
+    }
+    Save(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.data.message)
+        return
       }
-      window.location.href = './#/journal.01'
-    }).catch(err => {
-      this.setState({ message: `服务器通信异常` })
+      window.location = './#/journal.01'
     })
+    .catch(err => window.console && console.error(err))
   }
 
   render() {
@@ -230,14 +203,6 @@ export class Ledger01Save extends React.Component {
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <PageTitle title="01.检修车间禁动牌管理台账" />
           <PageTitle2 fa="fa-plus" title="新增申请" toolbar="Journal01Toolbar" />
-
-          {this.state.message &&
-            <div className="col-12">
-              <div className="alert alert-danger">
-                {this.state.message}
-              </div>
-            </div>
-          }
 
           <div className="row">
             <div className="col-6">
