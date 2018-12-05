@@ -3,7 +3,8 @@ import React from 'react'
 
 import UserToolbar from './UserToolbar'
 import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUtil'
-import Journal01Toolbar from './Journal01Toolbar'
+// import Journal01Toolbar from './Journal01Toolbar'
+import { Ledger01Toolbar } from '../components/Ledger01Component'
 import Journal02Toolbar from './Journal02Util'
 
 export class TimerReloadButton extends React.Component {
@@ -406,7 +407,7 @@ export class PageTitle2 extends React.Component {
           <AdminTrainToolbar className="pull-right" />
         }
         {this.props.toolbar === 'Journal01Toolbar' &&
-          <Journal01Toolbar className="pull-right" />
+          <Ledger01Toolbar className="pull-right" />
         }
         {this.props.toolbar === 'Journal02Toolbar' &&
           <Journal02Toolbar className="pull-right" />

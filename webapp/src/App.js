@@ -8,7 +8,6 @@ import { MessageList } from './Message'
 import { AdminDept, AdminDeptList, AdminDeptSave } from './AdminDept'
 import { AdminUserList, AdminUserSave, AdminUser } from './AdminUser'
 import { AdminTrain, AdminTrainList } from './AdminTrain'
-import { Journal01Save, Journal01Borrow, Journal01Return, Journal01Stats } from './Journal01'
 import {
     Journal02, Journal02Detail, Journal02Check, Journal02PjsyContent,
     Journal02Verify, Journal02VerifyLeader, Document02ReviewPbz, Journal02ReviewPgz, Journal02VerifyQc, Journal02VerifyPjsy,
@@ -25,7 +24,7 @@ import {
 } from './Journal02Admin'
 
 import {
-  Ledger01Home
+  Ledger01Home, Ledger01Save, Ledger01Return, Ledger01Stats
 } from './containers/Ledger01Container'
 
 import {
@@ -55,12 +54,10 @@ class App extends Component {
             <Route path="/admin.train-list" component={AdminTrainList} />
             <Route path="/admin.train" component={AdminTrain} />
 
-            {/* <Route path="/journal.01" component={Journal01} /> */}
             <Route path="/journal.01" component={Ledger01Home} />
-            <Route path="/journal.01-save" component={Journal01Save} />
-            <Route path="/journal.01-borrow" component={Journal01Borrow} />
-            <Route path="/journal.01-return" component={Journal01Return} />
-            <Route path="/journal.01-stats" component={Journal01Stats} />
+            <Route path="/journal.01-save" component={Ledger01Save} />
+            <Route path="/journal.01-return" component={Ledger01Return} />
+            <Route path="/journal.01-stats" component={Ledger01Stats} />
 
             <Route path="/journal.02" component={Journal02} />
             <Route path="/journal.02-detail" component={Journal02Detail} />

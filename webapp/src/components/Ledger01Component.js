@@ -101,3 +101,26 @@ export class Ledger01ListItem extends React.Component {
     )
   }
 }
+
+export class Ledger01Toolbar extends React.Component {
+  render() {
+    return (
+      <div className="btn-group pull-right" role="group">
+        <a href='./#/journal.01' className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-search"></i>
+          检索数据
+        </a>
+        <a href='./#/journal.01-save' className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-plus"></i>
+          新增申请
+        </a>
+        <a href='./#/journal.01-return' className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-download"></i> 返还
+        </a>
+        <a href='./#/journal.01-stats' className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-pie-chart"></i> 数据统计
+        </a>
+      </div>
+    )
+  }
+}
