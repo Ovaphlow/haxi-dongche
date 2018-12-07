@@ -1,31 +1,31 @@
 import React from 'react'
-import { ReturnItem } from '../actions/Ledger01Action';
 
 export class Ledger01ListItem extends React.Component {
   render() {
     return (
       <tr className={this.props.item.return_by_id === 0 ? 'table-danger' : ''}>
         <td>{this.props.item.id}</td>
+        <td>{this.props.item.date}</td>
+        <td>{this.props.item.time}</td>
         <td>{this.props.item.quantity}</td>
-        <td>{this.props.item.dept}</td>
         <td>{this.props.item.applicant}</td>
-        <td>{this.props.item.date} {this.props.item.time}</td>
+        <td>{this.props.item.dept}</td>
         <td>{this.props.item.borrow}</td>
-        <td>
-          {this.props.item.return_date === '0001-01-01' ? '' : this.props.item.return_date}
-          &nbsp;
-          {this.props.item.return_time === '00:00:00' ? '' : this.props.item.return_time}
-        </td>
+        <td>{this.props.item.return_date === '0001-01-01' ? '' : this.props.item.return_date}</td>
+        <td>{this.props.item.return_time === '00:00:00' ? '' : this.props.item.return_time}</td>
+        <td>{this.props.item.return_quantity}</td>
+        <td>{this.props.item.return_name}</td>
         <td>{this.props.item.return_by}</td>
-        <td>
-          {
-            this.props.op_return &&
+        <td>{this.props.item.remark}</td>
+        {
+          this.props.op_return &&
+          <td>
             <button className="btn btn-outline-primary" data-id={this.props.item.id} onClick={this.handlerReturn.bind(this)}>
               <i className="fa fa-fw fa-download"></i>
               返还
             </button>
-          }
-        </td>
+          </td>
+        }
       </tr>
     )
   }
@@ -36,20 +36,17 @@ export class Ledger01ListItem extends React.Component {
       window.alert('当前用户没有对应的权限')
       return
     }
-    let body = {
-      id: event.target.getAttribute('data-id'),
-      return_by: auth.name,
-      return_by_id: auth.id
-    }
-    ReturnItem(body)
-    .then(response => {
-      if (response.message) {
-        window.alert(response.message)
-        return
-      }
-      window.location.reload(true)
-    })
-    .catch(err => window.console && console.error(err))
+    window.sessionStorage.setItem('ledger.01-item', event.target.getAttribute('data-id'))
+    window.location = './#/journal.01-return.item'
+    // ReturnItem(body)
+    // .then(response => {
+    //   if (response.message) {
+    //     window.alert(response.message)
+    //     return
+    //   }
+    //   window.location.reload(true)
+    // })
+    // .catch(err => window.console && console.error(err))
   }
 }
 

@@ -6,7 +6,7 @@ import {
 } from '../component/Common'
 import { Ledger01ListItem } from '../components/Ledger01Component'
 import { FilterDeptByRemark } from '../actions/Common'
-import { GetList, Save, ReturnList, Stats } from '../actions/Ledger01Action'
+import { GetList, Save, GetItem, ReturnList, ReturnItem, Stats } from '../actions/Ledger01Action'
 
 export class Ledger01Stats extends React.Component {
   componentDidMount() {
@@ -63,6 +63,75 @@ export class Ledger01Stats extends React.Component {
   }
 }
 
+export class Ledger01ReturnItem extends React.Component {
+  componentDidMount() {
+    GetItem(window.sessionStorage.getItem('ledger.01-item'))
+    .then(response => {
+      document.getElementById('quantity').value = response.content.quantity
+      document.getElementById('return').value = response.content.applicant
+      document.getElementById('remark').value = response.content.remark
+    })
+  }
+
+  render() {
+    return (
+      <div className="row">
+        <Sidebar category='账项' />
+
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <PageTitle title="01.检修车间禁动牌管理台账" />
+          <PageTitle2 fa="fa-download" title="返还" toolbar="Journal01Toolbar" />
+
+          <div className="row">
+            <div className="col form-group">
+              <label>归还数量</label>
+              <input type="text" className="form-control" id="quantity" />
+            </div>
+            <div className="col form-group">
+              <label>归还人</label>
+              <input type="text" className="form-control" id="return" />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>备注</label>
+            <textarea rows="3" className="form-control" id="remark"></textarea>
+          </div>
+
+          <div className="form-group">
+            <button type="button" className="btn btn-primary pull-right" onClick={this.handler.bind(this)}>
+              <i className="fa fa-fw fa-check-square-o"></i>
+              确定
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  handler() {
+    let auth = JSON.parse(window.sessionStorage.getItem('auth'))
+    if (!!!auth) return
+    let body = {
+      id: sessionStorage.getItem('ledger.01-item'),
+      return_quantity: document.getElementById('quantity').value,
+      return_name: document.getElementById('return').value,
+      return_by: auth.name,
+      return_by_id: auth.id,
+      remark: document.getElementById('remark').value
+    }
+    ReturnItem(body)
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location = './#/journal.01-return'
+    })
+    .catch(err => window.console && console.error(err))
+  }
+}
+
 export class Ledger01Return extends React.Component {
   constructor() {
     super()
@@ -100,13 +169,18 @@ export class Ledger01Return extends React.Component {
             <thead className="thead-dark">
               <tr className="text-success">
                 <td>序号</td>
+                <td>领取日期</td>
+                <td>领取时间</td>
                 <td>数量</td>
-                <td>部门</td>
+                <td>领取人员</td>
+                <td>作业部门</td>
                 <td>借出人</td>
-                <td>时间</td>
-                <td>操作人</td>
+                <td>归还日期</td>
                 <td>归还时间</td>
-                <td>操作人</td>
+                <td>归还数量</td>
+                <td>归还人</td>
+                <td>接受人</td>
+                <td>备注</td>
                 <td>操作</td>
               </tr>
             </thead>
@@ -133,6 +207,11 @@ export class Ledger01Save extends React.Component {
     let auth = JSON.parse(sessionStorage.getItem('auth'))
     if (!!!auth) {
       window.location = './#/login'
+      return
+    }
+    if (!!!auth.auth_01) {
+      window.alert('当前用户没有对应权限')
+      window.location = './#/journal.01'
       return
     }
     document.getElementById('qty').value = 1
@@ -261,14 +340,18 @@ export class Ledger01Home extends React.Component {
             <thead className="thead-dark">
               <tr className="text-success">
                 <td>序号</td>
+                <td>领取日期</td>
+                <td>领取时间</td>
                 <td>数量</td>
-                <td>部门</td>
-                <td>借出人</td>
-                <td>时间</td>
-                <td>操作人</td>
+                <td>领取人员</td>
+                <td>作业部门</td>
+                <td>发放人</td>
+                <td>归还日期</td>
                 <td>归还时间</td>
-                <td>操作人</td>
-                <td>操作</td>
+                <td>归还数量</td>
+                <td>归还人</td>
+                <td>接受人</td>
+                <td>备注</td>
               </tr>
             </thead>
             <tbody>

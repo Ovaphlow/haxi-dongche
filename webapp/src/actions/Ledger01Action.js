@@ -22,6 +22,15 @@ export const ReturnItem = body => {
   })
 }
 
+export const GetItem = id => {
+  return new Promise((resolve, reject) => {
+    fetch(`./api/ledger/01/${id}`)
+    .then(res => res.json())
+    .then(response => resolve(response))
+    .catch(err => reject(err))
+  })
+}
+
 export const ReturnList = () => {
   return new Promise((resolve, reject) => {
     fetch(`./api/ledger/01/return/`)
