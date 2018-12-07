@@ -6,6 +6,7 @@ import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUt
 // import Journal01Toolbar from './Journal01Toolbar'
 import { Ledger01Toolbar } from '../components/Ledger01Component'
 import Journal02Toolbar from './Journal02Util'
+import { Ledger03Toolbar } from '../Ledger03/Ledger03Component'
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -412,6 +413,10 @@ export class PageTitle2 extends React.Component {
         {this.props.toolbar === 'Journal02Toolbar' &&
           <Journal02Toolbar className="pull-right" />
         }
+        {
+          this.props.toolbar === 'Ledger03Toolbar' &&
+          <Ledger03Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -512,12 +517,20 @@ export class Sidebar extends React.Component {
               </a>
             </li>
             {this.props.category === '账项' &&
-              <li className="nav-item">
-                <a className="nav-link" href="./#/journal.01">
-                  <i className="fa fa-file-o fa-fw"></i>
-                  01.检修车间禁动牌管理台账
-                </a>
-              </li>
+              <span>
+                <li className="nav-item">
+                  <a className="nav-link" href="./#/journal.01">
+                    <i className="fa fa-file-o fa-fw"></i>
+                    01.检修车间禁动牌管理台账
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="./#/ledger.03">
+                    <i className="fa fa-file-o fa-fw"></i>
+                    03.
+                  </a>
+                </li>
+              </span>
             }
             <li className="nav-item">
               <a className="nav-link" href="./#/journal.02">
