@@ -31,7 +31,8 @@ import {
   Document02UploadScheduleContainer, Document02SaveSchedule, Document02StatsIndex
 } from './containers/Document02Container'
 
-import { Ledger03Home, Ledger03Save } from './Ledger03/Ledger03Container'
+import { Ledger03Home, Ledger03Save, Ledger03Review, Ledger03Stats } from './Ledger03/Ledger03Container'
+import { Ledger04Home, Ledger04Save, Ledger04Review, Ledger04Stats } from './Ledger04/Ledger04Container'
 
 class App extends Component {
   render() {
@@ -92,6 +93,13 @@ class App extends Component {
 
             <Route path="/ledger.03" component={Ledger03Home} />
             <Route path="/ledger.03-save" component={Ledger03Save} />
+            <Route path="/ledger.03-review" component={Ledger03Review} />
+            <Route path="/ledger.03-stats" component={Ledger03Stats} />
+
+            <Route path="/ledger.04" component={Ledger04Home} />
+            <Route path="/ledger.04-save" component={Ledger04Save} />
+            <Route path="/ledger.04-review" component={Ledger04Review} />
+            <Route path="/ledger.04-stats" component={Ledger04Stats} />
           </div>
         </div>
       </HashRouter>

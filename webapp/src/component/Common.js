@@ -7,6 +7,7 @@ import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUt
 import { Ledger01Toolbar } from '../components/Ledger01Component'
 import Journal02Toolbar from './Journal02Util'
 import { Ledger03Toolbar } from '../Ledger03/Ledger03Component'
+import { Ledger04Toolbar } from '../Ledger04/Ledger04Component';
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -417,6 +418,10 @@ export class PageTitle2 extends React.Component {
           this.props.toolbar === 'Ledger03Toolbar' &&
           <Ledger03Toolbar />
         }
+        {
+          this.props.toolbar === 'Ledger04Toolbar' &&
+          <Ledger04Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -528,6 +533,12 @@ export class Sidebar extends React.Component {
                   <a className="nav-link" href="./#/ledger.03">
                     <i className="fa fa-file-o fa-fw"></i>
                     03.
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a href="./#/ledger.04" className="nav-link">
+                    <i className="fa fa-file-o fa-fw"></i>
+                    04.
                   </a>
                 </li>
               </span>
