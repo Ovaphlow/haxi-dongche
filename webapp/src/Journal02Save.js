@@ -262,6 +262,14 @@ export class Journal02Save03 extends React.Component {
       carriage_07: document.getElementById('component.carriage-07').checked,
       carriage_08: document.getElementById('component.carriage-08').checked
     })
+    .then(response => {
+      if (response.message) {
+        alert(response.message)
+        return
+      }
+      window.location.reload(true)
+    })
+    .catch(err => window.console && console.error(err))
   }
 
   save() {
