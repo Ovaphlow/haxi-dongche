@@ -532,7 +532,7 @@ export class Sidebar extends React.Component {
                 <li className="nav-item">
                   <a className="nav-link" href="./#/ledger.03">
                     <i className="fa fa-file-o fa-fw"></i>
-                    03.
+                    03.检修车间运用钥匙管理记录簿
                   </a>
                 </li>
                 <li className="nav-item">
