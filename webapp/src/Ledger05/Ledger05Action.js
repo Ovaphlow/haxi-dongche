@@ -33,7 +33,7 @@ export const ListReview = () => {
 
 export const List = () => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/04/`)
+    fetch(`./api/ledger/05/`)
     .then(res => res.json())
     .then(response => resolve(response))
     .catch(err => reject(err))

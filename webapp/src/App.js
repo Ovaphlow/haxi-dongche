@@ -32,7 +32,8 @@ import {
 } from './containers/Document02Container'
 
 import { Ledger03Home, Ledger03Save, Ledger03Review, Ledger03ReviewItem } from './Ledger03/Ledger03Container'
-import { Ledger04Home, Ledger04Save, Ledger04Review } from './Ledger04/Ledger04Container'
+import { Ledger04Home, Ledger04Save, Ledger04Review, Ledger04ReviewItem } from './Ledger04/Ledger04Container'
+import { Ledger05Home } from './Ledger05/Ledger05Container';
 
 class App extends Component {
   render() {
@@ -99,6 +100,9 @@ class App extends Component {
             <Route path="/ledger.04" component={Ledger04Home} />
             <Route path="/ledger.04-save" component={Ledger04Save} />
             <Route path="/ledger.04-review" component={Ledger04Review} />
+            <Route path="/ledger.04-review.item" component={Ledger04ReviewItem} />
+
+            <Route path="/ledger.05" component={Ledger05Home} />
           </div>
         </div>
       </HashRouter>

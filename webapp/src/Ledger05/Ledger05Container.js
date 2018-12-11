@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { Sidebar, PageTitle, PageTitle2 } from '../component/Common'
-import { Table } from './Ledger04Component'
-import { List, Save, ListReview, Get, Update } from './Ledger04Action';
+import { Table } from './Ledger05Component'
+import { List, Save, ListReview, Get, Update } from './Ledger05Action';
 import { DeptSelector, TrainSelector } from '../components/CommonComponent';
 
-export class Ledger04ReviewItem extends React.Component {
+export class Ledger05ReviewItem extends React.Component {
   constructor() {
     super()
     this.state = { item: {} }
@@ -80,7 +80,7 @@ export class Ledger04ReviewItem extends React.Component {
   }
 }
 
-export class Ledger04Review extends React.Component {
+export class Ledger05Review extends React.Component {
   constructor() {
     super()
     this.state = { list: [] }
@@ -106,7 +106,7 @@ export class Ledger04Review extends React.Component {
   }
 }
 
-export class Ledger04Save extends React.Component {
+export class Ledger05Save extends React.Component {
   render() {
     return (
       <div className="row">
@@ -178,7 +178,7 @@ export class Ledger04Save extends React.Component {
   }
 }
 
-export class Ledger04Home extends React.Component {
+export class Ledger05Home extends React.Component {
   constructor() {
     super()
     this.state = { list: [] }
@@ -194,10 +194,10 @@ export class Ledger04Home extends React.Component {
         <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <PageTitle title="04.动车组钥匙管理记录簿" />
-          <PageTitle2 fa="fa-search" title="检索数据" toolbar="Ledger04Toolbar" />
+          <PageTitle title="05.隔离开关每日交接记录单" />
+          <PageTitle2 fa="fa-search" title="检索数据" toolbar="Ledger05Toolbar" />
 
-          <Table list={this.state.list} no_op={true} />
+          <Table list={this.state.list} />
         </div>
       </div>
     )

@@ -274,7 +274,6 @@ export class Ledger01Save extends React.Component {
   }
 
   submit() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
     let body = {
       applicant: document.getElementById('applicant').value,
       dept: document.getElementById('dept').value,
