@@ -87,9 +87,17 @@ export class Ledger01ReturnItem extends React.Component {
               <label>归还数量</label>
               <input type="text" className="form-control" id="quantity" />
             </div>
+
             <div className="col form-group">
               <label>归还人</label>
               <input type="text" className="form-control" id="return" />
+            </div>
+
+            <div className="col">
+              <div className="form-group">
+                <label>接受人</label>
+                <input type="text" className="form-control" id="return_by" />
+              </div>
             </div>
           </div>
 
@@ -110,14 +118,11 @@ export class Ledger01ReturnItem extends React.Component {
   }
 
   handler() {
-    let auth = JSON.parse(window.sessionStorage.getItem('auth'))
-    if (!!!auth) return
     let body = {
       id: sessionStorage.getItem('ledger.01-item'),
       return_quantity: document.getElementById('quantity').value,
       return_name: document.getElementById('return').value,
-      return_by: auth.name,
-      return_by_id: auth.id,
+      return_by: document.getElementById('return_by').value,
       remark: document.getElementById('remark').value
     }
     ReturnItem(body)
@@ -139,12 +144,6 @@ export class Ledger01Return extends React.Component {
   }
 
   componentDidMount() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth.auth_01) {
-      window.alert('当前用户没有对应的权限')
-      return
-    }
-
     ReturnList()
     .then(response => {
       if (response.message) {
@@ -204,18 +203,7 @@ export class Ledger01Save extends React.Component {
   }
 
   componentDidMount() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) {
-      window.location = './#/login'
-      return
-    }
-    if (!!!auth.auth_01) {
-      window.alert('当前用户没有对应权限')
-      window.location = './#/journal.01'
-      return
-    }
     document.getElementById('qty').value = 1
-    document.getElementById('borrow').value = auth.name
     FilterDeptByRemark('班组')
     .then(response => {
       this.setState({ listDept: response.content })
@@ -264,8 +252,8 @@ export class Ledger01Save extends React.Component {
 
             <div className="col">
               <div className="form-group">
-                <label>操作人</label>
-                <input type="text" readOnly className="form-control" id="borrow" />
+                <label>发放人</label>
+                <input type="text" className="form-control" id="borrow" />
               </div>
             </div>
           </div>
@@ -291,7 +279,7 @@ export class Ledger01Save extends React.Component {
       applicant: document.getElementById('applicant').value,
       dept: document.getElementById('dept').value,
       quantity: document.getElementById('qty').value,
-      borrow: auth.name,
+      borrow: document.getElementById('borrow').value,
       remark: document.getElementById('remark').value
     }
     Save(body)
@@ -313,12 +301,6 @@ export class Ledger01Home extends React.Component {
   }
 
   componentDidMount() {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth) {
-      sessionStorage.setItem('link2', './#/journal.01')
-      window.location.href = './#/login'
-      return
-    }
     GetList()
     .then(response => {
       this.setState({ list: response.content })

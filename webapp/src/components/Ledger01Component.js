@@ -31,11 +31,6 @@ export class Ledger01ListItem extends React.Component {
   }
 
   handlerReturn(event) {
-    let auth = JSON.parse(sessionStorage.getItem('auth'))
-    if (!!!auth.auth_01) {
-      window.alert('当前用户没有对应的权限')
-      return
-    }
     window.sessionStorage.setItem('ledger.01-item', event.target.getAttribute('data-id'))
     window.location = './#/journal.01-return.item'
     // ReturnItem(body)
