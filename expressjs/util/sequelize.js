@@ -9,7 +9,7 @@ const sequelize = new Sequelize(config.storage.database, config.storage.user, co
 
   host: config.storage.host,
 
-  port: 3306,
+  port: config.storage.port,
 
   pool: {
     max: os.cpus().length * 2,

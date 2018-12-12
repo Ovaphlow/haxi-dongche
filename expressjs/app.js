@@ -6,6 +6,7 @@ const log4js = require('log4js')
 const config = require('./config')
 const userRoute = require('./routes/userRoute')
 const uploadRoute = require('./routes/uploadRoute')
+const ledger05Route = require('./routes/ledger05')
 
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
@@ -58,6 +59,11 @@ app.post('/api/common/upload/carousel', upload.single('file'), (req, res) => {
 app.post('/api/common/upload/document/02/schedule', upload.single('file'), (req, res) => {
   uploadRoute.Document02UploadSchedule(req, res)
 })
+
+app.post('/api/ledger/05/', (req, res) => ledger05Route.save(req, res))
+app.get('/api/ledger/05/', (req, res) => ledger05Route.list(req, res))
+app.get('/api/ledger/05/:id', (req, res) => ledger05Route.get(req, res))
+app.put('/api/ledger/05/:id', (req, res) => ledger05Route.update(req, res))
 
 app.listen(config.app.port, () => {
   logger.info(`服务器启动于端口 ${config.app.port}。`)

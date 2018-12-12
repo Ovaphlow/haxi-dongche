@@ -1,5 +1,16 @@
 import React from 'react'
 
+export class TextField extends React.Component {
+  render() {
+    return(
+      <div className="form-group">
+        <label>{this.props.caption}</label>
+        <input type="text" className="form-control" id={this.props.id} />
+      </div>
+    )
+  }
+}
+
 export class TrainSelector extends React.Component {
   constructor() {
     super()
