@@ -11,7 +11,9 @@ export class Form extends React.Component {
           <div className="row">
             <div className="col-4 form-group">
               <label>日期</label>
-              <input type="date" className="form-control" id="date" />
+              <input type="date" className="form-control" id="date"
+                  defaultValue={this.props.op === 'update' ? this.props.item.date : ''}
+              />
             </div>
           </div>
 
@@ -23,45 +25,65 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_1_1_1" />
+              <TextField caption="接班人员" id="stuff_succession_1_1_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_1_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_1_1_1" />
+              <TextField caption="接班时间" id="time_succession_1_1_1"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_1_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_1_1_1" />
+              <TextField caption="交班人员" id="stuff_shift_1_1_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_1_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_1_1_1" />
+              <TextField caption="交班时间" id="time_shift_1_1_1"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_1_1_1 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_1_1_1" />
+              <TextField caption="备注" id="remark_1_1_1"
+                  value={this.props.op === 'update' ? this.props.item.remark_1_1_1 : ''}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_1_1_2" />
+              <TextField caption="接班人员" id="stuff_succession_1_1_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_1_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_1_1_2" />
+              <TextField caption="接班时间" id="time_succession_1_1_2"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_1_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_1_1_2" />
+              <TextField caption="交班人员" id="stuff_shift_1_1_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_1_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_1_1_2" />
+              <TextField caption="交班时间" id="time_shift_1_1_2"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_1_1_2 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_1_1_2" />
+              <TextField caption="备注" id="remark_1_1_2"
+                  value={this.props.op === 'update' ? this.props.item.remark_1_1_2 : ''}
+              />
             </div>
           </div>
 
@@ -73,45 +95,65 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_1_2_1" />
+              <TextField caption="接班人员" id="stuff_succession_1_2_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_1_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_1_2_1" />
+              <TextField caption="接班时间" id="time_succession_1_2_1"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_1_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_1_2_1" />
+              <TextField caption="交班人员" id="stuff_shift_1_2_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_1_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_1_2_1" />
+              <TextField caption="交班时间" id="time_shift_1_2_1"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_1_2_1 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_1_2_1" />
+              <TextField caption="备注" id="remark_1_2_1"
+                  value={this.props.op === 'update' ? this.props.item.remark_1_2_1 : ''}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_1_2_2" />
+              <TextField caption="接班人员" id="stuff_succession_1_2_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_1_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_1_2_2" />
+              <TextField caption="接班时间" id="time_succession_1_2_2"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_1_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_1_2_2" />
+              <TextField caption="交班人员" id="stuff_shift_1_2_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_1_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_1_2_2" />
+              <TextField caption="交班时间" id="time_shift_1_2_2"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_1_2_2 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_1_2_2" />
+              <TextField caption="备注" id="remark_1_2_2"
+                  value={this.props.op === 'update' ? this.props.item.remark_1_2_2 : ''}
+              />
             </div>
           </div>
 
@@ -123,45 +165,65 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_2_1_1" />
+              <TextField caption="接班人员" id="stuff_succession_2_1_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_2_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_2_1_1" />
+              <TextField caption="接班时间" id="time_succession_2_1_1"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_2_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_2_1_1" />
+              <TextField caption="交班人员" id="stuff_shift_2_1_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_2_1_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_2_1_1" />
+              <TextField caption="交班时间" id="time_shift_2_1_1"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_2_1_1 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_2_1_1" />
+              <TextField caption="备注" id="remark_2_1_1"
+                  value={this.props.op === 'update' ? this.props.item.remark_2_1_1 : ''}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_2_1_2" />
+              <TextField caption="接班人员" id="stuff_succession_2_1_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_2_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_2_1_2" />
+              <TextField caption="接班时间" id="time_succession_2_1_2"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_2_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_2_1_2" />
+              <TextField caption="交班人员" id="stuff_shift_2_1_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_2_1_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_2_1_2" />
+              <TextField caption="交班时间" id="time_shift_2_1_2"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_2_1_2 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_2_1_2" />
+              <TextField caption="备注" id="remark_2_1_2"
+                  value={this.props.op === 'update' ? this.props.item.remark_2_1_2 : ''}
+              />
             </div>
           </div>
 
@@ -173,45 +235,65 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_2_2_1" />
+              <TextField caption="接班人员" id="stuff_succession_2_2_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_2_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_2_2_1" />
+              <TextField caption="接班时间" id="time_succession_2_2_1"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_2_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_2_2_1" />
+              <TextField caption="交班人员" id="stuff_shift_2_2_1"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_2_2_1 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_2_2_1" />
+              <TextField caption="交班时间" id="time_shift_2_2_1"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_2_2_1 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_2_2_1" />
+              <TextField caption="备注" id="remark_2_2_1"
+                  value={this.props.op === 'update' ? this.props.item.remark_2_2_1 : ''}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="接班人员" id="stuff_succession_2_2_2" />
+              <TextField caption="接班人员" id="stuff_succession_2_2_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_succession_2_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="接班时间" id="time_succession_2_2_2" />
+              <TextField caption="接班时间" id="time_succession_2_2_2"
+                  value={this.props.op === 'update' ? this.props.item.time_succession_2_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班人员" id="stuff_shift_2_2_2" />
+              <TextField caption="交班人员" id="stuff_shift_2_2_2"
+                  value={this.props.op === 'update' ? this.props.item.stuff_shift_2_2_2 : ''}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="交班时间" id="time_shift_2_2_2" />
+              <TextField caption="交班时间" id="time_shift_2_2_2"
+                  value={this.props.op === 'update' ? this.props.item.time_shift_2_2_2 : ''}
+              />
             </div>
 
             <div className="col-4">
-              <TextField caption="备注" id="remark_2_2_2" />
+              <TextField caption="备注" id="remark_2_2_2"
+                  value={this.props.op === 'update' ? this.props.item.remark_2_2_2 : ''}
+              />
             </div>
           </div>
         </div>
@@ -283,7 +365,15 @@ export class Form extends React.Component {
       })
       .catch(err => window.console && console.error(err))
     } else if (this.props.op === 'update') {
-      console.info(this.props.id)
+      Update(this.props.id, body)
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location.href = './#/ledger.05'
+      })
+      .catch(err => window.console && console.error(err))
     }
   }
 }

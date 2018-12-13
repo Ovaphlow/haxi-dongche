@@ -3,6 +3,64 @@ const sequelize = require('../util/sequelize')
 
 module.exports = {
   update: async (req, res) => {
+    let sql = `
+      update
+        ledger05
+      set
+        date = :date,
+        stuff_succession_1_1_1 = :stuff_succession_1_1_1,
+        time_succession_1_1_1 = :time_succession_1_1_1,
+        stuff_shift_1_1_1 = :stuff_shift_1_1_1,
+        time_shift_1_1_1 = :time_shift_1_1_1,
+        remark_1_1_1 = :remark_1_1_1,
+        stuff_succession_1_1_2 = :stuff_succession_1_1_2,
+        time_succession_1_1_2 = :time_succession_1_1_2,
+        stuff_shift_1_1_2 = :stuff_shift_1_1_2,
+        time_shift_1_1_2 = :time_shift_1_1_2,
+        remark_1_1_2 = :remark_1_1_2,
+        stuff_succession_1_2_1 = :stuff_succession_1_2_1,
+        time_succession_1_2_1 = :time_succession_1_2_1,
+        stuff_shift_1_2_1 = :stuff_shift_1_2_1,
+        time_shift_1_2_1 = :time_shift_1_2_1,
+        remark_1_2_1 = :remark_1_2_1,
+        stuff_succession_1_2_2 = :stuff_succession_1_2_2,
+        time_succession_1_2_2 = :time_succession_1_2_2,
+        stuff_shift_1_2_2 = :stuff_shift_1_2_2,
+        time_shift_1_2_2 = :time_shift_1_2_2,
+        remark_1_2_2 = :remark_1_2_2,
+        stuff_succession_2_1_1 = :stuff_succession_2_1_1,
+        time_succession_2_1_1 = :time_succession_2_1_1,
+        stuff_shift_2_1_1 = :stuff_shift_2_1_1,
+        time_shift_2_1_1 = :time_shift_2_1_1,
+        remark_2_1_1 = :remark_2_1_1,
+        stuff_succession_2_1_2 = :stuff_succession_2_1_2,
+        time_succession_2_1_2 = :time_succession_2_1_2,
+        stuff_shift_2_1_2 = :stuff_shift_2_1_2,
+        time_shift_2_1_2 = :time_shift_2_1_2,
+        remark_2_1_2 = :remark_2_1_2,
+        stuff_succession_2_2_1 = :stuff_succession_2_2_1,
+        time_succession_2_2_1 = :time_succession_2_2_1,
+        stuff_shift_2_2_1 = :stuff_shift_2_2_1,
+        time_shift_2_2_1 = :time_shift_2_2_1,
+        remark_2_2_1 = :remark_2_2_1,
+        stuff_succession_2_2_2 = :stuff_succession_2_2_2,
+        time_succession_2_2_2 = :time_succession_2_2_2,
+        stuff_shift_2_2_2 = :stuff_shift_2_2_2,
+        time_shift_2_2_2 = :time_shift_2_2_2,
+        remark_2_2_2 = :remark_2_2_2
+      where
+        id = :id
+    `
+    req.body.id = req.params.id
+    let result = await sequelize.query(sql, {
+      type: sequelize.QueryTypes.UPDATE,
+      replacements: req.body
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({ message: '服务器错误' })
+    })
+    console.info(result)
     res.status(200).json({ message: '' })
   },
 
@@ -10,7 +68,7 @@ module.exports = {
     let sql = `
       select * from ledger05 where id = :id
     `
-    let result = await sequelize(sql, {
+    let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT,
       replacements: req.params
     })
@@ -23,6 +81,7 @@ module.exports = {
   },
 
   list: async (req, res) => {
+    console.info(123)
     let sql = `
       select
         *

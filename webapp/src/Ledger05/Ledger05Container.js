@@ -11,7 +11,8 @@ export class Ledger05Update extends React.Component {
   }
 
   componentDidMount() {
-    // console.info(this.props.match.params.id)
+    Get(this.props.match.params.id)
+    .then(response => this.setState({ item: response.content }))
   }
 
   render() {
@@ -23,7 +24,10 @@ export class Ledger05Update extends React.Component {
           <PageTitle title="05.隔离开关每日交接记录单" />
           <PageTitle2 fa="fa-edit" title="编辑" toolbar="Ledger05Toolbar" />
 
-          <Form op="update" id={this.props.match.params.id} />
+          {
+            this.state.item &&
+            <Form op="update" id={this.props.match.params.id} item={this.state.item} />
+          }
         </div>
       </div>
     )

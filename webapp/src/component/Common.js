@@ -6,9 +6,10 @@ import { AdminDeptToolbar, AdminUserToolbar, AdminTrainToolbar } from './AdminUt
 // import Journal01Toolbar from './Journal01Toolbar'
 import { Ledger01Toolbar } from '../components/Ledger01Component'
 import Journal02Toolbar from './Journal02Util'
-import { Ledger03Toolbar } from '../Ledger03/Ledger03Component'
-import { Ledger04Toolbar } from '../Ledger04/Ledger04Component';
-import { Ledger05Toolbar } from '../Ledger05/Ledger05Component';
+import { Ledger03Toolbar } from '../ledger03/Ledger03Component'
+import { Ledger04Toolbar } from '../ledger04/Ledger04Component';
+import { Ledger05Toolbar } from '../ledger05/Ledger05Component';
+import { Ledger06Toolbar } from '../ledger06/Ledger06Component';
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -427,6 +428,10 @@ export class PageTitle2 extends React.Component {
           this.props.toolbar === 'Ledger05Toolbar' &&
           <Ledger05Toolbar />
         }
+        {
+          this.props.toolbar === 'Ledger06Toolbar' &&
+          <Ledger06Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -553,6 +558,13 @@ export class Sidebar extends React.Component {
                   <a href="./#/ledger.05" className="nav-link">
                     <i className="fa fa-file-o fa-fw"></i>
                     05.隔离开关每日交接记录单
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a href="./#/ledger.06" className="nav-link">
+                    <i className="fa fa-fw fa-file-o"></i>
+                    06.检修车间电、气焊作业记录簿
                   </a>
                 </li>
               </span>

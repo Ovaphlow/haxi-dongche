@@ -5,7 +5,7 @@ export class TextField extends React.Component {
     return(
       <div className="form-group">
         <label>{this.props.caption}</label>
-        <input type="text" className="form-control" id={this.props.id} />
+        <input type="text" className="form-control" id={this.props.id} defaultValue={this.props.value} />
       </div>
     )
   }

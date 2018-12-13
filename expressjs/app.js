@@ -8,19 +8,24 @@ const userRoute = require('./routes/userRoute')
 const uploadRoute = require('./routes/uploadRoute')
 const ledger05Route = require('./routes/ledger05')
 
+log4js.configure({
+  appenders: {
+    console: { type: 'console' },
+    file: { type: 'dateFile', filename: './log/haxi.log', daysToKeep: 90 }
+  },
+  categories: {
+    default: { appenders: ['console', 'file'], level: 'info' }
+  }
+})
 const logger = log4js.getLogger()
-logger.level = config.app.logLevel
 
 const app = express()
 app.set('env', config.app.env)
 
+app.use(log4js.connectLogger(logger, { level: 'info' }))
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-
-app.use('/', (req, res, next) => {
-  logger.info(req.method, req.originalUrl)
-  next()
-})
 
 const user = require('./routes/user')
 app.use('/api/common/user', user)
@@ -66,5 +71,5 @@ app.get('/api/ledger/05/:id', (req, res) => ledger05Route.get(req, res))
 app.put('/api/ledger/05/:id', (req, res) => ledger05Route.update(req, res))
 
 app.listen(config.app.port, () => {
-  logger.info(`服务器启动于端口 ${config.app.port}。`)
+  console.info(`服务器启动于端口 ${config.app.port}。`)
 })
