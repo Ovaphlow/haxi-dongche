@@ -1,11 +1,22 @@
 import React from 'react'
 
+export class DateField extends React.Component {
+  render() {
+    return (
+      <div className="form-group">
+        <label>{this.props.caption || '日期'}</label>
+        <input type="date" className="form-control" id={this.props.id || 'date'} defaultValue={this.props.value} />
+      </div>
+    )
+  }
+}
+
 export class TextField extends React.Component {
   render() {
     return(
       <div className="form-group">
-        <label>{this.props.caption}</label>
-        <input type="text" className="form-control" id={this.props.id} defaultValue={this.props.value} />
+        <label>{this.props.caption || '标题'}</label>
+        <input type="text" className="form-control" id={this.props.id || 'text'} defaultValue={this.props.value} />
       </div>
     )
   }
