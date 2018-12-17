@@ -4,20 +4,19 @@ module.exports = {
   update: async (req, res) => {
     let sql = `
       update
-        ledger07
+        ledger08
       set
         date = :date,
-        train = :train,
         rail = :rail,
+        location = :location,
+        route = :route,
+        time_begin = :time_begin,
         operator = :operator,
-        leader = :leader,
-        qc = :qc,
-        date_2 = :date_2,
-        train_2 = :train_2,
-        rail_2 = :rail_2,
+        dispatcher = :dispatcher,
+        time_end = :time_end,
         operator_2 = :operator_2,
-        leader_2 = :leader_2,
-        qc_2 = :qc_2
+        dispatcher_2 = :dispatcher_2,
+        remark = :remark
       where
         id = :id
     `
@@ -28,15 +27,14 @@ module.exports = {
     })
     .catch(err => {
       console.error(err)
-      res.status(500).json({ message: '服务器错误'} )
+      res.status(500).json({ message: '服务器错误' })
     })
     res.status(200).json({ message: '', content: result })
   },
 
   get: async (req, res) => {
-    console.info(req.params)
     let sql = `
-      select * from ledger07 where id = :id limit 1
+      select * from ledger08 where id = :id limit 1
     `
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT,
@@ -46,15 +44,12 @@ module.exports = {
       console.error(err)
       res.status(500).json({ message: '服务器错误' })
     })
-    res.status(200).json({
-      message: '',
-      content: result.length > 0 ? result[0] : {}
-    })
+    res.status(200).json({ message: '', content: result })
   },
 
   list: async (req, res) => {
     let sql = `
-      select * from ledger07 order by id desc limit 200
+      select * from ledger08 order by id desc limit 200
     `
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT
@@ -67,17 +62,20 @@ module.exports = {
   },
 
   save: async (req, res) => {
+    console.info(2)
     let sql = `
       insert into
-        ledger07 (
-          uuid,
-          date, train, rail, operator, leader, qc,
-          date_2, train_2, rail_2, operator_2, leader_2, qc_2
+        ledger08 (
+          uuid, date, rail, location, route,
+          time_begin, operator, dispatcher,
+          time_end, operator_2, dispatcher_2,
+          remark
         )
         values (
-          uuid(),
-          :date, :train, :rail, :operator, :leader, :qc,
-          :date_2, :train_2, :rail_2, :operator_2, :leader_2, qc_2
+          uuid(), :date, :rail, :location, :route,
+          :time_begin, :operator, :dispatcher,
+          :time_end, :operator_2, :dispatcher,
+          :remark
         )
     `
     let result = await sequelize.query(sql, {

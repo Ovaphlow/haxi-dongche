@@ -11,6 +11,8 @@ import { Ledger04Toolbar } from '../ledger04/Ledger04Component';
 import { Ledger05Toolbar } from '../ledger05/Ledger05Component';
 import { Ledger06Toolbar } from '../ledger06/Ledger06Component';
 import { Toolbar as Ledger07Toolbar } from '../ledger07/Ledger07Component';
+import { Toolbar as Ledger08Toolbar } from '../ledger08/Ledger08Component'
+import { Toolbar as Ledger09Toolbar } from '../ledger09/Ledger09Component'
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -437,6 +439,14 @@ export class PageTitle2 extends React.Component {
           this.props.toolbar === 'Ledger07Toolbar' &&
           <Ledger07Toolbar />
         }
+        {
+          this.props.toolbar === 'Ledger08Toolbar' &&
+          <Ledger08Toolbar />
+        }
+        {
+          this.props.toolbar === 'Ledger09Toolbar' &&
+          <Ledger09Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -577,6 +587,20 @@ export class Sidebar extends React.Component {
                   <a href="./#/ledger.07" className="nav-link">
                     <i className="fa fa-fw fa-file-o"></i>
                     07.动车组防冻排水及恢复作业记录表
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a href="./#/ledger.08" className="nav-link">
+                    <i className="fa fa-fw fa-file-o"></i>
+                    08.外接电源供断电记录簿
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a href="./#/ledger.09" className="nav-link">
+                    <i className="fa fa-fw fa-file-o"></i>
+                    09.融冰除雪库、LY检测棚接触网供断电作业登记簿
                   </a>
                 </li>
               </span>

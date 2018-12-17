@@ -1,6 +1,6 @@
 export const Update = (id, body) => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/07/${id}`, {
+    fetch(`./api/ledger/08/${id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json;charset=utf-8'
@@ -13,9 +13,9 @@ export const Update = (id, body) => {
   })
 }
 
-export const Get = id => {
+export const Get = () => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/07/${id}`)
+    fetch(`./api/ledger/08/`)
     .then(res => res.json())
     .then(response => resolve(response))
     .catch(err => reject(err))
@@ -24,7 +24,7 @@ export const Get = id => {
 
 export const List = () => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/07/`)
+    fetch(`./api/ledger/08/`)
     .then(res => res.json())
     .then(response => resolve(response))
     .catch(err => reject(err))
@@ -33,7 +33,7 @@ export const List = () => {
 
 export const Save = body => {
   return new Promise((resolve, reject) => {
-    fetch(`./api/ledger/07/`, {
+    fetch(`./api/ledger/08/`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json;charset=utf-8'

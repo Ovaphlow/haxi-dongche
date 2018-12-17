@@ -1,6 +1,6 @@
 import React from 'react'
 import { DateField, TextField } from '../components/CommonComponent';
-import { Save } from './Ledger07Action';
+import { Save, Update } from './Ledger07Action';
 
 class TableItem extends React.Component {
   render() {
@@ -75,29 +75,41 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <DateField caption="日期" id="date" />
+              <DateField caption="日期" id="date"
+                  value={this.props.op === 'update' && this.props.item.date}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="车组号" id="train" />
+              <TextField caption="车组号" id="train"
+                  value={this.props.op === 'update' && this.props.item.train}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="股道" id="rail" />
+              <TextField caption="股道" id="rail"
+                  value={this.props.op === 'update' && this.props.item.rail}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="作业者" id="operator" />
+              <TextField caption="作业者" id="operator"
+                  value={this.props.op === 'update' && this.props.item.operator}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="工长" id="leader" />
+              <TextField caption="工长" id="leader"
+                  value={this.props.op === 'update' && this.props.item.leader}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="质检员" id="qc" />
+              <TextField caption="质检员" id="qc"
+                  value={this.props.op === 'update' && this.props.item.qc}
+              />
             </div>
           </div>
 
@@ -105,29 +117,41 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <DateField caption="日期" id="date_2" />
+              <DateField caption="日期" id="date_2"
+                  value={this.props.op === 'update' && this.props.item.date_2}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="车组号" id="train_2" />
+              <TextField caption="车组号" id="train_2"
+                  value={this.props.op === 'update' && this.props.item.train_2}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="股道" id="rail_2" />
+              <TextField caption="股道" id="rail_2"
+                  value={this.props.op === 'update' && this.props.item.rail_2}
+              />
             </div>
           </div>
 
           <div className="row">
             <div className="col">
-              <TextField caption="作业者" id="operator_2" />
+              <TextField caption="作业者" id="operator_2"
+                  value={this.props.op === 'update' && this.props.item.operator_2}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="工长" id="leader_2" />
+              <TextField caption="工长" id="leader_2"
+                  value={this.props.op === 'update' && this.props.item.leader_2}
+              />
             </div>
 
             <div className="col">
-              <TextField caption="质检员" id="qc_2" />
+              <TextField caption="质检员" id="qc_2"
+                  value={this.props.op === 'update' && this.props.item.qc_2}
+              />
             </div>
           </div>
         </div>
@@ -163,6 +187,16 @@ export class Form extends React.Component {
       Save(body)
       .then(response => {
         console.info(response)
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location = './#/ledger.07'
+      })
+      .catch(err => window.console && console.error(err))
+    } else if (this.props.op === 'update') {
+      Update(this.props.item.id, body)
+      .then(response => {
         if (response.message) {
           alert(response.message)
           return

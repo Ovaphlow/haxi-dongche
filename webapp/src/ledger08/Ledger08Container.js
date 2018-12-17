@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { Sidebar, PageTitle, PageTitle2 } from '../component/Common'
-import { Form, Table } from './Ledger07Component'
-import { List, Get } from '../ledger07/Ledger07Action';
+import { Form, Table } from './Ledger08Component'
+import { List, Get } from './Ledger08Action'
 
 export class Update extends React.Component {
   constructor() {
@@ -11,8 +11,7 @@ export class Update extends React.Component {
   }
 
   componentDidMount() {
-    Get(this.props.match.params.id)
-    .then(response => this.setState({ item: response.content }))
+    Get(this.props.match.params.id).then(response => this.setState({ item: response.content[0] || {} }))
   }
 
   render() {
@@ -21,8 +20,8 @@ export class Update extends React.Component {
         <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <PageTitle title="07.动车组防冻排水及回复作业记录表" />
-          <PageTitle2 fa="fa-plus" title="新增" toolbar="Ledger07Toolbar" />
+          <PageTitle title="08.外接电源供断电记录簿" />
+          <PageTitle2 fa="fa-edit" title="编辑" toolbar="Ledger08Toolbar" />
 
           {
             this.state.item.id > 0 &&
@@ -41,8 +40,8 @@ export class Save extends React.Component {
         <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <PageTitle title="07.动车组防冻排水及回复作业记录表" />
-          <PageTitle2 fa="fa-plus" title="新增" toolbar="Ledger07Toolbar" />
+          <PageTitle title="08.外接电源供断电记录簿" />
+          <PageTitle2 fa="fa-plus" title="新增" toolbar="Ledger08Toolbar" />
 
           <Form op="save" />
         </div>
@@ -58,10 +57,7 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-    List().then(response => {
-      console.info(response)
-      this.setState({ list: response.content })
-    })
+    List().then(response => this.setState({ list: response.content }))
   }
 
   render() {
@@ -70,8 +66,8 @@ export class Home extends React.Component {
         <Sidebar category="账项" />
 
         <div rol="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <PageTitle title="07.动车组防冻排水及回复作业记录表" />
-          <PageTitle2 fa="fa-search" title="检索数据" toolbar="Ledger07Toolbar" />
+          <PageTitle title="08.外接电源供断电记录簿" />
+          <PageTitle2 fa="fa-search" title="检索" toolbar="Ledger08Toolbar" />
 
           <Table list={this.state.list} />
         </div>
