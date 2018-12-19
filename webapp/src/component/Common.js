@@ -13,6 +13,7 @@ import { Ledger06Toolbar } from '../ledger06/Ledger06Component';
 import { Toolbar as Ledger07Toolbar } from '../ledger07/Ledger07Component';
 import { Toolbar as Ledger08Toolbar } from '../ledger08/Ledger08Component'
 import { Toolbar as Ledger09Toolbar } from '../ledger09/Ledger09Component'
+import { Toolbar as Ledger10Toolbar } from '../ledger10/Ledger10Component'
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -447,6 +448,10 @@ export class PageTitle2 extends React.Component {
           this.props.toolbar === 'Ledger09Toolbar' &&
           <Ledger09Toolbar />
         }
+        {
+          this.props.toolbar === 'Ledger10Toolbar' &&
+          <Ledger10Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -601,6 +606,13 @@ export class Sidebar extends React.Component {
                   <a href="./#/ledger.09" className="nav-link">
                     <i className="fa fa-fw fa-file-o"></i>
                     09.融冰除雪库、LY检测棚接触网供断电作业登记簿
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a href="./#/ledger.10" className="nav-link">
+                    <i className="fa fa-fw fa-file-o"></i>
+                    10.检修车间临时作业记录簿
                   </a>
                 </li>
               </span>
