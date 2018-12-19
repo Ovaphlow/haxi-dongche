@@ -227,10 +227,7 @@ export class Ledger03Home extends React.Component {
           <PageTitle title="03.检修车间运用钥匙管理记录簿" />
           <PageTitle2 fa="fa-search" title="检索数据" toolbar="Ledger03Toolbar" />
 
-          {
-            this.state.list.length > 0 &&
-            <Table list={this.state.list} no_op={true} />
-          }
+          <Table list={this.state.list} no_op={true} />
         </div>
       </div>
     )

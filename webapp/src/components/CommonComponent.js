@@ -1,5 +1,20 @@
 import React from 'react'
 
+export class PowerStatusSelector extends React.Component {
+  render() {
+    return (
+      <div className="form-group">
+        <label>{this.props.caption || '供/断电状态'}</label>
+        <select className="form-control" id={this.props.id || 'power_status'} defaultValue={this.props.value || ''}>
+          <option value="">未选择</option>
+          <option value="供">供</option>
+          <option value="断">断</option>
+        </select>
+      </div>
+    )
+  }
+}
+
 export class DateField extends React.Component {
   render() {
     return (
@@ -67,8 +82,10 @@ export class DeptSelector extends React.Component {
   render() {
     return (
       <div className="form-group">
-        <label>{this.props.caption}</label>
-        <select className="form-control" id="component.dept-selector">
+        <label>{this.props.caption || '部门'}</label>
+        <select className="form-control" id={this.props.id || "component.dept-selector"}
+            defaultValue={this.props.value || ''}
+        >
           <option value="">未选择</option>
           {
             this.state.list.length > 0 &&

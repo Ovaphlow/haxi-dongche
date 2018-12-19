@@ -4,22 +4,23 @@ module.exports = {
   update: async (req, res) => {
     let sql = `
       update
-        ledger06
+        ledger09
       set
         date = :date,
-        workshop = :workshop,
-        operator = :operator,
-        place = :place,
+        dept = :dept,
         content = :content,
-        time_begin = :time_begin,
-        time_end = :time_end,
+        applicant = applicant,
+        time = :time,
+        rail = :rail,
+        location = :location,
+        operator = :operator,
         observer = :observer,
-        remark = :remark
+        status = :status
       where
         id = :id
     `
     req.body.id = req.params.id
-    let result = await sequelize.query(sql, {
+    let result = sequelize.query(sql, {
       type: sequelize.QueryTypes.UPDATE,
       replacements: req.body
     })
@@ -33,7 +34,7 @@ module.exports = {
 
   get: async (req, res) => {
     let sql = `
-      select * from ledger06 where id = :id limit 1
+      select * from ledger09 where id = :id limit 1
     `
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT,
@@ -44,16 +45,12 @@ module.exports = {
       res.status(500).json({ message: '服务器错误' })
       return
     })
-    if (result.length !== 1) {
-      res.status(200).json({ message: '数据异常' })
-      return
-    }
-    res.status(200).json({ message: '', content: result[0] })
+    res.status(200).json({ message: '', content: result.length === 1 ? result[0] : {} })
   },
 
   list: async (req, res) => {
     let sql = `
-      select * from ledger06 order by id desc limit 200
+      select * from ledger09 order by id desc limit 200
     `
     let result = await sequelize.query(sql, {
       type: sequelize.QueryTypes.SELECT
@@ -69,15 +66,12 @@ module.exports = {
   save: async (req, res) => {
     let sql = `
       insert into
-        ledger06 (
-          uuid,
-          date, workshop, operator, place, content,
-          time_begin, time_end, observer, remark
+        ledger09 (
+          uuid, date, dept, content, applicant, time, rail, location, operator, observer, status
         )
         values (
-          uuid(),
-          :date, :workshop, :operator, :place, :content,
-          :time_begin, :time_end, :observer, :remark
+          uuid(), :date, :dept, :content, :applicant, :time,
+          :rail, :location, :operator, :observer, :status
         )
     `
     let result = await sequelize.query(sql, {
@@ -89,6 +83,6 @@ module.exports = {
       res.status(500).json({ message: '服务器错误' })
       return
     })
-    res.json({ message: '', content: result })
+    res.json(200).json({ message: '', content: result })
   }
 }

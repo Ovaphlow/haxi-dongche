@@ -1,7 +1,70 @@
 import React from 'react'
-import { DateField, TextField } from '../components/CommonComponent';
+
+import { DateField, TextField, PowerStatusSelector, DeptSelector } from '../components/CommonComponent';
+import { Save, Update } from './Ledger09Action'
+
+class TableItem extends React.Component {
+  render() {
+    return (
+      <tr>
+        <td className="text-center">
+          <span className="pull-left">
+            <a href={`./#/ledger.09-update/${this.props.item.id}`}>
+              <i className="fa fa-fw fa-edit"></i>
+            </a>
+          </span>
+          {this.props.item.date}
+        </td>
+        <td>{this.props.item.dept}</td>
+        <td>{this.props.item.content}</td>
+        <td>{this.props.item.applicant}</td>
+        <td>{this.props.item.time}</td>
+        <td>{this.props.item.rail}</td>
+        <td>{this.props.item.location}</td>
+        <td>{this.props.item.operator}</td>
+        <td>{this.props.item.observer}</td>
+        <td>{this.props.item.status}</td>
+      </tr>
+    )
+  }
+}
+
+export class Table extends React.Component {
+  render() {
+    return (
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <td>日期</td>
+            <td>申请供/断电部门</td>
+            <td>申请供/断电</td>
+            <td>申请人</td>
+            <td>申请时间</td>
+            <td>股道</td>
+            <td>列位</td>
+            <td>操作员</td>
+            <td>监护员</td>
+            <td>接触网状态</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          {
+            this.props.list.length > 0 &&
+            this.props.list.map(item => <TableItem key={item.id} item={item} />)
+          }
+        </tbody>
+      </table>
+    )
+  }
+}
 
 export class Form extends React.Component {
+  constructor() {
+    super()
+    this.state = { list: [] }
+  }
+
   render() {
     return (
       <div className="card">
@@ -14,7 +77,7 @@ export class Form extends React.Component {
             </div>
 
             <div className="col">
-              <TextField caption="申请供/断电部门" id="dept"
+              <DeptSelector caption="申请供/断电部门" id="dept"
                   value={(this.props.op === 'update' && this.props.item.dept) || ''}
               />
             </div>
@@ -22,7 +85,7 @@ export class Form extends React.Component {
 
           <div className="row">
             <div className="col">
-              <TextField caption="申请供/断电" id="content"
+              <PowerStatusSelector caption="申请供/断电" id="content"
                   value={(this.props.op === 'update' && this.props.item.content) || ''}
               />
             </div>
@@ -34,7 +97,7 @@ export class Form extends React.Component {
             </div>
 
             <div className="col">
-              <TextField caption="申请时间" id="applicant"
+              <TextField caption="申请时间" id="time"
                   value={(this.props.op === 'update' && this.props.item.time) || ''}
               />
             </div>
@@ -66,8 +129,8 @@ export class Form extends React.Component {
             </div>
           </div>
 
-          <TextField caption="接触网状态" id="result"
-              value={(this.props.op === 'update' && this.props.item.result) || ''}
+          <TextField caption="接触网状态" id="status"
+              value={(this.props.op === 'update' && this.props.item.status) || ''}
           />
         </div>
 
@@ -84,7 +147,39 @@ export class Form extends React.Component {
   }
 
   handler() {
-    console.info(1)
+    let body = {
+      date: document.getElementById('date').value,
+      dept: document.getElementById('dept').value,
+      content: document.getElementById('content').value,
+      applicant: document.getElementById('applicant').value,
+      time: document.getElementById('time').value,
+      rail: document.getElementById('rail').value,
+      location: document.getElementById('location').value,
+      operator: document.getElementById('operator').value,
+      observer: document.getElementById('observer').value,
+      status: document.getElementById('status').value
+    }
+    if (this.props.op === 'save') {
+      Save(body)
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location = './#/ledger.09'
+      })
+      .catch(err => window.console && console.error(err))
+    } else if (this.props.op === 'update') {
+      Update(this.props.item.id, body)
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location = './#/ledger.09'
+      })
+      .catch(err => window.console && console.error(err))
+    }
   }
 }
 

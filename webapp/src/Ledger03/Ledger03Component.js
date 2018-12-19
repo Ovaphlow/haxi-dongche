@@ -57,6 +57,7 @@ export class Table extends React.Component {
         </thead>
         <tbody>
           {
+            this.props.list.length > 0 &&
             this.props.list.map(item => <TableItem key={item.id} item={item} no_op={this.props.no_op} />)
           }
         </tbody>

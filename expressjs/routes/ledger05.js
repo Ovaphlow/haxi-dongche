@@ -59,8 +59,8 @@ module.exports = {
     .catch(err => {
       console.error(err)
       res.status(500).json({ message: '服务器错误' })
+      return
     })
-    console.info(result)
     res.status(200).json({ message: '' })
   },
 
@@ -72,7 +72,11 @@ module.exports = {
       type: sequelize.QueryTypes.SELECT,
       replacements: req.params
     })
-    .catch(err => res.status(500).json({ message: '服务器错误' }))
+    .catch(err => {
+      console.error(err)
+      res.status(500).json({ message: '服务器错误' })
+      return
+    })
     if (result.length !== 1) {
       res.status(200).json({ message: '' })
       return
@@ -93,13 +97,14 @@ module.exports = {
       type: sequelize.QueryTypes.SELECT
     })
     .catch(err => {
+      console.error(err)
       res.status(500).json({ message: '服务求错误' })
+      return
     })
     res.status(200).json({ message: '', content: result })
   },
 
   save: async (req, res) => {
-    console.info(req.body)
     let sql = `
       insert into
         ledger05 (
@@ -132,6 +137,7 @@ module.exports = {
     .catch(err => {
       console.error(err)
       res.status(500).json({ message: '服务器错误' })
+      return
     })
     if (result[1] !== 1) {
       res.status(200).json({ message: '保存数据失败' })
