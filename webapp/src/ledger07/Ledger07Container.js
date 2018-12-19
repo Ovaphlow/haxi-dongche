@@ -58,10 +58,7 @@ export class Home extends React.Component {
   }
 
   componentDidMount() {
-    List().then(response => {
-      console.info(response)
-      this.setState({ list: response.content })
-    })
+    List().then(response => this.setState({ list: response.content }))
   }
 
   render() {

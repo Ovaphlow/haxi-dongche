@@ -76,19 +76,19 @@ export class Form extends React.Component {
           <div className="row">
             <div className="col">
               <DateField caption="日期" id="date"
-                  value={this.props.op === 'update' && this.props.item.date}
+                  value={(this.props.op === 'update' && this.props.item.date) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="车组号" id="train"
-                  value={this.props.op === 'update' && this.props.item.train}
+                  value={(this.props.op === 'update' && this.props.item.train) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="股道" id="rail"
-                  value={this.props.op === 'update' && this.props.item.rail}
+                  value={(this.props.op === 'update' && this.props.item.rail) || ''}
               />
             </div>
           </div>
@@ -96,19 +96,19 @@ export class Form extends React.Component {
           <div className="row">
             <div className="col">
               <TextField caption="作业者" id="operator"
-                  value={this.props.op === 'update' && this.props.item.operator}
+                  value={(this.props.op === 'update' && this.props.item.operator) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="工长" id="leader"
-                  value={this.props.op === 'update' && this.props.item.leader}
+                  value={(this.props.op === 'update' && this.props.item.leader) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="质检员" id="qc"
-                  value={this.props.op === 'update' && this.props.item.qc}
+                  value={(this.props.op === 'update' && this.props.item.qc) || ''}
               />
             </div>
           </div>
@@ -118,19 +118,19 @@ export class Form extends React.Component {
           <div className="row">
             <div className="col">
               <DateField caption="日期" id="date_2"
-                  value={this.props.op === 'update' && this.props.item.date_2}
+                  value={(this.props.op === 'update' && this.props.item.date_2) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="车组号" id="train_2"
-                  value={this.props.op === 'update' && this.props.item.train_2}
+                  value={(this.props.op === 'update' && this.props.item.train_2) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="股道" id="rail_2"
-                  value={this.props.op === 'update' && this.props.item.rail_2}
+                  value={(this.props.op === 'update' && this.props.item.rail_2) || ''}
               />
             </div>
           </div>
@@ -138,19 +138,19 @@ export class Form extends React.Component {
           <div className="row">
             <div className="col">
               <TextField caption="作业者" id="operator_2"
-                  value={this.props.op === 'update' && this.props.item.operator_2}
+                  value={(this.props.op === 'update' && this.props.item.operator_2) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="工长" id="leader_2"
-                  value={this.props.op === 'update' && this.props.item.leader_2}
+                  value={(this.props.op === 'update' && this.props.item.leader_2) || ''}
               />
             </div>
 
             <div className="col">
               <TextField caption="质检员" id="qc_2"
-                  value={this.props.op === 'update' && this.props.item.qc_2}
+                  value={(this.props.op === 'update' && this.props.item.qc_2) || ''}
               />
             </div>
           </div>
@@ -186,7 +186,6 @@ export class Form extends React.Component {
     if (this.props.op === 'save') {
       Save(body)
       .then(response => {
-        console.info(response)
         if (response.message) {
           alert(response.message)
           return
