@@ -62,9 +62,13 @@ export class TrainSelector extends React.Component {
   }
 
   componentDidMount() {
+    console.info(this.props.value)
     fetch(`./api/common/train`)
     .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      this.setState({ list: response.content })
+      document.getElementById(this.props.id || 'component.train-selector').value = this.props.value || ''
+    })
     .catch(err => window.console && console.error(err))
   }
 
@@ -72,9 +76,7 @@ export class TrainSelector extends React.Component {
     return (
       <div className="form-group">
         <label>{this.props.caption || '车组号'}</label>
-        <select className="form-control" id={this.props.id || "component.train-selector"}
-            defaultValue={this.props.value || ''}
-        >
+        <select className="form-control" id={this.props.id || "component.train-selector"}>
           <option value="">未选择</option>
           {
             this.state.list.length > 0 &&
@@ -95,7 +97,10 @@ export class DeptSelector extends React.Component {
   componentDidMount() {
     fetch(`./api/common/dept/`)
     .then(res => res.json())
-    .then(response => this.setState({ list: response.content }))
+    .then(response => {
+      this.setState({ list: response.content })
+      document.getElementById(this.props.id || 'component.dept-selector').value = this.props.value || ''
+    })
     .catch(err => window.console && console.error(err))
   }
 
@@ -103,9 +108,7 @@ export class DeptSelector extends React.Component {
     return (
       <div className="form-group">
         <label>{this.props.caption || '部门'}</label>
-        <select className="form-control" id={this.props.id || "component.dept-selector"}
-            defaultValue={this.props.value || ''}
-        >
+        <select className="form-control" id={this.props.id || "component.dept-selector"}>
           <option value="">未选择</option>
           {
             this.state.list.length > 0 &&

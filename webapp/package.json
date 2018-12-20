@@ -36,6 +36,9 @@
     "/api/ledger/09": {
       "target": "http://127.0.0.1:8081"
     },
+    "/api/ledger/10": {
+      "target": "http://127.0.0.1:8081"
+    },
     "/api": {
       "target": "http://192.168.1.248:8082"
     }
