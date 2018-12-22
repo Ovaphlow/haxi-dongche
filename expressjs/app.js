@@ -12,6 +12,7 @@ const ledger07Route = require('./routes/ledger07Route')
 const ledger08Route = require('./routes/ledger08Route')
 const ledger09Route = require('./routes/ledger09Route')
 const ledger10Route = require('./routes/ledger10Route')
+const ledger11Route = require('./routes/ledger11Route')
 
 log4js.configure({
   appenders: {
@@ -99,6 +100,11 @@ app.post('/api/ledger/10/', (req, res) => ledger10Route.save(req, res))
 app.get('/api/ledger/10/', (req, res) => ledger10Route.list(req, res))
 app.get('/api/ledger/10/:id', (req, res) => ledger10Route.get(req, res))
 app.put('/api/ledger/10/:id', (req, res) => ledger10Route.update(req, res))
+
+app.post('/api/ledger/11/', (req, res) => ledger10Route.save(req, res))
+app.get('/api/ledger/11/', (req, res) => ledger11Route.list(req, res))
+app.get('/api/ledger/11/:id', (req, res) => ledger11Route.get(req, res))
+app.put('/api/ledger/11/:id', (req, res) => ledger11Route.update(req, res))
 
 app.listen(config.app.port, () => {
   console.info(`服务器启动于端口 ${config.app.port}。`)

@@ -14,6 +14,7 @@ import { Toolbar as Ledger07Toolbar } from '../ledger07/Ledger07Component';
 import { Toolbar as Ledger08Toolbar } from '../ledger08/Ledger08Component'
 import { Toolbar as Ledger09Toolbar } from '../ledger09/Ledger09Component'
 import { Toolbar as Ledger10Toolbar } from '../ledger10/Ledger10Component'
+import { Toolbar as Ledger11Toolbar } from '../ledger11/Ledger11Component'
 
 export class TimerReloadButton extends React.Component {
   constructor() {
@@ -452,6 +453,10 @@ export class PageTitle2 extends React.Component {
           this.props.toolbar === 'Ledger10Toolbar' &&
           <Ledger10Toolbar />
         }
+        {
+          this.props.toolbar === 'Ledger11Toolbar' &&
+          <Ledger11Toolbar />
+        }
         <i className={'fa fa-fw ' + this.props.fa}></i>
         {this.props.title}
         <br />
@@ -613,6 +618,13 @@ export class Sidebar extends React.Component {
                   <a href="./#/ledger.10" className="nav-link">
                     <i className="fa fa-fw fa-file-o"></i>
                     10.检修车间临时作业记录簿
+                  </a>
+                </li>
+
+                <li className="nav-item">
+                  <a href="./#/ledger.11" className="nav-link">
+                    <i className="fa fa-fw fa-file-o"></i>
+                    11.倒换配件产生故障记录簿(试行)
                   </a>
                 </li>
               </span>

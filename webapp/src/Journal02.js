@@ -937,7 +937,7 @@ export class Journal02Detail extends React.Component {
           if (response.content.length > 0) {
             let row = response.content[0]
             let message = `
-              ${row.dept}的${row.applicant}(${row.applicant_phone})提交的申请中的供电状态与当前申请冲突。
+              ${row.dept}的${row.applicant}(${row.applicant_phone})提交的申请[${row.id}]中的供电状态与当前申请冲突。
               蓄电池：${row.p_yq_xdc}，接触网：${row.p_yq_jcw}。
             `
             this.setState({ message: message})
