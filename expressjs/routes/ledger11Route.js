@@ -7,5 +7,12 @@ module.exports = {
 
   list: async (req, res) => {},
 
-  save: async (req, res) => {}
+  save: async (req, res) => {
+    let sql = `
+      insert into
+        ledger11 (
+
+        )
+    `
+  }
 }

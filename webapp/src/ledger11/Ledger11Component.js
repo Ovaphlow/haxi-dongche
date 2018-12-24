@@ -122,7 +122,13 @@ export class Form extends React.Component {
       parts: document.getElementById('parts').value,
       content: document.getElementById('content').value,
       date: document.getElementById('date').value,
-      dept: document.getElementById('dept').value
+      dept: document.getElementById('dept').value,
+      operator: document.getElementById('operator').value,
+      p_dbsz: document.getElementById('p_dbsz').value,
+      date_2: document.getElementById('date_2').value,
+      dept_2: document.getElementById('dept_2').value,
+      operator_2: document.getElementById('operator_2').value,
+      remark: document.getElementById('remark').value
     }
   }
 }

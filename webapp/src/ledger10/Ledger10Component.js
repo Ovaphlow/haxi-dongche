@@ -144,7 +144,7 @@ export class Form extends React.Component {
             <div className="col">
               <label>能否动车</label>
               <select className="form-control" id="p_yq_move"
-                  defaultValue={this.props.item.p_yq_move}
+                  defaultValue={this.props.op === 'update' ? this.props.item.p_yq_move : ''}
               >
                 <option value="能">能</option>
                 <option value="否">否</option>
