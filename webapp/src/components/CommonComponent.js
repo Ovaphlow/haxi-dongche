@@ -62,7 +62,6 @@ export class TrainSelector extends React.Component {
   }
 
   componentDidMount() {
-    console.info(this.props.value)
     fetch(`./api/common/train`)
     .then(res => res.json())
     .then(response => {

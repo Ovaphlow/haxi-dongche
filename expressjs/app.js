@@ -101,7 +101,7 @@ app.get('/api/ledger/10/', (req, res) => ledger10Route.list(req, res))
 app.get('/api/ledger/10/:id', (req, res) => ledger10Route.get(req, res))
 app.put('/api/ledger/10/:id', (req, res) => ledger10Route.update(req, res))
 
-app.post('/api/ledger/11/', (req, res) => ledger10Route.save(req, res))
+app.post('/api/ledger/11/', (req, res) => ledger11Route.save(req, res))
 app.get('/api/ledger/11/', (req, res) => ledger11Route.list(req, res))
 app.get('/api/ledger/11/:id', (req, res) => ledger11Route.get(req, res))
 app.put('/api/ledger/11/:id', (req, res) => ledger11Route.update(req, res))

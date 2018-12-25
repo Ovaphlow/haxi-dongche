@@ -1,6 +1,35 @@
 import React from 'react'
 
 import { TrainSelector, TextField, DateField, DeptSelector } from '../components/CommonComponent'
+import { Save, Update } from './Ledger11Action'
+
+class TableItem extends React.Component {
+  render() {
+    return (
+      <tr>
+        <td className="text-center">
+          <span className="pull-left">
+            <a href={`./#/ledger.11-update/${this.props.item.id}`}>
+              <i className="fa fa-fw fa-edit"></i>
+            </a>
+          </span>
+          {this.props.item.id}
+        </td>
+        <td>{this.props.item.train}</td>
+        <td>{this.props.item.parts}</td>
+        <td>{this.props.item.content}</td>
+        <td>{this.props.item.date === '0000-00-00' ? '' : this.props.item.date}</td>
+        <td>{this.props.item.dept}</td>
+        <td>{this.props.item.operator}</td>
+        <td>{this.props.item.p_dbsz}</td>
+        <td>{this.props.item.date_2 === '0000-00-00' ? '' : this.props.item.date_2}</td>
+        <td>{this.props.item.dept_2}</td>
+        <td>{this.props.item.operator_2}</td>
+        <td>{this.props.item.remark}</td>
+      </tr>
+    )
+  }
+}
 
 export class Table extends React.Component {
   render() {
@@ -22,12 +51,27 @@ export class Table extends React.Component {
             <td>备注</td>
           </tr>
         </thead>
+
+        <tbody>
+          {
+            this.props.list.length > 0 &&
+            this.props.list.map(item => <TableItem key={item.id} item={item} />)
+          }
+        </tbody>
       </table>
     )
   }
 }
 
 export class Form extends React.Component {
+  componentDidMount() {
+    if (this.props.op === 'update' && this.props.item.remark !== '无') {
+      document.getElementById('date_2').setAttribute('disabled', true)
+      document.getElementById('dept_2').setAttribute('disabled', true)
+      document.getElementById('operator_2').setAttribute('disabled', true)
+    }
+  }
+
   render() {
     return (
       <div className="card">
@@ -60,7 +104,7 @@ export class Form extends React.Component {
             </div>
 
             <div className="col">
-              <DeptSelector caption="作业班组"
+              <DeptSelector caption="作业班组" id="dept"
                   value={this.props.op === 'update' ? this.props.item.dept : ''}
               />
             </div>
@@ -98,9 +142,16 @@ export class Form extends React.Component {
             </div>
           </div>
 
-          <TextField caption="备注" id="remark"
-              value={this.props.op === 'update' ? this.props.item.remark : ''}
-          />
+          <div className="form-group">
+            <label>备注</label>
+            <select className="form-control" id="remark"
+                onChange={this.handlerChangeRemark.bind(this)}
+                defaultValue={this.props.op === 'update' ? this.props.item.remark : ''}
+            >
+              <option value="无">无</option>
+              <option value="入厂后恢复">入厂后恢复</option>
+            </select>
+          </div>
         </div>
 
         <div className="card-footer">
@@ -115,8 +166,19 @@ export class Form extends React.Component {
     )
   }
 
+  handlerChangeRemark(event) {
+    if (event.target.value === '无') {
+      document.getElementById('date_2').removeAttribute('disabled')
+      document.getElementById('dept_2').removeAttribute('disabled')
+      document.getElementById('operator_2').removeAttribute('disabled')
+    } else {
+      document.getElementById('date_2').setAttribute('disabled', true)
+      document.getElementById('dept_2').setAttribute('disabled', true)
+      document.getElementById('operator_2').setAttribute('disabled', true)
+    }
+  }
+
   handler() {
-    console.info(1)
     let body = {
       train: document.getElementById('train').value,
       parts: document.getElementById('parts').value,
@@ -125,10 +187,31 @@ export class Form extends React.Component {
       dept: document.getElementById('dept').value,
       operator: document.getElementById('operator').value,
       p_dbsz: document.getElementById('p_dbsz').value,
-      date_2: document.getElementById('date_2').value,
-      dept_2: document.getElementById('dept_2').value,
-      operator_2: document.getElementById('operator_2').value,
+      date_2: document.getElementById('remark').value === '无' ? document.getElementById('date_2').value : '',
+      dept_2: document.getElementById('remark').value === '无' ? document.getElementById('dept_2').value : '',
+      operator_2: document.getElementById('remark').value === '无' ? document.getElementById('operator_2').value : '',
       remark: document.getElementById('remark').value
+    }
+    if (this.props.op === 'save') {
+      Save(body)
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location = './#/ledger.11'
+      })
+      .catch(err => window.console && console.error(err))
+    } else if (this.props.op === 'update') {
+      Update(this.props.item.id, body)
+      .then(response => {
+        if (response.message) {
+          alert(response.message)
+          return
+        }
+        window.location = './#/ledger.11'
+      })
+      .catch(err => window.console && console.error(err))
     }
   }
 }
