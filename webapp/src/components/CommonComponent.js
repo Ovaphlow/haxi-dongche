@@ -1,5 +1,28 @@
 import React from 'react'
 
+export class CarriageSelector extends React.Component {
+  render() {
+    return (
+      <div className="form-group">
+        <label>{this.props.caption || '车厢号'}</label>
+        <select className="form-control" id={this.props.id || 'carriage'}
+            defaultValue={this.props.value || ''}
+        >
+          <option value="">未选择</option>
+          <option value="01">01</option>
+          <option value="02">02</option>
+          <option value="03">03</option>
+          <option value="04">04</option>
+          <option value="05">05</option>
+          <option value="06">06</option>
+          <option value="07">07</option>
+          <option value="08">08</option>
+        </select>
+      </div>
+    )
+  }
+}
+
 export class LocationOfOperationSelector extends React.Component {
   render() {
     return (
@@ -49,7 +72,9 @@ export class TextField extends React.Component {
     return(
       <div className="form-group">
         <label>{this.props.caption || '标题'}</label>
-        <input type="text" className="form-control" id={this.props.id || 'text'} defaultValue={this.props.value} />
+        <input type="text" className="form-control" id={this.props.id || 'text'}
+            defaultValue={this.props.value}
+        />
       </div>
     )
   }

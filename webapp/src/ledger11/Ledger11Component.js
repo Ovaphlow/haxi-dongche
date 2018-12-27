@@ -1,21 +1,25 @@
 import React from 'react'
 
-import { TrainSelector, TextField, DateField, DeptSelector } from '../components/CommonComponent'
-import { Save, Update } from './Ledger11Action'
+import { TrainSelector, TextField, DateField, DeptSelector, CarriageSelector } from '../components/CommonComponent'
+import { Save, Update, Review } from './Ledger11Action'
 
 class TableItem extends React.Component {
   render() {
     return (
       <tr>
         <td className="text-center">
-          <span className="pull-left">
-            <a href={`./#/ledger.11-update/${this.props.item.id}`}>
-              <i className="fa fa-fw fa-edit"></i>
-            </a>
-          </span>
+          {
+            this.props.item.p_dbsz === '' &&
+            <span className="pull-left">
+              <a href={`./#/ledger.11-update/${this.props.item.id}`}>
+                <i className="fa fa-fw fa-edit"></i>
+              </a>
+            </span>
+          }
           {this.props.item.id}
         </td>
         <td>{this.props.item.train}</td>
+        <td>{this.props.item.carriage}</td>
         <td>{this.props.item.parts}</td>
         <td>{this.props.item.content}</td>
         <td>{this.props.item.date === '0000-00-00' ? '' : this.props.item.date}</td>
@@ -26,8 +30,34 @@ class TableItem extends React.Component {
         <td>{this.props.item.dept_2}</td>
         <td>{this.props.item.operator_2}</td>
         <td>{this.props.item.remark}</td>
+        {
+          this.props.op_review === true &&
+          <td>
+            <button type="button" className="btn-outline-info" data-id={this.props.item.id} onClick={this.handler.bind(this)}>
+              <i className="fa fa-fw fa-check-square-o"></i>
+            </button>
+          </td>
+        }
       </tr>
     )
+  }
+
+  handler(event) {
+    if (window.confirm('确认要对该记录签字？')) {
+      let body = {
+        id: event.target.getAttribute('data-id'),
+        p_dbsz: this.props.auth.name
+      }
+      Review(body)
+      .then(response => {
+        if (response.message) {
+          window.alert(response.message)
+          return
+        }
+        window.location.reload(true)
+      })
+      .catch(err => window.console && console.error(err))
+    }
   }
 }
 
@@ -39,6 +69,7 @@ export class Table extends React.Component {
           <tr>
             <td>序号</td>
             <td>故障车号</td>
+            <td>故障车厢</td>
             <td>故障配件</td>
             <td>故障由来</td>
             <td>倒件日期</td>
@@ -49,13 +80,17 @@ export class Table extends React.Component {
             <td>作业班组</td>
             <td>作业者</td>
             <td>备注</td>
+            {
+              this.props.op_review === true &&
+              <td>操作</td>
+            }
           </tr>
         </thead>
 
         <tbody>
           {
             this.props.list.length > 0 &&
-            this.props.list.map(item => <TableItem key={item.id} item={item} />)
+            this.props.list.map(item => <TableItem key={item.id} item={item} op_review={this.props.op_review} auth={this.props.auth} />)
           }
         </tbody>
       </table>
@@ -65,6 +100,7 @@ export class Table extends React.Component {
 
 export class Form extends React.Component {
   componentDidMount() {
+    document.getElementById('p_dbsz').setAttribute('readonly', true)
     if (this.props.op === 'update' && this.props.item.remark !== '无') {
       document.getElementById('date_2').setAttribute('disabled', true)
       document.getElementById('dept_2').setAttribute('disabled', true)
@@ -80,6 +116,12 @@ export class Form extends React.Component {
             <div className="col">
               <TrainSelector caption="故障车号" id="train"
                   value={this.props.op === 'update' ? this.props.item.train : ''}
+              />
+            </div>
+
+            <div className="col">
+              <CarriageSelector caption="故障车厢" id="carriage"
+                  value={this.props.op === 'update' ? this.props.item.carriage : ''}
               />
             </div>
 
@@ -181,6 +223,7 @@ export class Form extends React.Component {
   handler() {
     let body = {
       train: document.getElementById('train').value,
+      carriage: document.getElementById('carriage').value,
       parts: document.getElementById('parts').value,
       content: document.getElementById('content').value,
       date: document.getElementById('date').value,
@@ -227,6 +270,10 @@ export class Toolbar extends React.Component {
         <a href='./#/ledger.11-save' className="btn btn-outline-secondary btn-sm">
           <i className="fa fa-fw fa-plus"></i>
           新增
+        </a>
+        <a href="./#/ledger.11-review" className="btn btn-outline-secondary btn-sm">
+          <i className="fa fa-fw fa-plus"></i>
+          带班所长
         </a>
       </div>
     )
