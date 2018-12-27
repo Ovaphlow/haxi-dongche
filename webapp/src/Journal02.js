@@ -1049,8 +1049,9 @@ export class Journal02 extends React.Component {
     }
     this.setState({ auth: auth })
 
-    document.getElementById('date_begin').value = moment().subtract(1, 'days').format('YYYY-MM-DDT20:00:00')
-    document.getElementById('date_end').value = moment().format('YYYY-MM-DDT08:00:00')
+    // document.getElementById('date_begin').value = moment().subtract(1, 'days').format('YYYY-MM-DDT20:00:00')
+    document.getElementById('date_begin').value = moment().subtract(12, 'hours').format('YYYY-MM-DD HH:mm:ss')
+    document.getElementById('date_end').value = moment().format('YYYY-MM-DD HH:mm:ss')
 
     fetch(`./api/document/02/?timestamp=${new Date().getTime()}`)
     .then(res => res.json())
