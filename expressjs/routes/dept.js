@@ -9,9 +9,8 @@ logger.level = config.app.logLevel
 
 const router = express.Router()
 
-/**
- * 所有班组
- */
+// 按备注查询部门
+// 例如：‘班组'
 router.get('/filter/remark/:remark', async (req, res) => {
   let sql = `
     select
@@ -27,9 +26,10 @@ router.get('/filter/remark/:remark', async (req, res) => {
     replacements: req.params
   }).catch(err => {
     logger.error(err)
-    res.json({ content: '', message: '服务器错误' })
+    res.status(500).json({ content: '', message: '服务器错误' })
+    return
   })
-  res.json({ content: result, message: '' })
+  res.status(200).json({ content: result, message: '' })
 })
 
 /**

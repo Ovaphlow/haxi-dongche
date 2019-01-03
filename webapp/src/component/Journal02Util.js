@@ -118,24 +118,22 @@ export class ProgressButton extends React.Component {
  * 详细信息链接
  */
 export class DetailLink extends React.Component {
-  constructor() {
-    super()
-    this.handler = this.handler.bind(this)
-  }
-
-  handler() {
-    sessionStorage.setItem('journal02', this.props.id)
-    // window.location = './#/journal.02-detail'
-    window.open('./#/journal.02-detail')
-  }
-
   render() {
     return (
-      <button type="button" className="btn btn-light" onClick={this.handler}>
+      <button type="button" className="btn btn-light" onClick={this.handler.bind(this)}>
         <i className="fa fa-fw fa-file-text-o"></i>
         详细信息
       </button>
     )
+  }
+
+  handler() {
+    sessionStorage.setItem('journal02', this.props.id)
+    if (this.props.target === 'blank') {
+      window.open('./#/journal.02-detail')
+    } else {
+      window.location = './#/journal.02-detail'
+    }
   }
 }
 

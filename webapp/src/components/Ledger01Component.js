@@ -3,7 +3,7 @@ import React from 'react'
 export class Ledger01ListItem extends React.Component {
   render() {
     return (
-      <tr className={this.props.item.return_by_id === 0 ? 'table-danger' : ''}>
+      <tr className={this.props.item.return_by === '' ? 'table-danger' : ''}>
         <td>{this.props.item.id}</td>
         <td>{this.props.item.date}</td>
         <td>{this.props.item.time}</td>

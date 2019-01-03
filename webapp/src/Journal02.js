@@ -1256,7 +1256,7 @@ export class Journal02 extends React.Component {
             <div className="col-12">
               <ul className="list-group">
                 {this.state.warningList.map(item =>
-                  <Journal02Item key={item.id} item={item} />
+                  <Journal02Item key={item.id} item={item} target="blank" />
                 )}
               </ul>
             </div>
@@ -1264,7 +1264,7 @@ export class Journal02 extends React.Component {
             <div className="col-12 mt-3">
               <ul className="list-group">
                 {this.state.list.map(item =>
-                  <Journal02Item key={item.id} item={item} />
+                  <Journal02Item key={item.id} item={item} target="blank" />
                 )}
               </ul>
             </div>
@@ -1272,7 +1272,7 @@ export class Journal02 extends React.Component {
             <div className="col-12 mt-3">
               <ul className="list-group">
                 {this.state.flowList.map(item =>
-                  <Journal02Item key={item.id} item={item} />
+                  <Journal02Item key={item.id} item={item} target="blank" />
                 )}
               </ul>
             </div>

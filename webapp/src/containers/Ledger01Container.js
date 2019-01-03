@@ -144,15 +144,7 @@ export class Ledger01Return extends React.Component {
   }
 
   componentDidMount() {
-    ReturnList()
-    .then(response => {
-      if (response.message) {
-        window.alert(response.data.message)
-        return
-      }
-      this.setState({ list: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    ReturnList().then(response => this.setState({ list: response.content }))
   }
 
   render() {
@@ -205,10 +197,7 @@ export class Ledger01Save extends React.Component {
   componentDidMount() {
     document.getElementById('qty').value = 1
     FilterDeptByRemark('班组')
-    .then(response => {
-      this.setState({ listDept: response.content })
-    })
-    .catch(err => window.console && console.error(err))
+    .then(response => this.setState({ listDept: response.content }))
   }
 
   render() {
