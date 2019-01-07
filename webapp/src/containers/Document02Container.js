@@ -73,10 +73,10 @@ export class Document02SaveSchedule extends React.Component {
           <div className="col">
             <select className="form-control" id="schedule-list">
               {
-                this.state.list &&
+                this.state.list.length > 0 &&
                 this.state.list.map(item =>
                   <option value={item.id} key={item.id}>
-                    {item.train} {item.content} {item.content_detail}
+                    【{item.category}】{item.train} {item.content} {item.content_detail}
                   </option>
                 )
               }
