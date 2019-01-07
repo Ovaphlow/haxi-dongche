@@ -159,6 +159,7 @@ export class Document02UploadScheduleContainer extends React.Component {
             <thead className="thead-dark">
               <tr>
                 <th>序号</th>
+                <th>白/夜班</th>
                 <th>车组号</th>
                 <th>作业类型</th>
                 <th>作业内容</th>

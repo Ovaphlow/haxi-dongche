@@ -486,6 +486,7 @@ export class ScheduleItem extends React.Component {
     return (
       <tr>
         <td>{this.props.item.id}</td>
+        <td>{this.props.item.category}</td>
         <td>{this.props.item.train}</td>
         <td>{this.props.item.content}</td>
         <td>{this.props.item.content_detail}</td>
@@ -495,8 +496,8 @@ export class ScheduleItem extends React.Component {
           {this.props.item.date_end} {this.props.item.time_end}
         </td>
         <td>{this.props.item.dept}</td>
-        <td>{this.props.item.leader}</td>
-        <td>{this.props.item.leader_phone}</td>
+        <td>{this.props.item.applicant}</td>
+        <td>{this.props.item.applicant_phone}</td>
       </tr>
     )
   }

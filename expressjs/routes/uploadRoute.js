@@ -10,47 +10,87 @@ const sequelize_oa = require('../util/sequelize.oa')
 const logger = log4js.getLogger()
 logger.level = config.app.logLevel
 
+// 第二天白班
+const SaveDocument02Schedule1 = async (i, sheets, counter) => {
+  if (i === sheets[1].data.length - 1) return
+  let sql = `
+    insert into
+      journal02_schedule (
+        uuid, category, train, content, content_detail, date_begin, time_begin, date_end, time_end,
+        p_yq_xdc, p_yq_jcw, p_yq_qt, dept, applicant, applicant_phone, counter
+      )
+      values (
+        uuid(), :category, :train, :content, :content_detail, :date_begin, :time_begin, :date_end, :time_end,
+        :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :applicant, :applicant_phone, :counter
+      )
+  `
+  let data = {
+    category: '白班',
+    train: sheets[1].data[i][1],
+    content: sheets[1].data[i][2],
+    content_detail: sheets[1].data[i][3],
+    date_begin: sheets[1].data[i][4],
+    time_begin: sheets[1].data[i][5],
+    date_end: sheets[1].data[i][6],
+    time_end: sheets[1].data[i][7],
+    p_yq_xdc: sheets[1].data[i][8],
+    p_yq_jcw: sheets[1].data[i][8],
+    p_yq_qt: sheets[1].data[i][9],
+    dept: sheets[1].data[i][10],
+    applicant: sheets[1].data[i][11],
+    applicant_phone: sheets[1].data[i][12],
+    counter: counter
+  }
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.INSERT,
+    replacements: data
+  })
+  .catch(err => console.error(err))
+  if (result[1] !== 1) console.error(`error on import data: ${sheets[0].data[i]}`)
+  SaveDocument02Schedule1(i + 1, sheets, counter)
+}
+
+// 第一天夜班
 const SaveDocument02Schedule = async (i, sheets, counter) => {
-    if (i === sheets[0].data.length - 1 || i < 4) return
-    let sql = `
-      insert into
-        journal02_schedule (
-          uuid, train, content, content_detail, date_begin, time_begin, date_end, time_end,
-          p_yq_xdc, p_yq_jcw, p_yq_qt, dept, applicant, applicant_phone, counter
-        )
-        values (
-          uuid(), :train, :content, :content_detail, :date_begin, :time_begin, :date_end, :time_end,
-          :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :applicant, :applicant_phone, :counter
-        )
-    `
-    let data = {
-      train: sheets[0].data[i][1],
-      content: sheets[0].data[i][2],
-      content_detail: sheets[0].data[i][3],
-      // 4 日期
-      date_begin: sheets[0].data[i][4],
-      // 5 时间
-      time_begin: sheets[0].data[i][5],
-      // time_begin: sheets[0].data[i][4].split('-')[0],
-      // 6 日期
-      date_end: sheets[0].data[i][6],
-      // 7 时间
-      time_end: sheets[0].data[i][7],
-      p_yq_xdc: sheets[0].data[i][8],
-      p_yq_jcw: sheets[0].data[i][8],
-      p_yq_qt: sheets[0].data[i][9],
-      dept: sheets[0].data[i][10],
-      applicant: sheets[0].data[i][11],
-      applicant_phone: sheets[0].data[i][12],
-      counter: counter
-    }
-    let result = await sequelize.query(sql, {
-      type: sequelize.QueryTypes.INSERT,
-      replacements: data
-    })
-    .catch(err => console.error(err))
-    if (result[1] !== 1) console.error(`error on import data: ${sheets[0].data[i]}`)
-    SaveDocument02Schedule(i + 1, sheets, counter)
+  if (i === sheets[0].data.length - 1) {
+    SaveDocument02Schedule1(4, sheets, counter)
+    return
+  }
+  let sql = `
+    insert into
+      journal02_schedule (
+        uuid, category, train, content, content_detail, date_begin, time_begin, date_end, time_end,
+        p_yq_xdc, p_yq_jcw, p_yq_qt, dept, applicant, applicant_phone, counter
+      )
+      values (
+        uuid(), :category, :train, :content, :content_detail, :date_begin, :time_begin, :date_end, :time_end,
+        :p_yq_xdc, :p_yq_jcw, :p_yq_qt, :dept, :applicant, :applicant_phone, :counter
+      )
+  `
+  let data = {
+    category: '夜班',
+    train: sheets[0].data[i][1],
+    content: sheets[0].data[i][2],
+    content_detail: sheets[0].data[i][3],
+    date_begin: sheets[0].data[i][4],
+    time_begin: sheets[0].data[i][5],
+    date_end: sheets[0].data[i][6],
+    time_end: sheets[0].data[i][7],
+    p_yq_xdc: sheets[0].data[i][8],
+    p_yq_jcw: sheets[0].data[i][8],
+    p_yq_qt: sheets[0].data[i][9],
+    dept: sheets[0].data[i][10],
+    applicant: sheets[0].data[i][11],
+    applicant_phone: sheets[0].data[i][12],
+    counter: counter
+  }
+  let result = await sequelize.query(sql, {
+    type: sequelize.QueryTypes.INSERT,
+    replacements: data
+  })
+  .catch(err => console.error(err))
+  if (result[1] !== 1) console.error(`error on import data: ${sheets[0].data[i]}`)
+  SaveDocument02Schedule(i + 1, sheets, counter)
 }
 
 module.exports = {
