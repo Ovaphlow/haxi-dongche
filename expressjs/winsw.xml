@@ -1,0 +1,9 @@
+<service>
+  <id>HengdaHarbinEmud-zhangxiang.nodejs</id>
+  <name>HengdaHarbinEmud-zhangxiang.nodejs</name>
+  <description>哈尔滨动车段检修车间账项管理系统 Nodejs</description>
+  <executable>C:\node-v10.12.0-win-x64\node.exe</executable>
+  <arguments>app.js</arguments>
+  <logmode>rotate</logmode>
+  <logpath>./log</logpath>
+</service>
