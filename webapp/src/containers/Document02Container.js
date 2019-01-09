@@ -4,7 +4,7 @@ import { PageTitle, PageTitle2, Sidebar } from '../component/Common'
 import { GetLatestScheduleList, GetLatestScheduleListByDept, GetSchedule } from '../actions/Document02'
 import {
   ScheduleItem, Document02SaveButton, Document02TableMaster,
-  StatsTrain, StatsSchedule
+  StatsTrain, StatsSchedule, ScheduleFinishedRatio
 } from '../components/Document02Component'
 import { ReloadButton } from '../component/Common'
 
@@ -13,6 +13,7 @@ export class Document02StatsIndex extends React.Component {
     super()
     this.state = { item: '' }
   }
+
   render() {
     return (
       <div className="row">
@@ -26,6 +27,7 @@ export class Document02StatsIndex extends React.Component {
             <option value="">选择统计项目</option>
             <option value="train">作业车组数据统计</option>
             <option value="schedule">计划内/外作业统计</option>
+            <option value="schedule.finished-ratio">计划内作业完成比例</option>
           </select>
 
           {this.state.item && this.subPage()}
@@ -38,6 +40,7 @@ export class Document02StatsIndex extends React.Component {
     if (!!!document.getElementById('item').value) return
     if (this.state.item === 'train') return <StatsTrain />
     else if (this.state.item === 'schedule') return <StatsSchedule />
+    else if (this.state.item === 'schedule.finished-ratio') return <ScheduleFinishedRatio />
   }
 
   change() {

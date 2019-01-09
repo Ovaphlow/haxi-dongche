@@ -2,7 +2,89 @@ import echarts from 'echarts'
 import moment from 'moment'
 import React from 'react'
 
-import { GetStatsTrain, GetStatsSchedule, SaveDocument02Schedule } from '../actions/Document02'
+import { GetStatsTrain, GetStatsSchedule, SaveDocument02Schedule, GetScheduleFinishedRatio  } from '../actions/Document02'
+
+// 指定时段计划内作业完成比例
+export class ScheduleFinishedRatio extends React.Component {
+  render() {
+    return (
+      <div className="text-center mt-3">
+        <h3>计划内作业完成比例</h3>
+        <div className="row">
+          <div className="col-3">
+            <input type="date" className="form-control" id="date-begin" />
+          </div>
+          <div className="col-3">
+            <input type="date" className="form-control" id="date-end" />
+          </div>
+          <div className="col-6 text-left">
+            <button type="button" className="btn btn-primary" onClick={this.handler.bind(this)}>
+              <i className="fa fa-fw fa-check-square-o"></i>
+              确定
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-3" id="chart" style={{ width: '100%', height: '40em' }}></div>
+      </div>
+    )
+  }
+
+  handler() {
+    if (!!!document.getElementById('date-begin').value || !!!document.getElementById('date-end').value) {
+      window.alert('请选择起止时间')
+      return
+    }
+    let body = {
+      date_begin: document.getElementById('date-begin').value,
+      date_end: document.getElementById('date-end').value
+    }
+    GetScheduleFinishedRatio(body)
+    .then(response => {
+      if (response.message) {
+        window.alert(response.message)
+        return
+      }
+      let data = [
+        {
+          name: '未完成数量',
+          value: response.content.qty1 - response.content.qty
+        },
+        {
+          name: '完成数量',
+          value: response.content.qty
+        }
+      ]
+      var chart = echarts.init(document.getElementById('chart'))
+      var option = {
+        title: {
+          text: '按时段统计计划内作业完成比例',
+          x: 'center'
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br>{b} : {c} ({d}%)'
+        },
+        series: [
+          {
+            name: '计划内作业',
+            type: 'pie',
+            radius: '75%',
+            center: ['50%', '50%'],
+            data: data,
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        ]
+      }
+      chart.setOption(option)
+    })
+    .catch(err => window.console && console.error(err))
+  }
+}
 
 export class StatsSchedule extends React.Component {
   componentDidMount() {
